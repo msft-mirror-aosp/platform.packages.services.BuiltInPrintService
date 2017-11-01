@@ -21,6 +21,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.ParcelFileDescriptor;
 import android.print.PrintAttributes;
 import android.print.PrintDocumentInfo;
 import android.print.PrintJobInfo;
@@ -34,11 +35,8 @@ import com.android.bips.jni.LocalPrinterCapabilities;
 import com.android.bips.jni.MediaSizes;
 import com.android.bips.util.FileUtils;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileDescriptor;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -74,13 +72,13 @@ class StartJobTask extends AsyncTask<Void, Void, Integer> {
     private final Uri mDestination;
     private final LocalPrinterCapabilities mCapabilities;
     private final LocalJobParams mJobParams;
-    private final FileDescriptor mSourceFileDescriptor;
+    private final ParcelFileDescriptor mSourceFileDescriptor;
     private final String mJobId;
     private final PrintJobInfo mJobInfo;
     private final PrintDocumentInfo mDocInfo;
     private final MediaSizes mMediaSizes;
 
-    public StartJobTask(Context context, Backend backend, Uri destination, PrintJob printJob,
+    StartJobTask(Context context, Backend backend, Uri destination, PrintJob printJob,
             LocalPrinterCapabilities capabilities) {
         mContext = context;
         mBackend = backend;
@@ -90,7 +88,7 @@ class StartJobTask extends AsyncTask<Void, Void, Integer> {
         mJobId = printJob.getId().toString();
         mJobInfo = printJob.getInfo();
         mDocInfo = printJob.getDocument().getInfo();
-        mSourceFileDescriptor = printJob.getDocument().getData().getFileDescriptor();
+        mSourceFileDescriptor = printJob.getDocument().getData();
         mMediaSizes = MediaSizes.getInstance(mContext);
     }
 
@@ -133,13 +131,13 @@ class StartJobTask extends AsyncTask<Void, Void, Integer> {
         File pdfFile = new File(tempFolder, mJobId + ".pdf");
         try {
             try {
-                FileUtils.copy(new BufferedInputStream(new FileInputStream(mSourceFileDescriptor)),
+                FileUtils.copy(new ParcelFileDescriptor.AutoCloseInputStream(mSourceFileDescriptor),
                         new BufferedOutputStream(new FileOutputStream(pdfFile)));
             } catch (IOException e) {
                 Log.w(TAG, "Error while copying to " + pdfFile, e);
                 return Backend.ERROR_FILE;
             }
-            String files[] = new String[]{pdfFile.toString()};
+            String[] files = new String[]{pdfFile.toString()};
 
             // Address, without port.
             String address = mDestination.getHost() + mDestination.getPath();
@@ -163,13 +161,14 @@ class StartJobTask extends AsyncTask<Void, Void, Integer> {
 
             if (isCancelled()) return Backend.ERROR_CANCEL;
             if (DEBUG) {
-                Log.d(TAG, "nativeStartJob address=" + address +
-                        " port=" + mDestination.getPort() + " mime=" + MIME_TYPE_PDF +
-                        " files=" + files[0] + " job=" + mJobParams);
+                Log.d(TAG, "nativeStartJob address=" + address
+                        + " port=" + mDestination.getPort() + " mime=" + MIME_TYPE_PDF
+                        + " files=" + files[0] + " job=" + mJobParams);
             }
             // Initiate job
             result = mBackend.nativeStartJob(Backend.getIp(address), mDestination.getPort(),
-                    MIME_TYPE_PDF, mJobParams, mCapabilities, files, null);
+                    MIME_TYPE_PDF, mJobParams, mCapabilities, files, null,
+                    mDestination.getScheme());
             if (result < 0) {
                 Log.w(TAG, "nativeStartJob failure: " + result);
                 return Backend.ERROR_UNKNOWN;
@@ -185,8 +184,8 @@ class StartJobTask extends AsyncTask<Void, Void, Integer> {
     }
 
     private boolean isBorderless() {
-        return mCapabilities.borderless &&
-                mDocInfo.getContentType() == PrintDocumentInfo.CONTENT_TYPE_PHOTO;
+        return mCapabilities.borderless
+                && mDocInfo.getContentType() == PrintDocumentInfo.CONTENT_TYPE_PHOTO;
     }
 
     private int getSides() {

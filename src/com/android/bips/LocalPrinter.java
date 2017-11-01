@@ -27,6 +27,7 @@ import com.android.bips.discovery.DiscoveredPrinter;
 import com.android.bips.ipp.CapabilitiesCache;
 import com.android.bips.jni.LocalPrinterCapabilities;
 
+import java.net.InetAddress;
 import java.util.Collections;
 
 /**
@@ -53,10 +54,18 @@ class LocalPrinter implements CapabilitiesCache.OnLocalPrinterCapabilities {
         mPrinterId = discoveredPrinter.getId(printService);
     }
 
+    /** Return the address of the printer or {@code null} if not known */
+    public InetAddress getAddress() {
+        if (mCapabilities != null) {
+            return mCapabilities.inetAddress;
+        }
+        return null;
+    }
+
     /** Return true if this printer should be aged out */
     boolean isExpired() {
-        return !mFound && (System.currentTimeMillis() - mLastSeenTime) >
-                LocalDiscoverySession.PRINTER_EXPIRATION_MILLIS;
+        return !mFound && (System.currentTimeMillis() - mLastSeenTime)
+                > LocalDiscoverySession.PRINTER_EXPIRATION_MILLIS;
     }
 
     /** Return capabilities or null if not present */
@@ -71,11 +80,17 @@ class LocalPrinter implements CapabilitiesCache.OnLocalPrinterCapabilities {
             return null;
         }
 
-        String description = mDiscoveredPrinter.getDescription(mPrintService);
+        // Get the most recently discovered version of this printer
+        DiscoveredPrinter printer = mPrintService.getDiscovery()
+                .getPrinter(mDiscoveredPrinter.getUri());
+        if (printer == null) return null;
+
+        String description = printer.getDescription(mPrintService);
         boolean idle = mFound && mCapabilities != null;
         PrinterInfo.Builder builder = new PrinterInfo.Builder(
-                mPrinterId, mDiscoveredPrinter.name,
+                mPrinterId, printer.name,
                 idle ? PrinterInfo.STATUS_IDLE : PrinterInfo.STATUS_UNAVAILABLE)
+                .setIconResourceId(R.drawable.ic_printer)
                 .setDescription(description);
 
         if (mCapabilities != null) {
@@ -90,7 +105,7 @@ class LocalPrinter implements CapabilitiesCache.OnLocalPrinterCapabilities {
     }
 
     @Override
-    public void onCapabilities(LocalPrinterCapabilities capabilities) {
+    public void onCapabilities(DiscoveredPrinter printer, LocalPrinterCapabilities capabilities) {
         if (mSession.isDestroyed() || !mSession.isKnown(mPrinterId)) return;
 
         if (capabilities == null) {
@@ -132,7 +147,7 @@ class LocalPrinter implements CapabilitiesCache.OnLocalPrinterCapabilities {
 
         if (capabilities != null) {
             // Report current capabilities
-            onCapabilities(capabilities);
+            onCapabilities(mDiscoveredPrinter, capabilities);
         } else {
             // Announce printer and fetch capabilities
             mSession.handlePrinter(this);

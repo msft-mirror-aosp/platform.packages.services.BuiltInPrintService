@@ -23,11 +23,11 @@ LOCAL_RESOURCE_DIR += $(LOCAL_PATH)/res
 
 LOCAL_PACKAGE_NAME := BuiltInPrintService
 
-LOCAL_SDK_VERSION := current
+LOCAL_SDK_VERSION := system_current
 
 LOCAL_PROGUARD_FLAG_FILES := proguard.flags
 
-LOCAL_JNI_SHARED_LIBRARIES := libwfds
+LOCAL_JNI_SHARED_LIBRARIES := libwfds libcups
 
 include $(BUILD_PACKAGE)
 

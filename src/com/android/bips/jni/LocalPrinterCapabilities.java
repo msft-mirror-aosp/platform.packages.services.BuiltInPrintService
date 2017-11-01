@@ -25,6 +25,7 @@ import android.text.TextUtils;
 import com.android.bips.BuiltInPrintService;
 import com.android.bips.R;
 
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -48,21 +49,23 @@ public class LocalPrinterCapabilities {
     public int[] supportedMediaTypes;
     public int[] supportedMediaSizes;
 
+    public InetAddress inetAddress;
+
     /** Bears the underlying native C structure (printer_capabilities_t) or null if not present */
     public byte[] nativeData;
 
     public void buildCapabilities(BuiltInPrintService service,
             PrinterCapabilitiesInfo.Builder builder) {
         builder.setColorModes(
-                PrintAttributes.COLOR_MODE_MONOCHROME |
-                        (color ? PrintAttributes.COLOR_MODE_COLOR : 0),
+                PrintAttributes.COLOR_MODE_MONOCHROME
+                        | (color ? PrintAttributes.COLOR_MODE_COLOR : 0),
                 (color ? PrintAttributes.COLOR_MODE_COLOR : PrintAttributes.COLOR_MODE_MONOCHROME));
 
         MediaSizes mediaSizes = MediaSizes.getInstance(service);
 
         String defaultMediaName = mediaDefault;
-        if (TextUtils.isEmpty(defaultMediaName) ||
-                null == mediaSizes.toMediaSize(defaultMediaName)) {
+        if (TextUtils.isEmpty(defaultMediaName)
+                || null == mediaSizes.toMediaSize(defaultMediaName)) {
             defaultMediaName = MediaSizes.DEFAULT_MEDIA_NAME;
         }
 
@@ -94,8 +97,8 @@ public class LocalPrinterCapabilities {
 
         if (duplex) {
             builder.setDuplexModes(
-                    PrintAttributes.DUPLEX_MODE_NONE | PrintAttributes.DUPLEX_MODE_LONG_EDGE |
-                            PrintAttributes.DUPLEX_MODE_SHORT_EDGE,
+                    PrintAttributes.DUPLEX_MODE_NONE | PrintAttributes.DUPLEX_MODE_LONG_EDGE
+                            | PrintAttributes.DUPLEX_MODE_SHORT_EDGE,
                     PrintAttributes.DUPLEX_MODE_NONE);
         }
 
@@ -106,18 +109,19 @@ public class LocalPrinterCapabilities {
 
     @Override
     public String toString() {
-        return "LocalPrinterCapabilities{" +
-                "path=" + path +
-                " name=" + name +
-                " uuid=" + uuid +
-                " location=" + location +
-                " duplex=" + duplex +
-                " borderless=" + borderless +
-                " color=" + color +
-                " isSupported=" + isSupported +
-                " mediaDefault=" + mediaDefault +
-                " supportedMediaTypes=" + Arrays.toString(supportedMediaTypes) +
-                " supportedMediaSizes=" + Arrays.toString(supportedMediaSizes) +
-                "}";
+        return "LocalPrinterCapabilities{"
+                + "path=" + path
+                + " name=" + name
+                + " uuid=" + uuid
+                + " location=" + location
+                + " duplex=" + duplex
+                + " borderless=" + borderless
+                + " color=" + color
+                + " isSupported=" + isSupported
+                + " mediaDefault=" + mediaDefault
+                + " supportedMediaTypes=" + Arrays.toString(supportedMediaTypes)
+                + " supportedMediaSizes=" + Arrays.toString(supportedMediaSizes)
+                + " inetAddress=" + inetAddress
+                + "}";
     }
 }

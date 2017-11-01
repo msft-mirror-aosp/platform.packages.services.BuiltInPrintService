@@ -137,14 +137,26 @@ public class DiscoveredPrinter {
         writer.endObject();
     }
 
+    /** Combine the best (longest) elements of this record and another into a merged record */
+    DiscoveredPrinter bestOf(DiscoveredPrinter other) {
+        return new DiscoveredPrinter(uuid, longest(name, other.name), path,
+                longest(location, other.location));
+    }
+
+    private static String longest(String a, String b) {
+        if (a == null) return b;
+        if (b == null) return a;
+        return a.length() > b.length() ? a : b;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof DiscoveredPrinter)) return false;
         DiscoveredPrinter other = (DiscoveredPrinter) obj;
-        return Objects.equals(uuid, other.uuid) &&
-                Objects.equals(name, other.name) &&
-                Objects.equals(path, other.path) &&
-                Objects.equals(location, other.location);
+        return Objects.equals(uuid, other.uuid)
+                && Objects.equals(name, other.name)
+                && Objects.equals(path, other.path)
+                && Objects.equals(location, other.location);
     }
 
     @Override
