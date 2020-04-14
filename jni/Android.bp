@@ -58,6 +58,7 @@ cc_library_shared {
         "plugins/wprint_scaler.c",
     ],
 
+    header_libs: ["jni_headers"],
     local_include_dirs: [
         "include",
         "plugins/genPCLm/inc",
