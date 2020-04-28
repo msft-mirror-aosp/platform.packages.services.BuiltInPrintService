@@ -64,7 +64,6 @@ static const char *pattrs[] = {
         "pclm-strip-height-preferred",
         "pclm-compression-method-preferred",
         "pclm-source-resolution-supported",
-        "pwg-raster-document-sheet-back",
         "document-format-details-supported"
 };
 
