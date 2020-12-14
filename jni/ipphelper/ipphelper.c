@@ -1051,6 +1051,15 @@ void parse_printerAttributes(ipp_t *response, printer_capabilities_t *capabiliti
             capabilities->faceDownTray = 0;
         }
     }
+    if ((attrptr = ippFindAttribute(response, "printer-output-tray", IPP_TAG_STRING)) != NULL) {
+        for (i = 0; i < ippGetCount(attrptr); i++) {
+            int length = 0;
+            const char *tray_str = ippGetOctetString(attrptr, i, &length);
+            if (strstr(tray_str, "faceUp") != NULL) {
+                capabilities->faceDownTray = 0;
+            }
+        }
+    }
 
     // Determine supported document format details
     if ((attrptr = ippFindAttribute(response, "document-format-details-supported",
