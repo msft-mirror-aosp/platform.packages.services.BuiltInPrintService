@@ -68,6 +68,8 @@ public class BuiltInPrintService extends PrintService {
             BuiltInPrintService.class.getCanonicalName() + ".CERTIFICATE_REJECT";
     public static final String ACTION_P2P_PERMISSION_CANCEL =
             BuiltInPrintService.class.getCanonicalName() + ".P2P_PERMISSION_CANCEL";
+    public static final String ACTION_P2P_DISABLE =
+            BuiltInPrintService.class.getCanonicalName() + ".ACTION_P2P_DISABLE";
     private static final String EXTRA_CERTIFICATE = "certificate";
     private static final String EXTRA_PRINTER_ID = "printer-id";
     private static final String EXTRA_PRINTER_UUID = "printer-uuid";
@@ -377,6 +379,8 @@ public class BuiltInPrintService extends PrintService {
         } else if (ACTION_P2P_PERMISSION_CANCEL.equals(intent.getAction())) {
             // Inform p2pPermissionManager the user canceled the notification (non-permanent)
             mP2pPermissionManager.applyPermissionChange(false);
+        } else if (ACTION_P2P_DISABLE.equals(intent.getAction())) {
+            mP2pPermissionManager.applyPermissionChange(true);
         }
         return START_NOT_STICKY;
     }
