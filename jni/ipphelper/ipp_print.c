@@ -352,6 +352,10 @@ static ipp_t *_fill_job(int ipp_op, char *printer_uri, const wprint_job_params_t
         }
 
         switch (job_params->media_type) {
+            case MEDIA_AUTO:
+                ippAddString(col[col_index], IPP_TAG_JOB, IPP_TAG_KEYWORD, "media-type", NULL,
+                             "auto");
+                break;
             case MEDIA_PHOTO_GLOSSY:
                 ippAddString(col[col_index], IPP_TAG_JOB, IPP_TAG_KEYWORD, "media-type", NULL,
                         "photographic-glossy");
