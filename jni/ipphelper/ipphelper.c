@@ -838,6 +838,8 @@ void parse_printerAttributes(ipp_t *response, printer_capabilities_t *capabiliti
                 addMediaType(capabilities, MEDIA_PHOTO);
             } else if (strcasestr(ippGetString(attrptr, i, NULL), "stationery")) {
                 addMediaType(capabilities, MEDIA_PLAIN);
+            } else if (strcasestr(ippGetString(attrptr, i, NULL), "auto")) {
+                addMediaType(capabilities, MEDIA_AUTO);
             }
         }
     }
