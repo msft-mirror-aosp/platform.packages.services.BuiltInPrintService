@@ -260,7 +260,7 @@ class LocalPrinter implements CapabilitiesCache.OnLocalPrinterCapabilities {
                 new Intent(mPrintService, MoreOptionsActivity.class)
                         .setIdentifier(UUID.randomUUID().toString())
                         .putExtra(MoreOptionsActivity.EXTRA_PRINTER_ID, mPrinterId),
-                PendingIntent.FLAG_UPDATE_CURRENT
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
         );
     }
 }
