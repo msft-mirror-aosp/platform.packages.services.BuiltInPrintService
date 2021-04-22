@@ -57,7 +57,7 @@
     <string name="failed_printer_connection" msgid="4196305972749960362">"Impossible de se connecter à l\'imprimante"</string>
     <string name="failed_connection" msgid="8068661997318286575">"Impossible de se connecter à <xliff:g id="PRINTER">%1$s</xliff:g>"</string>
     <string name="saved_printers" msgid="4567534965213125526">"Imprimantes enregistrées"</string>
-    <string name="forget" msgid="892068061425802502">"Oublier"</string>
+    <string name="forget" msgid="892068061425802502">"Supprimer"</string>
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"Se connecte par Wi-Fi direct"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"Se connecte à l\'aide du réseau actuel, avec l\'adresse <xliff:g id="IP_ADDRESS">%1$s</xliff:g>"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"Le service d\'impression par défaut offre des options de base. Les autres options de cette imprimante pourraient être accessibles à l\'aide d\'un autre service d\'impression."</string>
@@ -71,7 +71,11 @@
     <string name="accept" msgid="4426153292469698134">"Accepter"</string>
     <string name="reject" msgid="24751635160440693">"Refuser"</string>
     <string name="connections" msgid="8895413761760117180">"Connexions"</string>
+    <string name="wifi_direct_problem" msgid="8995174986718516990">"Le service d\'impression par défaut ne peut pas trouver les imprimantes Wi-Fi Direct"</string>
+    <string name="disable_wifi_direct" msgid="4824677957241687577">"Désact. Wi-Fi Direct"</string>
     <string name="wifi_direct_permission_rationale" msgid="3599186620970379218">"Le service d\'impression par défaut a besoin de l\'autorisation de localisation pour trouver les imprimantes à proximité."</string>
     <string name="fix" msgid="7784394272611365393">"Examiner l\'autorisation"</string>
+    <string name="wifi_direct_location_rationale" msgid="5084311320511965454">"Le service d\'impression par défaut nécessite que les services de localisation soient activés pour trouver les appareils à proximité."</string>
+    <string name="enable_location" msgid="3627841004298863140">"Activ. localisation"</string>
     <string name="print" msgid="7851318072404916362">"Imprimer"</string>
 </resources>

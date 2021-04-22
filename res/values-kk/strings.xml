@@ -71,7 +71,11 @@
     <string name="accept" msgid="4426153292469698134">"Қабылдау"</string>
     <string name="reject" msgid="24751635160440693">"Қабылдамау"</string>
     <string name="connections" msgid="8895413761760117180">"Байланыстар"</string>
+    <string name="wifi_direct_problem" msgid="8995174986718516990">"Әдепкі басып шығару қызметі Wi-Fi Direct принтерлерін таба алмайды."</string>
+    <string name="disable_wifi_direct" msgid="4824677957241687577">"Wi-Fi Direct ажырату"</string>
     <string name="wifi_direct_permission_rationale" msgid="3599186620970379218">"Маңайдағы құрылғыларды табу үшін Default Print қызметіне геодерек пайдалану рұқсаттары қажет."</string>
     <string name="fix" msgid="7784394272611365393">"Рұқсатты қарау"</string>
+    <string name="wifi_direct_location_rationale" msgid="5084311320511965454">"Әдепкі басып шығару қызметі маңайдағы құрылғыларды табу үшін орынды анықтау қызметтерінің қосылуын қажет етеді."</string>
+    <string name="enable_location" msgid="3627841004298863140">"Орын анықтауды қосу"</string>
     <string name="print" msgid="7851318072404916362">"Басып шығару"</string>
 </resources>
