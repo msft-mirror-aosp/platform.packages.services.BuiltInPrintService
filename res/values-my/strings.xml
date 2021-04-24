@@ -39,7 +39,7 @@
     <string name="media_size_8x10in" msgid="1872576638522812402">"၈x၁၀ လက်မ"</string>
     <string name="media_size_4x6in" msgid="3093276425529958253">"၄x၆ လက်မ"</string>
     <string name="printer_description" msgid="8580767673213837142">"%1$s – %2$s"</string>
-    <string name="title_activity_add_printer" msgid="9119216095769228566">"ပုံနှိပ်စက် ထည့်ရန်"</string>
+    <string name="title_activity_add_printer" msgid="9119216095769228566">"ပရင်တာ ထည့်ရန်"</string>
     <string name="add_printer_by_ip" msgid="562864787592910327">"ပုံနှိပ်စက်ကို IP လိပ်စာဖြင့် ထည့်ရန်"</string>
     <string name="hostname_or_ip" msgid="3460546103553992915">"အင်တာနက်လက်ခံဝန်ဆောင်ပေးသူအမည် သို့မဟုတ် အိုင်ပီလိပ်စာ"</string>
     <string name="ip_hint" msgid="7939777481941979799">"၁၉၂.၁၆၈.၀.၄"</string>
@@ -49,7 +49,7 @@
     <string name="printer_not_supported" msgid="281955849350938408">"ပုံနှိပ်စက်ကို ပံ့ပိုးခြင်းမရှိပါ"</string>
     <string name="wifi_direct" msgid="4629404342852294985">"Wi-Fi Direct"</string>
     <string name="find_wifi_direct" msgid="5270504288829123954">"Wi-Fi တိုက်ရိုက်သုံး ပုံနှိပ်စက်များကို ရှာရန်"</string>
-    <string name="wifi_direct_printing" msgid="8423811041563144048">"\'တိုက်ရိုက် Wi-Fi\' ပုံနှိပ်ခြင်း"</string>
+    <string name="wifi_direct_printing" msgid="8423811041563144048">"တိုက်ရိုက် Wi-Fi ပုံနှိပ်ခြင်း"</string>
     <string name="wifi_direct_printers" msgid="541168032444693191">"Wi-Fi Direct သုံး ပရင်တာများ"</string>
     <string name="searching" msgid="2114018057619514587">"ရှာဖွေနေသည်…"</string>
     <string name="connect_hint_text" msgid="587112503851044234">"သင့်ပရင်တာ၏ အရှေ့ဘက်အကွက်တွင် ဤချိတ်ဆက်မှုကို အတည်ပြုရန် လိုအပ်နိုင်သည်"</string>
