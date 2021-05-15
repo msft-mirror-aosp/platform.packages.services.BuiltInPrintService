@@ -41,7 +41,7 @@
     <string name="printer_description" msgid="8580767673213837142">"%1$s – %2$s"</string>
     <string name="title_activity_add_printer" msgid="9119216095769228566">"प्रिंटर जोडा"</string>
     <string name="add_printer_by_ip" msgid="562864787592910327">"आयपी ॲड्रेसनुसार प्रिंटर जोडा"</string>
-    <string name="hostname_or_ip" msgid="3460546103553992915">"होस्ट नाव किंवा आयपी अ‍ॅड्रेस"</string>
+    <string name="hostname_or_ip" msgid="3460546103553992915">"होस्ट नाव किंवा IP पत्ता"</string>
     <string name="ip_hint" msgid="7939777481941979799">"192.168.0.4"</string>
     <string name="add" msgid="1950342261671100906">"जोडा"</string>
     <string name="add_named" msgid="9074106244018070583">"<xliff:g id="PRINTER">%1$s</xliff:g> जोडा"</string>
@@ -65,7 +65,7 @@
     <string name="recommendation_install_summary" msgid="374785283809791669">"इंस्टॉल करण्यासाठी निवडा"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"सुरू करण्यासाठी निवडा"</string>
     <string name="recommendation_manage" msgid="4683640588502866284">"सेवा व्यवस्थापित करा"</string>
-    <string name="security" msgid="2279008326210305401">"सुरक्षा"</string>
+    <string name="security" msgid="2279008326210305401">"सुरक्षितता"</string>
     <string name="certificate_update_request" msgid="1314796413107139475">"हा प्रिंटर नवीन सुरक्षा सर्टिफिकेट प्रदान करतो किंवा दुसरे एखादे डिव्हाइस तोतयागिरी करत असेल. नवीन सर्टिफिकेट स्वीकारायचे का?"</string>
     <string name="not_encrypted_request" msgid="4871472176807381642">"यापुढे हा प्रिंटर एंक्रिप्ट केलेली कामे स्वीकारणार नाही. प्रिंट करणे सुरू ठेवायचे आहे का?"</string>
     <string name="accept" msgid="4426153292469698134">"स्वीकारा"</string>
