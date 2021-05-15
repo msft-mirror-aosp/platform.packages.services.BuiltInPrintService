@@ -761,7 +761,7 @@ void parse_getMediaSupported(
         for (i = 0; i < ippGetCount(attrptr); i++) {
             ipp_t *collection = ippGetCollection(attrptr, i);
             ipp_attribute_t *attrptr2;
-            media_ready_set_t mediaReadySet;
+            media_ready_set_t mediaReadySet = {};
             int minHeight = 0, maxHeight = 0;
             for (attrptr2 = ippFirstAttribute(collection);
                  (attrptr2 != NULL);
