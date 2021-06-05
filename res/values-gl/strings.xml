@@ -71,7 +71,7 @@
     <string name="accept" msgid="4426153292469698134">"Aceptar"</string>
     <string name="reject" msgid="24751635160440693">"Rexeitar"</string>
     <string name="connections" msgid="8895413761760117180">"Conexións"</string>
-    <string name="wifi_direct_permission_rationale" msgid="3599186620970379218">"O servizo de impresión predeterminada require permisos de acceso á localización para atopar dispositivos próximos."</string>
+    <string name="wifi_direct_permission_rationale" msgid="3599186620970379218">"O servizo de impresión predeterminado require permisos de acceso á localización para atopar dispositivos próximos."</string>
     <string name="fix" msgid="7784394272611365393">"Revisar permiso"</string>
     <string name="print" msgid="7851318072404916362">"Imprimir"</string>
 </resources>
