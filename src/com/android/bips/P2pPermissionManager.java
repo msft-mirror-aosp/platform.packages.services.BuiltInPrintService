@@ -225,7 +225,7 @@ public class P2pPermissionManager {
         proceedIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         proceedIntent.putExtra(AddPrintersFragment.EXTRA_FIX_P2P_PERMISSION, true);
         PendingIntent proceedPendingIntent = PendingIntent.getActivity(mContext, 0,
-                proceedIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                proceedIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         Notification.Action fixAction = new Notification.Action.Builder(
                 Icon.createWithResource(mContext, R.drawable.ic_printservice),
                 mContext.getString(R.string.fix), proceedPendingIntent).build();
@@ -234,13 +234,13 @@ public class P2pPermissionManager {
                 .setAction(BuiltInPrintService.ACTION_P2P_PERMISSION_CANCEL);
         PendingIntent cancelPendingIndent = PendingIntent.getService(mContext,
                 BuiltInPrintService.P2P_PERMISSION_REQUEST_ID, cancelIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         Intent disableIntent = new Intent(mContext, BuiltInPrintService.class)
                 .setAction(BuiltInPrintService.ACTION_P2P_DISABLE);
         PendingIntent disablePendingIndent = PendingIntent.getService(mContext,
                 BuiltInPrintService.P2P_PERMISSION_REQUEST_ID, disableIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         Notification.Action disableAction = new Notification.Action.Builder(
                 Icon.createWithResource(mContext, R.drawable.ic_printservice),
                 mContext.getString(R.string.disable_wifi_direct), disablePendingIndent).build();
