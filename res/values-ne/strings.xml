@@ -75,7 +75,7 @@
     <string name="disable_wifi_direct" msgid="4824677957241687577">"Wi-Fi Direct अफ गर्नु…"</string>
     <string name="wifi_direct_permission_rationale" msgid="3599186620970379218">"डिफल्ट छपाइ सेवालाई वरपरका यन्त्रहरू फेला पार्न स्थानसम्बन्धी अनुमति चाहिन्छ।"</string>
     <string name="fix" msgid="7784394272611365393">"अनुमतिको समीक्षा गर्नु"</string>
-    <string name="wifi_direct_location_rationale" msgid="5084311320511965454">"डिफल्ट प्रिन्ट सेवाले स्थानसम्बन्धी सेवा अन गरेपछि मात्र नजिकैका डिभाइसहरू फेला पार्न सक्छ।"</string>
-    <string name="enable_location" msgid="3627841004298863140">"स्थानसम्बन्धी सेवा अन गर्नु…"</string>
+    <string name="wifi_direct_location_rationale" msgid="5084311320511965454">"डिफल्ट प्रिन्ट सेवाले लोकेसन सर्भिस अन गरेपछि मात्र नजिकैका डिभाइसहरू फेला पार्न सक्छ।"</string>
+    <string name="enable_location" msgid="3627841004298863140">"लोकेसन सर्भिस अन गर्नु…"</string>
     <string name="print" msgid="7851318072404916362">"प्रिन्ट गर्नुहोस्"</string>
 </resources>
