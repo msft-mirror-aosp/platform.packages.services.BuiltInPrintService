@@ -40,7 +40,7 @@
     <string name="media_size_4x6in" msgid="3093276425529958253">"4x6 to."</string>
     <string name="printer_description" msgid="8580767673213837142">"%1$s – %2$s"</string>
     <string name="title_activity_add_printer" msgid="9119216095769228566">"Bæta prentara við"</string>
-    <string name="add_printer_by_ip" msgid="562864787592910327">"Bæta prentara við samkvæmt IP-tölu"</string>
+    <string name="add_printer_by_ip" msgid="562864787592910327">"Bæta við prentara samkvæmt IP-tölu"</string>
     <string name="hostname_or_ip" msgid="3460546103553992915">"Hýsilheiti eða IP-tala"</string>
     <string name="ip_hint" msgid="7939777481941979799">"192.168.0.4"</string>
     <string name="add" msgid="1950342261671100906">"Bæta við"</string>
@@ -71,11 +71,7 @@
     <string name="accept" msgid="4426153292469698134">"Samþykkja"</string>
     <string name="reject" msgid="24751635160440693">"Hafna"</string>
     <string name="connections" msgid="8895413761760117180">"Tengingar"</string>
-    <string name="wifi_direct_problem" msgid="8995174986718516990">"Sjálfgefin prentþjónusta finnur ekki Wi-Fi Direct-prentara"</string>
-    <string name="disable_wifi_direct" msgid="4824677957241687577">"Slökkva á Wi-Fi Direct"</string>
     <string name="wifi_direct_permission_rationale" msgid="3599186620970379218">"Sjálfgefin prentþjónusta þarf staðsetningarheimildir til að finna nálæg tæki."</string>
     <string name="fix" msgid="7784394272611365393">"Yfirfara heimild"</string>
-    <string name="wifi_direct_location_rationale" msgid="5084311320511965454">"Sjálfgefin prentþjónusta krefst þess að kveikt sé á staðsetningarþjónustum til að geta fundið nálæg tæki."</string>
-    <string name="enable_location" msgid="3627841004298863140">"Kveikja á staðsetningu"</string>
     <string name="print" msgid="7851318072404916362">"Prenta"</string>
 </resources>
