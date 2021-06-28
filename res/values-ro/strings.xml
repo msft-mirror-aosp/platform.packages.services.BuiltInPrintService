@@ -49,7 +49,7 @@
     <string name="printer_not_supported" msgid="281955849350938408">"Imprimanta nu este acceptată"</string>
     <string name="wifi_direct" msgid="4629404342852294985">"Wi-Fi Direct"</string>
     <string name="find_wifi_direct" msgid="5270504288829123954">"Căutați imprimate cu Wi-Fi Direct"</string>
-    <string name="wifi_direct_printing" msgid="8423811041563144048">"Printare prin Wi-Fi Direct"</string>
+    <string name="wifi_direct_printing" msgid="8423811041563144048">"Imprimare prin Wi-Fi Direct"</string>
     <string name="wifi_direct_printers" msgid="541168032444693191">"Imprimante cu Wi-Fi Direct"</string>
     <string name="searching" msgid="2114018057619514587">"Se caută…"</string>
     <string name="connect_hint_text" msgid="587112503851044234">"Poate fi necesar să aprobați această conexiune pe panoul frontal al imprimantei"</string>
@@ -71,11 +71,7 @@
     <string name="accept" msgid="4426153292469698134">"Acceptați"</string>
     <string name="reject" msgid="24751635160440693">"Respingeți"</string>
     <string name="connections" msgid="8895413761760117180">"Conexiuni"</string>
-    <string name="wifi_direct_problem" msgid="8995174986718516990">"Serviciul de imprimare prestabilită nu găsește imprimante cu Wi-Fi Direct"</string>
-    <string name="disable_wifi_direct" msgid="4824677957241687577">"Dezactivați Wi-Fi Direct"</string>
     <string name="wifi_direct_permission_rationale" msgid="3599186620970379218">"Pentru a găsi dispozitive în apropiere, serviciul de imprimare prestabilită necesită permisiuni pentru locație."</string>
     <string name="fix" msgid="7784394272611365393">"Examinați permisiunea"</string>
-    <string name="wifi_direct_location_rationale" msgid="5084311320511965454">"Pentru a găsi dispozitive în apropiere, serviciul de imprimare prestabilită necesită activarea serviciilor de localizare."</string>
-    <string name="enable_location" msgid="3627841004298863140">"Activați locația"</string>
     <string name="print" msgid="7851318072404916362">"Printați"</string>
 </resources>
