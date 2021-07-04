@@ -48,7 +48,7 @@
     <string name="no_printer_found" msgid="4777867380924351173">"Na této adrese nebyla nalezena žádná tiskárna"</string>
     <string name="printer_not_supported" msgid="281955849350938408">"Tiskárna není podporována"</string>
     <string name="wifi_direct" msgid="4629404342852294985">"Wi-Fi Direct"</string>
-    <string name="find_wifi_direct" msgid="5270504288829123954">"Najít tiskárny s podporou funkce Wi-Fi Direct"</string>
+    <string name="find_wifi_direct" msgid="5270504288829123954">"Najít tiskárny s podporou Wi-Fi Direct"</string>
     <string name="wifi_direct_printing" msgid="8423811041563144048">"Tisk Wi-Fi Direct"</string>
     <string name="wifi_direct_printers" msgid="541168032444693191">"Tiskárny Wi-Fi Direct"</string>
     <string name="searching" msgid="2114018057619514587">"Vyhledávání…"</string>
@@ -71,7 +71,11 @@
     <string name="accept" msgid="4426153292469698134">"Přijmout"</string>
     <string name="reject" msgid="24751635160440693">"Odmítnout"</string>
     <string name="connections" msgid="8895413761760117180">"Připojení"</string>
+    <string name="wifi_direct_problem" msgid="8995174986718516990">"Výchozí tisková služba nedokáže najít tiskárny s Wi-Fi Direct"</string>
+    <string name="disable_wifi_direct" msgid="4824677957241687577">"Vypnout Wi-Fi Direct"</string>
     <string name="wifi_direct_permission_rationale" msgid="3599186620970379218">"Služba výchozího tisku potřebuje oprávnění pro přístup k poloze, aby mohla vyhledat zařízení v okolí."</string>
     <string name="fix" msgid="7784394272611365393">"Kontrola oprávnění"</string>
+    <string name="wifi_direct_location_rationale" msgid="5084311320511965454">"Služba výchozího tisku potřebuje služby určování polohy, aby mohla vyhledat zařízení v okolí."</string>
+    <string name="enable_location" msgid="3627841004298863140">"Povolit polohu"</string>
     <string name="print" msgid="7851318072404916362">"Tisk"</string>
 </resources>
