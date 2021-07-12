@@ -99,7 +99,7 @@ struct MediaSizeTableElement SupportedMediaSizes[SUPPORTED_MEDIA_SIZE_COUNT] = {
           841000, 1189000},
         { ISO_AND_JIS_A1, "A1", 23390, 33110, 594, 841, "iso_a1_594x841mm",
           594000, 841000},
-        { ISO_AND_JIS_A2, "A2", 33110, 46810, 420, 594, "iso_a2_420x594mm",
+        { ISO_AND_JIS_A2, "A2", 16540, 23390, 420, 594, "iso_a2_420x594mm",
           420000, 594000},
         { ARCH_A, "9X12", 9000, 12000, UNKNOWN_VALUE, UNKNOWN_VALUE, "na_arch-a_9x12in",
           228600, 304800},
