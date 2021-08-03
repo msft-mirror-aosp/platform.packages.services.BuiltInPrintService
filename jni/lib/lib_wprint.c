@@ -2196,7 +2196,6 @@ status_t wprintExit(void) {
 
         sem_destroy(&_job_end_wait_sem);
         sem_destroy(&_job_start_wait_sem);
-        pthread_mutex_destroy(&_q_lock);
     }
 
     return OK;
