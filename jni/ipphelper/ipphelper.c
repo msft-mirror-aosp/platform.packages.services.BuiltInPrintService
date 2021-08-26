@@ -816,9 +816,15 @@ void parse_getMediaSupported(
             addMediaIfNotDuplicate(idx, &sizes_idx, media_supported, media_sizeTemp);
         }
     }
-    // If there was nothing in media-ready or media-col-ready, check media-supported
-    if (sizes_idx == 0
-        && ((attrptr = ippFindAttribute(response, "media-supported", IPP_TAG_KEYWORD)) != NULL)) {
+
+    // Set media ready size as default if we found any
+    if (sizes_idx > 0) {
+        strlcpy(capabilities->mediaDefault, mapDFMediaToIPPKeyword(media_supported->media_size[0]),
+                    sizeof(capabilities->mediaDefault));
+    }
+
+    // Append media-supported. media is de-duplicated later in java
+    if ((attrptr = ippFindAttribute(response, "media-supported", IPP_TAG_KEYWORD)) != NULL) {
         LOGD("media-supported  found; number of values %d", ippGetCount(attrptr));
         for (i = 0; i < ippGetCount(attrptr); i++) {
             idx = ipp_find_media_size(ippGetString(attrptr, i, NULL), &media_sizeTemp);
@@ -937,7 +943,8 @@ void parse_printerAttributes(ipp_t *response, printer_capabilities_t *capabiliti
                 sizeof(capabilities->location));
     }
 
-    if ((attrptr = ippFindAttribute(response, "media-default", IPP_TAG_KEYWORD)) != NULL) {
+    if ((attrptr = ippFindAttribute(response, "media-default", IPP_TAG_KEYWORD)) != NULL
+         && strlen(capabilities->mediaDefault) <= 0) {
         strlcpy(capabilities->mediaDefault, ippGetString(attrptr, 0, NULL),
                 sizeof(capabilities->mediaDefault));
     }
