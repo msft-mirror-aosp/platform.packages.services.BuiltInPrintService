@@ -66,7 +66,7 @@
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"ప్రారంభించడానికి ఎంచుకోండి"</string>
     <string name="recommendation_manage" msgid="4683640588502866284">"సేవలను నిర్వహించు"</string>
     <string name="security" msgid="2279008326210305401">"సెక్యూరిటీ"</string>
-    <string name="certificate_update_request" msgid="1314796413107139475">"ఈ ప్రింటర్‌కి కొత్త భద్రతా సర్టిఫికెట్‌ అందించి ఉండవచ్చు లేదా వేరే పరికరం ఏదైనా దీన్ని అనుకరిస్తూ ఉండవచ్చు. కొత్త సర్టిఫికెట్‌ని ఆమోదిస్తారా?"</string>
+    <string name="certificate_update_request" msgid="1314796413107139475">"ఈ ప్రింటర్‌కు కొత్త సెక్యూరిటీ సర్టిఫికెట్‌ అందించి ఉండవచ్చు, లేదా వేరే పరికరం ఏదైనా దీన్ని అనుకరిస్తూ ఉండవచ్చు. కొత్త సర్టిఫికెట్‌ను ఆమోదిస్తారా?"</string>
     <string name="not_encrypted_request" msgid="4871472176807381642">"ఈ ప్రింటర్ ఇకపై ఎన్‌క్రిప్ట్ చేసిన ఫైళ్లను తీసుకోదు అయినా ప్రింట్ చేయడాన్ని కొనసాగిస్తారా?"</string>
     <string name="accept" msgid="4426153292469698134">"ఆమోదించు"</string>
     <string name="reject" msgid="24751635160440693">"తిరస్కరించు"</string>
