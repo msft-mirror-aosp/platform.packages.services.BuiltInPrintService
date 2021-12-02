@@ -15,7 +15,7 @@
      limitations under the License.
 -->
 
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <string name="app_name">Default Print Service</string>
 
@@ -88,14 +88,17 @@
 
     <!-- Explain purpose of recommendation fragment [CHAR LIMIT=UNLIMITED] -->
     <string name="recommendation_summary">The Default Print Service provides basic options. Other options for this printer may be available from another print service.</string>
+    <string name="recommendation_summary_new" android:featureFlag="com.android.bips.flags.printer_info_details">The default print service provides basic options. For advanced options additional print services are available.</string>
     <!-- Heading for services that are not currently installed, but recommended [CHAR LIMIT=UNLIMITED] -->
-    <string name="recommendations_heading">Recommended services</string>
+    <string name="recommendations_heading">Recommended Services</string>
+    <!-- Heading for link to services that are not currently installed, but recommended [CHAR LIMIT=UNLIMITED] -->
+    <string name="recommendation_link" android:featureFlag="com.android.bips.flags.printer_info_details">Additional print services</string>
     <!-- Summary for recommended services that are not installed [CHAR LIMIT=UNLIMITED] -->
     <string name="recommendation_install_summary">Select to install</string>
     <!-- Summary for recommended services that are installed [CHAR LIMIT=UNLIMITED] -->
     <string name="recommendation_enable_summary">Select to enable</string>
     <!-- Button to allow user to enable/disable installed print services. [CHAR LIMIT=UNLIMITED] -->
-    <string name="recommendation_manage">Manage services</string>
+    <string name="recommendation_manage">Manage Services</string>
 
     <!-- Channel name for security-related notifications [CHAR LIMIT=40] -->
     <string name="security">Security</string>
@@ -122,4 +125,19 @@
 
     <!-- Share-to-print label [CHAR LIMIT=20] -->
     <string name="print">Print</string>
+
+    <!-- Printer Information Screen Strings -->
+    <string name="yes" android:featureFlag="com.android.bips.flags.printer_info_details">Yes</string>
+    <string name="unknown" android:featureFlag="com.android.bips.flags.printer_info_details">Unknown</string>
+    <string name="printer_name" android:featureFlag="com.android.bips.flags.printer_info_details">Printer name</string>
+    <string name="status" android:featureFlag="com.android.bips.flags.printer_info_details">Status</string>
+    <string name="media_ready" android:featureFlag="com.android.bips.flags.printer_info_details">Loaded paper sizes</string>
+    <string name="supply_levels" android:featureFlag="com.android.bips.flags.printer_info_details">Supply levels</string>
+    <string name="information" android:featureFlag="com.android.bips.flags.printer_info_details">Information</string>
+    <string name="printer_ready" android:featureFlag="com.android.bips.flags.printer_info_details">Ready</string>
+    <!-- Printer status messages-->
+    <string name="printer_state__printing" android:featureFlag="com.android.bips.flags.printer_info_details">Printing</string>
+    <string name="printer_state__offline" android:featureFlag="com.android.bips.flags.printer_info_details">Offline</string>
+    <string name="printer_state__check_printer" android:featureFlag="com.android.bips.flags.printer_info_details">Check printer</string>
+
 </resources>

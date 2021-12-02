@@ -28,14 +28,16 @@
 #define MAX_UUID 46
 #define MAX_PRINT_SCALING_LENGTH    32
 #define MAX_PRINT_SCALING_COUNT     10
+#define MAX_PRINTER_ICONS_SUPPORTED 3
+#define MAX_MARKER 30
+#define MAX_MARKER_NAME 256
 
 #include "wprint_df_types.h"
 
 /*
  * Media ready set definition
  */
-typedef struct
-{
+typedef struct {
     unsigned int x_dimension;
     unsigned int y_dimension;
     char media_tray_tag[MAX_STRING + 1];
@@ -62,6 +64,8 @@ typedef struct {
     unsigned char faceDownTray;
     media_size_t supportedMediaSizes[MAX_SIZES_SUPPORTED];
     unsigned int numSupportedMediaSizes;
+    media_size_t supportedMediaReadySizes[MAX_SIZES_SUPPORTED];
+    unsigned int numSupportedMediaReadySizes;
 
     // IPP major version (0 = not supported)
     int ippVersionMajor;
@@ -98,6 +102,17 @@ typedef struct {
     int print_scalings_supported_count;
     char print_scaling_default[MAX_PRINT_SCALING_LENGTH]; /* Printer default value */
     unsigned char jobPagesPerSetSupported;
+
+    char certification[256];
+    int num_printer_icons;            /* Number of printer icon available*/
+    char printer_icons[MAX_PRINTER_ICONS_SUPPORTED][MAX_URI_LENGTH]; /* Printer Icon URIs */
+    int marker_levels_count;
+    char marker_names[MAX_MARKER][MAX_MARKER_NAME];
+    char marker_types[MAX_MARKER][MAX_MARKER_NAME];
+    char marker_colors[MAX_MARKER][MAX_MARKER_NAME];
+    int marker_levels[MAX_MARKER];
+    int marker_low_levels[MAX_MARKER];
+    int marker_high_levels[MAX_MARKER];
 } printer_capabilities_t;
 
 #endif // __PRINTER_CAPABILITIES_TYPES_H__

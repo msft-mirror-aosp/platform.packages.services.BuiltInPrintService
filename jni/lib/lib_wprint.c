@@ -31,6 +31,7 @@
 #include <pthread.h>
 
 #include <semaphore.h>
+#include <lib_wprint.h>
 #include <printer_capabilities_types.h>
 
 #include "ifc_print_job.h"
@@ -1681,6 +1682,111 @@ status_t wprintGetCapabilities(const wprint_connect_info_t *connect_info,
     }
     LOGD("wprintGetCapabilities: Exit");
     return result;
+}
+
+typedef struct _status_handle_st {
+    const ifc_status_monitor_t *status_ifc;
+    pthread_t status_tid;
+
+    void (*status_callback)(const printer_state_dyn_t *new_status,
+                            const printer_state_dyn_t *old_status,
+                            void *param);
+
+    void *param;
+} _status_handle_t;
+
+wStatus_t wprintStatusMonitorSetup(const wprint_connect_info_t *connect_info) {
+    const ifc_status_monitor_t *status_ifc;
+    int port_num = connect_info->port_num;
+    _status_handle_t *handle = NULL;
+    if (connect_info->printer_addr != NULL) {
+        status_ifc = _get_status_ifc(((port_num == 0) ? PORT_FILE : PORT_IPP));
+        if (status_ifc != NULL) {
+            handle = malloc(sizeof(_status_handle_t));
+            if (handle != NULL) {
+                handle->status_ifc = status_ifc;
+                handle->status_ifc->init(handle->status_ifc, connect_info);
+                handle->status_tid = pthread_self();
+                handle->param = NULL;
+            } else {
+                LOGE("wprintStatusMonitorSetup(): failed to allocate memory for status handle");
+                status_ifc->destroy(status_ifc);
+            }
+        }
+    }
+
+    return (wStatus_t) handle;
+}
+
+static void *_printer_status_thread(void *param) {
+    _status_handle_t *handle = (_status_handle_t *) param;
+    handle->status_ifc->start(handle->status_ifc, handle->status_callback, NULL, handle->param);
+    return (NULL);
+}
+
+static int _start_printer_status_thread(_status_handle_t *handle) {
+    sigset_t allsig, oldsig;
+    int result = ERROR;
+
+    if (handle == NULL)
+        return (result);
+
+    result = OK;
+    sigfillset(&allsig);
+#if CHECK_PTHREAD_SIGMASK_STATUS
+    result = pthread_sigmask(SIG_SETMASK, &allsig, &oldsig);
+#else /* else CHECK_PTHREAD_SIGMASK_STATUS */
+    pthread_sigmask(SIG_SETMASK, &allsig, &oldsig);
+#endif /* CHECK_PTHREAD_SIGMASK_STATUS */
+    if (result == OK) {
+        result = pthread_create(&handle->status_tid, 0, _printer_status_thread, handle);
+        if ((result == ERROR) && (handle->status_tid != pthread_self())) {
+#if USE_PTHREAD_CANCEL
+            pthread_cancel(handle->status_tid);
+#else /* else USE_PTHREAD_CANCEL */
+            pthread_kill(handle->status_tid, SIGKILL);
+#endif /* USE_PTHREAD_CANCEL */
+            handle->status_tid = pthread_self();
+        }
+    }
+
+    if (result == OK) {
+        sched_yield();
+#if CHECK_PTHREAD_SIGMASK_STATUS
+        result = pthread_sigmask(SIG_SETMASK, &oldsig, 0);
+#else /* else CHECK_PTHREAD_SIGMASK_STATUS */
+        pthread_sigmask(SIG_SETMASK, &oldsig, 0);
+#endif /* CHECK_PTHREAD_SIGMASK_STATUS */
+    }
+
+    return (result);
+} /*  _start_status_thread  */
+
+int wprintStatusMonitorStart(wStatus_t status_handle,
+                             void (*status_callback)(const printer_state_dyn_t *new_status,
+                                                     const printer_state_dyn_t *old_status,
+                                                     void *param),
+                             void *param) {
+    int result = ERROR;
+    _status_handle_t *handle = (_status_handle_t *) status_handle;
+    if (handle != NULL) {
+        handle->status_callback = status_callback;
+        handle->param = param;
+        result = _start_printer_status_thread(handle);
+    } else {
+        LOGE("wprintStatusMonitorStart(): status handle is NULL");
+    }
+    return result;
+}
+
+void wprintStatusMonitorStop(wStatus_t status_handle) {
+    _status_handle_t *handle = (_status_handle_t *) status_handle;
+    if (handle != NULL) {
+        handle->status_ifc->stop(handle->status_ifc);
+        pthread_join(handle->status_tid, 0);
+        handle->status_ifc->destroy(handle->status_ifc);
+        free(handle);
+    }
 }
 
 /*

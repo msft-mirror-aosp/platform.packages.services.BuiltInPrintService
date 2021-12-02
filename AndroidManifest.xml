@@ -38,7 +38,8 @@
         android:icon="@drawable/ic_printservice"
         android:allowBackup="true"
         android:enableOnBackInvokedCallback="false"
-        android:supportsRtl="true">
+        android:supportsRtl="true"
+        android:usesCleartextTraffic="true">
         <service android:name="com.android.bips.BuiltInPrintService"
                  android:exported="true"
                  android:permission="android.permission.BIND_PRINT_SERVICE">
