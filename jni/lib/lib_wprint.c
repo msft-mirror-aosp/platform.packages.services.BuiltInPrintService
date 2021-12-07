@@ -1900,8 +1900,8 @@ status_t wprintGetFinalJobParams(wprint_job_params_t *job_params,
 
     printable_area_get_default_margins(job_params, printer_cap, &margins[TOP_MARGIN],
             &margins[LEFT_MARGIN], &margins[RIGHT_MARGIN], &margins[BOTTOM_MARGIN]);
-    printable_area_get(job_params, margins[TOP_MARGIN], margins[LEFT_MARGIN], margins[RIGHT_MARGIN],
-            margins[BOTTOM_MARGIN]);
+    printable_area_get(job_params, margins[TOP_MARGIN], margins[LEFT_MARGIN],
+            margins[RIGHT_MARGIN], margins[BOTTOM_MARGIN]);
 
     job_params->accepts_app_name = printer_cap->docSourceAppName;
     job_params->accepts_app_version = printer_cap->docSourceAppVersion;
