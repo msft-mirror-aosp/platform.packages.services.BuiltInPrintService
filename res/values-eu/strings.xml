@@ -75,7 +75,7 @@
     <string name="disable_wifi_direct" msgid="4824677957241687577">"Desgaitu Wi-Fi Direct"</string>
     <string name="wifi_direct_permission_rationale" msgid="3599186620970379218">"Inprimatze-zerbitzu lehenetsiak kokapena erabiltzeko baimena behar du inguruko gailuak aurkitzeko."</string>
     <string name="fix" msgid="7784394272611365393">"Berrikusi baimena"</string>
-    <string name="wifi_direct_location_rationale" msgid="5084311320511965454">"Inprimatze-zerbitzu lehenetsiak kokapen-zerbitzuak gaituta izan behar ditu inguruko gailuak aurkitzeko."</string>
+    <string name="wifi_direct_location_rationale" msgid="5084311320511965454">"Inprimatze-zerbitzu lehenetsiak kokapen-zerbitzuak gaituta eduki behar ditu inguruko gailuak aurkitzeko."</string>
     <string name="enable_location" msgid="3627841004298863140">"Gaitu kokapena"</string>
     <string name="print" msgid="7851318072404916362">"Inprimatu"</string>
 </resources>
