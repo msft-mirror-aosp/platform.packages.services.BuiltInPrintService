@@ -77,5 +77,5 @@
     <string name="fix" msgid="7784394272611365393">"Kontrola povolení"</string>
     <string name="wifi_direct_location_rationale" msgid="5084311320511965454">"Predvolená tlačová služba potrebuje zapnuté služby určovania polohy, aby mohla vyhľadať zariadenia v okolí."</string>
     <string name="enable_location" msgid="3627841004298863140">"Povoliť polohu"</string>
-    <string name="print" msgid="7851318072404916362">"Tlačiť"</string>
+    <string name="print" msgid="7851318072404916362">"Tlač"</string>
 </resources>
