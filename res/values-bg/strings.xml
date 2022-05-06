@@ -76,6 +76,6 @@
     <string name="wifi_direct_permission_rationale" msgid="3599186620970379218">"Стандартната услуга за отпечатване се нуждае от разрешение за достъп до местоположението, за да намира устройствата в близост."</string>
     <string name="fix" msgid="7784394272611365393">"Разрешение: Преглед"</string>
     <string name="wifi_direct_location_rationale" msgid="5084311320511965454">"За да може стандартната услуга за отпечатване да намира устройствата в близост, услугите за местоположение трябва да са активирани."</string>
-    <string name="enable_location" msgid="3627841004298863140">"Активиране"</string>
+    <string name="enable_location" msgid="3627841004298863140">"Местопол.: Активир."</string>
     <string name="print" msgid="7851318072404916362">"Отпечатване"</string>
 </resources>
