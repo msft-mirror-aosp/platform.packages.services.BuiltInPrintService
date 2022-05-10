@@ -26,6 +26,11 @@
 #include "../plugins/media.h"
 
 #define TAG "ipphelper"
+#define IPP_JOB_UNKNOWN ((ipp_jstate_t)(-1))
+
+const char *resource_extensions_arr[] = {
+        DEFAULT_IPP_URI_RESOURCE, "/"
+};
 
 /*
  * Get the IPP version of the given printer
@@ -55,30 +60,74 @@ static void parse_printerUris(ipp_t *response, printer_capabilities_t *capabilit
  * cases we override with a rounded-up value.
  */
 struct MediaSizeTableElement SupportedMediaSizes[SUPPORTED_MEDIA_SIZE_COUNT] = {
-        { US_LETTER, "LETTER", 8500, 11000, UNKNOWN_VALUE, UNKNOWN_VALUE, "na_letter_8.5x11in" },
-        { US_LEGAL, "LEGAL", 8500, 14000, UNKNOWN_VALUE, UNKNOWN_VALUE, "na_legal_8.5x14in" },
-        { LEDGER, "LEDGER", 11000, 17000, UNKNOWN_VALUE, UNKNOWN_VALUE, "na_ledger_11x17in" },
-        { INDEX_CARD_5X7, "5X7", 5000, 7000, UNKNOWN_VALUE, UNKNOWN_VALUE, "na_5x7_5x7in" },
+        { US_LETTER, "LETTER", 8500, 11000, UNKNOWN_VALUE, UNKNOWN_VALUE, "na_letter_8.5x11in",
+          215900, 279400 },
+        { US_LEGAL, "LEGAL", 8500, 14000, UNKNOWN_VALUE, UNKNOWN_VALUE, "na_legal_8.5x14in",
+          215900, 355600 },
+        { LEDGER, "LEDGER", 11000, 17000, UNKNOWN_VALUE, UNKNOWN_VALUE, "na_ledger_11x17in",
+          279400, 431800 },
+        { INDEX_CARD_5X7, "5X7", 5000, 7000, UNKNOWN_VALUE, UNKNOWN_VALUE, "na_5x7_5x7in",
+          127000, 177800 },
 
         // Android system uses width of 11690
-        { ISO_A3, "A3", 11694, 16540, 297, 420, "iso_a3_297x420mm" },
+        { ISO_A3, "A3", 11694, 16540, 297, 420, "iso_a3_297x420mm",
+          297000, 420000 },
 
         // Android system uses width of 8267
-        { ISO_A4, "A4", 8268, 11692, 210, 297, "iso_a4_210x297mm" },
-        { ISO_A5, "A5", 5830, 8270, 148, 210, "iso_a5_148x210mm" },
+        { ISO_A4, "A4", 8268, 11692, 210, 297, "iso_a4_210x297mm",
+          210000, 297000 },
+        { ISO_A5, "A5", 5830, 8270, 148, 210, "iso_a5_148x210mm",
+          148000, 210000 },
 
         // Android system uses width of 10118
-        { JIS_B4, "JIS B4", 10119, 14331, 257, 364, "jis_b4_257x364mm" },
+        { JIS_B4, "JIS B4", 10119, 14331, 257, 364, "jis_b4_257x364mm",
+          257000, 364000 },
 
         // Android system uses width of 7165
-        { JIS_B5, "JIS B5", 7167, 10118, 182, 257, "jis_b5_182x257mm" },
+        { JIS_B5, "JIS B5", 7167, 10118, 182, 257, "jis_b5_182x257mm",
+          182000, 257000 },
         { US_GOVERNMENT_LETTER, "8x10", 8000, 10000, UNKNOWN_VALUE, UNKNOWN_VALUE,
-        "na_govt-letter_8x10in" },
-        { INDEX_CARD_4X6, "4x6", 4000, 6000, UNKNOWN_VALUE, UNKNOWN_VALUE, "na_index-4x6_4x6in" },
-        { JPN_HAGAKI_PC, "JPOST", 3940, 5830, 100, 148, "jpn_hagaki_100x148mm" },
-        { PHOTO_89X119, "89X119", 3504, 4685, 89, 119, "om_dsc-photo_89x119mm" },
-        { CARD_54X86, "54X86", 2126, 3386, 54, 86, "om_card_54x86mm" },
-        { OE_PHOTO_L, "L", 3500, 5000, UNKNOWN_VALUE, UNKNOWN_VALUE, "oe_photo-l_3.5x5in" }
+          "na_govt-letter_8x10in",203200, 254000 },
+        { INDEX_CARD_4X6, "4x6", 4000, 6000, UNKNOWN_VALUE, UNKNOWN_VALUE, "na_index-4x6_4x6in",
+          101600, 152400 },
+        { JPN_HAGAKI_PC, "JPOST", 3940, 5830, 100, 148, "jpn_hagaki_100x148mm",
+          100000, 148000 },
+        { PHOTO_89X119, "89X119", 3504, 4685, 89, 119, "om_dsc-photo_89x119mm",
+          89000, 119000 },
+        { CARD_54X86, "54X86", 2126, 3386, 54, 86, "om_card_54x86mm",
+          54000,  86000 },
+        { OE_PHOTO_L, "L", 3500, 5000, UNKNOWN_VALUE, UNKNOWN_VALUE, "oe_photo-l_3.5x5in",
+          88900, 127000 },
+
+          // Large formats
+        { ISO_AND_JIS_A0, "A0", 33110, 46810, 841, 1189, "iso_a0_841x1189mm",
+          841000, 1189000},
+        { ISO_AND_JIS_A1, "A1", 23390, 33110, 594, 841, "iso_a1_594x841mm",
+          594000, 841000},
+        { ISO_AND_JIS_A2, "A2", 16540, 23390, 420, 594, "iso_a2_420x594mm",
+          420000, 594000},
+        { ARCH_A, "9X12", 9000, 12000, UNKNOWN_VALUE, UNKNOWN_VALUE, "na_arch-a_9x12in",
+          228600, 304800},
+        { ARCH_B, "12X18", 12000, 18000, UNKNOWN_VALUE, UNKNOWN_VALUE, "na_arch-b_12x18in",
+          304800, 457200},
+        { ARCH_C, "18x24", 18000, 24000, UNKNOWN_VALUE, UNKNOWN_VALUE, "na_arch-c_18x24in",
+          457200, 609600},
+        { ARCH_D, "24x36", 24000, 36000, UNKNOWN_VALUE, UNKNOWN_VALUE, "na_arch-d_24x36in",
+          609600, 914400},
+        { ARCH_E, "36x48", 36000, 48000, UNKNOWN_VALUE, UNKNOWN_VALUE, "na_arch-e_36x48in",
+          914400, 1219200},
+        { ARCH_E1, "30x42", 30000, 42000, UNKNOWN_VALUE, UNKNOWN_VALUE, "na_wide-format_30x42in",
+          762000, 1066800},
+        { C_SIZE, "AnsiC", 17000, 22000, UNKNOWN_VALUE, UNKNOWN_VALUE, "na_c_17x22in",
+          431800, 558800},
+        { D_SIZE, "AnsiD", 22000, 34000, UNKNOWN_VALUE, UNKNOWN_VALUE, "na_d_22x34in",
+          558800, 863600},
+        { E_SIZE, "AnsiE", 34000, 44000, UNKNOWN_VALUE, UNKNOWN_VALUE, "na_e_34x44in",
+          863600, 1117600},
+        { F_SIZE, "AnsiF", 28000, 40000, UNKNOWN_VALUE, UNKNOWN_VALUE, "asme_f_28x40in",
+          711200, 1016000},
+        { SUPER_B, "SuperB", 13000, 19000, UNKNOWN_VALUE, UNKNOWN_VALUE, "na_super-b_13x19in",
+          330200, 482600}
 };
 
 typedef struct {
@@ -392,6 +441,249 @@ void get_PrinterStateReason(ipp_t *response, ipp_pstate_t *printer_state,
     }
 }
 
+void set_jobStateDyn(ipp_t *response,
+                    ipp_jstate_t *job_state,
+                    job_state_dyn_t *job_state_dyn) {
+    ipp_attribute_t *attr;
+    if ((attr = ippFindAttribute(response, "job-state", IPP_TAG_ENUM)) == NULL) {
+        LOGE("  job-state null");
+    } else {
+        *job_state = (ipp_jstate_t) ippGetInteger(attr, 0);
+    }
+
+    switch (*job_state) {
+        case IPP_JOB_PENDING:
+            job_state_dyn->job_state = IPP_JOB_STATE_PENDING;
+            break;
+        case IPP_JOB_HELD:
+            job_state_dyn->job_state = IPP_JOB_STATE_PENDING_HELD;
+            break;
+        case IPP_JOB_PROCESSING:
+            job_state_dyn->job_state = IPP_JOB_STATE_PROCESSING;
+            break;
+        case IPP_JOB_STOPPED:
+            job_state_dyn->job_state = IPP_JOB_STATE_PROCESSING_STOPPED;
+            break;
+        case IPP_JOB_CANCELED:
+            job_state_dyn->job_state = IPP_JOB_STATE_CANCELED;
+            break;
+        case IPP_JOB_ABORTED:
+            job_state_dyn->job_state = IPP_JOB_STATE_ABORTED;
+            break;
+        case IPP_JOB_COMPLETED:
+            job_state_dyn->job_state = IPP_JOB_STATE_COMPLETED;
+            break;
+        default:
+            if (*job_state == IPP_JOB_UNKNOWN) {
+                job_state_dyn->job_state = IPP_JOB_STATE_UNABLE_TO_CONNECT;
+            }
+            break;
+    }
+}
+
+void parse_jobStateReasons(ipp_t *response,
+                          job_state_dyn_t *job_state_dyn) {
+    ipp_attribute_t *attr;
+    if ((attr = ippFindAttribute(response, "job-state-reasons", IPP_TAG_KEYWORD)) == NULL) {
+        job_state_dyn->job_state = IPP_JOB_STATE_UNABLE_TO_CONNECT;
+        job_state_dyn->job_state_reasons[0] = IPP_JOB_STATE_REASON_UNABLE_TO_CONNECT;
+    } else {
+        int reasons_idx = 0;
+        for (int i = 0; i < ippGetCount(attr); i++) {
+            const char *text = ippGetString(attr, i, NULL);
+            LOGD("get_JobStatus: ipp job-state-reason(%d) : %s", i, text);
+            if (strcmp(text, "job-canceled-by-user") == 0) {
+                job_state_dyn->job_state_reasons[reasons_idx++] =
+                        IPP_JOB_STATE_REASON_JOB_CANCELED_BY_USER;
+            } else if (strcmp(text, "job-canceled-at-device") == 0) {
+                job_state_dyn->job_state_reasons[reasons_idx++] =
+                        IPP_JOB_STATE_REASON_JOB_CANCELED_AT_DEVICE;
+            } else if (strcmp(text, "aborted-by-system") == 0) {
+                job_state_dyn->job_state_reasons[reasons_idx++] =
+                        IPP_JOB_STATE_REASON_ABORTED_BY_SYSTEM;
+            } else if (strcmp(text, "unsupported-compression") == 0) {
+                job_state_dyn->job_state_reasons[reasons_idx++] =
+                        IPP_JOB_STATE_REASON_UNSUPPORTED_COMPRESSION;
+            } else if (strcmp(text, "compression-error") == 0) {
+                job_state_dyn->job_state_reasons[reasons_idx++] =
+                        IPP_JOB_STATE_REASON_COMPRESSION_ERROR;
+            } else if (strcmp(text, "unsupported-document-format") == 0) {
+                job_state_dyn->job_state_reasons[reasons_idx++] =
+                        IPP_JOB_STATE_REASON_UNSUPPORTED_DOCUMENT_FORMAT;
+            } else if (strcmp(text, "document-format-error") == 0) {
+                job_state_dyn->job_state_reasons[reasons_idx++] =
+                        IPP_JOB_STATE_REASON_DOCUMENT_FORMAT_ERROR;
+            } else if (strcmp(text, "service-off-line") == 0) {
+                job_state_dyn->job_state_reasons[reasons_idx++] =
+                        IPP_JOB_STATE_REASON_SERVICE_OFFLINE;
+            } else if (strcmp(text, "document-password-error") == 0) {
+                job_state_dyn->job_state_reasons[reasons_idx++] =
+                        IPP_JOB_STATE_REASON_DOCUMENT_PASSWORD_ERROR;
+            } else if (strcmp(text, "document-permission-error") == 0) {
+                job_state_dyn->job_state_reasons[reasons_idx++] =
+                        IPP_JOB_STATE_REASON_DOCUMENT_PERMISSION_ERROR;
+            } else if (strcmp(text, "document-security-error") == 0) {
+                job_state_dyn->job_state_reasons[reasons_idx++] =
+                        IPP_JOB_STATE_REASON_DOCUMENT_SECURITY_ERROR;
+            } else if (strcmp(text, "document-unprintable-error") == 0) {
+                job_state_dyn->job_state_reasons[reasons_idx++] =
+                        IPP_JOB_STATE_REASON_DOCUMENT_UNPRINTABLE_ERROR;
+            } else if (strcmp(text, "document-access-error") == 0) {
+                job_state_dyn->job_state_reasons[reasons_idx++] =
+                        IPP_JOB_STATE_REASON_DOCUMENT_ACCESS_ERROR;
+            } else if (strcmp(text, "submission-interrupted") == 0) {
+                job_state_dyn->job_state_reasons[reasons_idx++] =
+                        IPP_JOB_STATE_REASON_SUBMISSION_INTERRUPTED;
+            } else if (strcmp(text, "account-authorization-failed") == 0) {
+                job_state_dyn->job_state_reasons[reasons_idx++] =
+                        IPP_JOB_STATE_REASON_AUTHORIZATION_FAILED;
+            } else if (strcmp(text, "account-closed") == 0) {
+                job_state_dyn->job_state_reasons[reasons_idx++] =
+                        IPP_JOB_STATE_REASON_ACCOUNT_CLOSED;
+            } else if (strcmp(text, "account-info-needed") == 0) {
+                job_state_dyn->job_state_reasons[reasons_idx++] =
+                        IPP_JOB_STATE_REASON_ACCOUNT_INFO_NEEDED;
+            } else if (strcmp(text, "account-limit-reached") == 0) {
+                job_state_dyn->job_state_reasons[reasons_idx++] =
+                        IPP_JOB_STATE_REASON_ACCOUNT_LIMIT_REACHED;
+            }
+        }
+    }
+}
+
+ipp_status_t get_JobStatus(http_t *http,
+              char *printer_uri,        /* I - URI buffer */
+              int job_id,
+              job_state_dyn_t *job_state_dyn,
+              ipp_jstate_t *job_state,
+              const char *requesting_user) {
+
+    LOGD("get_JobStatus(): Enter");
+    static const char *const jattrs[] =
+            {            /* Job attributes we want */
+                    "job-id",
+                    "job-printer-uri",
+                    "job-name",
+                    "job-state",
+                    "job-state-reasons"
+            };
+    int service_unavailable_retry_count = 0;
+    int bad_request_retry_count = 0;
+    int op = IPP_GET_JOB_ATTRIBUTES;
+    ipp_t *request;  /* IPP request object */
+    ipp_t *response; /* IPP response object */
+    ipp_attribute_t *attr;     /* Current IPP attribute */
+    ipp_attribute_t *attrptr;        /* Attribute pointer */
+    ipp_status_t ipp_status = IPP_OK;        /* Status of IPP request */
+    ipp_version_state ipp_version_supported = IPP_VERSION_RESOLVED;
+    char http_resource[1024];
+    getResourceFromURI(printer_uri, http_resource, 1024);
+
+    if (job_state_dyn == NULL) {
+        LOGE("get_JobStatus():   ERROR:  get_JobStatus entry: job_state_dyn is null");
+        return ipp_status;
+    }
+
+    if (job_state != NULL) {
+        *job_state = IPP_JOB_UNKNOWN;
+    } else {
+        LOGE("  get_JobStatus: job_state is null");
+        // return error...
+        return ipp_status;
+    }
+
+    LOGD(" get_JobStatus IPP_GET_JOB_ATTRIBUTES  http->fd %d", http->fd);
+    do {
+        ipp_status = IPP_OK; // reset ipp_status
+
+        request = ippNewRequest(op);
+        if (set_ipp_version(request, printer_uri, http, ipp_version_supported) != 0) {
+            LOGE("get_JobStatus(): set_ipp_version!=0, version not set");
+            ipp_status = IPP_VERSION_NOT_SUPPORTED;
+            ippDelete(request);
+            break;
+        }
+
+        ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, printer_uri);
+        ippAddInteger(request, IPP_TAG_OPERATION, IPP_TAG_INTEGER, "job-id", job_id);
+        ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
+                     NULL, requesting_user);
+        ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD, "requested-attributes",
+                      sizeof(jattrs) / sizeof(jattrs[0]), NULL, jattrs);
+
+        for (attrptr = ippFirstAttribute(request); attrptr; attrptr = ippNextAttribute(request)) {
+            print_attr(attrptr);
+        }
+
+        if ((response = cupsDoRequest(http, request, http_resource)) == NULL) {
+            job_state_dyn->job_state = IPP_JOB_STATE_UNABLE_TO_CONNECT;
+            job_state_dyn->job_state_reasons[0] = IPP_JOB_STATE_REASON_UNABLE_TO_CONNECT;
+            ipp_status = cupsLastError();
+            LOGE("  get_JobStatus:  response is null:  ipp_status %d", ipp_status);
+            if (ipp_status == IPP_INTERNAL_ERROR) {
+                LOGE("get_JobStatus: 1280 received, bailing...");
+                break;
+            }
+            if (ipp_status == IPP_SERVICE_UNAVAILABLE &&
+                (service_unavailable_retry_count < IPP_SERVICE_ERROR_MAX_RETRIES)) {
+                LOGE("1282 received, retrying %d of %d", service_unavailable_retry_count,
+                     IPP_SERVICE_ERROR_MAX_RETRIES);
+                service_unavailable_retry_count++;
+                continue;
+            }
+            if (ipp_status == IPP_BAD_REQUEST) {
+                LOGE("IPP_Status of IPP_BAD_REQUEST received. retry (%d) of (%d)",
+                     bad_request_retry_count, IPP_BAD_REQUEST_MAX_RETRIES);
+                bad_request_retry_count++;
+                continue;
+            }
+            if (ipp_status == IPP_NOT_FOUND) {
+                LOGE("IPP_Status of IPP_NOT_FOUND received. Switching resource path.");
+                if (tryNextResourceExtension(printer_uri)) {
+                    getResourceFromURI(printer_uri, http_resource, 1024);
+                    continue;
+                } else {
+                    LOGE("No more resource paths to try");
+                    break;
+                }
+            }
+        } else {
+            ipp_status = cupsLastError();
+
+            LOGD("ipp CUPS last ERROR: %d, %s", ipp_status, ippErrorString(ipp_status));
+            if (ipp_status == IPP_BAD_REQUEST) {
+                LOGE("IPP_Status of IPP_BAD_REQUEST received. retry (%d) of (%d)",
+                     bad_request_retry_count, IPP_BAD_REQUEST_MAX_RETRIES);
+                bad_request_retry_count++;
+                ippDelete(response);
+                continue;
+            }
+            if (ipp_status == IPP_VERSION_NOT_SUPPORTED) {
+                ipp_version_supported = IPP_VERSION_UNSUPPORTED;
+                ippDelete(response);
+                continue;
+            }
+            LOGD("  get_JobStatus:  response!=null:  ipp_status %d", ipp_status);
+            for (attrptr = ippFirstAttribute(response);
+                    attrptr;
+                    attrptr = ippNextAttribute(response))
+                print_attr(attrptr);
+        }
+
+        set_jobStateDyn(response, job_state, job_state_dyn);
+        parse_jobStateReasons(response, job_state_dyn);
+
+        if (response != NULL) ippDelete(response);
+
+        break;
+    } while (bad_request_retry_count < IPP_BAD_REQUEST_MAX_RETRIES &&
+             service_unavailable_retry_count < IPP_SERVICE_ERROR_MAX_RETRIES);
+
+    LOGD("  get_JobStatus exit  ipp_status %d, job_state %d", ipp_status, *job_state);
+
+    return ipp_status;
+}
+
 static void print_col(ipp_t *col) {
     int i;
     ipp_attribute_t *attr;
@@ -630,15 +922,155 @@ int ipp_find_media_size(const char *ipp_media_keyword, media_size_t *media_size)
     return -1;
 }
 
-void parse_getMediaSupported(ipp_t *response, media_supported_t *media_supported) {
+static int getMediaSizeFromTag(const char *media_size_tag, media_size_t *media_size) {
     int i;
-    ipp_attribute_t *attrptr;
+    LOGD("find media size from tag %s", media_size_tag);
+    for (i = 0; i < SUPPORTED_MEDIA_SIZE_COUNT; i++) {
+        if (strcmp(SupportedMediaSizes[i].PWGName, media_size_tag) == 0) {
+            LOGD("Media size match: pwg name %s", SupportedMediaSizes[i].PWGName);
+            *media_size = SupportedMediaSizes[i].media_size;
+            return i;
+        }
+    }
+    return -1;
+}
+
+static int getMediaSizeNameFromDimens(
+        unsigned int mediaColReadyWidth,
+        unsigned int mediaColReadyHeight,
+        media_size_t *media_size) {
+    int i;
+    for (i = 0; i < SUPPORTED_MEDIA_SIZE_COUNT; i++) {
+        if (SupportedMediaSizes[i].WidthInMicrometers / 10 == mediaColReadyWidth
+            && SupportedMediaSizes[i].HeightInMicrometers / 10 == mediaColReadyHeight) {
+            *media_size = SupportedMediaSizes[i].media_size;
+            return i;
+        }
+    }
+    return -1;
+}
+
+static void addMediaIfNotDuplicate(
+        int idx,
+        int *sizes_idx,
+        media_supported_t *media_supported,
+        media_size_t media_size) {
+    if (idx >= 0) {
+        // Check if we've already added this media size to the supported list
+        bool isDuplicate = false;
+        for (int j = 0; j < (*sizes_idx); j++) {
+            if (media_supported->idxKeywordTranTable[j] == idx) {
+                isDuplicate = true;
+                break;
+            }
+        }
+        // Only add if it hasn't been added yet
+        if (!isDuplicate) {
+            media_supported->media_size[(*sizes_idx)] = media_size;
+            media_supported->idxKeywordTranTable[(*sizes_idx)] = idx;
+            (*sizes_idx)++;
+        }
+    }
+}
+
+static void addRollSupportedSizes(
+        unsigned int width,
+        unsigned int minHeight,
+        unsigned int maxHeight,
+        media_supported_t *media_supported,
+        int *sizesIdx) {
+    // If a supported media size fits on the roll size, add it to the list
+    for (int i = 0; i < SUPPORTED_MEDIA_SIZE_COUNT; i++) {
+        if(SupportedMediaSizes[i].WidthInMicrometers / 10 <= width
+            && SupportedMediaSizes[i].HeightInMicrometers / 10 >= minHeight
+            && SupportedMediaSizes[i].HeightInMicrometers / 10 <= maxHeight) {
+            addMediaIfNotDuplicate(i, sizesIdx, media_supported, SupportedMediaSizes[i].media_size);
+        }
+    }
+}
+
+void parse_getMediaSupported(
+        ipp_t *response,
+        media_supported_t *media_supported,
+        printer_capabilities_t *capabilities) {
+    int i;
     int sizes_idx = 0;
     LOGD(" Entered getMediaSupported");
 
     media_size_t media_sizeTemp;
     int idx = 0;
 
+    // Check for media-col-ready first
+    ipp_attribute_t *attrptr;
+    if((attrptr =
+        ippFindAttribute(response, "media-col-ready", IPP_TAG_BEGIN_COLLECTION)) != NULL) {
+        LOGD("media-col-ready found");
+        for (i = 0; i < ippGetCount(attrptr); i++) {
+            ipp_t *collection = ippGetCollection(attrptr, i);
+            ipp_attribute_t *attrptr2;
+            media_ready_set_t mediaReadySet = {};
+            int minHeight = 0, maxHeight = 0;
+            for (attrptr2 = ippFirstAttribute(collection);
+                 (attrptr2 != NULL);
+                 attrptr2 = ippNextAttribute(collection)) {
+                if (strcmp("media-size", ippGetName(attrptr2)) == 0) {
+                    ipp_t *collection_sec = ippGetCollection(attrptr2, 0);
+                    ipp_attribute_t *attrptr3;
+                    for (attrptr3 = ippFirstAttribute(collection_sec);
+                         (attrptr3 != NULL);
+                         attrptr3 = ippNextAttribute(collection_sec)) {
+                        if (strcmp("x-dimension", ippGetName(attrptr3)) == 0) {
+                            mediaReadySet.x_dimension = ippGetInteger(attrptr3, 0);
+                        } else if (strcmp("y-dimension", ippGetName(attrptr3)) == 0) {
+                            if (ippGetValueTag(attrptr3) == IPP_TAG_RANGE) {
+                                minHeight = ippGetRange(attrptr3, 0, &maxHeight);
+                                mediaReadySet.y_dimension = minHeight;
+                            } else if (ippGetValueTag(attrptr3) == IPP_TAG_INTEGER) {
+                                mediaReadySet.y_dimension = ippGetInteger(attrptr3, 0);
+                            }
+                        }
+                    }
+                } else if (strcmp("media-source", ippGetName(attrptr2)) == 0) {
+                    memset(mediaReadySet.media_tray_tag, 0, MAX_STRING + 1);
+                    strncpy(mediaReadySet.media_tray_tag,
+                            ippGetString(attrptr2, 0, NULL), MAX_STRING);
+                }
+            }
+            if (minHeight > 0 && maxHeight > 0
+                && strstr(mediaReadySet.media_tray_tag, "roll") != NULL) {
+                // If the source is a roll, add supported sizes that would fit on the roll
+                addRollSupportedSizes(mediaReadySet.x_dimension, minHeight, maxHeight,
+                                      media_supported, &sizes_idx);
+            } else {
+                // Get the media size name from x and y dimensions
+                idx = getMediaSizeNameFromDimens(mediaReadySet.x_dimension,
+                                                 mediaReadySet.y_dimension,
+                                                 &media_sizeTemp);
+                addMediaIfNotDuplicate(idx, &sizes_idx, media_supported, media_sizeTemp);
+            }
+        }
+    }
+    // Check media-ready if no supported media was found in media-col-ready
+    if (sizes_idx == 0
+        && (attrptr = ippFindAttribute(response, "media-ready", IPP_TAG_KEYWORD)) != NULL) {
+        LOGD("media-ready found");
+        for (i = 0; i < ippGetCount(attrptr); i++) {
+            char media_size_tag[MAX_STRING + 1];
+            memset(media_size_tag, 0, MAX_STRING + 1);
+            strncpy(media_size_tag,
+                    ippGetString(attrptr, i, NULL), MAX_STRING);
+            idx = getMediaSizeFromTag(media_size_tag, &media_sizeTemp);
+            addMediaIfNotDuplicate(idx, &sizes_idx, media_supported, media_sizeTemp);
+        }
+    }
+
+    // Set media ready size as default if we found any
+    if (sizes_idx > 0) {
+        strlcpy(capabilities->mediaDefault, mapDFMediaToIPPKeyword(media_supported->media_size[0]),
+                    sizeof(capabilities->mediaDefault));
+    }
+
+    // Append media-supported. media is de-duplicated later in java
     if ((attrptr = ippFindAttribute(response, "media-supported", IPP_TAG_KEYWORD)) != NULL) {
         LOGD("media-supported  found; number of values %d", ippGetCount(attrptr));
         for (i = 0; i < ippGetCount(attrptr); i++) {
@@ -652,8 +1084,9 @@ void parse_getMediaSupported(ipp_t *response, media_supported_t *media_supported
                 sizes_idx++;
             }
         }
-    } else {
-        LOGD("media-supported not found");
+    }
+    if (sizes_idx == 0) {
+        LOGD("No supported media found");
     }
 }
 
@@ -711,7 +1144,7 @@ void parse_printerAttributes(ipp_t *response, printer_capabilities_t *capabiliti
     for (i = 0; i <= PAGE_STATUS_MAX - 1; i++) {
         media_supported.media_size[i] = 0;
     }
-    parse_getMediaSupported(response, &media_supported);
+    parse_getMediaSupported(response, &media_supported, capabilities);
 
     parse_printerUris(response, capabilities);
 
@@ -757,7 +1190,8 @@ void parse_printerAttributes(ipp_t *response, printer_capabilities_t *capabiliti
                 sizeof(capabilities->location));
     }
 
-    if ((attrptr = ippFindAttribute(response, "media-default", IPP_TAG_KEYWORD)) != NULL) {
+    if ((attrptr = ippFindAttribute(response, "media-default", IPP_TAG_KEYWORD)) != NULL
+         && strlen(capabilities->mediaDefault) <= 0) {
         strlcpy(capabilities->mediaDefault, ippGetString(attrptr, 0, NULL),
                 sizeof(capabilities->mediaDefault));
     }
@@ -838,6 +1272,8 @@ void parse_printerAttributes(ipp_t *response, printer_capabilities_t *capabiliti
                 addMediaType(capabilities, MEDIA_PHOTO);
             } else if (strcasestr(ippGetString(attrptr, i, NULL), "stationery")) {
                 addMediaType(capabilities, MEDIA_PLAIN);
+            } else if (strcasestr(ippGetString(attrptr, i, NULL), "auto")) {
+                addMediaType(capabilities, MEDIA_AUTO);
             }
         }
     }
@@ -1051,6 +1487,15 @@ void parse_printerAttributes(ipp_t *response, printer_capabilities_t *capabiliti
             capabilities->faceDownTray = 0;
         }
     }
+    if ((attrptr = ippFindAttribute(response, "printer-output-tray", IPP_TAG_STRING)) != NULL) {
+        for (i = 0; i < ippGetCount(attrptr); i++) {
+            int length = 0;
+            const char *tray_str = ippGetOctetString(attrptr, i, &length);
+            if (strstr(tray_str, "faceUp") != NULL) {
+                capabilities->faceDownTray = 0;
+            }
+        }
+    }
 
     // Determine supported document format details
     if ((attrptr = ippFindAttribute(response, "document-format-details-supported",
@@ -1175,8 +1620,9 @@ static int ipp_server_cert_cb(http_t *http, void *tls, cups_array_t *certs, void
     if (connect_info->validate_certificate) {
         http_credential_t *credential = cupsArrayFirst(certs);
         if (credential) {
-            LOGD("ipp_server_cert_cb: validate_certificate (len=%d)", credential->datalen);
-            error = connect_info->validate_certificate(connect_info, credential->data, credential->datalen);
+            LOGD("ipp_server_cert_cb: validate_certificate (len=%zu)", credential->datalen);
+            error = connect_info->validate_certificate(connect_info, credential->data,
+                                                       credential->datalen);
         }
     }
     return error;
@@ -1198,19 +1644,22 @@ http_t *ipp_cups_connect(const wprint_connect_info_t *connect_info, char *printe
     int ippPortNumber = ((connect_info->port_num == IPP_PORT) ? ippPort() : connect_info->port_num);
 
     if (strstr(connect_info->uri_scheme,IPPS_PREFIX) != NULL) {
-        curl_http = httpConnectEncrypt(connect_info->printer_addr, ippPortNumber, HTTP_ENCRYPTION_ALWAYS);
+        curl_http = httpConnect2(connect_info->printer_addr, ippPortNumber, NULL, AF_UNSPEC,
+                HTTP_ENCRYPTION_ALWAYS, 1, HTTP_TIMEOUT_MILLIS, NULL);
 
         // If ALWAYS doesn't work, fall back to REQUIRED
         if (curl_http == NULL) {
-            curl_http = httpConnectEncrypt(connect_info->printer_addr, ippPortNumber, HTTP_ENCRYPT_REQUIRED);
+            curl_http = httpConnect2(connect_info->printer_addr, ippPortNumber, NULL, AF_UNSPEC,
+                    HTTP_ENCRYPTION_REQUIRED, 1, HTTP_TIMEOUT_MILLIS, NULL);
         }
     } else {
-        curl_http = httpConnectEncrypt(connect_info->printer_addr, ippPortNumber, HTTP_ENCRYPTION_IF_REQUESTED);
+        curl_http = httpConnect2(connect_info->printer_addr, ippPortNumber, NULL, AF_UNSPEC,
+                HTTP_ENCRYPTION_IF_REQUESTED, 1, HTTP_TIMEOUT_MILLIS, NULL);
     }
 
     httpSetTimeout(curl_http, (double)connect_info->timeout / 1000, NULL, 0);
     httpAssembleURIf(HTTP_URI_CODING_ALL, printer_uri, uriLength, connect_info->uri_scheme, NULL,
-            connect_info->printer_addr, ippPortNumber, uri_path);
+            connect_info->printer_addr, ippPortNumber, "%s", uri_path);
 
     if (curl_http == NULL) {
         LOGD("ipp_cups_connect failed addr=%s port=%d", connect_info->printer_addr, ippPortNumber);
@@ -1242,7 +1691,6 @@ static ipp_t *ippSendRequest(http_t *http, ipp_t *request, char *resource) {
             LOGD("ippSendRequest: (Continue with NULL response) Retry");
             retry = true;
         } else if (result == HTTP_ERROR || result >= HTTP_BAD_REQUEST) {
-            _cupsSetHTTPError(result);
             break;
         }
 
@@ -1345,4 +1793,67 @@ ipp_t *ipp_doCupsRequest(http_t *http, ipp_t *request, char *http_resource, char
     } while (1);
 
     return response;
+}
+
+int getJobId(http_t *http,
+              char *http_resource,
+              char *printer_uri,        /* I - URI buffer */
+              job_state_dyn_t *job_state_dyn,
+              const char *requesting_user) {
+    int job_id = -1;
+    // Requested print job attributes
+    static const char *jattrs[] = {"job-id"};
+    ipp_t *request = NULL;  /* IPP request object */
+    ipp_t *response = NULL; /* IPP response object */
+
+    request = ippNewRequest(IPP_GET_JOBS);
+
+    if (request != NULL) {
+        ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL, printer_uri);
+        ippAddBoolean(request, IPP_TAG_OPERATION, "my-jobs", 1);
+        ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_NAME, "requesting-user-name",
+                     NULL, requesting_user);
+        ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD, "requested-attributes",
+                      sizeof(jattrs) / sizeof(jattrs[0]), NULL, jattrs);
+
+        if ((response = ipp_doCupsRequest(http, request, http_resource, printer_uri)) == NULL) {
+            job_state_dyn->job_state = IPP_JOB_STATE_UNABLE_TO_CONNECT;
+            job_state_dyn->job_state_reasons[0] = IPP_JOB_STATE_REASON_UNABLE_TO_CONNECT;
+        } else {
+            ipp_attribute_t *attr = ippFindAttribute(response, "job-id", IPP_TAG_INTEGER);
+            if (attr != NULL) job_id = ippGetInteger(attr, 0);
+        }
+    }
+
+    if (request != NULL) ippDelete(request);
+    if (response != NULL) ippDelete(response);
+
+    LOGD("getJobId() returning job-id: %d", job_id);
+    return job_id;
+}
+
+int tryNextResourceExtension(char *printer_uri) {
+    char scheme[1024];
+    char username[1024];
+    char host[1024];
+    char resource[1024];
+    int port;
+
+    httpSeparateURI(0, printer_uri, scheme, 1024, username, 1024, host, 1024,
+                    &port, resource, 1024);
+
+    int index;
+    for (index = 0; index < ARRAY_SIZE(resource_extensions_arr); index++) {
+        if (strcmp(resource_extensions_arr[index], resource) == 0) {
+            break;
+        }
+    }
+    if (index >= (ARRAY_SIZE(resource_extensions_arr) - 1)) {
+        return 0;
+    } else {
+        httpAssembleURIf(HTTP_URI_CODING_ALL, printer_uri, 1024, scheme, NULL,
+                         host, port, "%s", resource_extensions_arr[index + 1]);
+        LOGD("next resource %s", printer_uri);
+        return 1;
+    }
 }
