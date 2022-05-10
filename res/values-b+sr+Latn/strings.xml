@@ -40,7 +40,7 @@
     <string name="media_size_4x6in" msgid="3093276425529958253">"4×6 in"</string>
     <string name="printer_description" msgid="8580767673213837142">"%1$s – %2$s"</string>
     <string name="title_activity_add_printer" msgid="9119216095769228566">"Dodaj štampač"</string>
-    <string name="add_printer_by_ip" msgid="562864787592910327">"Dodaj štampač pomoću IP adrese"</string>
+    <string name="add_printer_by_ip" msgid="562864787592910327">"Dodajte štampač pomoću IP adrese"</string>
     <string name="hostname_or_ip" msgid="3460546103553992915">"Ime hosta ili IP adresa"</string>
     <string name="ip_hint" msgid="7939777481941979799">"192.168.0.4"</string>
     <string name="add" msgid="1950342261671100906">"Dodaj"</string>
@@ -71,7 +71,11 @@
     <string name="accept" msgid="4426153292469698134">"Prihvati"</string>
     <string name="reject" msgid="24751635160440693">"Odbij"</string>
     <string name="connections" msgid="8895413761760117180">"Veze"</string>
+    <string name="wifi_direct_problem" msgid="8995174986718516990">"Usluga podrazumevanog štampanja nije uspela da pronađe WiFi Direct štampače"</string>
+    <string name="disable_wifi_direct" msgid="4824677957241687577">"Ugasi WiFi Direct"</string>
     <string name="wifi_direct_permission_rationale" msgid="3599186620970379218">"Usluzi podrazumevanog štampanja treba dozvola za lokaciju da bi pronašla uređaje u blizini."</string>
     <string name="fix" msgid="7784394272611365393">"Prikaži dozvolu"</string>
+    <string name="wifi_direct_location_rationale" msgid="5084311320511965454">"Usluzi podrazumevanog štampanja zahteva omogućene usluge lokacije radi pronalaženja uređaja u blizini."</string>
+    <string name="enable_location" msgid="3627841004298863140">"Omogući lokaciju"</string>
     <string name="print" msgid="7851318072404916362">"Odštampaj"</string>
 </resources>
