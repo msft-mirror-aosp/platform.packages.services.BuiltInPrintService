@@ -97,7 +97,8 @@ extern status_t set_ipp_version(ipp_t *, char *, http_t *, ipp_version_state);
 /*
  * Parses supported media from the IPP response and copies the list into capabilities
  */
-extern void parse_getMediaSupported(ipp_t *response, media_supported_t *media_supported);
+extern void parse_getMediaSupported(ipp_t *response, media_supported_t *media_supported,
+        printer_capabilities_t *capabilities);
 
 /*
  * Logs printer capabilities
@@ -142,6 +143,11 @@ http_t *ipp_cups_connect(const wprint_connect_info_t *info, char *printer_uri,
  * Executes a CUPS request with the given ipp request structure
  */
 ipp_t *ipp_doCupsRequest(http_t *http, ipp_t *request, char *http_resource, char *printer_uri);
+
+extern int getJobId(http_t *http, char *http_resource, char *printer_uri,
+        job_state_dyn_t *job_state_dyn, const char *requesting_user);
+
+extern int tryNextResourceExtension(char *printer_uri);
 
 #define IPP_PREFIX "ipp"
 #define IPPS_PREFIX "ipps"
