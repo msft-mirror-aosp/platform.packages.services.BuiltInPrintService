@@ -77,5 +77,5 @@
     <string name="fix" msgid="7784394272611365393">"അനുമതി അവലോകനം"</string>
     <string name="wifi_direct_location_rationale" msgid="5084311320511965454">"സമീപമുള്ള ഉപകരണങ്ങൾ കണ്ടെത്താൻ ഡിഫോൾട്ട് പ്രിന്റ് സേവനത്തിന് ലൊക്കേഷൻ സേവനങ്ങൾ പ്രവർത്തനക്ഷമമാക്കേണ്ടതുണ്ട്."</string>
     <string name="enable_location" msgid="3627841004298863140">"ലൊക്കേഷൻ പ്രവർത്തനക്ഷമമാക്കൂ"</string>
-    <string name="print" msgid="7851318072404916362">"പ്രിന്റ്"</string>
+    <string name="print" msgid="7851318072404916362">"അച്ചടിക്കുക"</string>
 </resources>

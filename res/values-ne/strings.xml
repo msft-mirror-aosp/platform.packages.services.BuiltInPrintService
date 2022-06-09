@@ -50,7 +50,7 @@
     <string name="wifi_direct" msgid="4629404342852294985">"Wi-fi Direct"</string>
     <string name="find_wifi_direct" msgid="5270504288829123954">"Wi-Fi प्रत्यक्ष प्रिन्टरहरू फेला पार्नुहोस्‌"</string>
     <string name="wifi_direct_printing" msgid="8423811041563144048">"Wi-Fi Direct प्रिन्टिङ"</string>
-    <string name="wifi_direct_printers" msgid="541168032444693191">"Wi-Fi Direct प्रिन्टरहरू"</string>
+    <string name="wifi_direct_printers" msgid="541168032444693191">"Wi-Fi प्रत्यक्षका प्रिन्टरहरू"</string>
     <string name="searching" msgid="2114018057619514587">"खोजी गरिँदै छ…"</string>
     <string name="connect_hint_text" msgid="587112503851044234">"तपाईंले आफ्नो प्रिन्टरको अग्रभागको प्यानलमा यो जडानलाई अनुमोदन गर्नु पर्ने हुन सक्छ"</string>
     <string name="connecting_to" msgid="2665161014972086194">"<xliff:g id="PRINTER">%1$s</xliff:g> मा जडान गरिँदै छ"</string>

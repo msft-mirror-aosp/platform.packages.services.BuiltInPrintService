@@ -50,7 +50,7 @@
     <string name="wifi_direct" msgid="4629404342852294985">"Wi-Fi Direct"</string>
     <string name="find_wifi_direct" msgid="5270504288829123954">"Znajdź drukarki obsługujące Wi-Fi Direct"</string>
     <string name="wifi_direct_printing" msgid="8423811041563144048">"Drukowanie Wi-Fi Direct"</string>
-    <string name="wifi_direct_printers" msgid="541168032444693191">"Drukarki Wi-Fi Direct"</string>
+    <string name="wifi_direct_printers" msgid="541168032444693191">"Drukarki obsługujące Wi-Fi Direct"</string>
     <string name="searching" msgid="2114018057619514587">"Wyszukuję…"</string>
     <string name="connect_hint_text" msgid="587112503851044234">"Być może konieczne będzie zatwierdzenie tego połączenia na panelu przednim drukarki"</string>
     <string name="connecting_to" msgid="2665161014972086194">"Łączę z: <xliff:g id="PRINTER">%1$s</xliff:g>"</string>
