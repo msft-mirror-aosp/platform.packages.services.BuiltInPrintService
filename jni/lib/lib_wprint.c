@@ -197,6 +197,8 @@ static sem_t _job_start_wait_sem;
 
 static _io_plugin_t _io_plugins[2];
 
+static volatile bool stop_run = false;
+
 char g_osName[MAX_ID_STRING_LENGTH + 1] = {0};
 char g_appName[MAX_ID_STRING_LENGTH + 1] = {0};
 char g_appVersion[MAX_ID_STRING_LENGTH + 1] = {0};
@@ -927,7 +929,7 @@ static void *_job_thread(void *param) {
                 int retry = 0;
                 bool idle = false;
                 printer_state_dyn_t printer_state;
-                while (!idle) {
+                while (!idle && !stop_run) {
                     print_status_t status;
                     jq->status_ifc->get_status(jq->status_ifc, &printer_state);
                     status = printer_state.printer_status & ~PRINTER_IDLE_BIT;
@@ -997,8 +999,13 @@ static void *_job_thread(void *param) {
                 if (jq->job_params.cancelled) {
                     job_result = CANCELLED;
                 } else {
-                    job_result = (((printer_state.printer_status & ~PRINTER_IDLE_BIT) ==
-                            PRINT_STATUS_IDLE) ? OK : ERROR);
+                    if (stop_run) {
+                        jq->job_state = JOB_STATE_ERROR;
+                        job_result = ERROR;
+                    } else {
+                        job_result = (((printer_state.printer_status & ~PRINTER_IDLE_BIT) ==
+                                       PRINT_STATUS_IDLE) ? OK : ERROR);
+                    }
                 }
             }
 
@@ -1419,6 +1426,7 @@ static int _start_thread(void) {
     _job_tid = pthread_self();
 
     result = OK;
+    stop_run = false;
     sigfillset(&allsig);
 #if CHECK_PTHREAD_SIGMASK_STATUS
     result = pthread_sigmask(SIG_SETMASK, &allsig, &oldsig);
@@ -1453,6 +1461,7 @@ static int _start_thread(void) {
  * Waits for the job thread to reach a stopped state
  */
 static int _stop_thread(void) {
+    stop_run = true;
     if (!pthread_equal(_job_tid, pthread_self())) {
         pthread_join(_job_tid, 0);
         _job_tid = pthread_self();
