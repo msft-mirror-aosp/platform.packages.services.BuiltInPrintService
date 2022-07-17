@@ -29,7 +29,7 @@
     <string name="printer_offline" msgid="9196864753298645066">"ఆఫ్‌లైన్"</string>
     <string name="printer_bad_certificate" msgid="1366180387095466268">"సర్టిఫికెట్‌ చెల్లదు"</string>
     <string name="printer_not_encrypted" msgid="1913051469275483673">"ఎన్‌క్రిప్ట్ చేయబడలేదు"</string>
-    <string name="printer_check" msgid="6428369671197132828">"ప్రింటర్‌ని తనిఖీ చేయి"</string>
+    <string name="printer_check" msgid="6428369671197132828">"ప్రింటర్‌ని చెక్ చేయండి"</string>
     <string name="waiting_to_send" msgid="2022115199902822180">"పంపడానికి వేచి ఉంది"</string>
     <string name="unreadable_input" msgid="2199948329556527912">"డాక్యుమెంట్‌ను చదవడం సాధ్యం కాలేదు"</string>
     <string name="media_size_l" msgid="164416542021598181">"L"</string>
