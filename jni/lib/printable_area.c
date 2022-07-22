@@ -23,8 +23,8 @@
 
 #define TAG "printable_area"
 
-void printable_area_get(wprint_job_params_t *job_params, float top_margin, float left_margin,
-        float right_margin, float bottom_margin) {
+void printable_area_get(wprint_job_params_t *job_params, float top_margin,
+        float left_margin, float right_margin, float bottom_margin) {
     if (job_params == NULL) return;
 
     job_params->printable_area_width = job_params->printable_area_height = 0.0f;
@@ -41,6 +41,14 @@ void printable_area_get(wprint_job_params_t *job_params, float top_margin, float
             job_params->page_height = SupportedMediaSizes[i].HeightInInches / 1000;
         }
     }
+
+    // Threshold value for catering slight variation b/w source dims and page dims
+    const float PAGE_SIZE_EPSILON = 0.04f;
+    if (fabsf(job_params->source_width - job_params->page_width) < PAGE_SIZE_EPSILON &&
+        fabsf(job_params->source_height - job_params->page_height) < PAGE_SIZE_EPSILON) {
+        top_margin = left_margin = right_margin = bottom_margin = 0.0f;
+    }
+
     // don't adjust for margins if job is PCLm.  dimensions of image will not
     // match (will be bigger than) the dimensions of the page size and a corrupt image will render
     // in genPCLm
@@ -109,6 +117,11 @@ void printable_area_get(wprint_job_params_t *job_params, float top_margin, float
             (job_params->print_left_margin + job_params->print_right_margin));
     job_params->height = (job_params->printable_area_height -
             (job_params->print_top_margin + job_params->print_bottom_margin));
+
+    LOGD("printable_area_get(): source dimensions: %fx%f",
+         job_params->source_width, job_params->source_height);
+    LOGD("printable_area_get(): page dimensions: %fx%f",
+         job_params->page_width, job_params->page_height);
 }
 
 void printable_area_get_default_margins(const wprint_job_params_t *job_params,
