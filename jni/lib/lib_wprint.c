@@ -1909,13 +1909,25 @@ status_t wprintGetFinalJobParams(wprint_job_params_t *job_params,
 
     printable_area_get_default_margins(job_params, printer_cap, &margins[TOP_MARGIN],
             &margins[LEFT_MARGIN], &margins[RIGHT_MARGIN], &margins[BOTTOM_MARGIN]);
-    printable_area_get(job_params, margins[TOP_MARGIN], margins[LEFT_MARGIN], margins[RIGHT_MARGIN],
-            margins[BOTTOM_MARGIN]);
+    printable_area_get(job_params, margins[TOP_MARGIN], margins[LEFT_MARGIN],
+            margins[RIGHT_MARGIN], margins[BOTTOM_MARGIN]);
 
     job_params->accepts_app_name = printer_cap->docSourceAppName;
     job_params->accepts_app_version = printer_cap->docSourceAppVersion;
     job_params->accepts_os_name = printer_cap->docSourceOsName;
     job_params->accepts_os_version = printer_cap->docSourceOsVersion;
+
+    // Strip height calculation for PCLm by taking the GCD of printable_height and
+    // printer_cap->stripHeight, this needs to be called after printable_area_get()
+    int adjusted_strip_height = job_params->printable_area_height % printer_cap->stripHeight;
+    if (job_params->pcl_type == PCLm && adjusted_strip_height != 0) {
+        for (i = 1; i <= job_params->printable_area_height && i <= printer_cap->stripHeight; ++i) {
+            if (job_params->printable_area_height % i == 0 && printer_cap->stripHeight % i == 0) {
+                adjusted_strip_height = i;
+            }
+        }
+        job_params->strip_height = adjusted_strip_height;
+    }
 
     return result;
 }
