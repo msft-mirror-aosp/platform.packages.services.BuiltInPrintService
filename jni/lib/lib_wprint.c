@@ -2217,7 +2217,7 @@ status_t wprintCancelJob(wJob_t job_handle) {
 
     if (jq) {
         LOGI("received cancel request");
-        // send a dummy page in case we're waiting on the msgQ page receive
+        // send an empty page in case we're waiting on the msgQ page receive
         if ((jq->job_state == JOB_STATE_RUNNING) || (jq->job_state == JOB_STATE_BLOCKED)) {
             bool enableTimeout = true;
             jq->cancel_ok = true;
@@ -2312,7 +2312,6 @@ status_t wprintExit(void) {
 
         sem_destroy(&_job_end_wait_sem);
         sem_destroy(&_job_start_wait_sem);
-        pthread_mutex_destroy(&_q_lock);
     }
 
     return OK;
