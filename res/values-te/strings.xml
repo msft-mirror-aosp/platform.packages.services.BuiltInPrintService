@@ -29,7 +29,7 @@
     <string name="printer_offline" msgid="9196864753298645066">"ఆఫ్‌లైన్"</string>
     <string name="printer_bad_certificate" msgid="1366180387095466268">"సర్టిఫికెట్‌ చెల్లదు"</string>
     <string name="printer_not_encrypted" msgid="1913051469275483673">"ఎన్‌క్రిప్ట్ చేయబడలేదు"</string>
-    <string name="printer_check" msgid="6428369671197132828">"ప్రింటర్‌ని తనిఖీ చేయి"</string>
+    <string name="printer_check" msgid="6428369671197132828">"ప్రింటర్‌ని చెక్ చేయండి"</string>
     <string name="waiting_to_send" msgid="2022115199902822180">"పంపడానికి వేచి ఉంది"</string>
     <string name="unreadable_input" msgid="2199948329556527912">"డాక్యుమెంట్‌ను చదవడం సాధ్యం కాలేదు"</string>
     <string name="media_size_l" msgid="164416542021598181">"L"</string>
@@ -74,6 +74,6 @@
     <string name="wifi_direct_problem" msgid="8995174986718516990">"ఆటోమేటిక్ ప్రింట్ సర్వీస్, Wi-Fi Direct ప్రింటర్‌లను కనుగొనలేకపోయింది"</string>
     <string name="disable_wifi_direct" msgid="4824677957241687577">"Wi-Fi Directను డిజేబుల్ చేయి"</string>
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"సమీపంలోని ప్రింటర్‌లను కనుగొనడానికి ఆటోమేటిక్ ప్రింట్ సర్వీస్‌కు సమీపంలోని పరికరాల అనుమతి అవసరం."</string>
-    <string name="fix" msgid="7784394272611365393">"అనుమతిని సమీక్షించు"</string>
+    <string name="fix" msgid="7784394272611365393">"అనుమతిని రివ్యూ చేయండి"</string>
     <string name="print" msgid="7851318072404916362">"ప్రింట్ చేయి"</string>
 </resources>
