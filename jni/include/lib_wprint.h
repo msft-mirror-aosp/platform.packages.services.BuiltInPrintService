@@ -203,6 +203,9 @@ typedef struct {
     bool accepts_app_version;
     bool accepts_os_name;
     bool accepts_os_version;
+
+    float source_width;
+    float source_height;
 } wprint_job_params_t;
 
 typedef struct wprint_connect_info_st wprint_connect_info_t;
