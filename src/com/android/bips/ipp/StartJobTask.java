@@ -18,6 +18,7 @@
 package com.android.bips.ipp;
 
 import android.content.Context;
+import android.graphics.pdf.PdfRenderer;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -161,6 +162,19 @@ class StartJobTask extends AsyncTask<Void, Void, Integer> {
 
             // Fill in job parameters from capabilities and print job info.
             populateJobParams();
+            try (PdfRenderer renderer = new PdfRenderer(
+                    ParcelFileDescriptor.open(pdfFile, ParcelFileDescriptor.MODE_READ_ONLY));
+                 PdfRenderer.Page page = renderer.openPage(0)) {
+                if (mJobParams.portrait_mode) {
+                    mJobParams.source_height = (float) page.getHeight() / 72;
+                    mJobParams.source_width = (float) page.getWidth() / 72;
+                } else {
+                    mJobParams.source_width = (float) page.getHeight() / 72;
+                    mJobParams.source_height = (float) page.getWidth() / 72;
+                }
+            } catch (IOException e) {
+                Log.w(TAG, "Error while getting source width, height", e);
+            }
 
             // Finalize job parameters
             mBackend.nativeGetFinalJobParameters(mJobParams, mCapabilities);
