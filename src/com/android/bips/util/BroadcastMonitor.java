@@ -41,7 +41,7 @@ public class BroadcastMonitor extends BroadcastReceiver {
         }
         mContext = context;
         mReceiver = receiver;
-        mContext.registerReceiver(this, filter, Context.RECEIVER_EXPORTED/*UNAUDITED*/);
+        mContext.registerReceiver(this, filter);
     }
 
     /** Stop monitoring for broadcast intents */
