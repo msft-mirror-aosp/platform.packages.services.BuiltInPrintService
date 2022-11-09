@@ -1570,6 +1570,11 @@ static void _wprint_callback_fn(wJob_t job_handle, void *param) {
                             env, _PrintServiceStringsClass,
                             _PrintServiceStringsField__JOB_DONE_CORRUPT);
                     break;
+                case BAD_CERTIFICATE:
+                    jStr = (jstring) (*env)->GetStaticObjectField(
+                            env, _PrintServiceStringsClass,
+                            _PrintServiceStringsField__JOB_DONE_BAD_CERTIFICATE);
+                    break;
                 default:
                     jStr = (jstring) (*env)->GetStaticObjectField(
                             env, _PrintServiceStringsClass,
