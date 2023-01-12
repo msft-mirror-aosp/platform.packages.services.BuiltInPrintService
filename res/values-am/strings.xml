@@ -26,7 +26,7 @@
     <string name="printer_low_on_toner" msgid="8807858294038587130">"ቶነር በጣም ዝቅተኛ ነው"</string>
     <string name="printer_door_open" msgid="2446302931916940874">"በር ክፍት ነው"</string>
     <string name="printer_jammed" msgid="5104099859384749499">"ወረቀት ታጭቋል"</string>
-    <string name="printer_offline" msgid="9196864753298645066">"ከመስመር ውጭ"</string>
+    <string name="printer_offline" msgid="9196864753298645066">"ከመስመር ውጪ"</string>
     <string name="printer_bad_certificate" msgid="1366180387095466268">"መጥፎ የእውቅና ማረጋገጫ"</string>
     <string name="printer_not_encrypted" msgid="1913051469275483673">"አልተመሰጠረም"</string>
     <string name="printer_check" msgid="6428369671197132828">"አታሚን ይፈትሹ"</string>
@@ -73,7 +73,9 @@
     <string name="connections" msgid="8895413761760117180">"ግንኙነቶች"</string>
     <string name="wifi_direct_problem" msgid="8995174986718516990">"ነባሪ የህትመት አገልግሎት የWi-Fi ቀጥታ አታሚዎችን ማግኘት አይችልም"</string>
     <string name="disable_wifi_direct" msgid="4824677957241687577">"Wi-Fi ቀጥታ አገናኝን ያሰናክሉ"</string>
-    <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"በአቅራቢያ ያሉ አታሚዎችን ለማግኘት ነባሪ የህትመት አገልግሎት በአቅራቢያ ያሉ የመሣሪያዎች ፈቃድ ያስፈልገዋል።"</string>
+    <string name="wifi_direct_permission_rationale" msgid="3599186620970379218">"ነባሪ የህትመት አገልግሎት በአቅራቢያ ያሉ መሣሪያዎችን ለማግኘት የአካባቢ ፈቃድ ያስፈልገዋል።"</string>
     <string name="fix" msgid="7784394272611365393">"ፈቃድን ይገምግሙ"</string>
+    <string name="wifi_direct_location_rationale" msgid="5084311320511965454">"ነባሪ የህትመት አገልግሎት በአቅራቢያ ያሉ መሣሪያዎችን ለማግኘት የነቁ የአካባቢ አገልግሎቶች ያስፈልጋሉ።"</string>
+    <string name="enable_location" msgid="3627841004298863140">"አካባቢን ያንቁ"</string>
     <string name="print" msgid="7851318072404916362">"አትም"</string>
 </resources>
