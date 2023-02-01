@@ -52,6 +52,21 @@ static void parse_IPPVersions(ipp_t *response, ipp_version_supported_t *ippVersi
  */
 static void parse_printerUris(ipp_t *response, printer_capabilities_t *capabilities);
 
+static inline const char* strnstr(const char* s, const char* needle, size_t len) {
+    if (len <= 0) return NULL;
+
+    const char c = *needle++;
+    const size_t needleLen = strlen(needle);
+    do {
+        do {
+            if (len <= (ssize_t)needleLen) return NULL;
+            --len;
+        } while (*s++ != c);
+    } while (memcmp(s, needle, needleLen) != 0);
+    s--;
+    return s;
+}
+
 /*
  * Known media sizes.
  *
@@ -1491,7 +1506,7 @@ void parse_printerAttributes(ipp_t *response, printer_capabilities_t *capabiliti
         for (i = 0; i < ippGetCount(attrptr); i++) {
             int length = 0;
             const char *tray_str = ippGetOctetString(attrptr, i, &length);
-            if (strstr(tray_str, "faceUp") != NULL) {
+            if (length > 0 && strnstr(tray_str, "faceUp", (size_t)length) != NULL) {
                 capabilities->faceDownTray = 0;
             }
         }

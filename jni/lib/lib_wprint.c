@@ -103,7 +103,7 @@ typedef enum {
     JOB_STATE_COMPLETED, // print job completed successfully, waiting to be freed
     JOB_STATE_ERROR, // job could not be run due to error
     JOB_STATE_CORRUPTED, // job could not be run due to error
-
+    JOB_STATE_BAD_CERTIFICATE, // server gave an unexpected ssl certificate
     NUM_JOB_STATES
 } _job_state_t;
 
@@ -196,6 +196,8 @@ static sem_t _job_end_wait_sem;
 static sem_t _job_start_wait_sem;
 
 static _io_plugin_t _io_plugins[2];
+
+static volatile bool stop_run = false;
 
 char g_osName[MAX_ID_STRING_LENGTH + 1] = {0};
 char g_appName[MAX_ID_STRING_LENGTH + 1] = {0};
@@ -926,8 +928,9 @@ static void *_job_thread(void *param) {
             if ((jq->status_ifc != NULL) && (jq->status_ifc->get_status != NULL)) {
                 int retry = 0;
                 bool idle = false;
+                bool bad_certificate = false;
                 printer_state_dyn_t printer_state;
-                while (!idle) {
+                while (!idle && !stop_run) {
                     print_status_t status;
                     jq->status_ifc->get_status(jq->status_ifc, &printer_state);
                     status = printer_state.printer_status & ~PRINTER_IDLE_BIT;
@@ -953,7 +956,7 @@ static void *_job_thread(void *param) {
                             jq->blocked_reasons = BLOCKED_REASON_UNABLE_TO_CONNECT;
                         } else {
                             LOGD("%s: Bad certificate", __func__);
-                            jq->blocked_reasons = BLOCKED_REASON_BAD_CERTIFICATE;
+                            bad_certificate = true;
                         }
                     } else if (printer_state.printer_status & PRINTER_IDLE_BIT) {
                         LOGD("%s: printer blocked but appears to be in an idle state. "
@@ -996,9 +999,16 @@ static void *_job_thread(void *param) {
 
                 if (jq->job_params.cancelled) {
                     job_result = CANCELLED;
+                } else if (bad_certificate) {
+                    job_result = BAD_CERTIFICATE;
                 } else {
-                    job_result = (((printer_state.printer_status & ~PRINTER_IDLE_BIT) ==
-                            PRINT_STATUS_IDLE) ? OK : ERROR);
+                    if (stop_run) {
+                        jq->job_state = JOB_STATE_ERROR;
+                        job_result = ERROR;
+                    } else {
+                        job_result = (((printer_state.printer_status & ~PRINTER_IDLE_BIT) ==
+                                       PRINT_STATUS_IDLE) ? OK : ERROR);
+                    }
                 }
             }
 
@@ -1034,7 +1044,10 @@ static void *_job_thread(void *param) {
                     if (jq->print_ifc->validate_job != NULL) {
                         job_result = jq->print_ifc->validate_job(jq->print_ifc, &jq->job_params);
                     }
-
+                    if (!_is_certificate_allowed(jq)) {
+                        LOGD("_job_thread: bad certificate found at validate job");
+                        job_result = BAD_CERTIFICATE;
+                    }
                     /* PDF format plugin's start_job and end_job are to be called for each copy,
                      * inside the for-loop for num_copies.
                      */
@@ -1369,6 +1382,11 @@ static void *_job_thread(void *param) {
                         jq->job_state = JOB_STATE_CORRUPTED;
                         jq->blocked_reasons = 0;
                         break;
+                    case BAD_CERTIFICATE:
+                        LOGD("_job_thread(): BAD_CERTIFICATE");
+                        jq->job_state = JOB_STATE_BAD_CERTIFICATE;
+                        jq->blocked_reasons = 0;
+                        break;
                     case ERROR:
                     default:
                         LOGE("_job_thread(): ERROR plugin->start_job(%ld): %s => %s", job_handle,
@@ -1419,6 +1437,7 @@ static int _start_thread(void) {
     _job_tid = pthread_self();
 
     result = OK;
+    stop_run = false;
     sigfillset(&allsig);
 #if CHECK_PTHREAD_SIGMASK_STATUS
     result = pthread_sigmask(SIG_SETMASK, &allsig, &oldsig);
@@ -1453,6 +1472,7 @@ static int _start_thread(void) {
  * Waits for the job thread to reach a stopped state
  */
 static int _stop_thread(void) {
+    stop_run = true;
     if (!pthread_equal(_job_tid, pthread_self())) {
         pthread_join(_job_tid, 0);
         _job_tid = pthread_self();
@@ -1900,13 +1920,25 @@ status_t wprintGetFinalJobParams(wprint_job_params_t *job_params,
 
     printable_area_get_default_margins(job_params, printer_cap, &margins[TOP_MARGIN],
             &margins[LEFT_MARGIN], &margins[RIGHT_MARGIN], &margins[BOTTOM_MARGIN]);
-    printable_area_get(job_params, margins[TOP_MARGIN], margins[LEFT_MARGIN], margins[RIGHT_MARGIN],
-            margins[BOTTOM_MARGIN]);
+    printable_area_get(job_params, margins[TOP_MARGIN], margins[LEFT_MARGIN],
+            margins[RIGHT_MARGIN], margins[BOTTOM_MARGIN]);
 
     job_params->accepts_app_name = printer_cap->docSourceAppName;
     job_params->accepts_app_version = printer_cap->docSourceAppVersion;
     job_params->accepts_os_name = printer_cap->docSourceOsName;
     job_params->accepts_os_version = printer_cap->docSourceOsVersion;
+
+    // Strip height calculation for PCLm by taking the GCD of printable_height and
+    // printer_cap->stripHeight, this needs to be called after printable_area_get()
+    int adjusted_strip_height = job_params->printable_area_height % printer_cap->stripHeight;
+    if (job_params->pcl_type == PCLm && adjusted_strip_height != 0) {
+        for (i = 1; i <= job_params->printable_area_height && i <= printer_cap->stripHeight; ++i) {
+            if (job_params->printable_area_height % i == 0 && printer_cap->stripHeight % i == 0) {
+                adjusted_strip_height = i;
+            }
+        }
+        job_params->strip_height = adjusted_strip_height;
+    }
 
     return result;
 }
@@ -2196,7 +2228,7 @@ status_t wprintCancelJob(wJob_t job_handle) {
 
     if (jq) {
         LOGI("received cancel request");
-        // send a dummy page in case we're waiting on the msgQ page receive
+        // send an empty page in case we're waiting on the msgQ page receive
         if ((jq->job_state == JOB_STATE_RUNNING) || (jq->job_state == JOB_STATE_BLOCKED)) {
             bool enableTimeout = true;
             jq->cancel_ok = true;
