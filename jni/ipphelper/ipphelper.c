@@ -1265,6 +1265,7 @@ void parse_printerAttributes(ipp_t *response, printer_capabilities_t *capabiliti
     }
 
     if ((attrptr = ippFindAttribute(response, "sides-supported", IPP_TAG_KEYWORD)) != NULL) {
+        capabilities->sidesSupported = 1;
         for (i = 0; i < ippGetCount(attrptr); i++) {
             if (strcmp(IPP_SIDES_TWO_SIDED_SHORT_EDGE, ippGetString(attrptr, i, NULL)) == 0) {
                 capabilities->duplex = 1;
@@ -1549,6 +1550,11 @@ void parse_printerAttributes(ipp_t *response, printer_capabilities_t *capabiliti
         LOGD("print-scaling-default not found");
     }
 
+    if ((attrptr = ippFindAttribute(response, "job-pages-per-set-supported",
+            IPP_TAG_BOOLEAN)) != NULL && ippGetBoolean(attrptr, 0)) {
+        capabilities->jobPagesPerSetSupported = 1;
+    }
+
     debuglist_printerCapabilities(capabilities);
 }
 
@@ -1611,6 +1617,7 @@ void debuglist_printerCapabilities(printer_capabilities_t *capabilities) {
         LOGD("print-scaling-supported (%d): %s", i, capabilities->print_scalings_supported[i]);
     }
     LOGD("print_scaling_default: %s",capabilities->print_scaling_default);
+    LOGD("jobPagesPerSetSupported: %d", capabilities->jobPagesPerSetSupported);
 }
 
 void debuglist_printerStatus(printer_state_dyn_t *printer_state_dyn) {
