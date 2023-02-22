@@ -48,9 +48,9 @@
     <string name="no_printer_found" msgid="4777867380924351173">"Fant ingen skriver på denne adressen"</string>
     <string name="printer_not_supported" msgid="281955849350938408">"Skriveren støttes ikke"</string>
     <string name="wifi_direct" msgid="4629404342852294985">"Wi-Fi Direct"</string>
-    <string name="find_wifi_direct" msgid="5270504288829123954">"Finn skrivere med Wi-Fi Direct"</string>
-    <string name="wifi_direct_printing" msgid="8423811041563144048">"Utskrift med Wi-Fi Direct"</string>
-    <string name="wifi_direct_printers" msgid="541168032444693191">"Skrivere med Wi-Fi Direct"</string>
+    <string name="find_wifi_direct" msgid="5270504288829123954">"Finn skrivere med wifi Direct"</string>
+    <string name="wifi_direct_printing" msgid="8423811041563144048">"Utskrift med wifi Direct"</string>
+    <string name="wifi_direct_printers" msgid="541168032444693191">"Skrivere med wifi Direct"</string>
     <string name="searching" msgid="2114018057619514587">"Søker …"</string>
     <string name="connect_hint_text" msgid="587112503851044234">"Du må muligens godkjenne denne tilkoblingen på skriverens frontpanel"</string>
     <string name="connecting_to" msgid="2665161014972086194">"Kobler til <xliff:g id="PRINTER">%1$s</xliff:g>"</string>
