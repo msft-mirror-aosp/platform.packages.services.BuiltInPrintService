@@ -1723,7 +1723,7 @@ status_t wprintGetCapabilities(const wprint_connect_info_t *connect_info,
 /*
  * Returns a preferred print format supported by the printer
  */
-static char *_get_print_format(const char *mime_type, const wprint_job_params_t *job_params,
+char *_get_print_format(const char *mime_type, const wprint_job_params_t *job_params,
         const printer_capabilities_t *cap) {
     char *print_format = NULL;
 
@@ -1770,7 +1770,7 @@ status_t wprintGetDefaultJobParams(wprint_job_params_t *job_params) {
             .borderless = false, .cancelled = false, .renderInReverseOrder = false,
             .ipp_1_0_supported = false, .ipp_2_0_supported = false, .epcl_ipp_supported = false,
             .strip_height = STRIPE_HEIGHT, .docCategory = {0},
-            .copies_supported = false};
+            .copies_supported = false, .preserve_scaling = false};
 
     if (job_params == NULL) return result;
 
