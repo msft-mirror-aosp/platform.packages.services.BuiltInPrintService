@@ -58,7 +58,7 @@
     <string name="failed_connection" msgid="8068661997318286575">"Kunne ikke koble til <xliff:g id="PRINTER">%1$s</xliff:g>"</string>
     <string name="saved_printers" msgid="4567534965213125526">"Lagrede skrivere"</string>
     <string name="forget" msgid="892068061425802502">"Glem"</string>
-    <string name="connects_via_wifi_direct" msgid="652300632780158437">"Kobler til via Wi-Fi Direct"</string>
+    <string name="connects_via_wifi_direct" msgid="652300632780158437">"Kobler til via wifi Direct"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"Kobler til via nåværende nettverk på <xliff:g id="IP_ADDRESS">%1$s</xliff:g>"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"Standard utskriftstjeneste gir grunnleggende alternativer. Andre alternativer for denne skriveren kan være tilgjengelige fra en annen utskriftstjeneste."</string>
     <string name="recommendations_heading" msgid="5086762263560605249">"Anbefalte tjenester"</string>
