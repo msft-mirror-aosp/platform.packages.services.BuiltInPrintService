@@ -47,6 +47,7 @@ void printable_area_get(wprint_job_params_t *job_params, float top_margin,
     if (fabsf(job_params->source_width - job_params->page_width) < PAGE_SIZE_EPSILON &&
         fabsf(job_params->source_height - job_params->page_height) < PAGE_SIZE_EPSILON) {
         top_margin = left_margin = right_margin = bottom_margin = 0.0f;
+        job_params->preserve_scaling = true;
     }
 
     // don't adjust for margins if job is PCLm.  dimensions of image will not
