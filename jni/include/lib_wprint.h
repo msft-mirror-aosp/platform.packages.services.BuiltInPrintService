@@ -140,6 +140,7 @@ typedef struct {
     float job_left_margin;
     float job_right_margin;
     float job_bottom_margin;
+    bool preserve_scaling;
 
     bool renderInReverseOrder;
 
@@ -190,6 +191,7 @@ typedef struct {
     const char *useragent;
     char docCategory[10];
     const char *media_default;
+    char print_scaling[MAX_PRINT_SCALING_LENGTH];
 
     // Expected certificate if any
     uint8 *certificate;
@@ -221,7 +223,8 @@ struct wprint_connect_info_st {
     /* Timeout per retry in milliseconds */
     long timeout;
     /* Return non-0 if the received certificate is not acceptable. */
-    int (*validate_certificate)(struct wprint_connect_info_st *connect_info, uint8 *data, int data_len);
+    int (*validate_certificate)(struct wprint_connect_info_st *connect_info,
+                                uint8 *data, int data_len);
     /* User-supplied data. */
     void *user;
 };
@@ -249,7 +252,6 @@ typedef struct
    int                 current_page;
    int                 total_pages;
    int                 page_total_update;
-
 } wprint_page_info_t;
 
 typedef struct {
@@ -312,6 +314,12 @@ bool wprintIsRunning();
  */
 status_t wprintGetCapabilities(const wprint_connect_info_t *connect_info,
         printer_capabilities_t *printer_cap);
+
+/*
+ * Returns a preferred print format supported by the printer
+ */
+char *_get_print_format(const char *mime_type, const wprint_job_params_t *job_params,
+                        const printer_capabilities_t *cap);
 
 /*
  * Fills in the job params structure with default values.
