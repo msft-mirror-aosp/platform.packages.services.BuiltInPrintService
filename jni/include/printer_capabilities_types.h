@@ -46,6 +46,7 @@ typedef struct
  */
 typedef struct {
     unsigned char duplex;
+    unsigned char sidesSupported;
     unsigned char borderless;
     unsigned char canPrintPDF;
     unsigned char canPrintPCLm;
@@ -96,6 +97,7 @@ typedef struct {
     char print_scalings_supported[MAX_PRINT_SCALING_COUNT][MAX_PRINT_SCALING_LENGTH];
     int print_scalings_supported_count;
     char print_scaling_default[MAX_PRINT_SCALING_LENGTH]; /* Printer default value */
+    unsigned char jobPagesPerSetSupported;
 } printer_capabilities_t;
 
 #endif // __PRINTER_CAPABILITIES_TYPES_H__
