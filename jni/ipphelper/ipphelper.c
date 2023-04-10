@@ -572,7 +572,6 @@ ipp_status_t get_JobStatus(http_t *http,
               job_state_dyn_t *job_state_dyn,
               ipp_jstate_t *job_state,
               const char *requesting_user) {
-
     LOGD("get_JobStatus(): Enter");
     static const char *const jattrs[] =
             {            /* Job attributes we want */
@@ -996,7 +995,7 @@ static void addRollSupportedSizes(
         int *sizesIdx) {
     // If a supported media size fits on the roll size, add it to the list
     for (int i = 0; i < SUPPORTED_MEDIA_SIZE_COUNT; i++) {
-        if(SupportedMediaSizes[i].WidthInMicrometers / 10 <= width
+        if (SupportedMediaSizes[i].WidthInMicrometers / 10 <= width
             && SupportedMediaSizes[i].HeightInMicrometers / 10 >= minHeight
             && SupportedMediaSizes[i].HeightInMicrometers / 10 <= maxHeight) {
             addMediaIfNotDuplicate(i, sizesIdx, media_supported, SupportedMediaSizes[i].media_size);
@@ -1017,7 +1016,7 @@ void parse_getMediaSupported(
 
     // Check for media-col-ready first
     ipp_attribute_t *attrptr;
-    if((attrptr =
+    if ((attrptr =
         ippFindAttribute(response, "media-col-ready", IPP_TAG_BEGIN_COLLECTION)) != NULL) {
         LOGD("media-col-ready found");
         for (i = 0; i < ippGetCount(attrptr); i++) {
@@ -1529,6 +1528,27 @@ void parse_printerAttributes(ipp_t *response, printer_capabilities_t *capabiliti
             }
         }
     }
+
+    // Determine types of print-scaling supported
+    capabilities->print_scalings_supported_count = 0;
+    if ((attrptr = ippFindAttribute(response, "print-scaling-supported", IPP_TAG_KEYWORD)) != NULL) {
+        for (i = 0; i < ippGetCount(attrptr) && i < MAX_PRINT_SCALING_COUNT; i++) {
+            capabilities->print_scalings_supported_count++;
+            strlcpy(capabilities->print_scalings_supported[i], ippGetString(attrptr, i, NULL),
+                    sizeof(capabilities->print_scalings_supported[i]));
+        }
+    } else {
+        LOGD("print-scaling-supported not found");
+    }
+
+    memset(capabilities->print_scaling_default, '\0', sizeof(capabilities->print_scaling_default));
+    if ((attrptr = ippFindAttribute(response, "print-scaling-default", IPP_TAG_KEYWORD)) != NULL) {
+        strlcpy(capabilities->print_scaling_default, ippGetString(attrptr, 0, NULL),
+                sizeof(capabilities->print_scaling_default));
+    } else {
+        LOGD("print-scaling-default not found");
+    }
+
     debuglist_printerCapabilities(capabilities);
 }
 
@@ -1587,6 +1607,10 @@ void debuglist_printerCapabilities(printer_capabilities_t *capabilities) {
     LOGD("ippVersionMinor: %d", capabilities->ippVersionMinor);
     LOGD("strip height: %d", capabilities->stripHeight);
     LOGD("faceDownTray: %d", capabilities->faceDownTray);
+    for (int i = 0; i < capabilities->print_scalings_supported_count; i++) {
+        LOGD("print-scaling-supported (%d): %s", i, capabilities->print_scalings_supported[i]);
+    }
+    LOGD("print_scaling_default: %s",capabilities->print_scaling_default);
 }
 
 void debuglist_printerStatus(printer_state_dyn_t *printer_state_dyn) {
