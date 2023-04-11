@@ -291,6 +291,13 @@ static ipp_t *_fill_job(int ipp_op, char *printer_uri, const wprint_job_params_t
         }
     }
 
+    // Add print-scaling attribute to the request
+    if (strlen(job_params->print_scaling) != 0) {
+        LOGD("_fill_job: setting print-scaling to %s", job_params->print_scaling);
+        ippAddString(request, IPP_TAG_JOB, IPP_TAG_KEYWORD, "print-scaling",
+                     NULL, job_params->print_scaling);
+    }
+
     // Add copies support if required and allowed
     if (job_params->copies_supported && (strcmp(job_params->print_format, PRINT_FORMAT_PDF) == 0)) {
         ippAddInteger(request, IPP_TAG_JOB, IPP_TAG_INTEGER, "copies", job_params->num_copies);
