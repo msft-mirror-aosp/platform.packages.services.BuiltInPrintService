@@ -70,7 +70,8 @@ static const char *pattrs[] = {
         "media-ready",
         "media-col-ready",
         "print-scaling-supported",
-        "print-scaling-default"
+        "print-scaling-default",
+        "job-pages-per-set-supported"
 };
 
 static void _init(const ifc_printer_capabilities_t *this_p,

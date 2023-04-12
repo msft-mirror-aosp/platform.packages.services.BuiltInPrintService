@@ -988,14 +988,16 @@ static void addMediaIfNotDuplicate(
 }
 
 static void addRollSupportedSizes(
-        unsigned int width,
+        unsigned int minWidth,
+        unsigned int maxWidth,
         unsigned int minHeight,
         unsigned int maxHeight,
         media_supported_t *media_supported,
         int *sizesIdx) {
     // If a supported media size fits on the roll size, add it to the list
     for (int i = 0; i < SUPPORTED_MEDIA_SIZE_COUNT; i++) {
-        if (SupportedMediaSizes[i].WidthInMicrometers / 10 <= width
+        if (SupportedMediaSizes[i].WidthInMicrometers / 10 >= minWidth
+            && SupportedMediaSizes[i].WidthInMicrometers / 10 <= maxWidth
             && SupportedMediaSizes[i].HeightInMicrometers / 10 >= minHeight
             && SupportedMediaSizes[i].HeightInMicrometers / 10 <= maxHeight) {
             addMediaIfNotDuplicate(i, sizesIdx, media_supported, SupportedMediaSizes[i].media_size);
@@ -1009,6 +1011,7 @@ void parse_getMediaSupported(
         printer_capabilities_t *capabilities) {
     int i;
     int sizes_idx = 0;
+    bool roll_supported = false;
     LOGD(" Entered getMediaSupported");
 
     media_size_t media_sizeTemp;
@@ -1024,6 +1027,7 @@ void parse_getMediaSupported(
             ipp_attribute_t *attrptr2;
             media_ready_set_t mediaReadySet = {};
             int minHeight = 0, maxHeight = 0;
+            int minWidth = 0, maxWidth = 0;
             for (attrptr2 = ippFirstAttribute(collection);
                  (attrptr2 != NULL);
                  attrptr2 = ippNextAttribute(collection)) {
@@ -1034,7 +1038,13 @@ void parse_getMediaSupported(
                          (attrptr3 != NULL);
                          attrptr3 = ippNextAttribute(collection_sec)) {
                         if (strcmp("x-dimension", ippGetName(attrptr3)) == 0) {
-                            mediaReadySet.x_dimension = ippGetInteger(attrptr3, 0);
+                            if (ippGetValueTag(attrptr3) == IPP_TAG_RANGE) {
+                                minWidth = ippGetRange(attrptr3, 0, &maxWidth);
+                                mediaReadySet.x_dimension = minWidth;
+                            } else if (ippGetValueTag(attrptr3) == IPP_TAG_INTEGER) {
+                                maxWidth = ippGetInteger(attrptr3, 0);
+                                mediaReadySet.x_dimension = maxWidth;
+                            }
                         } else if (strcmp("y-dimension", ippGetName(attrptr3)) == 0) {
                             if (ippGetValueTag(attrptr3) == IPP_TAG_RANGE) {
                                 minHeight = ippGetRange(attrptr3, 0, &maxHeight);
@@ -1052,8 +1062,9 @@ void parse_getMediaSupported(
             }
             if (minHeight > 0 && maxHeight > 0
                 && strstr(mediaReadySet.media_tray_tag, "roll") != NULL) {
+                roll_supported = true;
                 // If the source is a roll, add supported sizes that would fit on the roll
-                addRollSupportedSizes(mediaReadySet.x_dimension, minHeight, maxHeight,
+                addRollSupportedSizes(minWidth, maxWidth, minHeight, maxHeight,
                                       media_supported, &sizes_idx);
             } else {
                 // Get the media size name from x and y dimensions
@@ -1097,6 +1108,31 @@ void parse_getMediaSupported(
                 media_supported->idxKeywordTranTable[sizes_idx] = idx;
                 sizes_idx++;
             }
+        }
+    }
+    // Get common media which is supported by media-col-ready(roll) and media-supported
+    if (roll_supported) {
+        int supported_by_roll_and_media = 0;
+        for (int j = 0; j <= PAGE_STATUS_MAX - 1 &&
+                        media_supported->media_size[j] != 0; j++) {
+            for (int k = j + 1; k <= PAGE_STATUS_MAX - 1 &&
+                                media_supported->media_size[k] != 0; k++) {
+                if (media_supported->media_size[j] != 0 &&
+                    media_supported->media_size[j] == media_supported->media_size[k]) {
+                    media_supported->media_size[supported_by_roll_and_media] =
+                            media_supported->media_size[j];
+                    media_supported->idxKeywordTranTable[supported_by_roll_and_media] =
+                            media_supported->idxKeywordTranTable[j];
+                    supported_by_roll_and_media += 1;
+                    break;
+                }
+            }
+        }
+
+        for (int j = supported_by_roll_and_media; j <= PAGE_STATUS_MAX - 1 &&
+                                                  media_supported->media_size[j] != 0; j++) {
+            media_supported->media_size[j] = 0;
+            media_supported->idxKeywordTranTable[j] = -1;
         }
     }
     if (sizes_idx == 0) {
@@ -1157,6 +1193,7 @@ void parse_printerAttributes(ipp_t *response, printer_capabilities_t *capabiliti
     media_supported_t media_supported;
     for (i = 0; i <= PAGE_STATUS_MAX - 1; i++) {
         media_supported.media_size[i] = 0;
+        media_supported.idxKeywordTranTable[i] = -1;
     }
     parse_getMediaSupported(response, &media_supported, capabilities);
 
@@ -1166,7 +1203,7 @@ void parse_printerAttributes(ipp_t *response, printer_capabilities_t *capabiliti
     int idx = 0;
     capabilities->numSupportedMediaTypes = 0;
     for (i = 0; i <= PAGE_STATUS_MAX - 1; i++) {
-        if (media_supported.media_size[i] != 0) {
+        if (media_supported.media_size[i] != 0 && media_supported.idxKeywordTranTable[i] >= 0) {
             capabilities->supportedMediaSizes[capabilities->numSupportedMediaSizes++] =
                     media_supported.media_size[i];
             idx = media_supported.idxKeywordTranTable[i];
@@ -1265,6 +1302,7 @@ void parse_printerAttributes(ipp_t *response, printer_capabilities_t *capabiliti
     }
 
     if ((attrptr = ippFindAttribute(response, "sides-supported", IPP_TAG_KEYWORD)) != NULL) {
+        capabilities->sidesSupported = 1;
         for (i = 0; i < ippGetCount(attrptr); i++) {
             if (strcmp(IPP_SIDES_TWO_SIDED_SHORT_EDGE, ippGetString(attrptr, i, NULL)) == 0) {
                 capabilities->duplex = 1;
@@ -1549,6 +1587,11 @@ void parse_printerAttributes(ipp_t *response, printer_capabilities_t *capabiliti
         LOGD("print-scaling-default not found");
     }
 
+    if ((attrptr = ippFindAttribute(response, "job-pages-per-set-supported",
+            IPP_TAG_BOOLEAN)) != NULL && ippGetBoolean(attrptr, 0)) {
+        capabilities->jobPagesPerSetSupported = 1;
+    }
+
     debuglist_printerCapabilities(capabilities);
 }
 
@@ -1611,6 +1654,7 @@ void debuglist_printerCapabilities(printer_capabilities_t *capabilities) {
         LOGD("print-scaling-supported (%d): %s", i, capabilities->print_scalings_supported[i]);
     }
     LOGD("print_scaling_default: %s",capabilities->print_scaling_default);
+    LOGD("jobPagesPerSetSupported: %d", capabilities->jobPagesPerSetSupported);
 }
 
 void debuglist_printerStatus(printer_state_dyn_t *printer_state_dyn) {
