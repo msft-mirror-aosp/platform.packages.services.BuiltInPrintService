@@ -421,8 +421,8 @@ static jint _print_pdf_pages(wJob_t job_handle, printer_capabilities_t *printer_
 
     // print forward direction if printer prints pages face down; otherwise print backward
     // NOTE: last page is sent from calling function
-    if (printer_cap->faceDownTray || duplex) {
-        LOGD("_print_pdf_pages(), pages print face down or duplex, printing in normal order");
+    if (printer_cap->faceDownTray) {
+        LOGD("_print_pdf_pages(), pages print face down, printing in normal order");
         page_index = 0;
         while (page_index < num_pages) {
             LOGD("_print_pdf_pages(), PRINTING PDF: %d", *(pages_ary + page_index));
@@ -1927,6 +1927,11 @@ JNIEXPORT jint JNICALL Java_com_android_bips_ipp_Backend_nativeStartJob(
         LOGD("setting print-scaling value = %s", print_scaling);
         strlcpy(params.print_scaling, print_scaling, sizeof(params.print_scaling));
 
+        params.job_pages_per_set = 0;
+        for (int i = 0; i < len; i++) {
+            params.job_pages_per_set += pdf_pages_ary[i];
+        }
+
         const char *jobDebugDirStr = NULL;
         if (jobDebugDir != NULL) {
             jobDebugDirStr = (*env)->GetStringUTFChars(env, jobDebugDir, NULL);
@@ -1946,7 +1951,7 @@ JNIEXPORT jint JNICALL Java_com_android_bips_ipp_Backend_nativeStartJob(
         job_handle = (wJob_t) result;
 
         // register job handle with service
-        if (caps.faceDownTray || params.duplex) {
+        if (caps.faceDownTray) {
             index = 0;
             incrementor = 1;
         } else {
