@@ -199,6 +199,8 @@ static _io_plugin_t _io_plugins[2];
 
 static volatile bool stop_run = false;
 
+static printer_capabilities_t g_printer_caps = {0};
+
 char g_osName[MAX_ID_STRING_LENGTH + 1] = {0};
 char g_appName[MAX_ID_STRING_LENGTH + 1] = {0};
 char g_appVersion[MAX_ID_STRING_LENGTH + 1] = {0};
@@ -885,6 +887,7 @@ static void *_job_thread(void *param) {
     int i;
     status_t job_result;
     int corrupted = 0;
+    printer_capabilities_t printer_caps;
 
     while (OK == msgQReceive(_msgQ, (char *) &msg, sizeof(msg), WAIT_FOREVER)) {
         if (msg.id == MSG_RUN_JOB) {
@@ -1037,12 +1040,15 @@ static void *_job_thread(void *param) {
                 jq->cb_fn(job_handle, (void *) &cb_param);
             }
 
+            memcpy(&printer_caps, &g_printer_caps, sizeof(printer_capabilities_t));
+
             jq->job_params.page_num = -1;
             if (job_result == OK) {
                 if (jq->print_ifc != NULL) {
                     LOGD("_job_thread: Calling validate_job");
                     if (jq->print_ifc->validate_job != NULL) {
-                        job_result = jq->print_ifc->validate_job(jq->print_ifc, &jq->job_params);
+                        job_result = jq->print_ifc->validate_job(jq->print_ifc, &jq->job_params,
+                                &printer_caps);
                     }
                     if (!_is_certificate_allowed(jq)) {
                         LOGD("_job_thread: bad certificate found at validate job");
@@ -1055,7 +1061,7 @@ static void *_job_thread(void *param) {
                     // Do not call start_job unless validate_job returned OK
                     if ((job_result == OK) && (jq->print_ifc->start_job != NULL) &&
                             (strcmp(jq->job_params.print_format, PRINT_FORMAT_PDF) != 0)) {
-                        jq->print_ifc->start_job(jq->print_ifc, &jq->job_params);
+                        jq->print_ifc->start_job(jq->print_ifc, &jq->job_params, &printer_caps);
                     }
                 }
 
@@ -1085,7 +1091,7 @@ static void *_job_thread(void *param) {
                     bool pdf_printed = false;
                     if (jq->print_ifc->start_job != NULL &&
                             (strcmp(jq->job_params.print_format, PRINT_FORMAT_PDF) == 0)) {
-                        jq->print_ifc->start_job(jq->print_ifc, &jq->job_params);
+                        jq->print_ifc->start_job(jq->print_ifc, &jq->job_params, &printer_caps);
                     }
 
                     per_copy_page_num = 0;
@@ -1120,6 +1126,13 @@ static void *_job_thread(void *param) {
                             jq->job_params.last_page = false;
                         }
 
+                        bool printBlankPage = (strcmp(jq->job_params.print_format,
+                                PRINT_FORMAT_PCLM) == 0) ? wprintBlankPageForPclm(
+                                &jq->job_params, &printer_caps) : wprintBlankPageForPwg(
+                                &jq->job_params, &printer_caps);
+
+                        printBlankPage &= (jq->plugin->print_blank_page != NULL);
+
                         if (strlen(page.filename) > 0) {
                             per_copy_page_num++;
                             {
@@ -1139,7 +1152,7 @@ static void *_job_thread(void *param) {
 
                             jq->job_params.copy_num = (i + 1);
                             jq->job_params.copy_page_num = page.page_num;
-                            jq->job_params.page_backside = !(per_copy_page_num & 0x1);
+                            jq->job_params.page_backside = !(page.page_num & 0x1);
                             jq->job_params.page_corrupted = (page.corrupted ? 1 : 0);
                             jq->job_params.page_printing = true;
                             _unlock();
@@ -1147,6 +1160,14 @@ static void *_job_thread(void *param) {
                             if (!page.corrupted) {
                                 LOGD("_job_thread(): page not corrupt, calling plugin's print_page"
                                         " function for page #%d", page.page_num);
+
+                                // make sure we always print an even number of pages in duplex jobs
+                                if ((page.page_num == jq->job_params.job_pages_per_set) &&
+                                        !(jq->job_params.face_down_tray) && printBlankPage) {
+                                    jq->plugin->print_blank_page(job_handle, &(jq->job_params),
+                                            jq->mime_type, page.filename);
+                                }
+
                                 if (strcmp(jq->job_params.print_format, PRINT_FORMAT_PDF) != 0) {
                                     job_result = jq->plugin->print_page(&(jq->job_params),
                                             jq->mime_type,
@@ -1165,7 +1186,8 @@ static void *_job_thread(void *param) {
                                 job_result = CORRUPT;
                                 if ((jq->job_params.duplex != DUPLEX_MODE_NONE) &&
                                         (jq->plugin->print_blank_page != NULL)) {
-                                    jq->plugin->print_blank_page(job_handle, &(jq->job_params));
+                                    jq->plugin->print_blank_page(job_handle, &(jq->job_params),
+                                            jq->mime_type, page.filename);
                                 }
                             }
                             _lock();
@@ -1184,11 +1206,11 @@ static void *_job_thread(void *param) {
                         }
 
                         // make sure we always print an even number of pages in duplex jobs
-                        if (page.last_page && (jq->job_params.duplex != DUPLEX_MODE_NONE)
-                                && !(jq->job_params.page_backside)
-                                && (jq->plugin->print_blank_page != NULL)) {
+                        if (page.last_page && (jq->job_params.face_down_tray) &&
+                                !(jq->job_params.page_backside) && printBlankPage) {
                             _unlock();
-                            jq->plugin->print_blank_page(job_handle, &(jq->job_params));
+                            jq->plugin->print_blank_page(job_handle, &(jq->job_params),
+                                    jq->mime_type, page.filename);
                             _lock();
                         }
 
@@ -1265,7 +1287,7 @@ static void *_job_thread(void *param) {
                     if ((jq->job_params.duplex != DUPLEX_MODE_NONE)
                             && (jq->plugin->print_blank_page != NULL)) {
                         jq->plugin->print_blank_page(job_handle,
-                                &(jq->job_params));
+                                &(jq->job_params), jq->mime_type, page.filename);
                     }
 
                     _lock();
@@ -1278,9 +1300,9 @@ static void *_job_thread(void *param) {
             // if we started the job end it
             if (jq->job_params.page_num >= 0) {
                 // if the job was cancelled without sending anything through, print a blank sheet
-                if ((jq->job_params.page_num == 0)
-                        && (jq->plugin->print_blank_page != NULL)) {
-                    jq->plugin->print_blank_page(job_handle, &(jq->job_params));
+                if ((jq->job_params.page_num == 0) && (jq->plugin->print_blank_page != NULL)) {
+                    jq->plugin->print_blank_page(job_handle, &(jq->job_params), jq->mime_type,
+                            page.filename);
                 }
                 if (jq->plugin->end_job != NULL) {
                     jq->plugin->end_job(&(jq->job_params));
@@ -1696,6 +1718,8 @@ status_t wprintGetCapabilities(const wprint_connect_info_t *connect_info,
             printer_cap->canPrintPWG);
 
     if (result == OK) {
+        memcpy(&g_printer_caps, printer_cap, sizeof(printer_capabilities_t));
+
         LOGD("\tmake: %s", printer_cap->make);
         LOGD("\thas color: %d", printer_cap->color);
         LOGD("\tcan duplex: %d", printer_cap->duplex);
@@ -1723,7 +1747,7 @@ status_t wprintGetCapabilities(const wprint_connect_info_t *connect_info,
 /*
  * Returns a preferred print format supported by the printer
  */
-static char *_get_print_format(const char *mime_type, const wprint_job_params_t *job_params,
+char *_get_print_format(const char *mime_type, const wprint_job_params_t *job_params,
         const printer_capabilities_t *cap) {
     char *print_format = NULL;
 
@@ -1767,10 +1791,10 @@ status_t wprintGetDefaultJobParams(wprint_job_params_t *job_params) {
             .duplex = DUPLEX_MODE_NONE, .dry_time = DUPLEX_DRY_TIME_NORMAL,
             .color_space = COLOR_SPACE_COLOR, .media_tray = TRAY_SRC_AUTO_SELECT,
             .pixel_units = DEFAULT_RESOLUTION, .render_flags = 0, .num_copies =1,
-            .borderless = false, .cancelled = false, .renderInReverseOrder = false,
+            .borderless = false, .cancelled = false, .face_down_tray = false,
             .ipp_1_0_supported = false, .ipp_2_0_supported = false, .epcl_ipp_supported = false,
             .strip_height = STRIPE_HEIGHT, .docCategory = {0},
-            .copies_supported = false};
+            .copies_supported = false, .preserve_scaling = false};
 
     if (job_params == NULL) return result;
 
@@ -1903,11 +1927,7 @@ status_t wprintGetFinalJobParams(wprint_job_params_t *job_params,
         LOGD("wprintGetFinalJobParams: Duplex is on and device needs back page rotated.");
     }
 
-    if ((job_params->duplex == DUPLEX_MODE_NONE) && !printer_cap->faceDownTray) {
-        job_params->renderInReverseOrder = true;
-    } else {
-        job_params->renderInReverseOrder = false;
-    }
+    job_params->face_down_tray = printer_cap->faceDownTray;
 
     if (job_params->render_flags & RENDER_FLAG_AUTO_SCALE) {
         job_params->render_flags |= AUTO_SCALE_RENDER_FLAGS;
@@ -1927,18 +1947,6 @@ status_t wprintGetFinalJobParams(wprint_job_params_t *job_params,
     job_params->accepts_app_version = printer_cap->docSourceAppVersion;
     job_params->accepts_os_name = printer_cap->docSourceOsName;
     job_params->accepts_os_version = printer_cap->docSourceOsVersion;
-
-    // Strip height calculation for PCLm by taking the GCD of printable_height and
-    // printer_cap->stripHeight, this needs to be called after printable_area_get()
-    int adjusted_strip_height = job_params->printable_area_height % printer_cap->stripHeight;
-    if (job_params->pcl_type == PCLm && adjusted_strip_height != 0) {
-        for (i = 1; i <= job_params->printable_area_height && i <= printer_cap->stripHeight; ++i) {
-            if (job_params->printable_area_height % i == 0 && printer_cap->stripHeight % i == 0) {
-                adjusted_strip_height = i;
-            }
-        }
-        job_params->strip_height = adjusted_strip_height;
-    }
 
     return result;
 }
@@ -2323,6 +2331,7 @@ status_t wprintExit(void) {
 
         sem_destroy(&_job_end_wait_sem);
         sem_destroy(&_job_start_wait_sem);
+        pthread_mutex_destroy(&_q_lock);
     }
 
     return OK;
@@ -2342,4 +2351,18 @@ void wprintSetSourceInfo(const char *appName, const char *appVersion, const char
     }
 
     LOGI("App Name: '%s', Version: '%s', OS: '%s'", g_appName, g_appVersion, g_osName);
+}
+
+bool wprintBlankPageForPclm(const wprint_job_params_t *job_params,
+        const printer_capabilities_t *printer_cap) {
+    return ((job_params->job_pages_per_set % 2) &&
+            ((job_params->num_copies > 1 && printer_cap->sidesSupported) ||
+                    (job_params->num_copies == 1)) && (job_params->duplex != DUPLEX_MODE_NONE));
+}
+
+bool wprintBlankPageForPwg(const wprint_job_params_t *job_params,
+        const printer_capabilities_t *printer_cap) {
+    return ((job_params->job_pages_per_set % 2) && (job_params->duplex != DUPLEX_MODE_NONE) &&
+            !(printer_cap->jobPagesPerSetSupported &&
+                    strcmp(job_params->print_format, PRINT_FORMAT_PWG) == 0));
 }
