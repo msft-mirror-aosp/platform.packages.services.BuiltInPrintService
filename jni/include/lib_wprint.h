@@ -134,6 +134,7 @@ typedef struct {
     color_space_t color_space;
     media_tray_t media_tray;
     unsigned int num_copies;
+    unsigned int job_pages_per_set;
     bool borderless;
     unsigned int render_flags;
     float job_top_margin;
@@ -142,7 +143,7 @@ typedef struct {
     float job_bottom_margin;
     bool preserve_scaling;
 
-    bool renderInReverseOrder;
+    bool face_down_tray;
 
     // these values are pixels
     unsigned int print_top_margin;
@@ -292,8 +293,8 @@ typedef struct {
     status_t (*print_page)(wprint_job_params_t *job_params, const char *mime_type,
             const char *pathname);
 
-    status_t (*print_blank_page)(wJob_t job_handle,
-            wprint_job_params_t *job_params);
+    status_t (*print_blank_page)(wJob_t job_handle, wprint_job_params_t *job_params,
+            const char *mime_type, const char *pathname);
 
     status_t (*end_job)(wprint_job_params_t *job_params);
 } wprint_plugin_t;
@@ -374,6 +375,18 @@ status_t wprintExit(void);
  * Supplies info about the sending application and OS name
  */
 void wprintSetSourceInfo(const char *appName, const char *appVersion, const char *osName);
+
+/*
+ * Returns true, if a blank page to be printed in duplex print for PCLm
+ */
+bool wprintBlankPageForPclm(const wprint_job_params_t *job_params,
+        const printer_capabilities_t *printer_cap);
+
+/*
+ * Returns true, if a blank page to be printed in duplex print for PWG
+ */
+bool wprintBlankPageForPwg(const wprint_job_params_t *job_params,
+        const printer_capabilities_t *printer_cap);
 
 /* Global variables to hold API, application, and OS details */
 extern int g_API_version;
