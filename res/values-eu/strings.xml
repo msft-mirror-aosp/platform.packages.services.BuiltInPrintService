@@ -50,7 +50,7 @@
     <string name="wifi_direct" msgid="4629404342852294985">"Wi-Fi Direct"</string>
     <string name="find_wifi_direct" msgid="5270504288829123954">"Bilatu Wi-Fi Direct erabil dezaketen inprimagailuak"</string>
     <string name="wifi_direct_printing" msgid="8423811041563144048">"Wi-Fi Direct bidez inprimatzea"</string>
-    <string name="wifi_direct_printers" msgid="541168032444693191">"Wi-Fi Direct darabilten inprimagailuak"</string>
+    <string name="wifi_direct_printers" msgid="541168032444693191">"Wi-Fi Direct erabiltzen duten inprimagailuak"</string>
     <string name="searching" msgid="2114018057619514587">"Bilatzen…"</string>
     <string name="connect_hint_text" msgid="587112503851044234">"Baliteke konexioa onartu behar izatea inprimagailuaren aurrealdeko panelean"</string>
     <string name="connecting_to" msgid="2665161014972086194">"<xliff:g id="PRINTER">%1$s</xliff:g> inprimagailura konektatzen"</string>
