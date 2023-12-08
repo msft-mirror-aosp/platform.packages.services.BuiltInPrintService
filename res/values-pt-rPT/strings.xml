@@ -66,8 +66,8 @@
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"Selecione para ativar."</string>
     <string name="recommendation_manage" msgid="4683640588502866284">"Gerir serviços"</string>
     <string name="security" msgid="2279008326210305401">"Segurança"</string>
-    <string name="certificate_update_request" msgid="1314796413107139475">"Esta impressora forneceu um novo certificado de segurança ou outro dispositivo está a roubar a respetiva identidade. Quer aceitar o novo certificado?"</string>
-    <string name="not_encrypted_request" msgid="4871472176807381642">"Esta impressora já não aceita tarefas encriptadas. Quer continuar com a impressão?"</string>
+    <string name="certificate_update_request" msgid="1314796413107139475">"Esta impressora forneceu um novo certificado de segurança ou outro dispositivo está a roubar a respetiva identidade. Pretende aceitar o novo certificado?"</string>
+    <string name="not_encrypted_request" msgid="4871472176807381642">"Esta impressora já não aceita tarefas encriptadas. Pretende continuar com a impressão?"</string>
     <string name="accept" msgid="4426153292469698134">"Aceitar"</string>
     <string name="reject" msgid="24751635160440693">"Rejeitar"</string>
     <string name="connections" msgid="8895413761760117180">"Ligações"</string>
