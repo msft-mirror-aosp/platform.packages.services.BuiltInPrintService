@@ -198,6 +198,7 @@ static sem_t _job_start_wait_sem;
 static _io_plugin_t _io_plugins[2];
 
 static volatile bool stop_run = false;
+static volatile bool stop_mutex = false;
 
 static printer_capabilities_t g_printer_caps = {0};
 
@@ -412,14 +413,18 @@ static const ifc_print_job_t *_get_print_ifc(port_t port_num) {
  * Lock the semaphore for this module
  */
 static void _lock(void) {
-    pthread_mutex_lock(&_q_lock);
+    if (!stop_mutex) {
+        pthread_mutex_lock(&_q_lock);
+    }
 }
 
 /*
  * Unlock the semaphore for this module
  */
 static void _unlock(void) {
-    pthread_mutex_unlock(&_q_lock);
+    if (!stop_mutex) {
+        pthread_mutex_unlock(&_q_lock);
+    }
 }
 
 static wJob_t _get_handle(void) {
@@ -568,75 +573,12 @@ static void _job_status_callback(const printer_state_dyn_t *new_status,
             }
             break;
 
+        /* all is well, handled in job status */
         case PRINT_STATUS_CANCELLED:
-            sem_post(&_job_start_wait_sem);
-            if ((jq->print_ifc != NULL) && (jq->print_ifc->enable_timeout != NULL)) {
-                jq->print_ifc->enable_timeout(jq->print_ifc, 1);
-            }
-            if (statusold != PRINT_STATUS_CANCELLED) {
-                LOGI("status requested job cancel");
-                if (new_status->printer_reasons[0] == PRINT_STATUS_OFFLINE) {
-                    sem_post(&_job_start_wait_sem);
-                    sem_post(&_job_end_wait_sem);
-                    if ((jq->print_ifc != NULL) && (jq->print_ifc->enable_timeout != NULL)) {
-                        jq->print_ifc->enable_timeout(jq->print_ifc, 1);
-                    }
-                }
-                _lock();
-                jq->job_params.cancelled = true;
-                _unlock();
-            }
-            if (new_status->printer_reasons[0] == PRINT_STATUS_OFFLINE) {
-                sem_post(&_job_start_wait_sem);
-                sem_post(&_job_end_wait_sem);
-            }
-            break;
-
+        /* all is well, handled in job status */
         case PRINT_STATUS_PRINTING:
-            sem_post(&_job_start_wait_sem);
-            _lock();
-            if ((jq->job_state != JOB_STATE_RUNNING) || (jq->blocked_reasons != blocked_reasons)) {
-                jq->job_state = JOB_STATE_RUNNING;
-                jq->blocked_reasons = blocked_reasons;
-                if (jq->cb_fn) {
-                    cb_param.param.state = JOB_RUNNING;
-                    cb_param.blocked_reasons = jq->blocked_reasons;
-                    cb_param.job_done_result = OK;
-
-                    jq->cb_fn(jq->job_handle, (void *) &cb_param);
-                }
-            }
-            _unlock();
-            break;
-
+        /* all is well, handled in job status */
         case PRINT_STATUS_UNABLE_TO_CONNECT:
-            sem_post(&_job_start_wait_sem);
-            _lock();
-            _stop_status_thread(jq);
-
-            jq->blocked_reasons = blocked_reasons;
-            jq->job_params.cancelled = true;
-            jq->job_state = JOB_STATE_ERROR;
-            if (jq->cb_fn) {
-                cb_param.param.state = JOB_DONE;
-                cb_param.blocked_reasons = blocked_reasons;
-                cb_param.job_done_result = ERROR;
-
-                jq->cb_fn(jq->job_handle, (void *) &cb_param);
-            }
-
-            if (jq->print_ifc != NULL) {
-                jq->print_ifc->destroy(jq->print_ifc);
-                jq->print_ifc = NULL;
-            }
-
-            if (jq->status_ifc != NULL) {
-                jq->status_ifc->destroy(jq->status_ifc);
-                jq->status_ifc = NULL;
-            }
-
-            _unlock();
-            sem_post(&_job_end_wait_sem);
             break;
 
         default:
@@ -647,13 +589,6 @@ static void _job_status_callback(const printer_state_dyn_t *new_status,
             if ((jq->job_state != JOB_STATE_BLOCKED) || (jq->blocked_reasons != blocked_reasons)) {
                 jq->job_state = JOB_STATE_BLOCKED;
                 jq->blocked_reasons = blocked_reasons;
-                if (jq->cb_fn) {
-                    cb_param.param.state = JOB_BLOCKED;
-                    cb_param.blocked_reasons = blocked_reasons;
-                    cb_param.job_done_result = OK;
-
-                    jq->cb_fn(jq->job_handle, (void *) &cb_param);
-                }
             }
             _unlock();
             break;
@@ -879,7 +814,7 @@ static void _initialize_status_ifc(_job_queue_t *jq) {
  * Runs a print job. Contains logic for what to do given different printer statuses.
  */
 static void *_job_thread(void *param) {
-    wprint_job_callback_params_t cb_param = { 0 };
+    wprint_job_callback_params_t cb_param = {};
     _msg_t msg;
     wJob_t job_handle;
     _job_queue_t *jq;
@@ -975,7 +910,7 @@ static void *_job_thread(void *param) {
                             if (printer_state.printer_reasons[i] == PRINT_STATUS_MAX_STATE) {
                                 break;
                             }
-                            blocked_reasons |= (1 << printer_state.printer_reasons[i]);
+                            blocked_reasons |= (LONG_ONE << printer_state.printer_reasons[i]);
                         }
                         if (blocked_reasons == 0) {
                             blocked_reasons |= BLOCKED_REASONS_PRINTER_BUSY;
@@ -986,6 +921,7 @@ static void *_job_thread(void *param) {
                             jq->job_state = JOB_STATE_BLOCKED;
                             jq->blocked_reasons = blocked_reasons;
                             if (jq->cb_fn) {
+                                cb_param.id = WPRINT_CB_PARAM_JOB_STATE;
                                 cb_param.param.state = JOB_BLOCKED;
                                 cb_param.blocked_reasons = blocked_reasons;
                                 cb_param.job_done_result = OK;
@@ -1015,7 +951,6 @@ static void *_job_thread(void *param) {
                 }
             }
 
-            _job_status_tid = pthread_self();
             if (job_result == OK) {
                 if (jq->print_ifc) {
                     job_result = jq->print_ifc->init(jq->print_ifc, jq->printer_addr,
@@ -1025,14 +960,12 @@ static void *_job_thread(void *param) {
                     }
                 }
             }
-            if (job_result == OK) {
-                _start_status_thread(jq);
-            }
 
             /*  call the plugin's start_job method, if no other job is running
              use callback to notify the client */
 
             if ((job_result == OK) && jq->cb_fn) {
+                cb_param.id = WPRINT_CB_PARAM_JOB_STATE;
                 cb_param.param.state = JOB_RUNNING;
                 cb_param.blocked_reasons = 0;
                 cb_param.job_done_result = OK;
@@ -1057,6 +990,10 @@ static void *_job_thread(void *param) {
                     /* PDF format plugin's start_job and end_job are to be called for each copy,
                      * inside the for-loop for num_copies.
                      */
+                    if (job_result == OK) {
+                        _job_status_tid = pthread_self();
+                        _start_status_thread(jq);
+                    }
 
                     // Do not call start_job unless validate_job returned OK
                     if ((job_result == OK) && (jq->print_ifc->start_job != NULL) &&
@@ -1377,10 +1314,8 @@ static void *_job_thread(void *param) {
             }
 
             LOGI("job_thread(): with job_state value: %d ", jq->job_state);
-            if ((jq->job_state == JOB_STATE_COMPLETED) || (jq->job_state == JOB_STATE_ERROR)
-                    || (jq->job_state == JOB_STATE_CANCELLED)
-                    || (jq->job_state == JOB_STATE_CORRUPTED)
-                    || (jq->job_state == JOB_STATE_FREE)) {
+            if (jq->job_state == JOB_STATE_ERROR) {
+                job_result = ERROR;
                 LOGI("_job_thread(): job finished early: do not send callback again");
             } else {
                 switch (job_result) {
@@ -1417,25 +1352,25 @@ static void *_job_thread(void *param) {
                         jq->job_state = JOB_STATE_ERROR;
                         break;
                 } // job_result
+            }
 
-                // end of job callback
-                if (jq->cb_fn) {
-                    cb_param.param.state = JOB_DONE;
-                    cb_param.blocked_reasons = jq->blocked_reasons;
-                    cb_param.job_done_result = job_result;
+            // end of job callback
+            if (jq->cb_fn) {
+                cb_param.id = WPRINT_CB_PARAM_JOB_STATE;
+                cb_param.param.state = JOB_DONE;
+                cb_param.blocked_reasons = jq->blocked_reasons;
+                cb_param.job_done_result = job_result;
+                jq->cb_fn(job_handle, (void *) &cb_param);
+            }
 
-                    jq->cb_fn(job_handle, (void *) &cb_param);
-                }
+            if (jq->print_ifc != NULL) {
+                jq->print_ifc->destroy(jq->print_ifc);
+                jq->print_ifc = NULL;
+            }
 
-                if (jq->print_ifc != NULL) {
-                    jq->print_ifc->destroy(jq->print_ifc);
-                    jq->print_ifc = NULL;
-                }
-
-                if (jq->status_ifc != NULL) {
-                    jq->status_ifc->destroy(jq->status_ifc);
-                    jq->status_ifc = NULL;
-                }
+            if (jq->status_ifc != NULL) {
+                jq->status_ifc->destroy(jq->status_ifc);
+                jq->status_ifc = NULL;
             }
         } else {
             LOGI("_job_thread(): job %ld not in queue .. maybe cancelled", job_handle);
@@ -1555,6 +1490,7 @@ int wprintInit(void) {
     signal(SIGPIPE, SIG_IGN); // avoid broken pipe process shutdowns
     pthread_mutexattr_settype(&_q_lock_attr, PTHREAD_MUTEX_RECURSIVE_NP);
     pthread_mutex_init(&_q_lock, &_q_lock_attr);
+    stop_mutex = false;
 
     if (_start_thread() != OK) {
         LOGE("could not start job thread");
@@ -2331,7 +2267,9 @@ status_t wprintExit(void) {
 
         sem_destroy(&_job_end_wait_sem);
         sem_destroy(&_job_start_wait_sem);
+
         pthread_mutex_destroy(&_q_lock);
+        stop_mutex = true;
     }
 
     return OK;
