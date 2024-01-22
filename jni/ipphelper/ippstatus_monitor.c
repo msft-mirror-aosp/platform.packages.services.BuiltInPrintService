@@ -62,7 +62,7 @@ typedef struct {
     http_t *http;
     char printer_uri[1024];
     char http_resource[1024];
-    unsigned char stop_monitor;
+    volatile unsigned char stop_monitor;
     unsigned char monitor_running;
     sem_t monitor_sem;
     pthread_mutex_t mutex;
@@ -134,6 +134,7 @@ static void _destroy(const ifc_status_monitor_t *this_p) {
 
             pthread_mutex_unlock(&monitor->mutex);
             pthread_mutex_destroy(&monitor->mutex);
+            monitor->stop_monitor = 1;
         }
 
         if (monitor->http != NULL) {
@@ -312,7 +313,7 @@ static status_t _cancel(const ifc_status_monitor_t *this_p, const char *requesti
     LOGD("_cancel(): enter");
 
     monitor = IMPL(ipp_monitor_t, ifc, this_p);
-    if (this_p != NULL && monitor != NULL && monitor->initialized) {
+    if (this_p != NULL && monitor != NULL && monitor->initialized && !monitor->stop_monitor) {
         pthread_mutex_lock(&monitor->mutex);
         do {
             if (monitor->stop_monitor) {
@@ -433,7 +434,7 @@ static void _get_job_state(const ifc_status_monitor_t *this_p, job_state_dyn_t *
     ipp_monitor_t *monitor = NULL;
     monitor = IMPL(ipp_monitor_t, ifc, this_p);
 
-    if (this_p != NULL && monitor != NULL && monitor->initialized) {
+    if (this_p != NULL && monitor != NULL && monitor->initialized && !monitor->stop_monitor) {
         pthread_mutex_lock(&monitor->mutex);
 
         do {
