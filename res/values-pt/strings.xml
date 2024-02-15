@@ -57,7 +57,7 @@
     <string name="failed_printer_connection" msgid="4196305972749960362">"Não foi possível se conectar à impressora"</string>
     <string name="failed_connection" msgid="8068661997318286575">"Não foi possível se conectar à impressora <xliff:g id="PRINTER">%1$s</xliff:g>"</string>
     <string name="saved_printers" msgid="4567534965213125526">"Impressoras salvas"</string>
-    <string name="forget" msgid="892068061425802502">"Ignorar"</string>
+    <string name="forget" msgid="892068061425802502">"Esquecer"</string>
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"Conecta via Wi-Fi Direct"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"Conecta via rede atual em <xliff:g id="IP_ADDRESS">%1$s</xliff:g>"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"O serviço de impressão padrão oferece opções básicas. É possível que existam outras opções disponíveis para essa impressora em outro serviço de impressão."</string>
