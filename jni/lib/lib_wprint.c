@@ -523,6 +523,20 @@ static int _stop_status_thread(_job_queue_t *jq) {
 }
 
 /*
+ * Helper function to send job status callbacks to wprintJNI
+ */
+static void _send_status_callback(_job_queue_t *jq, wprint_job_callback_params_t cb_param,
+                                  int state, unsigned int blocked_reasons, int job_done_result) {
+    if (jq->cb_fn) {
+        cb_param.id = WPRINT_CB_PARAM_JOB_STATE;
+        cb_param.param.state = state;
+        cb_param.blocked_reasons = blocked_reasons;
+        cb_param.job_done_result = job_done_result;
+        jq->cb_fn(jq->job_handle, (void *) &cb_param);
+    }
+}
+
+/*
  * Handles a new status message from the printer. Based on the status of wprint and the printer,
  * this function will start/end a job, send another page, or return blocking errors.
  */
@@ -573,10 +587,23 @@ static void _job_status_callback(const printer_state_dyn_t *new_status,
             }
             break;
 
+        case PRINT_STATUS_PRINTING:
+            // print job is unblocked but job-id is not generated
+            if (new_status->job_id == -1) {
+                sem_post(&_job_start_wait_sem);
+                _lock();
+                if ((jq->job_state != JOB_STATE_RUNNING) ||
+                    (jq->blocked_reasons != blocked_reasons)) {
+                    jq->job_state = JOB_STATE_RUNNING;
+                    jq->blocked_reasons = blocked_reasons;
+                    _send_status_callback(jq, cb_param, JOB_RUNNING, jq->blocked_reasons, OK);
+                }
+                _unlock();
+            }
+            break;
+
         /* all is well, handled in job status */
         case PRINT_STATUS_CANCELLED:
-        /* all is well, handled in job status */
-        case PRINT_STATUS_PRINTING:
         /* all is well, handled in job status */
         case PRINT_STATUS_UNABLE_TO_CONNECT:
             break;
@@ -589,6 +616,10 @@ static void _job_status_callback(const printer_state_dyn_t *new_status,
             if ((jq->job_state != JOB_STATE_BLOCKED) || (jq->blocked_reasons != blocked_reasons)) {
                 jq->job_state = JOB_STATE_BLOCKED;
                 jq->blocked_reasons = blocked_reasons;
+                // print job is blocked at the initial stage and job-id is not generated
+                if (new_status->job_id == -1) {
+                    _send_status_callback(jq, cb_param, JOB_BLOCKED, blocked_reasons, OK);
+                }
             }
             _unlock();
             break;
@@ -637,26 +668,14 @@ static void _print_job_state_callback(const job_state_dyn_t *new_state, void *pa
             _lock();
             if (jq->job_state != JOB_STATE_RUNNING) {
                 jq->job_state = JOB_STATE_RUNNING;
-                if (jq->cb_fn) {
-                    cb_param.id = WPRINT_CB_PARAM_JOB_STATE;
-                    cb_param.param.state = JOB_RUNNING;
-                    cb_param.job_done_result = OK;
-                    jq->cb_fn(jq->job_handle, (void *) &cb_param);
-                }
+                _send_status_callback(jq, cb_param, JOB_RUNNING, 0, OK);
             }
             _unlock();
             break;
 
         case IPP_JOB_STATE_PROCESSING_STOPPED:
             if (jq->job_state == JOB_STATE_BLOCKED) {
-                if (jq->cb_fn) {
-                    cb_param.id = WPRINT_CB_PARAM_JOB_STATE;
-                    cb_param.param.state = JOB_BLOCKED;
-                    cb_param.blocked_reasons = jq->blocked_reasons;
-                    cb_param.job_done_result = OK;
-
-                    jq->cb_fn(jq->job_handle, (void *) &cb_param);
-                }
+                _send_status_callback(jq, cb_param, JOB_BLOCKED, jq->blocked_reasons, OK);
             }
             break;
 
@@ -920,14 +939,7 @@ static void *_job_thread(void *param) {
                                 || (jq->blocked_reasons != blocked_reasons)) {
                             jq->job_state = JOB_STATE_BLOCKED;
                             jq->blocked_reasons = blocked_reasons;
-                            if (jq->cb_fn) {
-                                cb_param.id = WPRINT_CB_PARAM_JOB_STATE;
-                                cb_param.param.state = JOB_BLOCKED;
-                                cb_param.blocked_reasons = blocked_reasons;
-                                cb_param.job_done_result = OK;
-
-                                jq->cb_fn(jq->job_handle, (void *) &cb_param);
-                            }
+                            _send_status_callback(jq, cb_param, JOB_BLOCKED, blocked_reasons, OK);
                         }
                         _unlock();
                         sleep(1);
@@ -964,13 +976,8 @@ static void *_job_thread(void *param) {
             /*  call the plugin's start_job method, if no other job is running
              use callback to notify the client */
 
-            if ((job_result == OK) && jq->cb_fn) {
-                cb_param.id = WPRINT_CB_PARAM_JOB_STATE;
-                cb_param.param.state = JOB_RUNNING;
-                cb_param.blocked_reasons = 0;
-                cb_param.job_done_result = OK;
-
-                jq->cb_fn(job_handle, (void *) &cb_param);
+            if (job_result == OK) {
+                _send_status_callback(jq, cb_param, JOB_RUNNING, 0, OK);
             }
 
             memcpy(&printer_caps, &g_printer_caps, sizeof(printer_capabilities_t));
@@ -1246,6 +1253,7 @@ static void *_job_thread(void *param) {
                 }
                 if ((jq->print_ifc != NULL) && (jq->print_ifc->end_job) &&
                         (strcmp(jq->job_params.print_format, PRINT_FORMAT_PDF) != 0)) {
+                    _unlock();
                     int end_job_result = jq->print_ifc->end_job(jq->print_ifc);
                     if (job_result == OK) {
                         if (end_job_result == ERROR) {
@@ -1254,6 +1262,7 @@ static void *_job_thread(void *param) {
                             job_result = CANCELLED;
                         }
                     }
+                    _lock();
                 }
             }
 
@@ -1355,13 +1364,7 @@ static void *_job_thread(void *param) {
             }
 
             // end of job callback
-            if (jq->cb_fn) {
-                cb_param.id = WPRINT_CB_PARAM_JOB_STATE;
-                cb_param.param.state = JOB_DONE;
-                cb_param.blocked_reasons = jq->blocked_reasons;
-                cb_param.job_done_result = job_result;
-                jq->cb_fn(job_handle, (void *) &cb_param);
-            }
+            _send_status_callback(jq, cb_param, JOB_DONE, jq->blocked_reasons, job_result);
 
             if (jq->print_ifc != NULL) {
                 jq->print_ifc->destroy(jq->print_ifc);
