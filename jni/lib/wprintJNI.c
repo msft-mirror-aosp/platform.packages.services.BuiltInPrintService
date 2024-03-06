@@ -1915,14 +1915,6 @@ JNIEXPORT jint JNICALL Java_com_android_bips_ipp_Backend_nativeStartJob(
                     }
                 }
             }
-        } else {
-            LOGD("PCLm / PWG-Raster");
-            for (int i = 0; i < caps.print_scalings_supported_count; i++) {
-                if (strcmp(caps.print_scalings_supported[i], "none") == 0) {
-                    strlcpy(print_scaling, "none", sizeof(print_scaling));
-                    break;
-                }
-            }
         }
         LOGD("setting print-scaling value = %s", print_scaling);
         strlcpy(params.print_scaling, print_scaling, sizeof(params.print_scaling));
