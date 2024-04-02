@@ -210,9 +210,11 @@ static void _start(const ifc_status_monitor_t *this_p,
 
     last_status.printer_status = PRINT_STATUS_UNKNOWN;
     last_status.printer_reasons[0] = PRINT_STATUS_INITIALIZING;
+    last_status.job_id = 0;
 
     curr_status.printer_status = PRINT_STATUS_UNKNOWN;
     curr_status.printer_reasons[0] = PRINT_STATUS_INITIALIZING;
+    curr_status.job_id = 0;
 
     // send out the first callback
     if (status_cb != NULL) {
@@ -264,6 +266,7 @@ static void _start(const ifc_status_monitor_t *this_p,
         } else {
             while (!monitor->stop_monitor) {
                 pthread_mutex_lock(&monitor->mutex);
+                curr_status.job_id = job_id;
                 _get_status(this_p, &curr_status);
                 pthread_mutex_unlock(&monitor->mutex);
                 if ((status_cb != NULL) &&
