@@ -36,6 +36,7 @@ import com.android.bips.p2p.P2pPrinterConnection;
 import com.android.bips.p2p.P2pUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.StringJoiner;
 import java.util.function.Consumer;
 
@@ -48,6 +49,8 @@ class LocalPrintJob implements MdnsDiscovery.Listener, ConnectionListener,
     private static final boolean DEBUG = false;
     private static final String IPP_SCHEME = "ipp";
     private static final String IPPS_SCHEME = "ipps";
+    private static final String SHARE_TO_PRINT = "SP";
+    private static final String DIRECT_PRINT = "DP";
 
     /** Maximum time to wait to find a printer before failing the job */
     private static final int DISCOVERY_TIMEOUT = 2 * 60 * 1000;
@@ -411,10 +414,6 @@ class LocalPrintJob implements MdnsDiscovery.Listener, ConnectionListener,
         Bundle bundle = new Bundle();
         bundle.putString(BackendConstants.PARAM_JOB_ID, mPrintJob.getId().toString());
         bundle.putLong(BackendConstants.PARAM_DATE_TIME, System.currentTimeMillis());
-        // TODO: Add real location
-        bundle.putString(BackendConstants.PARAM_LOCATION, "United States");
-        // TODO: Add real user id
-        bundle.putString(BackendConstants.PARAM_USER_ID, "userid");
         bundle.putString(BackendConstants.PARAM_RESULT, result);
         bundle.putLong(
                 BackendConstants.PARAM_ELAPSED_TIME_ALL, System.currentTimeMillis() - mStartTime);
@@ -430,15 +429,15 @@ class LocalPrintJob implements MdnsDiscovery.Listener, ConnectionListener,
         Bundle bundle = new Bundle();
         bundle.putString(BackendConstants.PARAM_JOB_ID, mPrintJob.getId().toString());
         bundle.putLong(BackendConstants.PARAM_DATE_TIME, System.currentTimeMillis());
-        // TODO: Add real location
-        bundle.putString(BackendConstants.PARAM_LOCATION, "United States");
-        bundle.putInt(
-                BackendConstants.PARAM_JOB_PAGES,
+        bundle.putInt(BackendConstants.PARAM_JOB_PAGES,
                 mPrintJob.getInfo().getCopies() * mPrintJob.getDocument().getInfo().getPageCount());
-        // TODO: Add real user id
-        bundle.putString(BackendConstants.PARAM_USER_ID, "userid");
-        // TODO: Determine whether the print job came from share to BIPS or from print system
-        bundle.putString(BackendConstants.PARAM_SOURCE_PATH, "ShareToBips || PrintSystem");
+        bundle.putString(BackendConstants.PARAM_SOURCE_PATH,
+                isSharedPrint() ? SHARE_TO_PRINT : DIRECT_PRINT);
         return bundle;
+    }
+
+    private boolean isSharedPrint() {
+        return Arrays.asList(ImagePrintActivity.getLastPrintJobId(),
+                PdfPrintActivity.getLastPrintJobId()).contains(mPrintJob.getInfo().getId());
     }
 }
