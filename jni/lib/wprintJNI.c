@@ -20,6 +20,8 @@
 #include "lib_wprint.h"
 #include "wprint_debug.h"
 #include <errno.h>
+#include <bits/strcasecmp.h>
+#include <string.h>
 #include "../plugins/wprint_mupdf.h"
 
 #define TAG "wprintJNI"
@@ -63,6 +65,8 @@ static jfieldID _LocalJobParamsField__job_originating_user_name;
 static jfieldID _LocalJobParamsField__pdf_render_resolution;
 static jfieldID _LocalJobParamsField__source_width;
 static jfieldID _LocalJobParamsField__source_height;
+static jfieldID _LocalJobParamsField__shared_photo;
+static jfieldID _LocalJobParamsField__preserve_scaling;
 
 static jclass _LocalPrinterCapabilitiesClass;
 static jfieldID _LocalPrinterCapabilitiesField__name;
@@ -417,8 +421,8 @@ static jint _print_pdf_pages(wJob_t job_handle, printer_capabilities_t *printer_
 
     // print forward direction if printer prints pages face down; otherwise print backward
     // NOTE: last page is sent from calling function
-    if (printer_cap->faceDownTray || duplex) {
-        LOGD("_print_pdf_pages(), pages print face down or duplex, printing in normal order");
+    if (printer_cap->faceDownTray) {
+        LOGD("_print_pdf_pages(), pages print face down, printing in normal order");
         page_index = 0;
         while (page_index < num_pages) {
             LOGD("_print_pdf_pages(), PRINTING PDF: %d", *(pages_ary + page_index));
@@ -497,6 +501,10 @@ static void _initJNI(JNIEnv *env, jobject callbackReceiver, jstring fakeDir) {
             "Z");
     _LocalJobParamsField__fill_page = (*env)->GetFieldID(env, _LocalJobParamsClass, "fill_page",
             "Z");
+    _LocalJobParamsField__shared_photo = (*env)->GetFieldID(env, _LocalJobParamsClass,
+            "shared_photo", "Z");
+    _LocalJobParamsField__preserve_scaling = (*env)->GetFieldID(env, _LocalJobParamsClass,
+            "preserve_scaling", "Z");
     _LocalJobParamsField__auto_rotate = (*env)->GetFieldID(env, _LocalJobParamsClass, "auto_rotate",
             "Z");
     _LocalJobParamsField__portrait_mode = (*env)->GetFieldID(env, _LocalJobParamsClass,
@@ -750,7 +758,6 @@ static void _initJNI(JNIEnv *env, jobject callbackReceiver, jstring fakeDir) {
     _PrintServiceStringsField__BLOCKED_REASON__PRINTER_NMS_RESET = (*env)->GetStaticFieldID(env,
             _PrintServiceStringsClass, "BLOCKED_REASON__PRINTER_NMS_RESET", "Ljava/lang/String;");
 
-
     _PrintServiceStringsField__ALIGNMENT__CENTER = (*env)->GetStaticFieldID(
             env, _PrintServiceStringsClass, "ALIGN_CENTER", "I");
     _PrintServiceStringsField__ALIGNMENT__CENTER_HORIZONTAL = (*env)->GetStaticFieldID(
@@ -966,6 +973,8 @@ static int _convertJobParams_to_C(JNIEnv *env, jobject javaJobParams,
             env, javaJobParams, _LocalJobParamsField__source_height);
     wprintJobParams->source_width = (float) (*env)->GetFloatField(
             env, javaJobParams, _LocalJobParamsField__source_width);
+    wprintJobParams->preserve_scaling = (bool) (*env)->GetBooleanField(env, javaJobParams,
+            _LocalJobParamsField__preserve_scaling);
 
     if ((*env)->GetBooleanField(env, javaJobParams, _LocalJobParamsField__portrait_mode)) {
         wprintJobParams->render_flags |= RENDER_FLAG_PORTRAIT_MODE;
@@ -1119,6 +1128,8 @@ static int _covertJobParams_to_Java(JNIEnv *env, jobject javaJobParams,
             (wprintJobParams->render_flags & RENDER_FLAG_PORTRAIT_MODE) != 0));
     (*env)->SetBooleanField(env, javaJobParams, _LocalJobParamsField__landscape_mode, (jboolean) (
             (wprintJobParams->render_flags & RENDER_FLAG_LANDSCAPE_MODE) != 0));
+    (*env)->SetBooleanField(env, javaJobParams, _LocalJobParamsField__preserve_scaling,
+            (jboolean) (wprintJobParams->preserve_scaling));
 
     // update the printable area & DPI information
     (*env)->SetIntField(env, javaJobParams, _LocalJobParamsField__print_resolution,
@@ -1824,6 +1835,7 @@ JNIEXPORT jint JNICALL Java_com_android_bips_ipp_Backend_nativeStartJob(
 
     int pdf_pages_ary[len];
     int pages_ary[len][MAX_NUM_PAGES];
+    const char *print_format = _get_print_format(mimeTypeStr, &params, &caps);
 
     if (hasFiles) {
         result = OK;
@@ -1865,6 +1877,53 @@ JNIEXPORT jint JNICALL Java_com_android_bips_ipp_Backend_nativeStartJob(
         }
 
         (*env)->ReleaseStringUTFChars(env, page, pageStr);
+
+        bool shared_photo = (*env)->GetBooleanField(env, jobParams,
+                                                    _LocalJobParamsField__shared_photo);
+        bool preserve_scaling = (*env)->GetBooleanField(env, jobParams,
+                                                        _LocalJobParamsField__preserve_scaling);
+        LOGD("setting print-scaling job param");
+        LOGD("shared_photo = %d", shared_photo);
+        LOGD("preserve_scaling = %d", preserve_scaling);
+
+        char print_scaling[MAX_PRINT_SCALING_LENGTH] = "";
+        if (strcmp(print_format, PRINT_FORMAT_PDF) == 0) {
+            LOGD("PDF pass-through");
+            bool is_photo = strcasecmp(params.docCategory, "Photo") == 0;
+            if ((is_photo && shared_photo) || preserve_scaling) {
+                for (int i = 0; i < caps.print_scalings_supported_count; i++) {
+                    if (strcmp(caps.print_scalings_supported[i], "none") == 0) {
+                        strlcpy(print_scaling, "none", sizeof(print_scaling));
+                        break;
+                    }
+                }
+            } else {
+                bool auto_supported = false;
+                for (int i = 0; i < caps.print_scalings_supported_count; i++) {
+                    if (strcmp(caps.print_scalings_supported[i], "auto") == 0) {
+                        strlcpy(print_scaling, "auto", sizeof(print_scaling));
+                        auto_supported = true;
+                        break;
+                    }
+                }
+                if (!auto_supported) {
+                    if (strcmp(caps.print_scaling_default, "") != 0) {
+                        strlcpy(print_scaling, caps.print_scaling_default,
+                                sizeof(caps.print_scaling_default));
+                    } else {
+                        strlcpy(print_scaling, "fit", sizeof(print_scaling));
+                    }
+                }
+            }
+        }
+        LOGD("setting print-scaling value = %s", print_scaling);
+        strlcpy(params.print_scaling, print_scaling, sizeof(params.print_scaling));
+
+        params.job_pages_per_set = 0;
+        for (int i = 0; i < len; i++) {
+            params.job_pages_per_set += pdf_pages_ary[i];
+        }
+
         const char *jobDebugDirStr = NULL;
         if (jobDebugDir != NULL) {
             jobDebugDirStr = (*env)->GetStringUTFChars(env, jobDebugDir, NULL);
@@ -1884,7 +1943,7 @@ JNIEXPORT jint JNICALL Java_com_android_bips_ipp_Backend_nativeStartJob(
         job_handle = (wJob_t) result;
 
         // register job handle with service
-        if (caps.faceDownTray || params.duplex) {
+        if (caps.faceDownTray) {
             index = 0;
             incrementor = 1;
         } else {
@@ -1954,17 +2013,27 @@ JNIEXPORT jint JNICALL Java_com_android_bips_ipp_Backend_nativeCancelJob(
 JNIEXPORT jint JNICALL Java_com_android_bips_ipp_Backend_nativeExit(JNIEnv *env, jobject obj) {
     LOGI("nativeExit, JNIenv is %p", env);
 
-    (*env)->DeleteGlobalRef(env, _LocalJobParamsClass);
-    (*env)->DeleteGlobalRef(env, _LocalPrinterCapabilitiesClass);
-    (*env)->DeleteGlobalRef(env, _JobCallbackParamsClass);
+    if (_LocalJobParamsClass) {
+        (*env)->DeleteGlobalRef(env, _LocalJobParamsClass);
+    }
+    if (_LocalPrinterCapabilitiesClass) {
+        (*env)->DeleteGlobalRef(env, _LocalPrinterCapabilitiesClass);
+    }
+    if (_JobCallbackParamsClass) {
+        (*env)->DeleteGlobalRef(env, _JobCallbackParamsClass);
+    }
     if (_callbackReceiver) {
         (*env)->DeleteGlobalRef(env, _callbackReceiver);
     }
     if (_JobCallbackClass) {
         (*env)->DeleteGlobalRef(env, _JobCallbackClass);
     }
-    (*env)->DeleteGlobalRef(env, _fakeDir);
-    (*env)->DeleteGlobalRef(env, _PrintServiceStringsClass);
+    if (_fakeDir) {
+        (*env)->DeleteGlobalRef(env, _fakeDir);
+    }
+    if (_PrintServiceStringsClass) {
+        (*env)->DeleteGlobalRef(env, _PrintServiceStringsClass);
+    }
 
     pdf_render_deinit(env);
     return wprintExit();
