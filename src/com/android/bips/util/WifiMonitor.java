@@ -37,6 +37,8 @@ public class WifiMonitor {
     /** Current connectivity state or null if not known yet */
     private Boolean mConnected;
 
+    private static Boolean mIsRegister = false;
+
     /**
      * Begin listening for connectivity changes, supplying the connectivity state to the listener
      * until stopped.
@@ -50,26 +52,32 @@ public class WifiMonitor {
         }
 
         mListener = listener;
-        mBroadcasts = service.receiveBroadcasts(new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction())) {
-                    NetworkInfo info = connectivityManager.getActiveNetworkInfo();
-                    boolean isConnected = info != null && info.isConnected();
-                    if (mListener != null && (mConnected == null || mConnected != isConnected)) {
-                        mConnected = isConnected;
-                        mListener.onConnectionStateChanged(mConnected);
+        if(!mIsRegister) {
+            mBroadcasts = service.receiveBroadcasts(new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction())) {
+                        NetworkInfo info = connectivityManager.getNetworkInfo(
+                          ConnectivityManager.TYPE_WIFI);
+                        boolean isConnected = info != null && info.isConnected();
+                        if (mListener != null && (
+                          mConnected == null || mConnected != isConnected)) {
+                            mConnected = isConnected;
+                            mListener.onConnectionStateChanged(mConnected);
+                        }
                     }
                 }
-            }
-        }, ConnectivityManager.CONNECTIVITY_ACTION);
+            }, ConnectivityManager.CONNECTIVITY_ACTION);
+            mIsRegister = true;
+        }
     }
 
     /** Cease monitoring Wi-Fi connectivity status */
     public void close() {
         if (DEBUG) Log.d(TAG, "close()");
-        if (mBroadcasts != null) {
+        if (mIsRegister && mBroadcasts != null) {
             mBroadcasts.close();
+            mIsRegister = false;
         }
         mListener = null;
     }
