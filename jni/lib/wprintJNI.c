@@ -1915,14 +1915,6 @@ JNIEXPORT jint JNICALL Java_com_android_bips_ipp_Backend_nativeStartJob(
                     }
                 }
             }
-        } else {
-            LOGD("PCLm / PWG-Raster");
-            for (int i = 0; i < caps.print_scalings_supported_count; i++) {
-                if (strcmp(caps.print_scalings_supported[i], "none") == 0) {
-                    strlcpy(print_scaling, "none", sizeof(print_scaling));
-                    break;
-                }
-            }
         }
         LOGD("setting print-scaling value = %s", print_scaling);
         strlcpy(params.print_scaling, print_scaling, sizeof(params.print_scaling));
@@ -2021,17 +2013,27 @@ JNIEXPORT jint JNICALL Java_com_android_bips_ipp_Backend_nativeCancelJob(
 JNIEXPORT jint JNICALL Java_com_android_bips_ipp_Backend_nativeExit(JNIEnv *env, jobject obj) {
     LOGI("nativeExit, JNIenv is %p", env);
 
-    (*env)->DeleteGlobalRef(env, _LocalJobParamsClass);
-    (*env)->DeleteGlobalRef(env, _LocalPrinterCapabilitiesClass);
-    (*env)->DeleteGlobalRef(env, _JobCallbackParamsClass);
+    if (_LocalJobParamsClass) {
+        (*env)->DeleteGlobalRef(env, _LocalJobParamsClass);
+    }
+    if (_LocalPrinterCapabilitiesClass) {
+        (*env)->DeleteGlobalRef(env, _LocalPrinterCapabilitiesClass);
+    }
+    if (_JobCallbackParamsClass) {
+        (*env)->DeleteGlobalRef(env, _JobCallbackParamsClass);
+    }
     if (_callbackReceiver) {
         (*env)->DeleteGlobalRef(env, _callbackReceiver);
     }
     if (_JobCallbackClass) {
         (*env)->DeleteGlobalRef(env, _JobCallbackClass);
     }
-    (*env)->DeleteGlobalRef(env, _fakeDir);
-    (*env)->DeleteGlobalRef(env, _PrintServiceStringsClass);
+    if (_fakeDir) {
+        (*env)->DeleteGlobalRef(env, _fakeDir);
+    }
+    if (_PrintServiceStringsClass) {
+        (*env)->DeleteGlobalRef(env, _PrintServiceStringsClass);
+    }
 
     pdf_render_deinit(env);
     return wprintExit();

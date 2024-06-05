@@ -26,7 +26,7 @@
     <string name="printer_low_on_toner" msgid="8807858294038587130">"Niveli i tonerit i ulët"</string>
     <string name="printer_door_open" msgid="2446302931916940874">"Dera e hapur"</string>
     <string name="printer_jammed" msgid="5104099859384749499">"I bllokuar"</string>
-    <string name="printer_offline" msgid="9196864753298645066">"Jashtë linje"</string>
+    <string name="printer_offline" msgid="9196864753298645066">"Offline"</string>
     <string name="printer_bad_certificate" msgid="1366180387095466268">"Certifikatë me probleme"</string>
     <string name="printer_not_encrypted" msgid="1913051469275483673">"Nuk është enkriptuar"</string>
     <string name="printer_check" msgid="6428369671197132828">"Kontrollo printerin"</string>
