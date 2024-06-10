@@ -74,8 +74,6 @@ public class MoreOptionsActivity extends Activity implements ServiceConnection, 
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-
-        ViewUtil.setWindowInsetsListener(getWindow().getDecorView(), this);
     }
 
     @Override

@@ -39,8 +39,6 @@ public class AddPrintersActivity extends Activity {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-
-        ViewUtil.setWindowInsetsListener(getWindow().getDecorView(), this);
     }
 
     @Override
