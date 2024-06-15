@@ -1819,7 +1819,7 @@ ipp_t *ipp_doCupsRequest(http_t *http, ipp_t *request, char *http_resource, char
         response = ippSendRequest(http, request, http_resource);
         if (response == NULL) {
             ipp_status = cupsLastError();
-            if (ipp_status == IPP_INTERNAL_ERROR || ipp_status == HTTP_ERROR) {
+            if (ipp_status == IPP_INTERNAL_ERROR || ipp_status == (ipp_status_t)HTTP_ERROR) {
                 internal_error_retry_count++;
                 if (internal_error_retry_count > IPP_INTERNAL_ERROR_MAX_RETRIES) {
                     break;
