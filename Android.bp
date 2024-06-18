@@ -24,6 +24,9 @@ android_app {
         "src/**/*.java",
         "src/**/I*.aidl",
     ],
+    static_libs: [
+        "androidx.core_core",
+    ],
     resource_dirs: ["res"],
     sdk_version: "system_current",
     optimize: {
