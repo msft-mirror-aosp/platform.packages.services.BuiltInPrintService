@@ -57,7 +57,7 @@
     <string name="failed_printer_connection" msgid="4196305972749960362">"K tlačiarni sa nepodarilo pripojiť"</string>
     <string name="failed_connection" msgid="8068661997318286575">"K tlačiarni <xliff:g id="PRINTER">%1$s</xliff:g> sa nepodarilo pripojiť"</string>
     <string name="saved_printers" msgid="4567534965213125526">"Uložené tlačiarne"</string>
-    <string name="forget" msgid="892068061425802502">"Odstrániť"</string>
+    <string name="forget" msgid="892068061425802502">"Zabudnúť"</string>
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"Pripája sa prostredníctvom rozhrania Wi-Fi Direct"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"Pripája sa prostredníctvom aktuálnej siete na adrese IP – <xliff:g id="IP_ADDRESS">%1$s</xliff:g>"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"Predvolená tlačová služba poskytuje základné možnosti. Ďalšie možnosti tejto tlačiarne môžu byť k dispozícii v inej tlačovej službe."</string>
