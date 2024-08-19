@@ -16,6 +16,8 @@
 
 package com.android.bips.p2p;
 
+import static com.android.bips.discovery.P2pDiscovery.toPrinter;
+
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pInfo;
 import android.util.Log;
@@ -63,6 +65,8 @@ public class P2pPrinterConnection implements Discovery.Listener, P2pConnectionLi
             ConnectionListener listener) {
         this(service, listener);
         if (DEBUG) Log.d(TAG, "Connecting to " + P2pMonitor.toString(peer));
+        // Initialize mPrinter to handle onPeerFound callback for re-discover cases
+        mPrinter = toPrinter(peer);
         connectToPeer(peer);
     }
 
@@ -83,7 +87,7 @@ public class P2pPrinterConnection implements Discovery.Listener, P2pConnectionLi
 
     private void connectToPeer(WifiP2pDevice peer) {
         mPeer = peer;
-        mService.getP2pMonitor().connect(mPeer, this);
+        mService.getP2pMonitor().connect(mPeer, this, this);
     }
 
     @Override
