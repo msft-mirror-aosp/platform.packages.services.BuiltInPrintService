@@ -45,13 +45,13 @@ import java.util.concurrent.Executors;
  */
 public class MoreOptionsActivity extends Activity implements ServiceConnection, Discovery.Listener {
     private static final String TAG = MoreOptionsActivity.class.getSimpleName();
+
     private static final boolean DEBUG = false;
 
     private BuiltInPrintService mPrintService;
     PrinterId mPrinterId;
     DiscoveredPrinter mPrinter;
     InetAddress mPrinterAddress;
-
     public static final String EXTRA_PRINTER_ID = "EXTRA_PRINTER_ID";
     private final ExecutorService mExecutorService = Executors.newSingleThreadExecutor();
 
@@ -132,10 +132,10 @@ public class MoreOptionsActivity extends Activity implements ServiceConnection, 
                     mPrintService.getDiscovery().stop(this);
                     if (!mExecutorService.isShutdown() && mPrintService != null) {
                         mPrintService.getMainHandler().post(() -> {
-                            if (getFragmentManager().getFragments().isEmpty()) {
+                            if (getFragmentManager().findFragmentByTag(TAG) == null) {
                                 MoreOptionsFragment fragment = new MoreOptionsFragment();
                                 getFragmentManager().beginTransaction()
-                                        .replace(android.R.id.content, fragment)
+                                        .replace(android.R.id.content, fragment, TAG)
                                         .commit();
                             }
                         });
