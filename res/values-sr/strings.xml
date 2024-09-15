@@ -75,5 +75,5 @@
     <string name="disable_wifi_direct" msgid="4824677957241687577">"Угаси WiFi Direct"</string>
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"Подразумевана услуга штампања треба да има дозволу за уређаје у близини да би пронашла штампаче у близини."</string>
     <string name="fix" msgid="7784394272611365393">"Прикажи дозволу"</string>
-    <string name="print" msgid="7851318072404916362">"Одштампај"</string>
+    <string name="print" msgid="7851318072404916362">"Штампај"</string>
 </resources>
