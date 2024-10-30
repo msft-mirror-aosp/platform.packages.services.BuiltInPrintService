@@ -49,7 +49,7 @@
     <string name="printer_not_supported" msgid="281955849350938408">"چاپگر پشتیبانی نمی‌شود"</string>
     <string name="wifi_direct" msgid="4629404342852294985">"‏Wi-Fi بی‌واسطه"</string>
     <string name="find_wifi_direct" msgid="5270504288829123954">"‏پیدا کردن چاپگرهای Wi-Fi بی‌واسطه"</string>
-    <string name="wifi_direct_printing" msgid="8423811041563144048">"‏چاپ ازطریق Wi-Fi بی‌واسطه"</string>
+    <string name="wifi_direct_printing" msgid="8423811041563144048">"‏چاپ مستقیم ازطریق Wi-Fi"</string>
     <string name="wifi_direct_printers" msgid="541168032444693191">"‏چاپگرهای Wi-Fi بی‌واسطه"</string>
     <string name="searching" msgid="2114018057619514587">"درحال جستجو…"</string>
     <string name="connect_hint_text" msgid="587112503851044234">"ممکن است لازم باشد این اتصال را در پانل جلوی چاپگر تأیید کنید"</string>
