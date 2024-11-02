@@ -628,7 +628,6 @@ static void _job_status_callback(const printer_state_dyn_t *new_status,
 
 /*
  * Callback after getting the print job state
- * TODO (b/312004304): _print_job_state_callback code call removed due to crash.
  */
 static void _print_job_state_callback(const job_state_dyn_t *new_state, void *param) {
     wprint_job_callback_params_t cb_param = {};
