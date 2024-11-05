@@ -21,6 +21,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Bitmap;
 import android.os.IBinder;
 import android.os.ParcelFileDescriptor;
 import android.os.RemoteException;
@@ -98,7 +99,7 @@ public class PdfRender {
      * Opens the specified document, returning the page count or 0 on error. (Called by native
      * code.)
      */
-    private int openDocument(String fileName) {
+    public int openDocument(String fileName) {
         if (DEBUG) Log.d(TAG, "openDocument() " + fileName);
         if (mService == null) {
             return 0;
@@ -182,6 +183,29 @@ public class PdfRender {
         } catch (RemoteException | IOException | IllegalArgumentException | OutOfMemoryError ex) {
             Log.w(TAG, "Render failed", ex);
             return false;
+        }
+    }
+
+    /**
+     * Renders the content of the page to a bitmap.
+     *
+     * @param page   1-based page
+     * @param width  width of area to render
+     * @param height height of area to render
+     * @return Bitmap if rendering was successful or null on error
+     */
+    public Bitmap renderPage(int page, int width, int height) {
+        if (DEBUG) {
+            Log.d(TAG, "renderPage() page=" + " w=" + width + " h=" + height);
+        }
+        if (mService == null || page < 1) {
+            return null;
+        }
+        try {
+            return mService.renderPage(page - 1, width, height);
+        } catch (RemoteException | IllegalArgumentException | OutOfMemoryError ex) {
+            Log.w(TAG, "Render failed", ex);
+            return null;
         }
     }
 
