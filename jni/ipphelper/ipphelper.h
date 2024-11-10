@@ -149,6 +149,13 @@ extern int getJobId(http_t *http, char *http_resource, char *printer_uri,
 
 extern int tryNextResourceExtension(char *printer_uri);
 
+extern ipp_status_t get_JobStatus(http_t *http,
+        char *printer_uri,        /* I - URI buffer */
+        int job_id,
+        job_state_dyn_t *job_state_dyn,
+        ipp_jstate_t *job_state,
+        const char *requesting_user);
+
 #define IPP_PREFIX "ipp"
 #define IPPS_PREFIX "ipps"
 #define DEFAULT_IPP_URI_RESOURCE "/ipp/print"
