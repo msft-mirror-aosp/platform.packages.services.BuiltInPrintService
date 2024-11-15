@@ -323,9 +323,6 @@ static ipp_t *_fill_job(int ipp_op, char *printer_uri, const wprint_job_params_t
                 job_params->print_quality);
     }
 
-    ippAddResolution(request, IPP_TAG_JOB, "printer-resolution", IPP_RES_PER_INCH,
-            job_params->pixel_units, job_params->pixel_units);
-
     if (printer_caps->sidesSupported) {
         if (job_params->duplex == DUPLEX_MODE_BOOK) {
             ippAddString(request, IPP_TAG_JOB, IPP_TAG_KEYWORD, IPP_SIDES_TAG, NULL,

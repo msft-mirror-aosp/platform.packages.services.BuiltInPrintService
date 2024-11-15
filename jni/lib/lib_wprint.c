@@ -71,6 +71,7 @@
 #define MAX_IDLE_WAIT        (5 * 60)
 
 #define DEFAULT_RESOLUTION   (300)
+#define HIGH_RESOLUTION_PHOTO (600)
 
 // When searching for a supported resolution this is the max resolution we will consider.
 #define MAX_SUPPORTED_RESOLUTION (720)
@@ -1802,6 +1803,11 @@ status_t wprintGetFinalJobParams(wprint_job_params_t *job_params,
     if (strcasecmp(job_params->docCategory, "photo") == 0 && int_array_contains(
             printer_cap->supportedQuality, printer_cap->numSupportedQuality, IPP_QUALITY_HIGH)) {
         job_params->print_quality = IPP_QUALITY_HIGH;
+    } else if (int_array_contains(printer_cap->supportedQuality, printer_cap->numSupportedQuality,
+            IPP_QUALITY_NORMAL)) {
+        job_params->print_quality = IPP_QUALITY_NORMAL;
+    } else {
+        job_params->print_quality = IPP_QUALITY_DRAFT;
     }
 
     // confirm that the media size is supported
@@ -1874,7 +1880,9 @@ status_t wprintGetFinalJobParams(wprint_job_params_t *job_params,
         job_params->render_flags |= AUTO_FIT_RENDER_FLAGS;
     }
 
-    job_params->pixel_units = _findCloseResolutionSupported(DEFAULT_RESOLUTION,
+    job_params->pixel_units = _findCloseResolutionSupported(
+            job_params->print_quality == IPP_QUALITY_HIGH ? HIGH_RESOLUTION_PHOTO
+                                                          : DEFAULT_RESOLUTION,
             MAX_SUPPORTED_RESOLUTION, printer_cap);
 
     printable_area_get_default_margins(job_params, printer_cap, &margins[TOP_MARGIN],
