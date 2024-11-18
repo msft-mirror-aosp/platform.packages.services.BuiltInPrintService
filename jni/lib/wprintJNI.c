@@ -1049,8 +1049,8 @@ static int _convertJobParams_to_C(JNIEnv *env, jobject javaJobParams,
     if (jobOriginatingUserName != NULL) {
         const char *name = (*env)->GetStringUTFChars(env, jobOriginatingUserName, NULL);
         if (name != NULL) {
-            strncpy(wprintJobParams->job_originating_user_name, name,
-                    sizeof(wprintJobParams->job_originating_user_name) - 1);
+            strlcpy(wprintJobParams->job_originating_user_name, name,
+                    sizeof(wprintJobParams->job_originating_user_name));
             (*env)->ReleaseStringUTFChars(env, jobOriginatingUserName, name);
         }
     }
