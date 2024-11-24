@@ -228,6 +228,7 @@ struct wprint_connect_info_st {
                                 uint8 *data, int data_len);
     /* User-supplied data. */
     void *user;
+    const char *requesting_user_name;
 };
 
 /*

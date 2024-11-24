@@ -824,6 +824,7 @@ static void _initialize_status_ifc(_job_queue_t *jq) {
         connect_info.validate_certificate = NULL;
     }
     connect_info.timeout = DEFAULT_IPP_TIMEOUT;
+    connect_info.requesting_user_name = jq->job_params.job_originating_user_name;
 
     // Initialize the status interface with this connection info
     jq->status_ifc->init(jq->status_ifc, &connect_info);
@@ -1657,8 +1658,6 @@ status_t wprintGetCapabilities(const wprint_connect_info_t *connect_info,
             printer_cap->canPrintPWG);
 
     if (result == OK) {
-        memcpy(&g_printer_caps, printer_cap, sizeof(printer_capabilities_t));
-
         LOGD("\tmake: %s", printer_cap->make);
         LOGD("\thas color: %d", printer_cap->color);
         LOGD("\tcan duplex: %d", printer_cap->duplex);
@@ -2032,6 +2031,7 @@ wJob_t wprintStartJob(const char *printer_addr, port_t port_num,
         msg.id = MSG_RUN_JOB;
         msg.job_id = job_handle;
 
+        memcpy(&g_printer_caps, printer_cap, sizeof(printer_capabilities_t));
         if (print_ifc && plugin && plugin->print_page &&
                 (msgQSend(_msgQ, (char *) &msg, sizeof(msg), NO_WAIT, MSG_Q_FIFO) == OK)) {
             errno = OK;
