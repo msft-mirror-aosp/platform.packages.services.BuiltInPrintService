@@ -41,6 +41,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * A background task that starts sending a print job. The result of this task is an integer
@@ -279,6 +280,6 @@ class StartJobTask extends AsyncTask<Void, Void, Integer> {
     }
 
     private boolean isSharedPhoto() {
-        return mJobInfo.getId().equals(ImagePrintActivity.getLastPrintJobId());
+        return Objects.equals(mJobInfo.getId(), ImagePrintActivity.getLastPrintJobId());
     }
 }
