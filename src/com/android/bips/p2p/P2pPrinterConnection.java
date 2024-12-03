@@ -34,6 +34,7 @@ import java.net.Inet4Address;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.Arrays;
 
 /**
  * Manage the process of connecting to a P2P device, discovering a printer on the new network, and
@@ -192,9 +193,10 @@ public class P2pPrinterConnection implements Discovery.Listener, P2pConnectionLi
             mListener.onConnectionComplete(null);
             close();
         } else {
-            // Make a copy of the printer bearing its P2P path
+            // Make a copy of the printer bearing its P2P path as primary and discovered path
+            // as secondary
             DiscoveredPrinter p2pPrinter = new DiscoveredPrinter(printer.uuid, printer.name,
-                    P2pDiscovery.toPath(mPeer), printer.location);
+                    Arrays.asList(P2pDiscovery.toPath(mPeer), printer.path), printer.location);
             mListener.onConnectionComplete(p2pPrinter);
         }
     }
