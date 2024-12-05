@@ -104,8 +104,11 @@ public class P2pMonitor {
      * Request connection to a peer (which may already be connected) at least until stopped. Keeps
      * the current connection open as long as it might be useful.
      */
-    public void connect(WifiP2pDevice peer, P2pConnectionListener listener) {
+    public void connect(WifiP2pDevice peer, P2pConnectionListener listener,
+            P2pPeerListener discoveryListener) {
         if (DEBUG) Log.d(TAG, "connect(" + toString(peer) + ")");
+
+        boolean isP2pAlreadyConnected = false;
 
         if (mP2pManager == null) {
             // Device has no P2P support so indicate failure
@@ -120,6 +123,14 @@ public class P2pMonitor {
                 // The only listener is our internal one, so close this connection to make room
                 mConnection.close();
                 mConnection = null;
+                isP2pAlreadyConnected = true;
+                // Restarting p2p discovery and re-initiating the p2p connection after a delay of
+                // 1 second makes subsequent WFD(p2p) connection possible
+                // more info - https://issuetracker.google.com/issues/298540041
+                mService.delay(1000, () -> {
+                    stopDiscover(discoveryListener);
+                    discover(discoveryListener);
+                });
             } else {
                 // Cannot open connection
                 mService.getMainHandler().post(listener::onConnectionClosed);
@@ -127,7 +138,13 @@ public class P2pMonitor {
             }
         }
 
-        // Check for existing connection to the same device
+        // If connected to other device, bail out and wait for connect(..) to be called again after
+        // re-discovery
+        if (isP2pAlreadyConnected) {
+            return;
+        }
+
+        // Check for existing connection to the same device.
         if (mConnection == null) {
             // Create a new connection request with our internal listener
             mConnection = new P2pConnectionProcedure(mService, mP2pManager, peer,

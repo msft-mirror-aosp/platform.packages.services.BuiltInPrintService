@@ -16,8 +16,9 @@
  * limitations under the License.
  */
 
-#include <stdlib.h>
 #include <math.h>
+#include <stdlib.h>
+#include <string.h>
 #include "wprint_image.h"
 #include "lib_wprint.h"
 
