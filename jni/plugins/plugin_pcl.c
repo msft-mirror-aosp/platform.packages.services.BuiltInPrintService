@@ -540,6 +540,7 @@ static int _print_blank_page(wJob_t job_handle, wprint_job_params_t *job_params,
     msg.param.end_page.count = 0;
     priv->job_info.wprint_ifc->msgQSend(priv->msgQ, (char *) &msg, sizeof(msgQ_msg_t), NO_WAIT,
             MSG_Q_FIFO);
+    LOGD("_print_blank_page: added blank page to msgQ");
     return OK;
 }
 

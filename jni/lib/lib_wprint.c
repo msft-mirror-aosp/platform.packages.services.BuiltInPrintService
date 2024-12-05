@@ -2297,7 +2297,7 @@ void wprintSetSourceInfo(const char *appName, const char *appVersion, const char
 bool wprintBlankPageForPclm(const wprint_job_params_t *job_params,
         const printer_capabilities_t *printer_cap) {
     return ((job_params->job_pages_per_set % 2) &&
-            ((job_params->num_copies > 1 && printer_cap->sidesSupported) ||
+            ((job_params->num_copies > 1 && printer_cap->duplex) ||
                     (job_params->num_copies == 1)) && (job_params->duplex != DUPLEX_MODE_NONE));
 }
 
