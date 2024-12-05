@@ -28,6 +28,8 @@ import android.print.PageRange;
 import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
 import android.print.PrintDocumentInfo;
+import android.print.PrintJob;
+import android.print.PrintJobId;
 import android.print.PrintManager;
 import android.util.Log;
 import android.webkit.URLUtil;
@@ -43,6 +45,8 @@ import java.io.OutputStream;
 public class PdfPrintActivity extends Activity {
     private static final String TAG = PdfPrintActivity.class.getSimpleName();
     private static final boolean DEBUG = false;
+
+    private static PrintJobId sPrintJobId;
 
     private CancellationSignal mCancellationSignal;
     private String mJobName;
@@ -73,7 +77,8 @@ public class PdfPrintActivity extends Activity {
         PrintAttributes printAttributes = new PrintAttributes.Builder()
                 .setColorMode(PrintAttributes.COLOR_MODE_COLOR)
                 .build();
-        printManager.print(mJobName, new PdfAdapter(), printAttributes);
+        PrintJob printJob = printManager.print(mJobName, new PdfAdapter(), printAttributes);
+        sPrintJobId = printJob.getId();
     }
 
     @Override
@@ -148,5 +153,14 @@ public class PdfPrintActivity extends Activity {
             }
             return null;
         }
+    }
+
+    /**
+     * Get the print job id from PrintManager created print job.
+     *
+     * @return A PrintJobId, can be null
+     */
+    static PrintJobId getLastPrintJobId() {
+        return sPrintJobId;
     }
 }
