@@ -403,8 +403,10 @@ static status_t _print_page(wprint_job_params_t *job_params, const char *mime_ty
             msg.id = MSG_START_PAGE;
             msg.param.start_page.extra_margin = ((job_params->duplex != DUPLEX_MODE_NONE) &&
                     ((job_params->page_num & 0x1) == 0)) ? job_params->page_bottom_margin : 0.0f;
-            msg.param.start_page.width = wprint_image_get_width(image_info);
-            msg.param.start_page.height = wprint_image_get_height(image_info);
+            msg.param.start_page.width = priv->job_info.pixel_width = wprint_image_get_width(
+                    image_info);
+            msg.param.start_page.height = priv->job_info.pixel_height = wprint_image_get_height(
+                    image_info);
             priv->job_info.num_components = image_info->num_components;
             priv->job_info.wprint_ifc->msgQSend(priv->msgQ, (char *) &msg, sizeof(msgQ_msg_t),
                     NO_WAIT, MSG_Q_FIFO);
