@@ -168,8 +168,6 @@ public class BackendConstants {
     public static final String PARAM_JOB_PAGES = "job_pages";
     public static final String PARAM_SOURCE_PATH = "source_path";
     public static final String PARAM_DATE_TIME = "date_time";
-    public static final String PARAM_USER_ID = "user_id";
-    public static final String PARAM_LOCATION = "location";
     public static final String PARAM_RESULT = "result";
     public static final String PARAM_ERROR_MESSAGES = "error_messages";
     public static final String PARAM_ELAPSED_TIME_ALL = "elapsed_time_all";
