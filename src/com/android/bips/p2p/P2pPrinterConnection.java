@@ -16,6 +16,8 @@
 
 package com.android.bips.p2p;
 
+import static com.android.bips.discovery.P2pDiscovery.toPrinter;
+
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pInfo;
 import android.util.Log;
@@ -32,6 +34,7 @@ import java.net.Inet4Address;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.Arrays;
 
 /**
  * Manage the process of connecting to a P2P device, discovering a printer on the new network, and
@@ -63,6 +66,8 @@ public class P2pPrinterConnection implements Discovery.Listener, P2pConnectionLi
             ConnectionListener listener) {
         this(service, listener);
         if (DEBUG) Log.d(TAG, "Connecting to " + P2pMonitor.toString(peer));
+        // Initialize mPrinter to handle onPeerFound callback for re-discover cases
+        mPrinter = toPrinter(peer);
         connectToPeer(peer);
     }
 
@@ -83,7 +88,7 @@ public class P2pPrinterConnection implements Discovery.Listener, P2pConnectionLi
 
     private void connectToPeer(WifiP2pDevice peer) {
         mPeer = peer;
-        mService.getP2pMonitor().connect(mPeer, this);
+        mService.getP2pMonitor().connect(mPeer, this, this);
     }
 
     @Override
@@ -188,9 +193,10 @@ public class P2pPrinterConnection implements Discovery.Listener, P2pConnectionLi
             mListener.onConnectionComplete(null);
             close();
         } else {
-            // Make a copy of the printer bearing its P2P path
+            // Make a copy of the printer bearing its P2P path as primary and discovered path
+            // as secondary
             DiscoveredPrinter p2pPrinter = new DiscoveredPrinter(printer.uuid, printer.name,
-                    P2pDiscovery.toPath(mPeer), printer.location);
+                    Arrays.asList(P2pDiscovery.toPath(mPeer), printer.path), printer.location);
             mListener.onConnectionComplete(p2pPrinter);
         }
     }
