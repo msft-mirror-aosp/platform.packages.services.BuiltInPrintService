@@ -1592,6 +1592,17 @@ void parse_printerAttributes(ipp_t *response, printer_capabilities_t *capabiliti
         capabilities->jobPagesPerSetSupported = 1;
     }
 
+    // Certification override because of spec issue, 2.1 and above are mapped to 2.0
+    float certVersion = 0.0;
+    if ((attrptr = ippFindAttribute(response, "mopria-certified", IPP_TAG_TEXT)) != NULL ||
+        (attrptr = ippFindAttribute(response, "mopria_certified", IPP_TAG_TEXT)) != NULL) {
+        certVersion = atof(ippGetString(attrptr, 0, NULL));
+        LOGD("Mopria certified version: %f", certVersion);
+    }
+    if (certVersion < 2.0f) {
+        capabilities->jobPagesPerSetSupported = 0;
+    }
+
     debuglist_printerCapabilities(capabilities);
 }
 
