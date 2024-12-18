@@ -49,7 +49,7 @@
     <string name="printer_not_supported" msgid="281955849350938408">"Skrivaren stöds inte"</string>
     <string name="wifi_direct" msgid="4629404342852294985">"wifi Direct"</string>
     <string name="find_wifi_direct" msgid="5270504288829123954">"Hitta skrivare med wifi Direct"</string>
-    <string name="wifi_direct_printing" msgid="8423811041563144048">"Utskrift via wifi Direct"</string>
+    <string name="wifi_direct_printing" msgid="8423811041563144048">"Utskrift via Wi-Fi Direct"</string>
     <string name="wifi_direct_printers" msgid="541168032444693191">"Skrivare med Wi-Fi Direct"</string>
     <string name="searching" msgid="2114018057619514587">"Söker …"</string>
     <string name="connect_hint_text" msgid="587112503851044234">"Du kan behöva godkänna anslutningen på frontpanelen på skrivaren"</string>

@@ -114,6 +114,10 @@ static void _init(const ifc_status_monitor_t *this_p, const wprint_connect_info_
         pthread_mutex_init(&monitor->mutex, &monitor->mutexattr);
         sem_init(&monitor->monitor_sem, 0, 0);
         monitor->initialized = 1;
+        if (connect_info->requesting_user_name) {
+            strlcpy(monitor->requesting_user, connect_info->requesting_user_name,
+                    sizeof(monitor->requesting_user));
+        }
     } while (0);
 }
 
@@ -189,7 +193,6 @@ static void _get_status(const ifc_status_monitor_t *this_p,
     } while (0);
 }
 
-// TODO (b/312004304): job_state_cb code removed due to crash.
 static void _start(const ifc_status_monitor_t *this_p,
         void (*status_cb)(const printer_state_dyn_t *new_status,
                 const printer_state_dyn_t *old_status, void *status_param),
@@ -274,7 +277,23 @@ static void _start(const ifc_status_monitor_t *this_p,
                     (*status_cb)(&curr_status, &last_status, param);
                     memcpy(&last_status, &curr_status, sizeof(printer_state_dyn_t));
                 }
-                // TODO (b/312004304): Code removed due to crash. Will add it back with proper mitigation.
+
+                // Do not call for job state if thread has been stopped
+                if (job_state_cb != NULL && !monitor->stop_monitor) {
+                    pthread_mutex_lock(&monitor->mutex);
+                    if (job_id == -1) {
+                        job_id = getJobId(monitor->http, monitor->http_resource,
+                                          monitor->printer_uri, &new_state,
+                                          monitor->requesting_user);
+                    }
+                    _get_job_state(this_p, &new_state, job_id);
+                    pthread_mutex_unlock(&monitor->mutex);
+
+                    if (memcmp(&new_state, &old_state, sizeof(job_state_dyn_t)) != 0) {
+                        (*job_state_cb)(&new_state, param);
+                        memcpy(&old_state, &new_state, sizeof(job_state_dyn_t));
+                    }
+                }
                 sleep(1);
             }
         }
