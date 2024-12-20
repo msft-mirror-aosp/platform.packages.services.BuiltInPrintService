@@ -120,7 +120,7 @@ public class PdfRender {
 
     /**
      * Returns the size of the specified page or null on error. (Called by native code.)
-     * @param page 0-based page
+     * @param page 1-based page
      * @return width and height of page in points (1/72")
      */
     public SizeD getPageSize(int page) {
@@ -139,7 +139,7 @@ public class PdfRender {
 
     /**
      * Renders the content of the page. (Called by native code.)
-     * @param page 0-based page
+     * @param page 1-based page
      * @param y y-offset onto page
      * @param width width of area to render
      * @param height height of area to render
