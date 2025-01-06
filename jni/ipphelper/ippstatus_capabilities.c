@@ -71,7 +71,9 @@ static const char *pattrs[] = {
         "media-col-ready",
         "print-scaling-supported",
         "print-scaling-default",
-        "job-pages-per-set-supported"
+        "job-pages-per-set-supported",
+        "mopria-certified",
+        "mopria_certified"
 };
 
 static void _init(const ifc_printer_capabilities_t *this_p,

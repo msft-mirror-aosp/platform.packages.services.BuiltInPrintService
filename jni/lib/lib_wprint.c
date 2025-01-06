@@ -71,6 +71,7 @@
 #define MAX_IDLE_WAIT        (5 * 60)
 
 #define DEFAULT_RESOLUTION   (300)
+#define HIGH_RESOLUTION_PHOTO (600)
 
 // When searching for a supported resolution this is the max resolution we will consider.
 #define MAX_SUPPORTED_RESOLUTION (720)
@@ -824,6 +825,7 @@ static void _initialize_status_ifc(_job_queue_t *jq) {
         connect_info.validate_certificate = NULL;
     }
     connect_info.timeout = DEFAULT_IPP_TIMEOUT;
+    connect_info.requesting_user_name = jq->job_params.job_originating_user_name;
 
     // Initialize the status interface with this connection info
     jq->status_ifc->init(jq->status_ifc, &connect_info);
@@ -1657,8 +1659,6 @@ status_t wprintGetCapabilities(const wprint_connect_info_t *connect_info,
             printer_cap->canPrintPWG);
 
     if (result == OK) {
-        memcpy(&g_printer_caps, printer_cap, sizeof(printer_capabilities_t));
-
         LOGD("\tmake: %s", printer_cap->make);
         LOGD("\thas color: %d", printer_cap->color);
         LOGD("\tcan duplex: %d", printer_cap->duplex);
@@ -1802,6 +1802,11 @@ status_t wprintGetFinalJobParams(wprint_job_params_t *job_params,
     if (strcasecmp(job_params->docCategory, "photo") == 0 && int_array_contains(
             printer_cap->supportedQuality, printer_cap->numSupportedQuality, IPP_QUALITY_HIGH)) {
         job_params->print_quality = IPP_QUALITY_HIGH;
+    } else if (int_array_contains(printer_cap->supportedQuality, printer_cap->numSupportedQuality,
+            IPP_QUALITY_NORMAL)) {
+        job_params->print_quality = IPP_QUALITY_NORMAL;
+    } else {
+        job_params->print_quality = IPP_QUALITY_DRAFT;
     }
 
     // confirm that the media size is supported
@@ -1874,7 +1879,9 @@ status_t wprintGetFinalJobParams(wprint_job_params_t *job_params,
         job_params->render_flags |= AUTO_FIT_RENDER_FLAGS;
     }
 
-    job_params->pixel_units = _findCloseResolutionSupported(DEFAULT_RESOLUTION,
+    job_params->pixel_units = _findCloseResolutionSupported(
+            job_params->print_quality == IPP_QUALITY_HIGH ? HIGH_RESOLUTION_PHOTO
+                                                          : DEFAULT_RESOLUTION,
             MAX_SUPPORTED_RESOLUTION, printer_cap);
 
     printable_area_get_default_margins(job_params, printer_cap, &margins[TOP_MARGIN],
@@ -2032,6 +2039,7 @@ wJob_t wprintStartJob(const char *printer_addr, port_t port_num,
         msg.id = MSG_RUN_JOB;
         msg.job_id = job_handle;
 
+        memcpy(&g_printer_caps, printer_cap, sizeof(printer_capabilities_t));
         if (print_ifc && plugin && plugin->print_page &&
                 (msgQSend(_msgQ, (char *) &msg, sizeof(msg), NO_WAIT, MSG_Q_FIFO) == OK)) {
             errno = OK;
@@ -2297,7 +2305,7 @@ void wprintSetSourceInfo(const char *appName, const char *appVersion, const char
 bool wprintBlankPageForPclm(const wprint_job_params_t *job_params,
         const printer_capabilities_t *printer_cap) {
     return ((job_params->job_pages_per_set % 2) &&
-            ((job_params->num_copies > 1 && printer_cap->sidesSupported) ||
+            ((job_params->num_copies > 1 && printer_cap->duplex) ||
                     (job_params->num_copies == 1)) && (job_params->duplex != DUPLEX_MODE_NONE));
 }
 

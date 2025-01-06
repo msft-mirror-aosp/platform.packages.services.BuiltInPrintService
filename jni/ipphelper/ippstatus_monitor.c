@@ -114,6 +114,10 @@ static void _init(const ifc_status_monitor_t *this_p, const wprint_connect_info_
         pthread_mutex_init(&monitor->mutex, &monitor->mutexattr);
         sem_init(&monitor->monitor_sem, 0, 0);
         monitor->initialized = 1;
+        if (connect_info->requesting_user_name) {
+            strlcpy(monitor->requesting_user, connect_info->requesting_user_name,
+                    sizeof(monitor->requesting_user));
+        }
     } while (0);
 }
 
