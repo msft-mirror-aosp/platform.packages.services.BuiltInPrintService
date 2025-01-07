@@ -49,6 +49,16 @@ interface IPdfRender {
         double zoomFactor);
 
     /**
+     * Render a page from the open document as a bitmap.
+     *
+     * @param page number to render
+     * @param width full-page width of bitmap to render
+     * @param height height of strip to render
+     * @return Bitmap of the rendered page or null on error
+     */
+    Bitmap renderPage(int page, int width, int height);
+
+    /**
      * Release all internal resources related to the open document
      */
     oneway void closeDocument();
