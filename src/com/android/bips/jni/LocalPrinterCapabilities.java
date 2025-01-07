@@ -42,6 +42,11 @@ public class LocalPrinterCapabilities {
     public boolean borderless;
     public boolean color;
 
+    public int printerTopMargin;
+    public int printerBottomMargin;
+    public int printerLeftMargin;
+    public int printerRightMargin;
+
     /** Reported MIME types include at least one that the lower layer supports */
     public boolean isSupported;
 
@@ -120,6 +125,10 @@ public class LocalPrinterCapabilities {
                 + " duplex=" + duplex
                 + " borderless=" + borderless
                 + " color=" + color
+                + " printerTopMargin=" + printerTopMargin
+                + " printerBottomMargin=" + printerBottomMargin
+                + " printerLeftMargin=" + printerLeftMargin
+                + " printerRightMargin=" + printerRightMargin
                 + " isSupported=" + isSupported
                 + " mediaDefault=" + mediaDefault
                 + " supportedMediaTypes=" + Arrays.toString(supportedMediaTypes)
