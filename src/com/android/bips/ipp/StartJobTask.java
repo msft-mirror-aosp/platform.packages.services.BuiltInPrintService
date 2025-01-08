@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2016 The Android Open Source Project
- * Copyright (C) 2016 Mopria Alliance, Inc.
+ * Copyright (C) 2016 - 2024 Mopria Alliance, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,13 @@
 package com.android.bips.ipp;
 
 import android.content.Context;
-import android.graphics.pdf.PdfRenderer;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -35,6 +41,8 @@ import com.android.bips.jni.BackendConstants;
 import com.android.bips.jni.LocalJobParams;
 import com.android.bips.jni.LocalPrinterCapabilities;
 import com.android.bips.jni.MediaSizes;
+import com.android.bips.jni.PdfRender;
+import com.android.bips.jni.SizeD;
 import com.android.bips.util.FileUtils;
 
 import java.io.BufferedOutputStream;
@@ -42,6 +50,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Objects;
+import java.nio.ByteBuffer;
 
 /**
  * A background task that starts sending a print job. The result of this task is an integer
@@ -71,7 +80,8 @@ class StartJobTask extends AsyncTask<Void, Void, Integer> {
 
     private static final int BORDERLESS_OFF = 0;
     private static final int BORDERLESS_ON = 1;
-
+    private static final float POINTS_PER_INCH = 72;
+    private final double mZoomFactor = RESOLUTION_300_DPI / POINTS_PER_INCH;
     private final Context mContext;
     private final Backend mBackend;
     private final Uri mDestination;
@@ -116,7 +126,6 @@ class StartJobTask extends AsyncTask<Void, Void, Integer> {
         mJobParams.color_space = getColorSpace();
         mJobParams.document_category = getDocumentCategory();
         mJobParams.shared_photo = isSharedPhoto();
-        mJobParams.preserve_scaling = false;
 
         mJobParams.job_margin_top = Math.max(mJobParams.job_margin_top, 0.0f);
         mJobParams.job_margin_left = Math.max(mJobParams.job_margin_left, 0.0f);
@@ -166,18 +175,26 @@ class StartJobTask extends AsyncTask<Void, Void, Integer> {
 
             // Fill in job parameters from capabilities and print job info.
             populateJobParams();
-            try (PdfRenderer renderer = new PdfRenderer(
-                    ParcelFileDescriptor.open(pdfFile, ParcelFileDescriptor.MODE_READ_ONLY));
-                 PdfRenderer.Page page = renderer.openPage(0)) {
+            PdfRender pdfRender = PdfRender.getInstance(mContext);
+            int pageCount = pdfRender.openDocument(pdfFile.getPath());
+            if (pageCount > 0) {
+                SizeD pageSize = pdfRender.getPageSize(1);
                 if (mJobParams.portrait_mode) {
-                    mJobParams.source_height = (float) page.getHeight() / 72;
-                    mJobParams.source_width = (float) page.getWidth() / 72;
+                    mJobParams.source_height = (float) pageSize.getHeight() / POINTS_PER_INCH;
+                    mJobParams.source_width = (float) pageSize.getWidth() / POINTS_PER_INCH;
                 } else {
-                    mJobParams.source_width = (float) page.getHeight() / 72;
-                    mJobParams.source_height = (float) page.getWidth() / 72;
+                    mJobParams.source_width = (float) pageSize.getHeight() / POINTS_PER_INCH;
+                    mJobParams.source_height = (float) pageSize.getWidth() / POINTS_PER_INCH;
                 }
-            } catch (IOException e) {
-                Log.w(TAG, "Error while getting source width, height", e);
+                // Print at 1:1 scale only if page count is 1 and the document is not a photo and
+                // there is no content in the margins of the printer.
+                if (pageCount == 1) {
+                    mJobParams.print_at_scale = !getDocumentCategory().equals(
+                            BackendConstants.PRINT_DOCUMENT_CATEGORY__PHOTO) &&
+                            isContentAtMarginsEmpty(pdfRender, pointsToPixels(pageSize.getHeight()),
+                                    pointsToPixels(pageSize.getWidth()));
+                }
+                pdfRender.closeDocument();
             }
 
             // Finalize job parameters
@@ -207,6 +224,74 @@ class StartJobTask extends AsyncTask<Void, Void, Integer> {
                 pdfFile.delete();
             }
         }
+    }
+
+    /** Converts cmm(hundredths of mm) to pixels at 300 DPI. */
+    private int cmmToPixels(int cmm) {
+        return Math.round((float) cmm / 2540 * RESOLUTION_300_DPI);
+    }
+
+    /** Converts points to pixels. */
+    private int pointsToPixels(double points) {
+        return (int) Math.round(points * mZoomFactor);
+    }
+
+    /**
+     * Returns true if there is no content in the margins of the printer.
+     */
+    private boolean isContentAtMarginsEmpty(PdfRender pdfRender, int pageHeight, int pageWidth) {
+        int topMargin = cmmToPixels(mCapabilities.printerTopMargin);
+        int bottomMargin = cmmToPixels(mCapabilities.printerBottomMargin);
+        int leftMargin = cmmToPixels(mCapabilities.printerLeftMargin);
+        int rightMargin = cmmToPixels(mCapabilities.printerRightMargin);
+
+        if (topMargin == 0 && bottomMargin == 0 && leftMargin == 0 && rightMargin == 0) {
+            return false;
+        }
+
+        boolean emptyContentAtMargins = false;
+        Bitmap pageBitmap = pdfRender.renderPage(1, pageWidth, pageHeight);
+        if (pageBitmap != null) {
+            Bitmap overlayBmp = overlayBitmap(pageBitmap, topMargin, bottomMargin, leftMargin,
+                    rightMargin);
+            ByteBuffer buff = ByteBuffer.allocate(overlayBmp.getByteCount());
+            overlayBmp.copyPixelsToBuffer(buff);
+            emptyContentAtMargins = isEmptyByteArray(buff.array());
+            overlayBmp.recycle();
+        }
+        return emptyContentAtMargins;
+    }
+
+    private boolean isEmptyByteArray(byte[] byteArray) {
+        for (byte b : byteArray) {
+            if (b > 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private Bitmap overlayBitmap(Bitmap bmp, int topMargin, int bottomMargin, int leftMargin,
+            int rightMargin) {
+        Bitmap bmpOverlay = Bitmap.createBitmap(bmp.getWidth(), bmp.getHeight(), bmp.getConfig());
+        Canvas canvas = new Canvas(bmpOverlay);
+        canvas.drawBitmap(bmp, new Matrix(), null);
+
+        int printableWidth = bmp.getWidth() - (leftMargin + rightMargin);
+        int printableHeight = bmp.getHeight() - (topMargin + bottomMargin);
+        int posX = leftMargin;
+        int posY = topMargin;
+
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+
+        Path path = new Path();
+        path.addRect(posX, posY, posX + printableWidth, posY + printableHeight, Path.Direction.CW);
+        // Draw the path to clip on the canvas, thus removing the pixels.
+        canvas.drawPath(path, paint);
+
+        bmp.recycle();
+        return bmpOverlay;
     }
 
     private boolean isBorderless() {

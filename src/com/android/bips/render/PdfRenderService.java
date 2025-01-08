@@ -62,7 +62,7 @@ public class PdfRenderService extends Service {
 
     private final IPdfRender.Stub mBinder = new IPdfRender.Stub() {
         @Override
-        public int openDocument(ParcelFileDescriptor pfd) throws RemoteException {
+        public synchronized int openDocument(ParcelFileDescriptor pfd) throws RemoteException {
             if (!open(pfd)) {
                 return 0;
             }
@@ -70,7 +70,7 @@ public class PdfRenderService extends Service {
         }
 
         @Override
-        public SizeD getPageSize(int page) throws RemoteException {
+        public synchronized SizeD getPageSize(int page) throws RemoteException {
             if (!openPage(page)) {
                 return null;
             }
@@ -78,8 +78,19 @@ public class PdfRenderService extends Service {
         }
 
         @Override
-        public ParcelFileDescriptor renderPageStripe(int page, int y, int width, int height,
-                double zoomFactor)
+        public synchronized Bitmap renderPage(int page, int width, int height)
+                throws RemoteException {
+            if (!openPage(page)) {
+                return null;
+            }
+            Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+            mPage.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_PRINT);
+            return bitmap;
+        }
+
+        @Override
+        public synchronized ParcelFileDescriptor renderPageStripe(int page, int y, int width,
+                int height, double zoomFactor)
                 throws RemoteException {
             if (!openPage(page)) {
                 return null;
@@ -101,7 +112,7 @@ public class PdfRenderService extends Service {
         }
 
         @Override
-        public void closeDocument() throws RemoteException {
+        public synchronized void closeDocument() throws RemoteException {
             if (DEBUG) Log.d(TAG, "closeDocument");
             closeAll();
         }
