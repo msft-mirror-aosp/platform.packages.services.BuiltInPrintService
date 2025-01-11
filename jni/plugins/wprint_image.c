@@ -288,8 +288,7 @@ status_t wprint_image_set_output_properties(wprint_image_info_t *image_info,
             (image_info->render_flags & RENDER_FLAG_DOCUMENT_SCALING)) {
         LOGD("checking native document scaling factor");
         if ((native_image_output_height <= image_info->printable_height)
-                && (native_image_output_width <= image_output_width
-                        <= image_info->printable_width)) {
+                && (native_image_output_width <= image_info->printable_width)) {
             LOGD("fit in printable area, just scale to native units");
             image_info->render_flags &= ~(RENDER_FLAG_AUTO_SCALE | RENDER_FLAG_AUTO_FIT);
         } else {
