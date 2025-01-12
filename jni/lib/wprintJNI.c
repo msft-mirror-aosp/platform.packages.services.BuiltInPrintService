@@ -66,7 +66,7 @@ static jfieldID _LocalJobParamsField__pdf_render_resolution;
 static jfieldID _LocalJobParamsField__source_width;
 static jfieldID _LocalJobParamsField__source_height;
 static jfieldID _LocalJobParamsField__shared_photo;
-static jfieldID _LocalJobParamsField__preserve_scaling;
+static jfieldID _LocalJobParamsField__print_at_scale;
 
 static jclass _LocalPrinterCapabilitiesClass;
 static jfieldID _LocalPrinterCapabilitiesField__name;
@@ -76,6 +76,10 @@ static jfieldID _LocalPrinterCapabilitiesField__location;
 static jfieldID _LocalPrinterCapabilitiesField__duplex;
 static jfieldID _LocalPrinterCapabilitiesField__borderless;
 static jfieldID _LocalPrinterCapabilitiesField__color;
+static jfieldID _LocalPrinterCapabilitiesField__printerTopMargin;
+static jfieldID _LocalPrinterCapabilitiesField__printerBottomMargin;
+static jfieldID _LocalPrinterCapabilitiesField__printerLeftMargin;
+static jfieldID _LocalPrinterCapabilitiesField__printerRightMargin;
 static jfieldID _LocalPrinterCapabilitiesField__isSupported;
 static jfieldID _LocalPrinterCapabilitiesField__mediaDefault;
 static jfieldID _LocalPrinterCapabilitiesField__supportedMediaTypes;
@@ -503,8 +507,8 @@ static void _initJNI(JNIEnv *env, jobject callbackReceiver, jstring fakeDir) {
             "Z");
     _LocalJobParamsField__shared_photo = (*env)->GetFieldID(env, _LocalJobParamsClass,
             "shared_photo", "Z");
-    _LocalJobParamsField__preserve_scaling = (*env)->GetFieldID(env, _LocalJobParamsClass,
-            "preserve_scaling", "Z");
+    _LocalJobParamsField__print_at_scale = (*env)->GetFieldID(env, _LocalJobParamsClass,
+            "print_at_scale", "Z");
     _LocalJobParamsField__auto_rotate = (*env)->GetFieldID(env, _LocalJobParamsClass, "auto_rotate",
             "Z");
     _LocalJobParamsField__portrait_mode = (*env)->GetFieldID(env, _LocalJobParamsClass,
@@ -554,6 +558,14 @@ static void _initJNI(JNIEnv *env, jobject callbackReceiver, jstring fakeDir) {
             env, _LocalPrinterCapabilitiesClass, "borderless", "Z");
     _LocalPrinterCapabilitiesField__color = (*env)->GetFieldID(
             env, _LocalPrinterCapabilitiesClass, "color", "Z");
+    _LocalPrinterCapabilitiesField__printerTopMargin = (*env)->GetFieldID(
+            env, _LocalPrinterCapabilitiesClass, "printerTopMargin", "I");
+    _LocalPrinterCapabilitiesField__printerBottomMargin = (*env)->GetFieldID(
+            env, _LocalPrinterCapabilitiesClass, "printerBottomMargin", "I");
+    _LocalPrinterCapabilitiesField__printerLeftMargin = (*env)->GetFieldID(
+            env, _LocalPrinterCapabilitiesClass, "printerLeftMargin", "I");
+    _LocalPrinterCapabilitiesField__printerRightMargin = (*env)->GetFieldID(
+            env, _LocalPrinterCapabilitiesClass, "printerRightMargin", "I");
     _LocalPrinterCapabilitiesField__isSupported = (*env)->GetFieldID(
             env, _LocalPrinterCapabilitiesClass, "isSupported", "Z");
     _LocalPrinterCapabilitiesField__mediaDefault = (*env)->GetFieldID(
@@ -860,6 +872,14 @@ static int _convertPrinterCaps_to_Java(JNIEnv *env, jobject javaPrinterCaps,
             (jboolean) wprintPrinterCaps->borderless);
     (*env)->SetBooleanField(env, javaPrinterCaps, _LocalPrinterCapabilitiesField__color,
             (jboolean) wprintPrinterCaps->color);
+    (*env)->SetIntField(env, javaPrinterCaps, _LocalPrinterCapabilitiesField__printerTopMargin,
+            (jint) wprintPrinterCaps->printerTopMargin);
+    (*env)->SetIntField(env, javaPrinterCaps, _LocalPrinterCapabilitiesField__printerBottomMargin,
+            (jint) wprintPrinterCaps->printerBottomMargin);
+    (*env)->SetIntField(env, javaPrinterCaps, _LocalPrinterCapabilitiesField__printerLeftMargin,
+            (jint) wprintPrinterCaps->printerLeftMargin);
+    (*env)->SetIntField(env, javaPrinterCaps, _LocalPrinterCapabilitiesField__printerRightMargin,
+            (jint) wprintPrinterCaps->printerRightMargin);
     (*env)->SetBooleanField(env, javaPrinterCaps, _LocalPrinterCapabilitiesField__isSupported,
             (jboolean) wprintPrinterCaps->isSupported);
 
@@ -973,8 +993,8 @@ static int _convertJobParams_to_C(JNIEnv *env, jobject javaJobParams,
             env, javaJobParams, _LocalJobParamsField__source_height);
     wprintJobParams->source_width = (float) (*env)->GetFloatField(
             env, javaJobParams, _LocalJobParamsField__source_width);
-    wprintJobParams->preserve_scaling = (bool) (*env)->GetBooleanField(env, javaJobParams,
-            _LocalJobParamsField__preserve_scaling);
+    wprintJobParams->print_at_scale = (bool) (*env)->GetBooleanField(env, javaJobParams,
+            _LocalJobParamsField__print_at_scale);
 
     if ((*env)->GetBooleanField(env, javaJobParams, _LocalJobParamsField__portrait_mode)) {
         wprintJobParams->render_flags |= RENDER_FLAG_PORTRAIT_MODE;
@@ -1128,8 +1148,8 @@ static int _covertJobParams_to_Java(JNIEnv *env, jobject javaJobParams,
             (wprintJobParams->render_flags & RENDER_FLAG_PORTRAIT_MODE) != 0));
     (*env)->SetBooleanField(env, javaJobParams, _LocalJobParamsField__landscape_mode, (jboolean) (
             (wprintJobParams->render_flags & RENDER_FLAG_LANDSCAPE_MODE) != 0));
-    (*env)->SetBooleanField(env, javaJobParams, _LocalJobParamsField__preserve_scaling,
-            (jboolean) (wprintJobParams->preserve_scaling));
+    (*env)->SetBooleanField(env, javaJobParams, _LocalJobParamsField__print_at_scale,
+            (jboolean) (wprintJobParams->print_at_scale));
 
     // update the printable area & DPI information
     (*env)->SetIntField(env, javaJobParams, _LocalJobParamsField__print_resolution,
@@ -1881,7 +1901,7 @@ JNIEXPORT jint JNICALL Java_com_android_bips_ipp_Backend_nativeStartJob(
         bool shared_photo = (*env)->GetBooleanField(env, jobParams,
                                                     _LocalJobParamsField__shared_photo);
         bool preserve_scaling = (*env)->GetBooleanField(env, jobParams,
-                                                        _LocalJobParamsField__preserve_scaling);
+                                                        _LocalJobParamsField__print_at_scale);
         LOGD("setting print-scaling job param");
         LOGD("shared_photo = %d", shared_photo);
         LOGD("preserve_scaling = %d", preserve_scaling);
@@ -1898,18 +1918,12 @@ JNIEXPORT jint JNICALL Java_com_android_bips_ipp_Backend_nativeStartJob(
                     }
                 }
             } else {
-                bool auto_supported = false;
-                for (int i = 0; i < caps.print_scalings_supported_count; i++) {
-                    if (strcmp(caps.print_scalings_supported[i], "auto") == 0) {
-                        strlcpy(print_scaling, "auto", sizeof(print_scaling));
-                        auto_supported = true;
-                        break;
-                    }
-                }
-                if (!auto_supported) {
-                    if (strcmp(caps.print_scaling_default, "") != 0) {
-                        strlcpy(print_scaling, caps.print_scaling_default,
-                                sizeof(caps.print_scaling_default));
+                if (strcmp(caps.print_scaling_default, "") != 0) {
+                    strlcpy(print_scaling, caps.print_scaling_default,
+                            sizeof(caps.print_scaling_default));
+                } else {
+                    if (is_photo) {
+                        strlcpy(print_scaling, "fill", sizeof(print_scaling));
                     } else {
                         strlcpy(print_scaling, "fit", sizeof(print_scaling));
                     }

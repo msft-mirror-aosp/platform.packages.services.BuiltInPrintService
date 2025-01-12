@@ -141,7 +141,7 @@ typedef struct {
     float job_left_margin;
     float job_right_margin;
     float job_bottom_margin;
-    bool preserve_scaling;
+    bool print_at_scale;
 
     bool face_down_tray;
 

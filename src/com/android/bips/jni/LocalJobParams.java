@@ -66,7 +66,7 @@ public final class LocalJobParams {
     public float source_height;
 
     public boolean shared_photo;
-    public boolean preserve_scaling;
+    public boolean print_at_scale;
 
     @Override
     public String toString() {
@@ -108,7 +108,7 @@ public final class LocalJobParams {
                 + " source_width=" + source_width
                 + " source_height=" + source_height
                 + " shared_photo=" + shared_photo
-                + " preserve_scaling=" + preserve_scaling
+                + " print_at_scale=" + print_at_scale
                 + "}";
     }
 }
