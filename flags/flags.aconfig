@@ -1,0 +1,10 @@
+package: "com.android.bips.flags"
+container: "system"
+
+flag {
+    name: "printer_info_details"
+    namespace: "printing"
+    description: "Display media and supply info in printer info page"
+    bug: "374764554"
+    is_fixed_read_only: true
+}
