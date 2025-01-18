@@ -20,8 +20,6 @@ package {
 cc_library_shared {
     name: "libwfds",
 
-    sdk_version: "current",
-
     cflags: [
         "-DINCLUDE_PDF=1",
         "-Werror",
@@ -67,10 +65,14 @@ cc_library_shared {
         "plugins/genPCLm/inc",
         "ipphelper",
     ],
-    static_libs: ["libjpeg_static_ndk"],
+    static_libs: [
+        "bips_aconfig_flags_cc_lib",
+        "libjpeg_static_ndk",
+    ],
     shared_libs: [
         "libcups",
         "liblog",
         "libz",
+        "server_configurable_flags",
     ],
 }
