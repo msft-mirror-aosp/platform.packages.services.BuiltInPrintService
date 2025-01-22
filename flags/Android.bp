@@ -1,4 +1,5 @@
-// Copyright (C) 2016 The Android Open Source Project
+//
+// Copyright (C) 2025 The Android Open Source Project
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -11,33 +12,27 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+//
 
 package {
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
-android_app {
-    name: "BuiltInPrintService",
-    certificate: "platform",
-    privileged: true,
+aconfig_declarations {
+    name: "bips_aconfig_flags",
+    package: "com.android.bips.flags",
+    container: "system",
     srcs: [
-        "src/**/*.java",
-        "src/**/I*.aidl",
+        "flags.aconfig",
     ],
-    static_libs: [
-        "androidx.core_core",
-        "bips_aconfig_flags_java_lib",
-    ],
-    flags_packages: [
-        "bips_aconfig_flags",
-    ],
-    resource_dirs: ["res"],
-    sdk_version: "system_current",
-    optimize: {
-        proguard_flags_files: ["proguard.flags"],
-    },
-    jni_libs: [
-        "libwfds",
-        "libcups",
-    ],
+}
+
+java_aconfig_library {
+    name: "bips_aconfig_flags_java_lib",
+    aconfig_declarations: "bips_aconfig_flags",
+}
+
+cc_aconfig_library {
+    name: "bips_aconfig_flags_cc_lib",
+    aconfig_declarations: "bips_aconfig_flags",
 }
