@@ -1733,7 +1733,7 @@ status_t wprintGetDefaultJobParams(wprint_job_params_t *job_params) {
             .borderless = false, .cancelled = false, .face_down_tray = false,
             .ipp_1_0_supported = false, .ipp_2_0_supported = false, .epcl_ipp_supported = false,
             .strip_height = STRIPE_HEIGHT, .docCategory = {0},
-            .copies_supported = false, .preserve_scaling = false};
+            .copies_supported = false, .print_at_scale = false};
 
     if (job_params == NULL) return result;
 

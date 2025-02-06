@@ -44,10 +44,12 @@ void printable_area_get(wprint_job_params_t *job_params, float top_margin,
 
     // Threshold value for catering slight variation b/w source dims and page dims
     const float PAGE_SIZE_EPSILON = 0.04f;
-    if (fabsf(job_params->source_width - job_params->page_width) < PAGE_SIZE_EPSILON &&
-        fabsf(job_params->source_height - job_params->page_height) < PAGE_SIZE_EPSILON) {
+    if (job_params->print_at_scale &&
+        (fabsf(job_params->source_width - job_params->page_width) < PAGE_SIZE_EPSILON &&
+         fabsf(job_params->source_height - job_params->page_height) < PAGE_SIZE_EPSILON)) {
         top_margin = left_margin = right_margin = bottom_margin = 0.0f;
-        job_params->preserve_scaling = true;
+    } else {
+        job_params->print_at_scale = false;
     }
 
     // don't adjust for margins if job is PCLm.  dimensions of image will not
@@ -156,17 +158,11 @@ void printable_area_get_default_margins(const wprint_job_params_t *job_params,
     } else {
         switch (job_params->pcl_type) {
             case PCLm:
+            case PCLPWG:
                 *top_margin = (float) printer_cap->printerTopMargin / 2540;
                 *bottom_margin = (float) printer_cap->printerBottomMargin / 2540;
                 *left_margin = (float) printer_cap->printerLeftMargin / 2540;
                 *right_margin = (float) printer_cap->printerRightMargin / 2540;
-                useDefaultMargins = false;
-                break;
-            case PCLPWG:
-                *top_margin = 0.0f;
-                *left_margin = 0.0f;
-                *right_margin = 0.0f;
-                *bottom_margin = 0.00f;
                 useDefaultMargins = false;
                 break;
             default:
