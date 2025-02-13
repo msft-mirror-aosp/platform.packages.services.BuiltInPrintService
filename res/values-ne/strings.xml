@@ -57,7 +57,7 @@
     <string name="failed_printer_connection" msgid="4196305972749960362">"प्रिन्टरमा जडान गर्न सकिएन"</string>
     <string name="failed_connection" msgid="8068661997318286575">"<xliff:g id="PRINTER">%1$s</xliff:g> मा जडान गर्न सकिएन"</string>
     <string name="saved_printers" msgid="4567534965213125526">"सुरक्षित गरिएका प्रिन्टरहरू"</string>
-    <string name="forget" msgid="892068061425802502">"बिर्सनुहोस्"</string>
+    <string name="forget" msgid="892068061425802502">"हटाउनुहोस्"</string>
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"Wi-Fi प्रत्यक्षमार्फत जडान गर्छ"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"<xliff:g id="IP_ADDRESS">%1$s</xliff:g> को हालको नेटवर्कमार्फत जडान गर्छ"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"डिफल्ट छपाइ सेवाले आधारभूत विकल्पहरू प्रदान गर्दछ। यो प्रिन्टरका अन्य विकल्पहरू अन्य छपाइ सेवाबाट उपलब्ध हुन सक्छन्।"</string>
