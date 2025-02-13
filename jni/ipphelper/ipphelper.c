@@ -24,6 +24,7 @@
 
 #include "ipp_print.h"
 #include "../plugins/media.h"
+#include "com_android_bips_flags.h"
 
 #define TAG "ipphelper"
 #define IPP_JOB_UNKNOWN ((ipp_jstate_t)(-1))
@@ -1093,6 +1094,12 @@ void parse_getMediaSupported(
     if (sizes_idx > 0) {
         strlcpy(capabilities->mediaDefault, mapDFMediaToIPPKeyword(media_supported->media_size[0]),
                     sizeof(capabilities->mediaDefault));
+        if (com_android_bips_flags_printer_info_details()) {
+            capabilities->numSupportedMediaReadySizes = sizes_idx;
+            for (i = 0; i < sizes_idx; i++) {
+                capabilities->supportedMediaReadySizes[i] = media_supported->media_size[i];
+            }
+        }
     }
 
     // Append media-supported. media is de-duplicated later in java
@@ -1239,6 +1246,21 @@ void parse_printerAttributes(ipp_t *response, printer_capabilities_t *capabiliti
     if ((attrptr = ippFindAttribute(response, "printer-location", IPP_TAG_TEXT)) != NULL) {
         strlcpy(capabilities->location, ippGetString(attrptr, 0, NULL),
                 sizeof(capabilities->location));
+    }
+
+    if (com_android_bips_flags_printer_info_details()) {
+        capabilities->num_printer_icons = 0;
+        if ((attrptr = ippFindAttribute(response, "printer-icons", IPP_TAG_URI)) != NULL) {
+            for (i = 0; i < ippGetCount(attrptr) && i < MAX_PRINTER_ICONS_SUPPORTED; i++) {
+                capabilities->num_printer_icons++;
+                LOGD("parse_printerAttributes printer-icons[%d]: %s", i,
+                     ippGetString(attrptr, i, NULL));
+                strlcpy(capabilities->printer_icons[i], ippGetString(attrptr, i, NULL),
+                        sizeof(capabilities->printer_icons[i]));
+            }
+        } else {
+            LOGD("printer-icons not found");
+        }
     }
 
     if ((attrptr = ippFindAttribute(response, "media-default", IPP_TAG_KEYWORD)) != NULL
@@ -1587,8 +1609,8 @@ void parse_printerAttributes(ipp_t *response, printer_capabilities_t *capabiliti
         LOGD("print-scaling-default not found");
     }
 
-    if ((attrptr = ippFindAttribute(response, "job-pages-per-set-supported",
-            IPP_TAG_BOOLEAN)) != NULL && ippGetBoolean(attrptr, 0)) {
+    if ((attrptr = ippFindAttribute(response, "job-pages-per-set-supported", IPP_TAG_BOOLEAN)) !=
+        NULL && ippGetBoolean(attrptr, 0)) {
         capabilities->jobPagesPerSetSupported = 1;
     }
 
@@ -1596,11 +1618,97 @@ void parse_printerAttributes(ipp_t *response, printer_capabilities_t *capabiliti
     float certVersion = 0.0;
     if ((attrptr = ippFindAttribute(response, "mopria-certified", IPP_TAG_TEXT)) != NULL ||
         (attrptr = ippFindAttribute(response, "mopria_certified", IPP_TAG_TEXT)) != NULL) {
+        if (com_android_bips_flags_printer_info_details()) {
+            strlcpy(capabilities->certification, ippGetString(attrptr, 0, NULL),
+                    sizeof(capabilities->certification));
+        }
         certVersion = atof(ippGetString(attrptr, 0, NULL));
         LOGD("Mopria certified version: %f", certVersion);
     }
     if (certVersion < 2.0f) {
         capabilities->jobPagesPerSetSupported = 0;
+    }
+
+    if (com_android_bips_flags_printer_info_details()) {
+        ipp_attribute_t *marker_levels_attrptr, *marker_types_attrptr, *marker_names_attrptr,
+                *marker_colors_attrptr, *marker_low_levels_attrptr, *marker_high_levels_attrptr;
+        marker_levels_attrptr = ippFindAttribute(response, "marker-levels", IPP_TAG_INTEGER);
+        marker_types_attrptr = ippFindAttribute(response, "marker-types", IPP_TAG_KEYWORD);
+        marker_names_attrptr = ippFindAttribute(response, "marker-names", IPP_TAG_NAME);
+        marker_colors_attrptr = ippFindAttribute(response, "marker-colors", IPP_TAG_NAME);
+        marker_low_levels_attrptr = ippFindAttribute(response, "marker-low-levels",
+                                                     IPP_TAG_INTEGER);
+        marker_high_levels_attrptr = ippFindAttribute(response, "marker-high-levels",
+                                                      IPP_TAG_INTEGER);
+
+        bool has_markers = (((marker_levels_attrptr) != NULL) &&
+                            ((marker_types_attrptr) != NULL) &&
+                            ((marker_names_attrptr) != NULL) &&
+                            ((marker_colors_attrptr) != NULL) &&
+                            ((marker_low_levels_attrptr) != NULL) &&
+                            ((marker_high_levels_attrptr) != NULL));
+
+        if (has_markers) {
+            int marker_levels_count = MIN(MAX_MARKER, ippGetCount(marker_levels_attrptr));
+            int marker_types_count = MIN(MAX_MARKER, ippGetCount(marker_types_attrptr));
+            int marker_names_count = MIN(MAX_MARKER, ippGetCount(marker_names_attrptr));
+            int marker_colors_count = MIN(MAX_MARKER, ippGetCount(marker_colors_attrptr));
+            int marker_low_levels_count = MIN(MAX_MARKER, ippGetCount(marker_low_levels_attrptr));
+            int marker_high_levels_count = MIN(MAX_MARKER, ippGetCount(marker_high_levels_attrptr));
+
+            LOGD("DPS Marker has_markers=true,  Count of levels=%d , Count of types=%d, "
+                 "Count of names=%d, Count of  colors=%d, Count of lowlevels=%d, Count of highlevel=%d",
+                 marker_levels_count, marker_types_count, marker_names_count, marker_colors_count,
+                 marker_low_levels_count, marker_high_levels_count);
+
+            if (marker_levels_count == marker_types_count &&
+                marker_types_count == marker_names_count &&
+                marker_names_count == marker_colors_count &&
+                marker_colors_count == marker_low_levels_count &&
+                marker_low_levels_count == marker_high_levels_count) {
+                capabilities->marker_levels_count = marker_levels_count;
+
+                for (i = 0; i < marker_levels_count; i++) {
+                    capabilities->marker_levels[i] = ippGetInteger(marker_levels_attrptr, i);
+                    LOGD("%d  DPS Marker marker-levels=%d", i, capabilities->marker_levels[i]);
+                }
+
+                for (i = 0; i < marker_types_count; i++) {
+                    strlcpy(capabilities->marker_types[i],
+                            ippGetString(marker_types_attrptr, i, NULL),
+                            sizeof(capabilities->marker_types[i]));
+                    LOGD("%d  DPS Marker marker-types=%s", i, capabilities->marker_types[i]);
+                }
+
+                for (i = 0; i < marker_names_count; i++) {
+                    strlcpy(capabilities->marker_names[i],
+                            ippGetString(marker_names_attrptr, i, NULL),
+                            sizeof(capabilities->marker_names[i]));
+                    LOGD("%d  DPS Marker marker-names=%s", i, capabilities->marker_names[i]);
+                }
+
+                for (i = 0; i < marker_colors_count; i++) {
+                    strlcpy(capabilities->marker_colors[i],
+                            ippGetString(marker_colors_attrptr, i, NULL),
+                            sizeof(capabilities->marker_colors[i]));
+                    LOGD("%d  DPS Marker marker-colors=%s", i, capabilities->marker_colors[i]);
+                }
+
+                for (i = 0; i < marker_low_levels_count; i++) {
+                    capabilities->marker_low_levels[i] = ippGetInteger(marker_low_levels_attrptr,
+                                                                       i);
+                    LOGD("%d  DPS Marker marker-low-levels=%d", i,
+                         capabilities->marker_low_levels[i]);
+                }
+
+                for (i = 0; i < marker_high_levels_count; i++) {
+                    capabilities->marker_high_levels[i] = ippGetInteger(marker_high_levels_attrptr,
+                                                                        i);
+                    LOGD("%d DPS Marker marker-high-levels=%d", i,
+                         capabilities->marker_high_levels[i]);
+                }
+            }
+        }
     }
 
     debuglist_printerCapabilities(capabilities);

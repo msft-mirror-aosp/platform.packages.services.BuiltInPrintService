@@ -317,6 +317,15 @@ bool wprintIsRunning();
 status_t wprintGetCapabilities(const wprint_connect_info_t *connect_info,
         printer_capabilities_t *printer_cap);
 
+wStatus_t wprintStatusMonitorSetup(const wprint_connect_info_t *connect_info);
+
+int wprintStatusMonitorStart(wStatus_t status_handle, void (*status_callback)
+        (const printer_state_dyn_t *new_status,
+         const printer_state_dyn_t *old_status,
+         void *param), void *param);
+
+void wprintStatusMonitorStop(wStatus_t status_handle);
+
 /*
  * Returns a preferred print format supported by the printer
  */

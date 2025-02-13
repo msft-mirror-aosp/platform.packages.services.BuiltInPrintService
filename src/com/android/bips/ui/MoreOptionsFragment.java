@@ -21,14 +21,16 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.PreferenceCategory;
-import android.preference.PreferenceFragment;
 import android.print.PrintManager;
 import android.printservice.recommendation.RecommendationInfo;
 import android.util.Log;
 
+import androidx.preference.Preference;
+import androidx.preference.PreferenceCategory;
+import androidx.preference.PreferenceFragmentCompat;
+
 import com.android.bips.R;
+import com.android.bips.flags.Flags;
 
 import java.net.InetAddress;
 import java.text.Collator;
@@ -41,7 +43,7 @@ import java.util.Map;
 /**
  * A fragment allowing the user to review recommended print services and install or enable them.
  */
-public class MoreOptionsFragment extends PreferenceFragment implements
+public class MoreOptionsFragment extends PreferenceFragmentCompat implements
         PrintManager.PrintServiceRecommendationsChangeListener {
     private static final String TAG = MoreOptionsFragment.class.getSimpleName();
     private static final boolean DEBUG = false;
@@ -59,13 +61,18 @@ public class MoreOptionsFragment extends PreferenceFragment implements
     private Map<String, RecommendationItem> mItems = new HashMap<>();
 
     @Override
-    public void onCreate(Bundle in) {
-        super.onCreate(in);
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+        if ((Flags.printerInfoDetails())) {
+            addPreferencesFromResource(R.xml.more_options_prefs_new);
+        } else {
+            addPreferencesFromResource(R.xml.more_options_prefs);
+        }
 
-        addPreferencesFromResource(R.xml.more_options_prefs);
-
-        mRecommendations = (PreferenceCategory) getPreferenceScreen().findPreference(
+        mRecommendations = getPreferenceScreen().findPreference(
                 KEY_RECOMMENDATION_CATEGORY);
+        if ((Flags.printerInfoDetails())) {
+            mRecommendations.setIconSpaceReserved(false);
+        }
 
         getPreferenceScreen().findPreference(KEY_MANAGE)
                 .setOnPreferenceClickListener(preference -> {
@@ -88,6 +95,9 @@ public class MoreOptionsFragment extends PreferenceFragment implements
         }
 
         mActivity = (MoreOptionsActivity) getActivity();
+        if ((Flags.printerInfoDetails())) {
+            mActivity.setTitle(mActivity.getResources().getString(R.string.recommendation_link));
+        }
 
         mPrintManager = getContext().getSystemService(PrintManager.class);
 

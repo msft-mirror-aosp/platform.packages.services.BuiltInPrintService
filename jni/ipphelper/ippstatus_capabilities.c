@@ -25,6 +25,7 @@
 #include "cups.h"
 #include "http-private.h"
 #include "wprint_debug.h"
+#include "com_android_bips_flags.h"
 
 #define TAG "ippstatus_capabilities"
 
@@ -72,8 +73,61 @@ static const char *pattrs[] = {
         "print-scaling-supported",
         "print-scaling-default",
         "job-pages-per-set-supported",
+        "mopria-certified"
+};
+
+/*
+ * Requested printer attributes including printer info
+ */
+static const char *pattrs_printer_info[] = {
+        "ipp-versions-supported",
+        "printer-make-and-model",
+        "printer-info",
+        "printer-dns-sd-name",
+        "printer-name",
+        "printer-location",
+        "printer-uuid",
+        "printer-uri-supported",
+        "uri-security-supported",
+        "uri-authentication-supported",
+        "color-supported",
+        "copies-supported",
+        "document-format-supported",
+        "media-col-default",
+        "media-default",
+        "media-left-margin-supported",
+        "media-right-margin-supported",
+        "media-top-margin-supported",
+        "media-bottom-margin-supported",
+        "media-supported",
+        "media-type-supported",
+        "output-bin-supported",
+        "print-color-mode-supported",
+        "print-quality-supported",
+        "printer-output-tray",
+        "printer-resolution-supported",
+        "sides-supported",
+        "printer-device-id",
+        "epcl-version-supported",
+        "pclm-raster-back-side",
+        "pclm-strip-height-preferred",
+        "pclm-compression-method-preferred",
+        "pclm-source-resolution-supported",
+        "pwg-raster-document-sheet-back",
+        "document-format-details-supported",
+        "media-ready",
+        "media-col-ready",
+        "print-scaling-supported",
+        "print-scaling-default",
+        "job-pages-per-set-supported",
         "mopria-certified",
-        "mopria_certified"
+        "marker-colors",
+        "marker-high-levels",
+        "marker-levels",
+        "marker-low-levels",
+        "marker-names",
+        "marker-types",
+        "printer-icons"
 };
 
 static void _init(const ifc_printer_capabilities_t *this_p,
@@ -165,8 +219,14 @@ static status_t _get_capabilities(const ifc_printer_capabilities_t *this_p,
         ippAddString(request, IPP_TAG_OPERATION, IPP_TAG_URI, "printer-uri", NULL,
                 caps->printer_caps.printerUri);
 
-        ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD, "requested-attributes",
-                sizeof(pattrs) / sizeof(pattrs[0]), NULL, pattrs);
+        if (com_android_bips_flags_printer_info_details()) {
+            ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD, "requested-attributes",
+                          sizeof(pattrs_printer_info) / sizeof(pattrs_printer_info[0]), NULL,
+                          pattrs_printer_info);
+        } else {
+            ippAddStrings(request, IPP_TAG_OPERATION, IPP_TAG_KEYWORD, "requested-attributes",
+                          sizeof(pattrs) / sizeof(pattrs[0]), NULL, pattrs);
+        }
 
         LOGD("IPP_GET_PRINTER_ATTRIBUTES %s request:", ippOpString(op));
         for (attrptr = ippFirstAttribute(request); attrptr; attrptr = ippNextAttribute(request)) {
