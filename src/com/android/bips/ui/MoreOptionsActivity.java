@@ -17,8 +17,6 @@
 package com.android.bips.ui;
 
 import android.app.ActionBar;
-import android.app.Activity;
-import android.app.FragmentManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -30,13 +28,20 @@ import android.print.PrinterId;
 import android.printservice.PrintService;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.android.bips.BuiltInPrintService;
 import com.android.bips.R;
 import com.android.bips.discovery.ConnectionListener;
 import com.android.bips.discovery.DiscoveredPrinter;
 import com.android.bips.discovery.Discovery;
+import com.android.bips.flags.Flags;
 import com.android.bips.p2p.P2pPrinterConnection;
 import com.android.bips.p2p.P2pUtils;
 
@@ -48,7 +53,8 @@ import java.util.concurrent.Executors;
 /**
  * Launched by system in response to a "More Options" request while tracking a printer.
  */
-public class MoreOptionsActivity extends Activity implements ServiceConnection, Discovery.Listener {
+public class MoreOptionsActivity extends FragmentActivity implements ServiceConnection,
+        Discovery.Listener {
     private static final String TAG = MoreOptionsActivity.class.getSimpleName();
 
     private static final boolean DEBUG = false;
@@ -58,6 +64,11 @@ public class MoreOptionsActivity extends Activity implements ServiceConnection, 
     DiscoveredPrinter mPrinter;
     InetAddress mPrinterAddress;
     public static final String EXTRA_PRINTER_ID = "EXTRA_PRINTER_ID";
+    private static final String TAG_RECOMMENDATION_FRAGMENT = "recommendation_fragment";
+    private static final String TAG_PRINTER_INFORMATION_FRAGMENT = "printer_information_fragment";
+    private PrinterInformationViewModel mPrinterInformationViewModel;
+    private LinearLayout mLlRecommendedServices;
+    private LinearLayout mLlRecommendedServicesSummary;
     private final ExecutorService mExecutorService = Executors.newSingleThreadExecutor();
     private P2pPrinterConnection mP2pPrinterConnection;
 
@@ -79,14 +90,48 @@ public class MoreOptionsActivity extends Activity implements ServiceConnection, 
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-        getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        if ((Flags.printerInfoDetails())) {
+            setContentView(R.layout.combined_info_recs);
+            mPrinterInformationViewModel =
+                    new ViewModelProvider(this).get(PrinterInformationViewModel.class);
+            getSupportFragmentManager().popBackStack(null,
+                    FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            mLlRecommendedServicesSummary = findViewById(R.id.ll_recommended_services_summary);
+            mLlRecommendedServices = findViewById(R.id.ll_recommended_services);
+            mLlRecommendedServices.setOnClickListener(view -> {
+                if (getSupportFragmentManager().findFragmentByTag(TAG_RECOMMENDATION_FRAGMENT)
+                        == null) {
+                    MoreOptionsFragment fragment = new MoreOptionsFragment();
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container, fragment, TAG_RECOMMENDATION_FRAGMENT)
+                            .setReorderingAllowed(true)
+                            .addToBackStack(null)
+                            .commit();
+                    mLlRecommendedServices.setVisibility(View.GONE);
+                    mLlRecommendedServicesSummary.setVisibility(View.GONE);
+                }
+            });
+            getSupportFragmentManager().addOnBackStackChangedListener(
+                    () -> {
+                        if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+                            mLlRecommendedServices.setVisibility(View.VISIBLE);
+                            mLlRecommendedServicesSummary.setVisibility(View.VISIBLE);
+                            if (mPrinter != null) {
+                                setTitle(mPrinter.name);
+                            }
+                        }
+                    });
+            setTitle(R.string.information);
+        } else {
+            getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                onBackPressed();
+                finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -109,6 +154,9 @@ public class MoreOptionsActivity extends Activity implements ServiceConnection, 
         }
 
         if (mPrintService != null) {
+            if ((Flags.printerInfoDetails())) {
+                mPrinterInformationViewModel.stopPrinterStatusMonitor(mPrintService);
+            }
             mPrintService.getDiscovery().stop(this);
         }
         unbindService(this);
@@ -185,6 +233,13 @@ public class MoreOptionsActivity extends Activity implements ServiceConnection, 
     private void loadPrinterInfoFragment(DiscoveredPrinter printer) {
         mPrinter = printer;
         setTitle(mPrinter.name);
+        if ((Flags.printerInfoDetails())) {
+            if (printer.path != null) {
+                mPrinterInformationViewModel.getPrinterStatus(printer.path, mPrintService);
+            } else {
+                mPrinterInformationViewModel.setPrinterUnavailableLiveData(true);
+            }
+        }
         // Network operation in non UI thread
         mExecutorService.execute(() -> {
             try {
@@ -193,11 +248,38 @@ public class MoreOptionsActivity extends Activity implements ServiceConnection, 
                 mPrintService.getDiscovery().stop(this);
                 if (!mExecutorService.isShutdown() && mPrintService != null) {
                     mPrintService.getMainHandler().post(() -> {
-                        if (getFragmentManager().findFragmentByTag(TAG) == null) {
-                            MoreOptionsFragment fragment = new MoreOptionsFragment();
-                            getFragmentManager().beginTransaction()
-                                    .replace(android.R.id.content, fragment, TAG)
-                                    .commit();
+                        if ((Flags.printerInfoDetails())) {
+                            if (getSupportFragmentManager().findFragmentByTag(
+                                    TAG_PRINTER_INFORMATION_FRAGMENT) == null) {
+                                PrinterInformationFragment informationFragment =
+                                        new PrinterInformationFragment();
+                                getSupportFragmentManager().beginTransaction()
+                                        .replace(R.id.fragment_container, informationFragment,
+                                                TAG_PRINTER_INFORMATION_FRAGMENT)
+                                        .commit();
+                            }
+                            mPrintService.getCapabilitiesCache().request(mPrinter, true,
+                                    capabilities -> {
+                                        if (capabilities != null) {
+                                            mPrinterInformationViewModel.setPrinterCapsLiveData(
+                                                    capabilities);
+                                        } else {
+                                            mPrinterInformationViewModel.setPrinterUnavailableLiveData(
+                                                    true);
+                                            Toast.makeText(mPrintService,
+                                                    R.string.failed_printer_connection,
+                                                    Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+                        } else {
+                            if (getFragmentManager().findFragmentByTag(TAG_RECOMMENDATION_FRAGMENT)
+                                    == null) {
+                                MoreOptionsFragment fragment = new MoreOptionsFragment();
+                                getSupportFragmentManager().beginTransaction()
+                                        .replace(android.R.id.content, fragment,
+                                                TAG_RECOMMENDATION_FRAGMENT)
+                                        .commit();
+                            }
                         }
                     });
                 }
