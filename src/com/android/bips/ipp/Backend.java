@@ -35,6 +35,7 @@ import com.android.bips.jni.JobCallbackParams;
 import com.android.bips.jni.LocalJobParams;
 import com.android.bips.jni.LocalPrinterCapabilities;
 import com.android.bips.jni.PdfRender;
+import com.android.bips.jni.PrinterStatusMonitor;
 import com.android.bips.util.FileUtils;
 
 import java.io.File;
@@ -177,7 +178,7 @@ public class Backend implements JobCallback {
      * is no longer required. After closing this object it should be discarded.
      */
     public void close() {
-        new Thread(this::nativeExit).start();
+        nativeExit();
         PdfRender.getInstance(mContext).close();
     }
 
@@ -239,7 +240,7 @@ public class Backend implements JobCallback {
      * @param address any string in the format xxx/yyy/zzz
      * @return the part before the "/" or "xxx" in this case
      */
-    static String getIp(String address) {
+   public static String getIp(String address) {
         int i = address.indexOf('/');
         return i == -1 ? address : address.substring(0, i);
     }
@@ -276,6 +277,34 @@ public class Backend implements JobCallback {
      */
     native int nativeGetCapabilities(String address, int port, String httpResource,
             String uriScheme, long timeout, LocalPrinterCapabilities capabilities);
+
+    /**
+     * Java native interface to setup to monitor status
+     *
+     * @param address      printer address
+     * @param port         printer port
+     * @param httpResource printer http resource
+     * @param uriScheme    printer URI scheme
+     * @return status handle
+     */
+    public native long nativeMonitorStatusSetup(
+            String address, int port, String httpResource, String uriScheme
+    );
+
+    /**
+     * Java native interface to start to monitor status
+     *
+     * @param statusId status ID
+     * @param monitor  print status monitor
+     */
+    public native void nativeMonitorStatusStart(long statusId, PrinterStatusMonitor monitor);
+
+    /**
+     * Java native interface to stop to monitor status
+     *
+     * @param statusId status ID
+     */
+    public native void nativeMonitorStatusStop(long statusId);
 
     /**
      * Determine initial parameters to be used for jobs

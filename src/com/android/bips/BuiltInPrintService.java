@@ -181,6 +181,10 @@ public class BuiltInPrintService extends PrintService {
         return mAllDiscovery;
     }
 
+    public Backend getBackend() {
+        return mBackend;
+    }
+
     /**
      * Return the global object for MDNS discoveries
      */

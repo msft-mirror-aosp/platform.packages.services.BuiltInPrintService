@@ -20,6 +20,7 @@ package com.android.bips.jni;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.print.PrintAttributes;
+import android.util.Log;
 
 import com.android.bips.R;
 
@@ -62,7 +63,8 @@ public class MediaSizes {
 
     /** The backend string name for the default media size */
     static final String DEFAULT_MEDIA_NAME = ISO_A4;
-
+    private static final String TAG = MediaSizes.class.getSimpleName();
+    private static final boolean DEBUG = false;
     @SuppressLint("UseSparseArrays")
     private static final Map<Integer, String> sCodeToStringMap = new HashMap<>();
 
@@ -202,5 +204,14 @@ public class MediaSizes {
             }
         }
         return 0;
+    }
+
+    public String getMediaName(int code, Context context) {
+        try {
+            return mNameToSizeMap.get(toMediaName(code)).getLabel(context.getPackageManager());
+        } catch (Exception e) {
+            if (DEBUG) Log.d(TAG, e.toString());
+            return context.getString(R.string.unknown);
+        }
     }
 }
