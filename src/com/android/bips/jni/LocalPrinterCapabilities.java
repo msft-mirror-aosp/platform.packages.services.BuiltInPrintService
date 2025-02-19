@@ -62,6 +62,16 @@ public class LocalPrinterCapabilities {
     /** Public key of certificate for this printer, if known */
     public byte[] certificate;
 
+    public int[] mediaReadySizes;
+    public String mopriaCertified;
+    public String[] markerNames;
+    public String[] markerTypes;
+    public String[] markerColors;
+    public int[] markerHighLevel;
+    public int[] markerLowLevel;
+    public int[] markerLevel;
+    public String[] mPrinterIconUris;
+
     public void buildCapabilities(BuiltInPrintService service,
             PrinterCapabilitiesInfo.Builder builder) {
         builder.setColorModes(

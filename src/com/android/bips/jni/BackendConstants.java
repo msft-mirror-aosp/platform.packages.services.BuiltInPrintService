@@ -171,4 +171,10 @@ public class BackendConstants {
     public static final String PARAM_RESULT = "result";
     public static final String PARAM_ERROR_MESSAGES = "error_messages";
     public static final String PARAM_ELAPSED_TIME_ALL = "elapsed_time_all";
+
+    public static final String PRINTER_STATE_UNKNOWN = "print-state-unknown";
+    public static final String PRINTER_STATE_IDLE = "print-state-idle";
+    public static final String PRINTER_STATE_RUNNING = "print-state-running";
+    public static final String PRINTER_STATE_UNABLE_TO_CONNECT = "print-state-unable-to-connect";
+    public static final String PRINTER_STATE_BLOCKED = "print-state-blocked";
 }
