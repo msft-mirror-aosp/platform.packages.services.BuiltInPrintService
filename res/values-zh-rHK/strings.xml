@@ -61,10 +61,16 @@
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"透過 Wi-Fi Direct 連線"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"透過目前的網絡 (<xliff:g id="IP_ADDRESS">%1$s</xliff:g>) 連線"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"「預設列印服務」提供基本選項，此打印機的其他選項或可在其他列印服務中使用。"</string>
-    <string name="recommendations_heading" msgid="5086762263560605249">"推薦服務"</string>
+    <!-- no translation found for recommendation_summary_new (8338656202417823196) -->
+    <skip />
+    <!-- no translation found for recommendations_heading (5609754983795588470) -->
+    <skip />
+    <!-- no translation found for recommendation_link (8702939483024020023) -->
+    <skip />
     <string name="recommendation_install_summary" msgid="374785283809791669">"選取即可安裝"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"選取即可啟用"</string>
-    <string name="recommendation_manage" msgid="4683640588502866284">"管理服務"</string>
+    <!-- no translation found for recommendation_manage (6861960243377871340) -->
+    <skip />
     <string name="security" msgid="2279008326210305401">"安全性"</string>
     <string name="certificate_update_request" msgid="1314796413107139475">"此打印機提供了新的安全憑證，或者另一部裝置正在冒用其身分。要接受新的憑證嗎？"</string>
     <string name="not_encrypted_request" msgid="4871472176807381642">"此打印機不再接受加密工作。要繼續列印嗎？"</string>
@@ -76,4 +82,26 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"「預設列印服務」需要附近裝置權限，才能尋找附近的打印機。"</string>
     <string name="fix" msgid="7784394272611365393">"查看權限"</string>
     <string name="print" msgid="7851318072404916362">"列印"</string>
+    <!-- no translation found for yes (8146135396781327533) -->
+    <skip />
+    <!-- no translation found for unknown (9141700614096334947) -->
+    <skip />
+    <!-- no translation found for printer_name (518518465578369850) -->
+    <skip />
+    <!-- no translation found for status (7895525662471923742) -->
+    <skip />
+    <!-- no translation found for media_ready (8259402637635303256) -->
+    <skip />
+    <!-- no translation found for supply_levels (3292306109407433125) -->
+    <skip />
+    <!-- no translation found for information (894176958646461459) -->
+    <skip />
+    <!-- no translation found for printer_ready (6343136701327532305) -->
+    <skip />
+    <!-- no translation found for printer_state__printing (7991962306019119834) -->
+    <skip />
+    <!-- no translation found for printer_state__offline (2381616555357221771) -->
+    <skip />
+    <!-- no translation found for printer_state__check_printer (882936062938150000) -->
+    <skip />
 </resources>

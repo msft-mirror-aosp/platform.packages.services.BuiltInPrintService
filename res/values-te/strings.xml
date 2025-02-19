@@ -61,10 +61,16 @@
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"Wi-Fi Direct ద్వారా కనెక్ట్ చేస్తోంది"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"<xliff:g id="IP_ADDRESS">%1$s</xliff:g> వద్ద ప్రస్తుత నెట్‌వర్క్ ద్వారా కనెక్ట్ చేస్తోంది"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"ఆటోమేటిక్ ప్రింట్ సర్వీస్‌లో ప్రాథమిక ఆప్షన్‌లు అందించబడతాయి. ఈ ప్రింటర్‌కు సంబంధించిన ఇతర ఆప్షన్‌లు మరొక ప్రింట్ సర్వీస్‌లో అందుబాటులో ఉండవచ్చు."</string>
-    <string name="recommendations_heading" msgid="5086762263560605249">"సిఫార్సు చేయబడిన సేవలు"</string>
+    <!-- no translation found for recommendation_summary_new (8338656202417823196) -->
+    <skip />
+    <!-- no translation found for recommendations_heading (5609754983795588470) -->
+    <skip />
+    <!-- no translation found for recommendation_link (8702939483024020023) -->
+    <skip />
     <string name="recommendation_install_summary" msgid="374785283809791669">"ఇన్‌స్టాల్ చేయడానికి ఎంచుకోండి"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"ప్రారంభించడానికి ఎంచుకోండి"</string>
-    <string name="recommendation_manage" msgid="4683640588502866284">"సేవలను మేనేజ్ చేయండి"</string>
+    <!-- no translation found for recommendation_manage (6861960243377871340) -->
+    <skip />
     <string name="security" msgid="2279008326210305401">"సెక్యూరిటీ"</string>
     <string name="certificate_update_request" msgid="1314796413107139475">"ఈ ప్రింటర్‌కు కొత్త సెక్యూరిటీ సర్టిఫికెట్‌ అందించి ఉండవచ్చు, లేదా వేరే పరికరం ఏదైనా దీన్ని అనుకరిస్తూ ఉండవచ్చు. కొత్త సర్టిఫికెట్‌ను ఆమోదిస్తారా?"</string>
     <string name="not_encrypted_request" msgid="4871472176807381642">"ఈ ప్రింటర్ ఇకపై ఎన్‌క్రిప్ట్ చేసిన ఫైళ్లను తీసుకోదు అయినా ప్రింట్ చేయడాన్ని కొనసాగిస్తారా?"</string>
@@ -76,4 +82,26 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"సమీపంలోని ప్రింటర్‌లను కనుగొనడానికి ఆటోమేటిక్ ప్రింట్ సర్వీస్‌కు సమీపంలోని పరికరాల అనుమతి అవసరం."</string>
     <string name="fix" msgid="7784394272611365393">"అనుమతిని రివ్యూ చేయండి"</string>
     <string name="print" msgid="7851318072404916362">"ప్రింట్ చేయి"</string>
+    <!-- no translation found for yes (8146135396781327533) -->
+    <skip />
+    <!-- no translation found for unknown (9141700614096334947) -->
+    <skip />
+    <!-- no translation found for printer_name (518518465578369850) -->
+    <skip />
+    <!-- no translation found for status (7895525662471923742) -->
+    <skip />
+    <!-- no translation found for media_ready (8259402637635303256) -->
+    <skip />
+    <!-- no translation found for supply_levels (3292306109407433125) -->
+    <skip />
+    <!-- no translation found for information (894176958646461459) -->
+    <skip />
+    <!-- no translation found for printer_ready (6343136701327532305) -->
+    <skip />
+    <!-- no translation found for printer_state__printing (7991962306019119834) -->
+    <skip />
+    <!-- no translation found for printer_state__offline (2381616555357221771) -->
+    <skip />
+    <!-- no translation found for printer_state__check_printer (882936062938150000) -->
+    <skip />
 </resources>

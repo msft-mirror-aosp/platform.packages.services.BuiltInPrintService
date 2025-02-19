@@ -61,10 +61,16 @@
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"Wi-Fi Direct के ज़रिए कनेक्ट किया जाता है"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"<xliff:g id="IP_ADDRESS">%1$s</xliff:g> पर मौजूदा नेटवर्क के ज़रिए कनेक्ट किया जाता है"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"डिफ़ॉल्ट रूप से प्रिंट करने की सेवा में बुनियादी विकल्प मिलते हैं. इस प्रिंटर के लिए दूसरे विकल्प, किसी और प्रिंट सेवा में उपलब्ध हो सकते हैं."</string>
-    <string name="recommendations_heading" msgid="5086762263560605249">"सुझाई गई सेवाएं"</string>
+    <!-- no translation found for recommendation_summary_new (8338656202417823196) -->
+    <skip />
+    <!-- no translation found for recommendations_heading (5609754983795588470) -->
+    <skip />
+    <!-- no translation found for recommendation_link (8702939483024020023) -->
+    <skip />
     <string name="recommendation_install_summary" msgid="374785283809791669">"इंस्टॉल करने के लिए चुनें"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"चालू करने के लिए चुनें"</string>
-    <string name="recommendation_manage" msgid="4683640588502866284">"सेवाएं प्रबंधित करें"</string>
+    <!-- no translation found for recommendation_manage (6861960243377871340) -->
+    <skip />
     <string name="security" msgid="2279008326210305401">"सुरक्षा"</string>
     <string name="certificate_update_request" msgid="1314796413107139475">"इस प्रिंटर ने एक नया सुरक्षा प्रमाणपत्र दिया या फिर कोई दूसरा डिवाइस इसके नाम से काम कर रहा है. नया प्रमाणपत्र स्वीकार करें?"</string>
     <string name="not_encrypted_request" msgid="4871472176807381642">"यह प्रिंटर अब सुरक्षित किए गए काम स्वीकार नहीं करता है प्रिंट करना चाहते हैं?"</string>
@@ -76,4 +82,26 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"\'प्रिंट करने की डिफ़ॉल्ट सेवा\' का इस्तेमाल करने के लिए, आस-पास मौजूद डिवाइसों को ऐक्सेस करने की अनुमति ज़रूरी है, ताकि आस-पास के प्रिंटर खोजे जा सकें."</string>
     <string name="fix" msgid="7784394272611365393">"अनुमति दें"</string>
     <string name="print" msgid="7851318072404916362">"प्रिंट करें"</string>
+    <!-- no translation found for yes (8146135396781327533) -->
+    <skip />
+    <!-- no translation found for unknown (9141700614096334947) -->
+    <skip />
+    <!-- no translation found for printer_name (518518465578369850) -->
+    <skip />
+    <!-- no translation found for status (7895525662471923742) -->
+    <skip />
+    <!-- no translation found for media_ready (8259402637635303256) -->
+    <skip />
+    <!-- no translation found for supply_levels (3292306109407433125) -->
+    <skip />
+    <!-- no translation found for information (894176958646461459) -->
+    <skip />
+    <!-- no translation found for printer_ready (6343136701327532305) -->
+    <skip />
+    <!-- no translation found for printer_state__printing (7991962306019119834) -->
+    <skip />
+    <!-- no translation found for printer_state__offline (2381616555357221771) -->
+    <skip />
+    <!-- no translation found for printer_state__check_printer (882936062938150000) -->
+    <skip />
 </resources>
