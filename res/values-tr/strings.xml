@@ -61,16 +61,12 @@
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"Kablosuz Doğrudan Bağlantı ile bağlanıyor"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"Geçerli ağ ile <xliff:g id="IP_ADDRESS">%1$s</xliff:g> adresinden bağlanıyor"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"Varsayılan Yazdırma Hizmeti, temel seçenekler sağlar. Bu yazıcı için diğer seçenekler başka yazdırma hizmetinde de olabilir."</string>
-    <!-- no translation found for recommendation_summary_new (8338656202417823196) -->
-    <skip />
-    <!-- no translation found for recommendations_heading (5609754983795588470) -->
-    <skip />
-    <!-- no translation found for recommendation_link (8702939483024020023) -->
-    <skip />
+    <string name="recommendation_summary_new" featureFlag="com.android.bips.flags.printer_info_details" msgid="8338656202417823196">"Varsayılan yazdırma hizmeti, temel seçenekler sağlar. Gelişmiş seçeneklerde ek yazdırma hizmetleri mevcuttur."</string>
+    <string name="recommendations_heading" msgid="5609754983795588470">"Önerilen Hizmetler"</string>
+    <string name="recommendation_link" featureFlag="com.android.bips.flags.printer_info_details" msgid="8702939483024020023">"Ek yazdırma hizmetleri"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"Yüklemek için seçin"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"Etkinleştirmek için seçin"</string>
-    <!-- no translation found for recommendation_manage (6861960243377871340) -->
-    <skip />
+    <string name="recommendation_manage" msgid="6861960243377871340">"Hizmetleri Yönet"</string>
     <string name="security" msgid="2279008326210305401">"Güvenlik"</string>
     <string name="certificate_update_request" msgid="1314796413107139475">"Bu yazıcı yeni bir güvenlik sertifikası sağladı veya başka bir cihaz bu yazıcının kimliğine bürünüyor. Yeni sertifikayı kabul ediyor musunuz?"</string>
     <string name="not_encrypted_request" msgid="4871472176807381642">"Bu yazıcı artık şifrelenmiş işleri kabul etmiyor. Yazdırmaya devam etmek istiyor musunuz?"</string>
@@ -82,26 +78,15 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"Varsayılan yazdırma hizmetinin, yakındaki yazıcıları bulması için yakındaki cihazlar iznine ihtiyacı vardır."</string>
     <string name="fix" msgid="7784394272611365393">"İzni incele"</string>
     <string name="print" msgid="7851318072404916362">"Yazdır"</string>
-    <!-- no translation found for yes (8146135396781327533) -->
-    <skip />
-    <!-- no translation found for unknown (9141700614096334947) -->
-    <skip />
-    <!-- no translation found for printer_name (518518465578369850) -->
-    <skip />
-    <!-- no translation found for status (7895525662471923742) -->
-    <skip />
-    <!-- no translation found for media_ready (8259402637635303256) -->
-    <skip />
-    <!-- no translation found for supply_levels (3292306109407433125) -->
-    <skip />
-    <!-- no translation found for information (894176958646461459) -->
-    <skip />
-    <!-- no translation found for printer_ready (6343136701327532305) -->
-    <skip />
-    <!-- no translation found for printer_state__printing (7991962306019119834) -->
-    <skip />
-    <!-- no translation found for printer_state__offline (2381616555357221771) -->
-    <skip />
-    <!-- no translation found for printer_state__check_printer (882936062938150000) -->
-    <skip />
+    <string name="yes" featureFlag="com.android.bips.flags.printer_info_details" msgid="8146135396781327533">"Evet"</string>
+    <string name="unknown" featureFlag="com.android.bips.flags.printer_info_details" msgid="9141700614096334947">"Bilinmiyor"</string>
+    <string name="printer_name" featureFlag="com.android.bips.flags.printer_info_details" msgid="518518465578369850">"Yazıcı adı"</string>
+    <string name="status" featureFlag="com.android.bips.flags.printer_info_details" msgid="7895525662471923742">"Durum"</string>
+    <string name="media_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="8259402637635303256">"Yüklenen kağıt boyutları"</string>
+    <string name="supply_levels" featureFlag="com.android.bips.flags.printer_info_details" msgid="3292306109407433125">"Malzeme seviyeleri"</string>
+    <string name="information" featureFlag="com.android.bips.flags.printer_info_details" msgid="894176958646461459">"Bilgi"</string>
+    <string name="printer_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="6343136701327532305">"Hazır"</string>
+    <string name="printer_state__printing" featureFlag="com.android.bips.flags.printer_info_details" msgid="7991962306019119834">"Yazdırma"</string>
+    <string name="printer_state__offline" featureFlag="com.android.bips.flags.printer_info_details" msgid="2381616555357221771">"Çevrimdışı"</string>
+    <string name="printer_state__check_printer" featureFlag="com.android.bips.flags.printer_info_details" msgid="882936062938150000">"Yazıcıyı kontrol et"</string>
 </resources>

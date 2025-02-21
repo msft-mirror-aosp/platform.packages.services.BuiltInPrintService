@@ -61,16 +61,12 @@
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"Wi-Fi Direct ilə qoşulur"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"Cari şəbəkə ilə <xliff:g id="IP_ADDRESS">%1$s</xliff:g> ünvanında qoşulur"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"Standart çap xidməti təməl variantları təmin edir. Bu printerin digər variantları başqa çap xidmətindədir."</string>
-    <!-- no translation found for recommendation_summary_new (8338656202417823196) -->
-    <skip />
-    <!-- no translation found for recommendations_heading (5609754983795588470) -->
-    <skip />
-    <!-- no translation found for recommendation_link (8702939483024020023) -->
-    <skip />
+    <string name="recommendation_summary_new" featureFlag="com.android.bips.flags.printer_info_details" msgid="8338656202417823196">"Defolt çap xidməti sadə seçimlər təmin edir. Təkmil seçimlər üçün əlavə çap xidmətləri əlçatandır."</string>
+    <string name="recommendations_heading" msgid="5609754983795588470">"Tövsiyə olunan xidmətlər"</string>
+    <string name="recommendation_link" featureFlag="com.android.bips.flags.printer_info_details" msgid="8702939483024020023">"Əlavə çap xidmətləri"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"Quraşdırmaq üçün seçin"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"Aktiv etmək üçün seçin"</string>
-    <!-- no translation found for recommendation_manage (6861960243377871340) -->
-    <skip />
+    <string name="recommendation_manage" msgid="6861960243377871340">"Xidmətləri idarə edin"</string>
     <string name="security" msgid="2279008326210305401">"Güvənlik"</string>
     <string name="certificate_update_request" msgid="1314796413107139475">"Bu printer yeni sertifikat təqdim etdi və ya digər cihaz onun şəxsiyyətini oğurlayır. Yeni sertifikat qəbul edilsin?"</string>
     <string name="not_encrypted_request" msgid="4871472176807381642">"Bu printer artıq şifrələnmiş işləri qəbul etmir. Çapa davam edilsin?"</string>
@@ -82,26 +78,15 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"Defolt Çap Xidməti yaxınlıqdakı printerləri tapmaq üçün yaxınlıqdakı cihazlara giriş icazəsi tələb edir."</string>
     <string name="fix" msgid="7784394272611365393">"Rəy icazələri"</string>
     <string name="print" msgid="7851318072404916362">"Çap"</string>
-    <!-- no translation found for yes (8146135396781327533) -->
-    <skip />
-    <!-- no translation found for unknown (9141700614096334947) -->
-    <skip />
-    <!-- no translation found for printer_name (518518465578369850) -->
-    <skip />
-    <!-- no translation found for status (7895525662471923742) -->
-    <skip />
-    <!-- no translation found for media_ready (8259402637635303256) -->
-    <skip />
-    <!-- no translation found for supply_levels (3292306109407433125) -->
-    <skip />
-    <!-- no translation found for information (894176958646461459) -->
-    <skip />
-    <!-- no translation found for printer_ready (6343136701327532305) -->
-    <skip />
-    <!-- no translation found for printer_state__printing (7991962306019119834) -->
-    <skip />
-    <!-- no translation found for printer_state__offline (2381616555357221771) -->
-    <skip />
-    <!-- no translation found for printer_state__check_printer (882936062938150000) -->
-    <skip />
+    <string name="yes" featureFlag="com.android.bips.flags.printer_info_details" msgid="8146135396781327533">"Bəli"</string>
+    <string name="unknown" featureFlag="com.android.bips.flags.printer_info_details" msgid="9141700614096334947">"Naməlum"</string>
+    <string name="printer_name" featureFlag="com.android.bips.flags.printer_info_details" msgid="518518465578369850">"Printer adı"</string>
+    <string name="status" featureFlag="com.android.bips.flags.printer_info_details" msgid="7895525662471923742">"Status"</string>
+    <string name="media_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="8259402637635303256">"Yüklənən kağız ölçüləri"</string>
+    <string name="supply_levels" featureFlag="com.android.bips.flags.printer_info_details" msgid="3292306109407433125">"Təchizat səviyyələri"</string>
+    <string name="information" featureFlag="com.android.bips.flags.printer_info_details" msgid="894176958646461459">"Məlumat"</string>
+    <string name="printer_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="6343136701327532305">"Hazır"</string>
+    <string name="printer_state__printing" featureFlag="com.android.bips.flags.printer_info_details" msgid="7991962306019119834">"Çap"</string>
+    <string name="printer_state__offline" featureFlag="com.android.bips.flags.printer_info_details" msgid="2381616555357221771">"Oflayn"</string>
+    <string name="printer_state__check_printer" featureFlag="com.android.bips.flags.printer_info_details" msgid="882936062938150000">"Printeri yoxlayın"</string>
 </resources>

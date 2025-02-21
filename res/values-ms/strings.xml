@@ -61,16 +61,12 @@
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"Bersambung melalui Wi-Fi Direct"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"Bersambung melalui rangkaian semasa di <xliff:g id="IP_ADDRESS">%1$s</xliff:g>"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"Perkhidmatan Cetak Lalai menyediakan pilihan asas. Pilihan lain bagi pencetak ini mungkin tersedia daripada perkhidmatan cetak lain."</string>
-    <!-- no translation found for recommendation_summary_new (8338656202417823196) -->
-    <skip />
-    <!-- no translation found for recommendations_heading (5609754983795588470) -->
-    <skip />
-    <!-- no translation found for recommendation_link (8702939483024020023) -->
-    <skip />
+    <string name="recommendation_summary_new" featureFlag="com.android.bips.flags.printer_info_details" msgid="8338656202417823196">"Perkhidmatan cetak lalai menyediakan pilihan asas. Untuk pilihan lanjutan, perkhidmatan cetak tambahan tersedia."</string>
+    <string name="recommendations_heading" msgid="5609754983795588470">"Perkhidmatan Yang Disyorkan"</string>
+    <string name="recommendation_link" featureFlag="com.android.bips.flags.printer_info_details" msgid="8702939483024020023">"Perkhidmatan cetak tambahan"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"Pilih untuk pasang"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"Pilih untuk dayakan"</string>
-    <!-- no translation found for recommendation_manage (6861960243377871340) -->
-    <skip />
+    <string name="recommendation_manage" msgid="6861960243377871340">"Urus Perkhidmatan"</string>
     <string name="security" msgid="2279008326210305401">"Keselamatan"</string>
     <string name="certificate_update_request" msgid="1314796413107139475">"Pencetak ini memberikan sijil keselamatan baharu atau peranti lain sedang menyamar menjadi pencetak tersebut. Terima sijil baharu?"</string>
     <string name="not_encrypted_request" msgid="4871472176807381642">"Pencetak ini tidak lagi menerima kerja yang disulitkan. Teruskan mencetak?"</string>
@@ -82,26 +78,15 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"Perkhidmatan Cetak Lalai memerlukan kebenaran peranti berdekatan untuk mencari pencetak berdekatan."</string>
     <string name="fix" msgid="7784394272611365393">"Semak kebenaran"</string>
     <string name="print" msgid="7851318072404916362">"Cetak"</string>
-    <!-- no translation found for yes (8146135396781327533) -->
-    <skip />
-    <!-- no translation found for unknown (9141700614096334947) -->
-    <skip />
-    <!-- no translation found for printer_name (518518465578369850) -->
-    <skip />
-    <!-- no translation found for status (7895525662471923742) -->
-    <skip />
-    <!-- no translation found for media_ready (8259402637635303256) -->
-    <skip />
-    <!-- no translation found for supply_levels (3292306109407433125) -->
-    <skip />
-    <!-- no translation found for information (894176958646461459) -->
-    <skip />
-    <!-- no translation found for printer_ready (6343136701327532305) -->
-    <skip />
-    <!-- no translation found for printer_state__printing (7991962306019119834) -->
-    <skip />
-    <!-- no translation found for printer_state__offline (2381616555357221771) -->
-    <skip />
-    <!-- no translation found for printer_state__check_printer (882936062938150000) -->
-    <skip />
+    <string name="yes" featureFlag="com.android.bips.flags.printer_info_details" msgid="8146135396781327533">"Ya"</string>
+    <string name="unknown" featureFlag="com.android.bips.flags.printer_info_details" msgid="9141700614096334947">"Tidak diketahui"</string>
+    <string name="printer_name" featureFlag="com.android.bips.flags.printer_info_details" msgid="518518465578369850">"Nama pencetak"</string>
+    <string name="status" featureFlag="com.android.bips.flags.printer_info_details" msgid="7895525662471923742">"Status"</string>
+    <string name="media_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="8259402637635303256">"Saiz kertas yang dimuatkan"</string>
+    <string name="supply_levels" featureFlag="com.android.bips.flags.printer_info_details" msgid="3292306109407433125">"Tahap bekalan"</string>
+    <string name="information" featureFlag="com.android.bips.flags.printer_info_details" msgid="894176958646461459">"Maklumat"</string>
+    <string name="printer_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="6343136701327532305">"Sedia"</string>
+    <string name="printer_state__printing" featureFlag="com.android.bips.flags.printer_info_details" msgid="7991962306019119834">"Pencetakan"</string>
+    <string name="printer_state__offline" featureFlag="com.android.bips.flags.printer_info_details" msgid="2381616555357221771">"Luar talian"</string>
+    <string name="printer_state__check_printer" featureFlag="com.android.bips.flags.printer_info_details" msgid="882936062938150000">"Semak pencetak"</string>
 </resources>

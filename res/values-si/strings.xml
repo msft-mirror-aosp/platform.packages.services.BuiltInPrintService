@@ -61,16 +61,12 @@
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"Wi-Fi Direct හරහා සම්බන්ධ වෙමින්"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"<xliff:g id="IP_ADDRESS">%1$s</xliff:g> හි වත්මන් ජාලය හරහා සම්බන්ධ වෙමින්"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"පෙරනිමි මුද්‍රණ සේවාව මූලික විකල්ප සපයයි. මෙම මුද්‍රණ යන්ත්‍රය සඳහා වෙනත් විකල්ප වෙනත් මුද්‍රණ සේවාවකින් ලබා ගත හැකිය."</string>
-    <!-- no translation found for recommendation_summary_new (8338656202417823196) -->
-    <skip />
-    <!-- no translation found for recommendations_heading (5609754983795588470) -->
-    <skip />
-    <!-- no translation found for recommendation_link (8702939483024020023) -->
-    <skip />
+    <string name="recommendation_summary_new" featureFlag="com.android.bips.flags.printer_info_details" msgid="8338656202417823196">"පෙරනිමි මුද්‍රණ සේවාව මූලික විකල්ප සපයයි. උසස් විකල්ප සඳහා අමතර මුද්‍රණ සේවා තිබේ."</string>
+    <string name="recommendations_heading" msgid="5609754983795588470">"නිර්දේශිත සේවා"</string>
+    <string name="recommendation_link" featureFlag="com.android.bips.flags.printer_info_details" msgid="8702939483024020023">"අමතර මුද්‍රණ සේවා"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"ස්ථාපනය කිරීමට තෝරන්න"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"සබල කිරීමට තෝරන්න"</string>
-    <!-- no translation found for recommendation_manage (6861960243377871340) -->
-    <skip />
+    <string name="recommendation_manage" msgid="6861960243377871340">"සේවා කළමණාකරණය කරන්න"</string>
     <string name="security" msgid="2279008326210305401">"ආරක්ෂාව"</string>
     <string name="certificate_update_request" msgid="1314796413107139475">"මෙම මුද්‍රකය නව ආරක්‍ෂණ සහතිතකයක් සැපයුවේය, නැති නම් වෙනත් උපාංගයක් එය මූර්තිමත් කරයි. නව සහතිකය පිළිගන්නේද?"</string>
     <string name="not_encrypted_request" msgid="4871472176807381642">"මෙම මුද්‍රණ යන්ත්‍රය සංකේතනය කළ කාර්යයන් තවදුරටත් පිළිනොගනී. මුද්‍රණය කිරිම දිගටම කර ගෙන යන්නද?"</string>
@@ -82,26 +78,15 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"පෙරනිමි මුද්‍රණ සේවාවට අවට මුද්‍රණ යන්ත්‍ර සොයා ගැනීමට අවට උපාංග අවසරය අවශ්‍ය වේ."</string>
     <string name="fix" msgid="7784394272611365393">"අවසරය සමාලෝචනය කරන්න"</string>
     <string name="print" msgid="7851318072404916362">"මුද්‍රණ කරන්න"</string>
-    <!-- no translation found for yes (8146135396781327533) -->
-    <skip />
-    <!-- no translation found for unknown (9141700614096334947) -->
-    <skip />
-    <!-- no translation found for printer_name (518518465578369850) -->
-    <skip />
-    <!-- no translation found for status (7895525662471923742) -->
-    <skip />
-    <!-- no translation found for media_ready (8259402637635303256) -->
-    <skip />
-    <!-- no translation found for supply_levels (3292306109407433125) -->
-    <skip />
-    <!-- no translation found for information (894176958646461459) -->
-    <skip />
-    <!-- no translation found for printer_ready (6343136701327532305) -->
-    <skip />
-    <!-- no translation found for printer_state__printing (7991962306019119834) -->
-    <skip />
-    <!-- no translation found for printer_state__offline (2381616555357221771) -->
-    <skip />
-    <!-- no translation found for printer_state__check_printer (882936062938150000) -->
-    <skip />
+    <string name="yes" featureFlag="com.android.bips.flags.printer_info_details" msgid="8146135396781327533">"ඔව්"</string>
+    <string name="unknown" featureFlag="com.android.bips.flags.printer_info_details" msgid="9141700614096334947">"නොදනී"</string>
+    <string name="printer_name" featureFlag="com.android.bips.flags.printer_info_details" msgid="518518465578369850">"මුද්‍රණ යන්ත්‍රයේ නම"</string>
+    <string name="status" featureFlag="com.android.bips.flags.printer_info_details" msgid="7895525662471923742">"තත්ත්වය"</string>
+    <string name="media_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="8259402637635303256">"පූරණ කරන ලද කඩදාසි ප්‍රමාණ"</string>
+    <string name="supply_levels" featureFlag="com.android.bips.flags.printer_info_details" msgid="3292306109407433125">"සැපයුම් මට්ටම්"</string>
+    <string name="information" featureFlag="com.android.bips.flags.printer_info_details" msgid="894176958646461459">"තොරතුරු"</string>
+    <string name="printer_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="6343136701327532305">"සූදානම්"</string>
+    <string name="printer_state__printing" featureFlag="com.android.bips.flags.printer_info_details" msgid="7991962306019119834">"මුද්‍රණය කිරීම්"</string>
+    <string name="printer_state__offline" featureFlag="com.android.bips.flags.printer_info_details" msgid="2381616555357221771">"නොබැඳි"</string>
+    <string name="printer_state__check_printer" featureFlag="com.android.bips.flags.printer_info_details" msgid="882936062938150000">"මුද්‍රණ යන්ත්‍රය පරීක්ෂා කරන්න"</string>
 </resources>
