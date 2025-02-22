@@ -61,16 +61,12 @@
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"Se conectează prin Wi-Fi Direct"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"Se conectează prin rețeaua curentă la <xliff:g id="IP_ADDRESS">%1$s</xliff:g>"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"Serviciul de printare prestabilit oferă opțiuni de bază. Alte opțiuni pentru această imprimantă pot fi disponibile din alt serviciu de printare."</string>
-    <!-- no translation found for recommendation_summary_new (8338656202417823196) -->
-    <skip />
-    <!-- no translation found for recommendations_heading (5609754983795588470) -->
-    <skip />
-    <!-- no translation found for recommendation_link (8702939483024020023) -->
-    <skip />
+    <string name="recommendation_summary_new" featureFlag="com.android.bips.flags.printer_info_details" msgid="8338656202417823196">"Serviciul de printare prestabilit oferă opțiuni de bază. Pentru opțiunile avansate sunt disponibile servicii de printare suplimentare."</string>
+    <string name="recommendations_heading" msgid="5609754983795588470">"Servicii recomandate"</string>
+    <string name="recommendation_link" featureFlag="com.android.bips.flags.printer_info_details" msgid="8702939483024020023">"Servicii de printare suplimentare"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"Selectează pentru a instala"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"Selectează pentru a activa"</string>
-    <!-- no translation found for recommendation_manage (6861960243377871340) -->
-    <skip />
+    <string name="recommendation_manage" msgid="6861960243377871340">"Gestionează serviciile"</string>
     <string name="security" msgid="2279008326210305401">"Securitate"</string>
     <string name="certificate_update_request" msgid="1314796413107139475">"Imprimanta a oferit un nou certificat de securitate sau un alt dispozitiv îi folosește identitatea. Accepți noul certificat?"</string>
     <string name="not_encrypted_request" msgid="4871472176807381642">"Această imprimantă nu mai acceptă sarcini criptate. Continui printarea?"</string>
@@ -82,26 +78,15 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"Serviciul de imprimare prestabilită necesită permisiunea Dispozitive din apropiere pentru a găsi imprimante în apropiere."</string>
     <string name="fix" msgid="7784394272611365393">"Vezi permisiunea"</string>
     <string name="print" msgid="7851318072404916362">"Printează"</string>
-    <!-- no translation found for yes (8146135396781327533) -->
-    <skip />
-    <!-- no translation found for unknown (9141700614096334947) -->
-    <skip />
-    <!-- no translation found for printer_name (518518465578369850) -->
-    <skip />
-    <!-- no translation found for status (7895525662471923742) -->
-    <skip />
-    <!-- no translation found for media_ready (8259402637635303256) -->
-    <skip />
-    <!-- no translation found for supply_levels (3292306109407433125) -->
-    <skip />
-    <!-- no translation found for information (894176958646461459) -->
-    <skip />
-    <!-- no translation found for printer_ready (6343136701327532305) -->
-    <skip />
-    <!-- no translation found for printer_state__printing (7991962306019119834) -->
-    <skip />
-    <!-- no translation found for printer_state__offline (2381616555357221771) -->
-    <skip />
-    <!-- no translation found for printer_state__check_printer (882936062938150000) -->
-    <skip />
+    <string name="yes" featureFlag="com.android.bips.flags.printer_info_details" msgid="8146135396781327533">"Da"</string>
+    <string name="unknown" featureFlag="com.android.bips.flags.printer_info_details" msgid="9141700614096334947">"Necunoscut"</string>
+    <string name="printer_name" featureFlag="com.android.bips.flags.printer_info_details" msgid="518518465578369850">"Numele imprimantei"</string>
+    <string name="status" featureFlag="com.android.bips.flags.printer_info_details" msgid="7895525662471923742">"Stare"</string>
+    <string name="media_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="8259402637635303256">"Dimensiunile hârtiei încărcate"</string>
+    <string name="supply_levels" featureFlag="com.android.bips.flags.printer_info_details" msgid="3292306109407433125">"Niveluri de aprovizionare"</string>
+    <string name="information" featureFlag="com.android.bips.flags.printer_info_details" msgid="894176958646461459">"Informații"</string>
+    <string name="printer_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="6343136701327532305">"Gata"</string>
+    <string name="printer_state__printing" featureFlag="com.android.bips.flags.printer_info_details" msgid="7991962306019119834">"Printare"</string>
+    <string name="printer_state__offline" featureFlag="com.android.bips.flags.printer_info_details" msgid="2381616555357221771">"Offline"</string>
+    <string name="printer_state__check_printer" featureFlag="com.android.bips.flags.printer_info_details" msgid="882936062938150000">"Verifică imprimanta"</string>
 </resources>

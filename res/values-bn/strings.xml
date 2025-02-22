@@ -61,16 +61,12 @@
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"ওয়াই-ফাই ডাইরেক্টের মাধ্যমে সংযুক্ত হয়"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"বর্তমান নেটওয়ার্কের মাধ্যমে <xliff:g id="IP_ADDRESS">%1$s</xliff:g> অ্যাড্রেসে সংযুক্ত হয়"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"ডিফল্ট প্রিন্টিং পরিষেবার প্রাথমিক বিকল্প। এই প্রিন্টারের জন্য অন্যান্য বিকল্প অন্য প্রিন্ট পরিষেবার সাথে উপলভ্য হতে পারে।"</string>
-    <!-- no translation found for recommendation_summary_new (8338656202417823196) -->
-    <skip />
-    <!-- no translation found for recommendations_heading (5609754983795588470) -->
-    <skip />
-    <!-- no translation found for recommendation_link (8702939483024020023) -->
-    <skip />
+    <string name="recommendation_summary_new" featureFlag="com.android.bips.flags.printer_info_details" msgid="8338656202417823196">"ডিফল্ট প্রিন্ট পরিষেবা প্রাথমিক বিকল্প প্রদান করে। উন্নত বিকল্পের জন্য অতিরিক্ত প্রিন্ট পরিষেবা উপলভ্য আছে।"</string>
+    <string name="recommendations_heading" msgid="5609754983795588470">"সাজেস্ট করা পরিষেবা"</string>
+    <string name="recommendation_link" featureFlag="com.android.bips.flags.printer_info_details" msgid="8702939483024020023">"প্রিন্ট করার অতিরিক্ত পরিষেবা"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"ইনস্টল করতে বেছে নিন"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"চালু করতে বেছে নিন"</string>
-    <!-- no translation found for recommendation_manage (6861960243377871340) -->
-    <skip />
+    <string name="recommendation_manage" msgid="6861960243377871340">"পরিষেবা ম্যানেজ করুন"</string>
     <string name="security" msgid="2279008326210305401">"নিরাপত্তা"</string>
     <string name="certificate_update_request" msgid="1314796413107139475">"এই প্রিন্টার একটি নতুন নিরাপত্তার সার্টিফিকেট দেবে, অথবা ডিভাইস থেকে এটি ব্যবহার করা হচ্ছে। নতুন সার্টিফিকেট গ্রহণ করতে চান?"</string>
     <string name="not_encrypted_request" msgid="4871472176807381642">"এই প্রিন্টারের মাধ্যমে আর এনক্রিপ্ট করা ডকুমেন্ট প্রিন্ট করা যাবে না। প্রিন্টিং করা চালিয়ে যেতে চান?"</string>
@@ -82,26 +78,15 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"আশপাশের প্রিন্টার খুঁজে পেতে ডিফল্ট প্রিন্টার পরিষেবার আশেপাশের ডিভাইসের অনুমতি প্রয়োজন।"</string>
     <string name="fix" msgid="7784394272611365393">"রিভিউ করার অনুমতি"</string>
     <string name="print" msgid="7851318072404916362">"প্রিন্ট করুন"</string>
-    <!-- no translation found for yes (8146135396781327533) -->
-    <skip />
-    <!-- no translation found for unknown (9141700614096334947) -->
-    <skip />
-    <!-- no translation found for printer_name (518518465578369850) -->
-    <skip />
-    <!-- no translation found for status (7895525662471923742) -->
-    <skip />
-    <!-- no translation found for media_ready (8259402637635303256) -->
-    <skip />
-    <!-- no translation found for supply_levels (3292306109407433125) -->
-    <skip />
-    <!-- no translation found for information (894176958646461459) -->
-    <skip />
-    <!-- no translation found for printer_ready (6343136701327532305) -->
-    <skip />
-    <!-- no translation found for printer_state__printing (7991962306019119834) -->
-    <skip />
-    <!-- no translation found for printer_state__offline (2381616555357221771) -->
-    <skip />
-    <!-- no translation found for printer_state__check_printer (882936062938150000) -->
-    <skip />
+    <string name="yes" featureFlag="com.android.bips.flags.printer_info_details" msgid="8146135396781327533">"হ্যাঁ"</string>
+    <string name="unknown" featureFlag="com.android.bips.flags.printer_info_details" msgid="9141700614096334947">"অজানা"</string>
+    <string name="printer_name" featureFlag="com.android.bips.flags.printer_info_details" msgid="518518465578369850">"প্রিন্টারের নাম"</string>
+    <string name="status" featureFlag="com.android.bips.flags.printer_info_details" msgid="7895525662471923742">"স্ট্যাটাস"</string>
+    <string name="media_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="8259402637635303256">"কাগজের সাইজ লোড করা হয়েছে"</string>
+    <string name="supply_levels" featureFlag="com.android.bips.flags.printer_info_details" msgid="3292306109407433125">"সরবরাহের স্তর"</string>
+    <string name="information" featureFlag="com.android.bips.flags.printer_info_details" msgid="894176958646461459">"তথ্য"</string>
+    <string name="printer_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="6343136701327532305">"রেডি"</string>
+    <string name="printer_state__printing" featureFlag="com.android.bips.flags.printer_info_details" msgid="7991962306019119834">"প্রিন্ট করা হচ্ছে"</string>
+    <string name="printer_state__offline" featureFlag="com.android.bips.flags.printer_info_details" msgid="2381616555357221771">"অফলাইন আছে"</string>
+    <string name="printer_state__check_printer" featureFlag="com.android.bips.flags.printer_info_details" msgid="882936062938150000">"প্রিন্টার চেক করুন"</string>
 </resources>

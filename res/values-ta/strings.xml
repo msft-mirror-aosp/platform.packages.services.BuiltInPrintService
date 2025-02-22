@@ -61,16 +61,12 @@
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"வைஃபை டைரக்ட் மூலமாக இணைக்கிறது"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"<xliff:g id="IP_ADDRESS">%1$s</xliff:g> இல் தற்போதைய நெட்வொர்க் மூலம் இணைக்கிறது"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"இயல்புநிலை அச்சிடுதல் சேவையானது அடிப்படையான விருப்பத்தேர்வுகளை வழங்குகிறது. இந்த பிரிண்ட்டருக்கான மற்ற விருப்பத்தேர்வுகள் வேறு அச்சிடுதல் சேவை மூலம் கிடைக்கக்கூடும்."</string>
-    <!-- no translation found for recommendation_summary_new (8338656202417823196) -->
-    <skip />
-    <!-- no translation found for recommendations_heading (5609754983795588470) -->
-    <skip />
-    <!-- no translation found for recommendation_link (8702939483024020023) -->
-    <skip />
+    <string name="recommendation_summary_new" featureFlag="com.android.bips.flags.printer_info_details" msgid="8338656202417823196">"இயல்பு அச்சிடல் சேவை அடிப்படையான விருப்பங்களை வழங்குகிறது. மேம்பட்ட விருப்பங்களுக்கு, கூடுதல் பிரிண்ட் சேவைகள் கிடைக்கின்றன."</string>
+    <string name="recommendations_heading" msgid="5609754983795588470">"பரிந்துரைக்கப்படும் சேவைகள்"</string>
+    <string name="recommendation_link" featureFlag="com.android.bips.flags.printer_info_details" msgid="8702939483024020023">"கூடுதல் பிரிண்ட் சேவைகள்"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"நிறுவுவதற்கு தேர்வு செய்யவும்"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"இயக்குவதற்குத் தேர்ந்தெடுக்கவும்"</string>
-    <!-- no translation found for recommendation_manage (6861960243377871340) -->
-    <skip />
+    <string name="recommendation_manage" msgid="6861960243377871340">"சேவைகளை நிர்வகியுங்கள்"</string>
     <string name="security" msgid="2279008326210305401">"பாதுகாப்பு"</string>
     <string name="certificate_update_request" msgid="1314796413107139475">"இந்தப் பிரிண்டரோ இதன் பெயரில் வேறொரு சாதனமோ புதிய பாதுகாப்பு சான்றிதழை வழங்கியுள்ளது. புதிய சான்றிதழை ஏற்கவா?"</string>
     <string name="not_encrypted_request" msgid="4871472176807381642">"இந்தப் பிரிண்ட்டரானது என்க்ரிப்ஷன் செய்தவற்றை அச்சிடாது. அச்சிடுவதைத் தொடரவா?"</string>
@@ -82,26 +78,15 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"அருகிலுள்ள பிரிண்டர்களைக் கண்டறிய, இயல்புநிலைப் பிரிண்ட் சேவைக்கு \'அருகிலுள்ள சாதனங்கள்\' அம்சத்திற்கான அனுமதி தேவை."</string>
     <string name="fix" msgid="7784394272611365393">"அனுமதியைச் சரிபார்"</string>
     <string name="print" msgid="7851318072404916362">"அச்சிடு"</string>
-    <!-- no translation found for yes (8146135396781327533) -->
-    <skip />
-    <!-- no translation found for unknown (9141700614096334947) -->
-    <skip />
-    <!-- no translation found for printer_name (518518465578369850) -->
-    <skip />
-    <!-- no translation found for status (7895525662471923742) -->
-    <skip />
-    <!-- no translation found for media_ready (8259402637635303256) -->
-    <skip />
-    <!-- no translation found for supply_levels (3292306109407433125) -->
-    <skip />
-    <!-- no translation found for information (894176958646461459) -->
-    <skip />
-    <!-- no translation found for printer_ready (6343136701327532305) -->
-    <skip />
-    <!-- no translation found for printer_state__printing (7991962306019119834) -->
-    <skip />
-    <!-- no translation found for printer_state__offline (2381616555357221771) -->
-    <skip />
-    <!-- no translation found for printer_state__check_printer (882936062938150000) -->
-    <skip />
+    <string name="yes" featureFlag="com.android.bips.flags.printer_info_details" msgid="8146135396781327533">"ஆம்"</string>
+    <string name="unknown" featureFlag="com.android.bips.flags.printer_info_details" msgid="9141700614096334947">"தெரியவில்லை"</string>
+    <string name="printer_name" featureFlag="com.android.bips.flags.printer_info_details" msgid="518518465578369850">"பிரிண்ட்டர் பெயர்"</string>
+    <string name="status" featureFlag="com.android.bips.flags.printer_info_details" msgid="7895525662471923742">"நிலை"</string>
+    <string name="media_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="8259402637635303256">"ஏற்றப்பட்டிருக்கும் பேப்பர் அளவுகள்"</string>
+    <string name="supply_levels" featureFlag="com.android.bips.flags.printer_info_details" msgid="3292306109407433125">"சப்ளை நிலைகள்"</string>
+    <string name="information" featureFlag="com.android.bips.flags.printer_info_details" msgid="894176958646461459">"தகவல்கள்"</string>
+    <string name="printer_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="6343136701327532305">"தயார்"</string>
+    <string name="printer_state__printing" featureFlag="com.android.bips.flags.printer_info_details" msgid="7991962306019119834">"அச்சிடுகிறது"</string>
+    <string name="printer_state__offline" featureFlag="com.android.bips.flags.printer_info_details" msgid="2381616555357221771">"ஆஃப்லைன்"</string>
+    <string name="printer_state__check_printer" featureFlag="com.android.bips.flags.printer_info_details" msgid="882936062938150000">"பிரிண்ட்டரைச் சரிபாருங்கள்"</string>
 </resources>

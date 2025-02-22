@@ -61,16 +61,12 @@
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"Opretter forbindelse via Wi-Fi Direct"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"Opretter forbindelse via netværk med adressen <xliff:g id="IP_ADDRESS">%1$s</xliff:g>"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"Tjenesten Standardudskrivning giver dig grundlæggende valgmuligheder. Du kan muligvis få adgang til andre muligheder for denne printer via en anden udskrivningstjeneste."</string>
-    <!-- no translation found for recommendation_summary_new (8338656202417823196) -->
-    <skip />
-    <!-- no translation found for recommendations_heading (5609754983795588470) -->
-    <skip />
-    <!-- no translation found for recommendation_link (8702939483024020023) -->
-    <skip />
+    <string name="recommendation_summary_new" featureFlag="com.android.bips.flags.printer_info_details" msgid="8338656202417823196">"Tjenesten Standardudskrivning giver dig grundlæggende valgmuligheder. Der er yderligere udskrivningstjenester tilgængelige, hvis du vil have avancerede valgmuligheder."</string>
+    <string name="recommendations_heading" msgid="5609754983795588470">"Anbefalede tjenester"</string>
+    <string name="recommendation_link" featureFlag="com.android.bips.flags.printer_info_details" msgid="8702939483024020023">"Yderligere udskrivningstjenester"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"Vælg for at installere"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"Vælg for at aktivere"</string>
-    <!-- no translation found for recommendation_manage (6861960243377871340) -->
-    <skip />
+    <string name="recommendation_manage" msgid="6861960243377871340">"Administrer tjenester"</string>
     <string name="security" msgid="2279008326210305401">"Sikkerhed"</string>
     <string name="certificate_update_request" msgid="1314796413107139475">"Denne printer angav et nyt sikkerhedscertifikat, eller en anden enhed efterligner den. Vil du acceptere det nye certifikat?"</string>
     <string name="not_encrypted_request" msgid="4871472176807381642">"Denne printer understøtter ikke længere krypterede jobs. Vil du fortsætte med at udskrive?"</string>
@@ -82,26 +78,15 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"Standardtjenesten til udskrivning skal have tilladelsen \"Enheder i nærheden\" for at kunne finde printere i nærheden."</string>
     <string name="fix" msgid="7784394272611365393">"Gennemgå tilladelsen"</string>
     <string name="print" msgid="7851318072404916362">"Udskriv"</string>
-    <!-- no translation found for yes (8146135396781327533) -->
-    <skip />
-    <!-- no translation found for unknown (9141700614096334947) -->
-    <skip />
-    <!-- no translation found for printer_name (518518465578369850) -->
-    <skip />
-    <!-- no translation found for status (7895525662471923742) -->
-    <skip />
-    <!-- no translation found for media_ready (8259402637635303256) -->
-    <skip />
-    <!-- no translation found for supply_levels (3292306109407433125) -->
-    <skip />
-    <!-- no translation found for information (894176958646461459) -->
-    <skip />
-    <!-- no translation found for printer_ready (6343136701327532305) -->
-    <skip />
-    <!-- no translation found for printer_state__printing (7991962306019119834) -->
-    <skip />
-    <!-- no translation found for printer_state__offline (2381616555357221771) -->
-    <skip />
-    <!-- no translation found for printer_state__check_printer (882936062938150000) -->
-    <skip />
+    <string name="yes" featureFlag="com.android.bips.flags.printer_info_details" msgid="8146135396781327533">"Ja"</string>
+    <string name="unknown" featureFlag="com.android.bips.flags.printer_info_details" msgid="9141700614096334947">"Ukendt"</string>
+    <string name="printer_name" featureFlag="com.android.bips.flags.printer_info_details" msgid="518518465578369850">"Printernavn"</string>
+    <string name="status" featureFlag="com.android.bips.flags.printer_info_details" msgid="7895525662471923742">"Status"</string>
+    <string name="media_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="8259402637635303256">"Indlæste papirstørrelser"</string>
+    <string name="supply_levels" featureFlag="com.android.bips.flags.printer_info_details" msgid="3292306109407433125">"Forsyningsniveauer"</string>
+    <string name="information" featureFlag="com.android.bips.flags.printer_info_details" msgid="894176958646461459">"Oplysninger"</string>
+    <string name="printer_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="6343136701327532305">"Klar"</string>
+    <string name="printer_state__printing" featureFlag="com.android.bips.flags.printer_info_details" msgid="7991962306019119834">"Udskriver"</string>
+    <string name="printer_state__offline" featureFlag="com.android.bips.flags.printer_info_details" msgid="2381616555357221771">"Offline"</string>
+    <string name="printer_state__check_printer" featureFlag="com.android.bips.flags.printer_info_details" msgid="882936062938150000">"Tjek printeren"</string>
 </resources>
