@@ -173,4 +173,8 @@ public class JobStatus {
             return new JobStatus(mPrototype);
         }
     }
+
+    public static Map<String, Integer> getBlockReasonsMap() {
+        return sBlockReasonsMap;
+    }
 }

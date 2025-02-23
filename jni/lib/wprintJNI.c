@@ -23,6 +23,7 @@
 #include <bits/strcasecmp.h>
 #include <string.h>
 #include "../plugins/wprint_mupdf.h"
+#include "com_android_bips_flags.h"
 
 #define TAG "wprintJNI"
 
@@ -86,6 +87,15 @@ static jfieldID _LocalPrinterCapabilitiesField__supportedMediaTypes;
 static jfieldID _LocalPrinterCapabilitiesField__supportedMediaSizes;
 static jfieldID _LocalPrinterCapabilitiesField__nativeData;
 static jfieldID _LocalPrinterCapabilitiesField__certificate;
+static jfieldID _LocalPrinterCapabilitiesField__mediaReadySizes;
+static jfieldID _LocalPrinterCapabilitiesField__mopriaCertified;
+static jfieldID _LocalPrinterCapabilitiesField__markerNames;
+static jfieldID _LocalPrinterCapabilitiesField__markerTypes;
+static jfieldID _LocalPrinterCapabilitiesField__markerColors;
+static jfieldID _LocalPrinterCapabilitiesField__markerHighLevel;
+static jfieldID _LocalPrinterCapabilitiesField__markerLowLevel;
+static jfieldID _LocalPrinterCapabilitiesField__markerLevel;
+static jfieldID _LocalPrinterCapabilitiesField__mPrinterIconUris;
 
 static jclass _JobCallbackClass;
 static jobject _callbackReceiver;
@@ -94,6 +104,7 @@ static jmethodID _JobCallbackMethod__jobCallback;
 static jclass _JobCallbackParamsClass;
 static jmethodID _JobCallbackParamsMethod__init;
 static jfieldID _JobCallbackParamsField__jobId;
+static jfieldID _JobCallbackParamsField__printerState;
 static jfieldID _JobCallbackParamsField__jobState;
 static jfieldID _JobCallbackParamsField__jobDoneResult;
 static jfieldID _JobCallbackParamsField__blockedReasons;
@@ -102,6 +113,11 @@ static jfieldID _JobCallbackParamsField__certificate;
 static jclass _PrintServiceStringsClass;
 static jfieldID _PrintServiceStringsField__JOB_STATE_QUEUED;
 static jfieldID _PrintServiceStringsField__JOB_STATE_RUNNING;
+static jfieldID _PrintServiceStringsField__PRINTER_STATE_UNKNOWN;
+static jfieldID _PrintServiceStringsField__PRINTER_STATE_IDLE;
+static jfieldID _PrintServiceStringsField__PRINTER_STATE_RUNNING;
+static jfieldID _PrintServiceStringsField__PRINTER_STATE_UNABLE_TO_CONNECT;
+static jfieldID _PrintServiceStringsField__PRINTER_STATE_BLOCKED;
 static jfieldID _PrintServiceStringsField__JOB_STATE_BLOCKED;
 static jfieldID _PrintServiceStringsField__JOB_STATE_DONE;
 static jfieldID _PrintServiceStringsField__JOB_STATE_OTHER;
@@ -193,6 +209,9 @@ static jfieldID _PrintServiceStringField__JOB_FAIL_REASON__DOCUMENT_SECURITY_ERR
 static jfieldID _PrintServiceStringField__JOB_FAIL_REASON__DOCUMENT_UNPRINTABLE_ERROR;
 static jfieldID _PrintServiceStringField__JOB_FAIL_REASON__DOCUMENT_ACCESS_ERROR;
 static jfieldID _PrintServiceStringField__JOB_FAIL_REASON__SUBMISSION_INTERRUPTED;
+
+static jclass _WPrintPrinterStatusMonitorClass;
+static jmethodID _WPrintPrinterStatusMonitorMethod__callbackReceiver;
 
 // Global so it can be used in PDF render code
 JavaVM *_JVM = NULL;
@@ -578,6 +597,32 @@ static void _initJNI(JNIEnv *env, jobject callbackReceiver, jstring fakeDir) {
             env, _LocalPrinterCapabilitiesClass, "nativeData", "[B");
     _LocalPrinterCapabilitiesField__certificate = (*env)->GetFieldID(
             env, _LocalPrinterCapabilitiesClass, "certificate", "[B");
+    _LocalPrinterCapabilitiesField__mediaReadySizes = (*env)->GetFieldID(
+            env, _LocalPrinterCapabilitiesClass, "mediaReadySizes", "[I");
+    _LocalPrinterCapabilitiesField__markerNames = (*env)->GetFieldID(
+            env, _LocalPrinterCapabilitiesClass, "markerNames", "[Ljava/lang/String;");
+    _LocalPrinterCapabilitiesField__markerTypes = (*env)->GetFieldID(
+            env, _LocalPrinterCapabilitiesClass, "markerTypes", "[Ljava/lang/String;");
+    _LocalPrinterCapabilitiesField__markerColors = (*env)->GetFieldID(
+            env, _LocalPrinterCapabilitiesClass, "markerColors", "[Ljava/lang/String;");
+    _LocalPrinterCapabilitiesField__markerHighLevel = (*env)->GetFieldID(
+            env, _LocalPrinterCapabilitiesClass, "markerHighLevel", "[I");
+    _LocalPrinterCapabilitiesField__markerLowLevel = (*env)->GetFieldID(
+            env, _LocalPrinterCapabilitiesClass, "markerLowLevel", "[I");
+    _LocalPrinterCapabilitiesField__markerLevel = (*env)->GetFieldID(
+            env, _LocalPrinterCapabilitiesClass, "markerLevel", "[I");
+    _LocalPrinterCapabilitiesField__mopriaCertified = (*env)->GetFieldID(
+            env, _LocalPrinterCapabilitiesClass, "mopriaCertified", "Ljava/lang/String;");
+    _LocalPrinterCapabilitiesField__mPrinterIconUris = (*env)->GetFieldID(
+            env, _LocalPrinterCapabilitiesClass, "mPrinterIconUris", "[Ljava/lang/String;");
+
+    if (com_android_bips_flags_printer_info_details()) {
+        _WPrintPrinterStatusMonitorClass = (jclass) (*env)->NewGlobalRef(env, (*env)->
+                FindClass(env, "com/android/bips/jni/PrinterStatusMonitor"));
+        _WPrintPrinterStatusMonitorMethod__callbackReceiver = (*env)->
+                GetMethodID(env, _WPrintPrinterStatusMonitorClass, "callbackReceiver",
+                            "(Lcom/android/bips/jni/JobCallbackParams;)V");
+    }
 
     _JobCallbackParamsClass = (jclass) (*env)->NewGlobalRef(env, (*env)->FindClass(
             env, "com/android/bips/jni/JobCallbackParams"));
@@ -585,6 +630,9 @@ static void _initJNI(JNIEnv *env, jobject callbackReceiver, jstring fakeDir) {
             "<init>", "()V");
     _JobCallbackParamsField__jobId = (*env)->GetFieldID(env, _JobCallbackParamsClass, "jobId",
             "I");
+    _JobCallbackParamsField__printerState = (*env)->GetFieldID(
+            env, _JobCallbackParamsClass, "printerState", "Ljava/lang/String;");
+
     _JobCallbackParamsField__jobState = (*env)->GetFieldID(
             env, _JobCallbackParamsClass, "jobState", "Ljava/lang/String;");
     _JobCallbackParamsField__jobDoneResult = (*env)->GetFieldID(
@@ -609,6 +657,18 @@ static void _initJNI(JNIEnv *env, jobject callbackReceiver, jstring fakeDir) {
 
     _PrintServiceStringsClass = (jclass) (*env)->NewGlobalRef(env, (*env)->FindClass(
             env, "com/android/bips/jni/BackendConstants"));
+    _PrintServiceStringsField__PRINTER_STATE_UNKNOWN = (*env)->GetStaticFieldID(
+            env, _PrintServiceStringsClass, "PRINTER_STATE_UNKNOWN", "Ljava/lang/String;");
+    _PrintServiceStringsField__PRINTER_STATE_IDLE = (*env)->GetStaticFieldID(
+            env, _PrintServiceStringsClass, "PRINTER_STATE_IDLE", "Ljava/lang/String;");
+    _PrintServiceStringsField__PRINTER_STATE_RUNNING = (*env)->GetStaticFieldID(
+            env, _PrintServiceStringsClass, "PRINTER_STATE_RUNNING", "Ljava/lang/String;");
+    _PrintServiceStringsField__PRINTER_STATE_UNABLE_TO_CONNECT = (*env)->GetStaticFieldID(
+            env, _PrintServiceStringsClass, "PRINTER_STATE_UNABLE_TO_CONNECT",
+            "Ljava/lang/String;");
+    _PrintServiceStringsField__PRINTER_STATE_BLOCKED = (*env)->GetStaticFieldID(
+            env, _PrintServiceStringsClass, "PRINTER_STATE_BLOCKED", "Ljava/lang/String;");
+
     _PrintServiceStringsField__JOB_STATE_QUEUED = (*env)->GetStaticFieldID(
             env, _PrintServiceStringsClass, "JOB_STATE_QUEUED", "Ljava/lang/String;");
     _PrintServiceStringsField__JOB_STATE_RUNNING = (*env)->GetStaticFieldID(
@@ -923,6 +983,98 @@ static int _convertPrinterCaps_to_Java(JNIEnv *env, jobject javaPrinterCaps,
         if ((wprintPrinterCaps->supportedInputMimeTypes & (1 << index)) != 0) {
             count++;
         }
+    }
+
+    if (com_android_bips_flags_printer_info_details()) {
+        stringToJava(env, javaPrinterCaps, _LocalPrinterCapabilitiesField__mopriaCertified,
+                     wprintPrinterCaps->certification);
+
+        jstring jStr;
+        jobjectArray jPrinterIconArray =
+                (jobjectArray) (*env)->NewObjectArray(env, wprintPrinterCaps->num_printer_icons,
+                                                      (*env)->FindClass(env, "java/lang/String"),
+                                                      (*env)->NewStringUTF(env, ""));
+        for (index = 0; index < wprintPrinterCaps->num_printer_icons; index++) {
+            jStr = (*env)->NewStringUTF(env, wprintPrinterCaps->printer_icons[index]);
+            (*env)->SetObjectArrayElement(env, jPrinterIconArray, index, jStr);
+        }
+
+        (*env)->SetObjectField(env, javaPrinterCaps,
+                               _LocalPrinterCapabilitiesField__mPrinterIconUris,
+                               jPrinterIconArray);
+
+        jobjectArray jMarkerTypesArray =
+                (jobjectArray) (*env)->NewObjectArray(env, wprintPrinterCaps->marker_levels_count,
+                                                      (*env)->FindClass(env, "java/lang/String"),
+                                                      (*env)->NewStringUTF(env, ""));
+        for (index = 0; index < wprintPrinterCaps->marker_levels_count; index++) {
+            jStr = (*env)->NewStringUTF(env, wprintPrinterCaps->marker_types[index]);
+            (*env)->SetObjectArrayElement(env, jMarkerTypesArray, index, jStr);
+        }
+        (*env)->SetObjectField(env, javaPrinterCaps, _LocalPrinterCapabilitiesField__markerTypes,
+                               jMarkerTypesArray);
+
+        jobjectArray jMarkerNamesArray =
+                (jobjectArray) (*env)->NewObjectArray(env, wprintPrinterCaps->marker_levels_count,
+                                                      (*env)->FindClass(env, "java/lang/String"),
+                                                      (*env)->NewStringUTF(env, ""));
+        for (index = 0; index < wprintPrinterCaps->marker_levels_count; index++) {
+            jStr = (*env)->NewStringUTF(env, wprintPrinterCaps->marker_names[index]);
+            (*env)->SetObjectArrayElement(env, jMarkerNamesArray, index, jStr);
+        }
+        (*env)->SetObjectField(env, javaPrinterCaps, _LocalPrinterCapabilitiesField__markerNames,
+                               jMarkerNamesArray);
+
+        jobjectArray jMarkerColorsArray =
+                (jobjectArray) (*env)->NewObjectArray(env, wprintPrinterCaps->marker_levels_count,
+                                                      (*env)->FindClass(env, "java/lang/String"),
+                                                      (*env)->NewStringUTF(env, ""));
+        for (index = 0; index < wprintPrinterCaps->marker_levels_count; index++) {
+            jStr = (*env)->NewStringUTF(env, wprintPrinterCaps->marker_colors[index]);
+            (*env)->SetObjectArrayElement(env, jMarkerColorsArray, index, jStr);
+        }
+        (*env)->SetObjectField(env, javaPrinterCaps, _LocalPrinterCapabilitiesField__markerColors,
+                               jMarkerColorsArray);
+
+        intArray = (*env)->NewIntArray(env, wprintPrinterCaps->marker_levels_count);
+        intArrayPtr = (*env)->GetIntArrayElements(env, intArray, NULL);
+        for (index = 0; index < wprintPrinterCaps->marker_levels_count; index++) {
+            intArrayPtr[index] = (int) wprintPrinterCaps->marker_levels[index];
+        }
+        (*env)->ReleaseIntArrayElements(env, intArray, intArrayPtr, 0);
+        (*env)->SetObjectField(env, javaPrinterCaps, _LocalPrinterCapabilitiesField__markerLevel,
+                               intArray);
+        (*env)->DeleteLocalRef(env, intArray);
+
+        intArray = (*env)->NewIntArray(env, wprintPrinterCaps->marker_levels_count);
+        intArrayPtr = (*env)->GetIntArrayElements(env, intArray, NULL);
+        for (index = 0; index < wprintPrinterCaps->marker_levels_count; index++) {
+            intArrayPtr[index] = (int) wprintPrinterCaps->marker_low_levels[index];
+        }
+        (*env)->ReleaseIntArrayElements(env, intArray, intArrayPtr, 0);
+        (*env)->SetObjectField(env, javaPrinterCaps, _LocalPrinterCapabilitiesField__markerLowLevel,
+                               intArray);
+        (*env)->DeleteLocalRef(env, intArray);
+
+        intArray = (*env)->NewIntArray(env, wprintPrinterCaps->marker_levels_count);
+        intArrayPtr = (*env)->GetIntArrayElements(env, intArray, NULL);
+        for (index = 0; index < wprintPrinterCaps->marker_levels_count; index++) {
+            intArrayPtr[index] = (int) wprintPrinterCaps->marker_high_levels[index];
+        }
+        (*env)->ReleaseIntArrayElements(env, intArray, intArrayPtr, 0);
+        (*env)->SetObjectField(env, javaPrinterCaps, _LocalPrinterCapabilitiesField__markerHighLevel,
+                               intArray);
+        (*env)->DeleteLocalRef(env, intArray);
+
+        intArray = (*env)->NewIntArray(env, wprintPrinterCaps->numSupportedMediaReadySizes);
+        intArrayPtr = (*env)->GetIntArrayElements(env, intArray, NULL);
+        for (index = 0; index < wprintPrinterCaps->numSupportedMediaReadySizes; index++) {
+            intArrayPtr[index] = (int) wprintPrinterCaps->supportedMediaReadySizes[index];
+        }
+        (*env)->ReleaseIntArrayElements(env, intArray, intArrayPtr, 0);
+        (*env)->SetObjectField(env, javaPrinterCaps,
+                               _LocalPrinterCapabilitiesField__mediaReadySizes, intArray);
+        (*env)->DeleteLocalRef(env, intArray);
     }
 
     return OK;
@@ -1758,6 +1910,151 @@ JNIEXPORT jint JNICALL Java_com_android_bips_ipp_Backend_nativeGetCapabilities(
 }
 
 /*
+ * JNI call to wprint to get Status of Printer.
+ */
+JNIEXPORT jlong JNICALL
+Java_com_android_bips_ipp_Backend_nativeMonitorStatusSetup(JNIEnv *env, jobject obj,
+                                                           jstring address, jint port,
+                                                           jstring httpResource,
+                                                           jstring uriScheme) {
+    LOGI("nativeMonitorStatusSetup, JNIenv is %p", env);
+    wStatus_t status_handle;
+    wprint_connect_info_t connect_info = {0};
+
+    connect_info.printer_addr = (*env)->GetStringUTFChars(env, address, NULL);
+    connect_info.uri_path = ((httpResource != NULL) ? (*env)->GetStringUTFChars(env, httpResource,
+                                                                                NULL) : NULL);
+    connect_info.uri_scheme = ((uriScheme != NULL) ? (*env)->GetStringUTFChars(env, uriScheme, NULL)
+                                                   : NULL);
+    connect_info.port_num = port;
+    status_handle = wprintStatusMonitorSetup(&connect_info);
+    (*env)->ReleaseStringUTFChars(env, address, connect_info.printer_addr);
+    if (httpResource != NULL) {
+        (*env)->ReleaseStringUTFChars(env, httpResource, connect_info.uri_path);
+    }
+    if (uriScheme != NULL) {
+        (*env)->ReleaseStringUTFChars(env, uriScheme, connect_info.uri_scheme);
+    }
+
+    return (jlong) status_handle;
+}
+
+static jobject _process_printer_status(JNIEnv *env, const printer_state_dyn_t *printer_status) {
+    jobject statusObj = (*env)->NewObject(env, _JobCallbackParamsClass,
+                                          _JobCallbackParamsMethod__init);
+    if (statusObj != NULL) {
+        print_status_t statusnew;
+        unsigned int i, count;
+        unsigned long long blocked_reasons;
+        jstring jStr;
+
+        statusnew = printer_status->printer_status & ~PRINTER_IDLE_BIT;
+
+        count = blocked_reasons = 0;
+        for (count = i = 0; i < PRINT_STATUS_MAX_STATE; i++) {
+            if (printer_status->printer_reasons[i] == PRINT_STATUS_MAX_STATE)
+                break;
+            if ((blocked_reasons & (LONG_ONE << printer_status->printer_reasons[i])) == 0) {
+                count++;
+                blocked_reasons |= (LONG_ONE << printer_status->printer_reasons[i]);
+            }
+        }
+
+        if (count > 0) {
+            jobjectArray stringArray = processBlockStatus(env, blocked_reasons, count);
+            (*env)->SetObjectField(env, statusObj, _JobCallbackParamsField__blockedReasons,
+                                   stringArray);
+            (*env)->DeleteLocalRef(env, stringArray);
+        }
+
+        switch (statusnew) {
+            case PRINT_STATUS_UNKNOWN:
+                jStr = (jstring) (*env)->GetStaticObjectField(env, _PrintServiceStringsClass,
+                                                              _PrintServiceStringsField__PRINTER_STATE_UNKNOWN);
+                break;
+            case PRINT_STATUS_IDLE:
+                jStr = (jstring) (*env)->GetStaticObjectField(env, _PrintServiceStringsClass,
+                                                              _PrintServiceStringsField__PRINTER_STATE_IDLE);
+                break;
+            case PRINT_STATUS_CANCELLED:
+            case PRINT_STATUS_PRINTING:
+                jStr = (jstring) (*env)->GetStaticObjectField(env, _PrintServiceStringsClass,
+                                                              _PrintServiceStringsField__PRINTER_STATE_RUNNING);
+                break;
+            case PRINT_STATUS_UNABLE_TO_CONNECT:
+                jStr = (jstring) (*env)->GetStaticObjectField(env, _PrintServiceStringsClass,
+                                                              _PrintServiceStringsField__PRINTER_STATE_UNABLE_TO_CONNECT);
+                break;
+            default:
+                jStr = (jstring) (*env)->GetStaticObjectField(env, _PrintServiceStringsClass,
+                                                              _PrintServiceStringsField__PRINTER_STATE_BLOCKED);
+                break;
+        }
+        (*env)->SetObjectField(env, statusObj, _JobCallbackParamsField__printerState, jStr);
+    }
+    return statusObj;
+}
+
+static void _printer_status_callback(const printer_state_dyn_t *new_status,
+                                     const printer_state_dyn_t *old_status,
+                                     void *param) {
+    int needDetach = 0;
+    JNIEnv *env;
+    if ((*_JVM)->GetEnv(_JVM, (void **) &env, JNI_VERSION_1_6) < 0) {
+        needDetach = 1;
+        if ((*_JVM)->AttachCurrentThread(_JVM, &env, NULL) < 0)
+            return;
+    }
+
+    jobject receiver = (jobject) param;
+    if (new_status->printer_status == PRINT_STATUS_UNKNOWN) {
+        if (new_status->printer_reasons[0] == PRINT_STATUS_INITIALIZING) {
+            receiver = NULL;
+        } else if (new_status->printer_reasons[0] == PRINT_STATUS_SHUTTING_DOWN) {
+            if (receiver != NULL) {
+                (*env)->DeleteGlobalRef(env, receiver);
+            }
+            receiver = NULL;
+        }
+    }
+
+    if (receiver != NULL) {
+        jobject statusObj = _process_printer_status(env, new_status);
+        (*env)->CallVoidMethod(env, receiver, _WPrintPrinterStatusMonitorMethod__callbackReceiver,
+                               statusObj);
+    }
+
+    if (needDetach)
+        (*_JVM)->DetachCurrentThread(_JVM);
+}
+
+JNIEXPORT void JNICALL
+Java_com_android_bips_ipp_Backend_nativeMonitorStatusStart(JNIEnv *env, jobject obj, jlong statusID,
+                                                           jobject receiver) {
+    LOGI("nativeMonitorStatusStart, JNIenv is %p", env);
+    wStatus_t status_handle = (wStatus_t) statusID;
+    if (status_handle != 0) {
+        if (receiver != NULL) {
+            receiver = (*env)->NewGlobalRef(env, receiver);
+        }
+        if (wprintStatusMonitorStart(status_handle, _printer_status_callback, receiver) != OK) {
+            if (receiver != NULL) {
+                (*env)->DeleteGlobalRef(env, receiver);
+            }
+        }
+    }
+}
+
+JNIEXPORT void JNICALL
+Java_com_android_bips_ipp_Backend_nativeMonitorStatusStop(JNIEnv *env, jobject obj,
+                                                          jlong statusID) {
+    LOGI("nativeMonitorStatusStop, JNIenv is %p", env);
+    wStatus_t status_handle = (wStatus_t) statusID;
+    if (status_handle != 0) {
+        wprintStatusMonitorStop(status_handle);
+    }
+}
+/*
  * JNI call to wprint to get default job params. Returns job params converted to java.
  */
 JNIEXPORT jint JNICALL Java_com_android_bips_ipp_Backend_nativeGetDefaultJobParameters(
@@ -2047,6 +2344,9 @@ JNIEXPORT jint JNICALL Java_com_android_bips_ipp_Backend_nativeExit(JNIEnv *env,
     }
     if (_PrintServiceStringsClass) {
         (*env)->DeleteGlobalRef(env, _PrintServiceStringsClass);
+    }
+    if (_WPrintPrinterStatusMonitorClass) {
+        (*env)->DeleteGlobalRef(env, _WPrintPrinterStatusMonitorClass);
     }
 
     pdf_render_deinit(env);

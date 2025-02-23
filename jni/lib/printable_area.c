@@ -158,11 +158,17 @@ void printable_area_get_default_margins(const wprint_job_params_t *job_params,
     } else {
         switch (job_params->pcl_type) {
             case PCLm:
-            case PCLPWG:
                 *top_margin = (float) printer_cap->printerTopMargin / 2540;
                 *bottom_margin = (float) printer_cap->printerBottomMargin / 2540;
                 *left_margin = (float) printer_cap->printerLeftMargin / 2540;
                 *right_margin = (float) printer_cap->printerRightMargin / 2540;
+                useDefaultMargins = false;
+                break;
+            case PCLPWG:
+                *top_margin = 0.0f;
+                *left_margin = 0.0f;
+                *right_margin = 0.0f;
+                *bottom_margin = 0.00f;
                 useDefaultMargins = false;
                 break;
             default:

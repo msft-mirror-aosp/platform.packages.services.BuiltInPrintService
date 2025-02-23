@@ -20,6 +20,7 @@
 
 #include <stddef.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 /*
  * A return type for functions.
@@ -68,5 +69,6 @@ typedef unsigned long long uint64;
 
 /** A job handle */
 typedef unsigned long wJob_t;
+typedef uintptr_t wStatus_t;
 
 #endif // __WTYPES_H__
