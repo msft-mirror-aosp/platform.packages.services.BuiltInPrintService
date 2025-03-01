@@ -61,10 +61,12 @@
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"Wi-Fi Direct ద్వారా కనెక్ట్ చేస్తోంది"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"<xliff:g id="IP_ADDRESS">%1$s</xliff:g> వద్ద ప్రస్తుత నెట్‌వర్క్ ద్వారా కనెక్ట్ చేస్తోంది"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"ఆటోమేటిక్ ప్రింట్ సర్వీస్‌లో ప్రాథమిక ఆప్షన్‌లు అందించబడతాయి. ఈ ప్రింటర్‌కు సంబంధించిన ఇతర ఆప్షన్‌లు మరొక ప్రింట్ సర్వీస్‌లో అందుబాటులో ఉండవచ్చు."</string>
-    <string name="recommendations_heading" msgid="5086762263560605249">"సిఫార్సు చేయబడిన సేవలు"</string>
+    <string name="recommendation_summary_new" featureFlag="com.android.bips.flags.printer_info_details" msgid="8338656202417823196">"ఆటోమేటిక్ ప్రింట్ సర్వీస్‌లో ప్రాథమిక ఆప్షన్‌ అందించబడతాయి. అధునాతన ఆప్షన్‌ల కోసం అదనపు ప్రింట్ సర్వీస్‌లు అందుబాటులో ఉన్నాయి."</string>
+    <string name="recommendations_heading" msgid="5609754983795588470">"సిఫార్సు చేసిన సర్వీస్‌లు"</string>
+    <string name="recommendation_link" featureFlag="com.android.bips.flags.printer_info_details" msgid="8702939483024020023">"అదనపు ప్రింట్ సర్వీస్‌లు"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"ఇన్‌స్టాల్ చేయడానికి ఎంచుకోండి"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"ప్రారంభించడానికి ఎంచుకోండి"</string>
-    <string name="recommendation_manage" msgid="4683640588502866284">"సేవలను మేనేజ్ చేయండి"</string>
+    <string name="recommendation_manage" msgid="6861960243377871340">"సర్వీస్‌లను మేనేజ్ చేస్తుంది"</string>
     <string name="security" msgid="2279008326210305401">"సెక్యూరిటీ"</string>
     <string name="certificate_update_request" msgid="1314796413107139475">"ఈ ప్రింటర్‌కు కొత్త సెక్యూరిటీ సర్టిఫికెట్‌ అందించి ఉండవచ్చు, లేదా వేరే పరికరం ఏదైనా దీన్ని అనుకరిస్తూ ఉండవచ్చు. కొత్త సర్టిఫికెట్‌ను ఆమోదిస్తారా?"</string>
     <string name="not_encrypted_request" msgid="4871472176807381642">"ఈ ప్రింటర్ ఇకపై ఎన్‌క్రిప్ట్ చేసిన ఫైళ్లను తీసుకోదు అయినా ప్రింట్ చేయడాన్ని కొనసాగిస్తారా?"</string>
@@ -76,4 +78,15 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"సమీపంలోని ప్రింటర్‌లను కనుగొనడానికి ఆటోమేటిక్ ప్రింట్ సర్వీస్‌కు సమీపంలోని పరికరాల అనుమతి అవసరం."</string>
     <string name="fix" msgid="7784394272611365393">"అనుమతిని రివ్యూ చేయండి"</string>
     <string name="print" msgid="7851318072404916362">"ప్రింట్ చేయి"</string>
+    <string name="yes" featureFlag="com.android.bips.flags.printer_info_details" msgid="8146135396781327533">"అవును"</string>
+    <string name="unknown" featureFlag="com.android.bips.flags.printer_info_details" msgid="9141700614096334947">"తెలియనిది"</string>
+    <string name="printer_name" featureFlag="com.android.bips.flags.printer_info_details" msgid="518518465578369850">"ప్రింటర్ పేరు"</string>
+    <string name="status" featureFlag="com.android.bips.flags.printer_info_details" msgid="7895525662471923742">"స్టేటస్"</string>
+    <string name="media_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="8259402637635303256">"లోడ్ చేసిన పేపర్ సైజ్‌లు"</string>
+    <string name="supply_levels" featureFlag="com.android.bips.flags.printer_info_details" msgid="3292306109407433125">"సరఫరా స్థాయిలు"</string>
+    <string name="information" featureFlag="com.android.bips.flags.printer_info_details" msgid="894176958646461459">"సమాచారం"</string>
+    <string name="printer_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="6343136701327532305">"సిద్ధంగా ఉంది"</string>
+    <string name="printer_state__printing" featureFlag="com.android.bips.flags.printer_info_details" msgid="7991962306019119834">"ప్రింట్ చేస్తోంది"</string>
+    <string name="printer_state__offline" featureFlag="com.android.bips.flags.printer_info_details" msgid="2381616555357221771">"ఆఫ్‌లైన్‌లో ఉంది"</string>
+    <string name="printer_state__check_printer" featureFlag="com.android.bips.flags.printer_info_details" msgid="882936062938150000">"ప్రింటర్‌ను చెక్ చేయండి"</string>
 </resources>

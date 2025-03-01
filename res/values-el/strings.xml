@@ -61,10 +61,12 @@
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"Συνδέεται μέσω του Wi-Fi Direct"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"Συνδέεται μέσω του τρέχοντος δικτύου στη διεύθυνση <xliff:g id="IP_ADDRESS">%1$s</xliff:g>"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"Η υπηρεσία Προεπιλεγμένης εκτύπωσης παρέχει βασικές επιλογές. Κάποια άλλη υπηρεσία εκτύπωσης ενδέχεται να προσφέρει άλλες επιλογές για αυτόν τον εκτυπωτή."</string>
-    <string name="recommendations_heading" msgid="5086762263560605249">"Προτεινόμενες υπηρεσίες"</string>
+    <string name="recommendation_summary_new" featureFlag="com.android.bips.flags.printer_info_details" msgid="8338656202417823196">"Η υπηρεσία Προεπιλεγμένης εκτύπωσης παρέχει βασικές επιλογές. Για τις σύνθετες επιλογές, διατίθενται πρόσθετες υπηρεσίες εκτύπωσης."</string>
+    <string name="recommendations_heading" msgid="5609754983795588470">"Προτεινόμενες υπηρεσίες"</string>
+    <string name="recommendation_link" featureFlag="com.android.bips.flags.printer_info_details" msgid="8702939483024020023">"Πρόσθετες υπηρεσίες εκτύπωσης"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"Επιλέξτε για εγκατάσταση"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"Επιλέξτε για ενεργοποίηση"</string>
-    <string name="recommendation_manage" msgid="4683640588502866284">"Διαχείριση υπηρεσιών"</string>
+    <string name="recommendation_manage" msgid="6861960243377871340">"Διαχείριση υπηρεσιών"</string>
     <string name="security" msgid="2279008326210305401">"Ασφάλεια"</string>
     <string name="certificate_update_request" msgid="1314796413107139475">"Αυτός ο εκτυπωτής παρείχε ένα νέο πιστοποιητικό ασφαλείας ή κάποια άλλη συσκευή έχει κλέψει τα στοιχεία ταυτότητάς του. Αποδοχή του νέου πιστοποιητικού ασφαλείας;"</string>
     <string name="not_encrypted_request" msgid="4871472176807381642">"Αυτός ο εκτυπωτής δεν δέχεται πλέον κρυπτογραφημένες εργασίες. Να συνεχιστεί η εκτύπωση;"</string>
@@ -76,4 +78,15 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"Η Προεπιλεγμένη υπηρεσία εκτύπωσης χρειάζεται την άδεια Συσκευές σε κοντινή απόσταση για να εντοπίσει κοντινούς εκτυπωτές."</string>
     <string name="fix" msgid="7784394272611365393">"Έλεγχος άδειας"</string>
     <string name="print" msgid="7851318072404916362">"Εκτύπωση"</string>
+    <string name="yes" featureFlag="com.android.bips.flags.printer_info_details" msgid="8146135396781327533">"Ναι"</string>
+    <string name="unknown" featureFlag="com.android.bips.flags.printer_info_details" msgid="9141700614096334947">"Άγνωστο"</string>
+    <string name="printer_name" featureFlag="com.android.bips.flags.printer_info_details" msgid="518518465578369850">"Όνομα εκτυπωτή"</string>
+    <string name="status" featureFlag="com.android.bips.flags.printer_info_details" msgid="7895525662471923742">"Κατάσταση"</string>
+    <string name="media_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="8259402637635303256">"Μεγέθη χαρτιού που έχουν φορτώσει"</string>
+    <string name="supply_levels" featureFlag="com.android.bips.flags.printer_info_details" msgid="3292306109407433125">"Επίπεδα προμηθειών"</string>
+    <string name="information" featureFlag="com.android.bips.flags.printer_info_details" msgid="894176958646461459">"Πληροφορίες"</string>
+    <string name="printer_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="6343136701327532305">"Έτοιμο"</string>
+    <string name="printer_state__printing" featureFlag="com.android.bips.flags.printer_info_details" msgid="7991962306019119834">"Εκτύπωση σε εξέλιξη"</string>
+    <string name="printer_state__offline" featureFlag="com.android.bips.flags.printer_info_details" msgid="2381616555357221771">"Εκτός σύνδεσης"</string>
+    <string name="printer_state__check_printer" featureFlag="com.android.bips.flags.printer_info_details" msgid="882936062938150000">"Έλεγχος εκτυπωτή"</string>
 </resources>

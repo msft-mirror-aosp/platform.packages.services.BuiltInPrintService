@@ -61,10 +61,12 @@
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"Подключено через Wi-Fi Direct."</string>
     <string name="connects_via_network" msgid="5990041581556733898">"Подключено к текущей сети с IP-адресом <xliff:g id="IP_ADDRESS">%1$s</xliff:g>."</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"Служба печати по умолчанию предоставляет базовый набор функций. Выбрав другую службу, вы можете получить доступ к расширенным функциям."</string>
-    <string name="recommendations_heading" msgid="5086762263560605249">"Рекомендуемые службы"</string>
+    <string name="recommendation_summary_new" featureFlag="com.android.bips.flags.printer_info_details" msgid="8338656202417823196">"Служба печати по умолчанию включает базовый набор функций. Дополнительные возможности доступны в других службах."</string>
+    <string name="recommendations_heading" msgid="5609754983795588470">"Рекомендуемые службы"</string>
+    <string name="recommendation_link" featureFlag="com.android.bips.flags.printer_info_details" msgid="8702939483024020023">"Дополнительные службы печати"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"Выберите, чтобы установить"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"Выберите, чтобы включить"</string>
-    <string name="recommendation_manage" msgid="4683640588502866284">"Управление службами"</string>
+    <string name="recommendation_manage" msgid="6861960243377871340">"Управление службами"</string>
     <string name="security" msgid="2279008326210305401">"Безопасность"</string>
     <string name="certificate_update_request" msgid="1314796413107139475">"Для принтера предоставлен новый сертификат безопасности. Возможно, под видом принтера работает другое устройство. Принять новый сертификат?"</string>
     <string name="not_encrypted_request" msgid="4871472176807381642">"Принтер больше не принимает зашифрованные задания. Продолжить печать?"</string>
@@ -76,4 +78,15 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"Службе печати по умолчанию требуется разрешение \"Устройства поблизости\", чтобы найти находящиеся рядом принтеры."</string>
     <string name="fix" msgid="7784394272611365393">"Настроить разрешения"</string>
     <string name="print" msgid="7851318072404916362">"Печать"</string>
+    <string name="yes" featureFlag="com.android.bips.flags.printer_info_details" msgid="8146135396781327533">"Да"</string>
+    <string name="unknown" featureFlag="com.android.bips.flags.printer_info_details" msgid="9141700614096334947">"Неизвестно"</string>
+    <string name="printer_name" featureFlag="com.android.bips.flags.printer_info_details" msgid="518518465578369850">"Название принтера"</string>
+    <string name="status" featureFlag="com.android.bips.flags.printer_info_details" msgid="7895525662471923742">"Статус"</string>
+    <string name="media_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="8259402637635303256">"Размер загруженной бумаги"</string>
+    <string name="supply_levels" featureFlag="com.android.bips.flags.printer_info_details" msgid="3292306109407433125">"Уровень расходных материалов"</string>
+    <string name="information" featureFlag="com.android.bips.flags.printer_info_details" msgid="894176958646461459">"Информация"</string>
+    <string name="printer_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="6343136701327532305">"Можно использовать"</string>
+    <string name="printer_state__printing" featureFlag="com.android.bips.flags.printer_info_details" msgid="7991962306019119834">"Печать"</string>
+    <string name="printer_state__offline" featureFlag="com.android.bips.flags.printer_info_details" msgid="2381616555357221771">"Офлайн"</string>
+    <string name="printer_state__check_printer" featureFlag="com.android.bips.flags.printer_info_details" msgid="882936062938150000">"Проверьте принтер"</string>
 </resources>
