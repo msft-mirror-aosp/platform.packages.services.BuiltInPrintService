@@ -61,10 +61,12 @@
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"Notiek savienojuma izveide, izmantojot Wi-Fi Direct"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"Notiek savienojuma izveide, izmantojot pašreizējo tīklu ar šādu IP adresi: <xliff:g id="IP_ADDRESS">%1$s</xliff:g>"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"Noklusējuma drukāšanas pakalpojums nodrošina pamatiespējas. Citas iespējas šim printerim var būt pieejamas, izmantojot citu drukāšanas pakalpojumu."</string>
-    <string name="recommendations_heading" msgid="5086762263560605249">"Ieteiktie pakalpojumi"</string>
+    <string name="recommendation_summary_new" featureFlag="com.android.bips.flags.printer_info_details" msgid="8338656202417823196">"Noklusējuma drukāšanas pakalpojums nodrošina pamatiespējas. Lai nodrošinātu papildu iespējas, ir pieejami papildu drukāšanas pakalpojumi."</string>
+    <string name="recommendations_heading" msgid="5609754983795588470">"Ieteiktie pakalpojumi"</string>
+    <string name="recommendation_link" featureFlag="com.android.bips.flags.printer_info_details" msgid="8702939483024020023">"Papildu drukāšanas pakalpojumi"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"Atlasiet, lai instalētu"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"Atlasiet, lai iespējotu"</string>
-    <string name="recommendation_manage" msgid="4683640588502866284">"Pārvaldīt pakalpojumus"</string>
+    <string name="recommendation_manage" msgid="6861960243377871340">"Pārvaldīt pakalpojumus"</string>
     <string name="security" msgid="2279008326210305401">"Drošība"</string>
     <string name="certificate_update_request" msgid="1314796413107139475">"Šim printerim ir jauns drošības sertifikāts, vai arī cita ierīce uzdodas par to. Vai apstiprināt jauno sertifikātu?"</string>
     <string name="not_encrypted_request" msgid="4871472176807381642">"Šis printeris vairs nepieņem šifrētus uzdevumus. Vai turpināt drukāšanu?"</string>
@@ -76,4 +78,15 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"Lai varētu atrast tuvumā esošus printerus, noklusējuma drukāšanas pakalpojumam ir vajadzīga atļauja “Tuvumā esošas ierīces”."</string>
     <string name="fix" msgid="7784394272611365393">"Pārskatīt atļauju"</string>
     <string name="print" msgid="7851318072404916362">"Drukāt"</string>
+    <string name="yes" featureFlag="com.android.bips.flags.printer_info_details" msgid="8146135396781327533">"Jā"</string>
+    <string name="unknown" featureFlag="com.android.bips.flags.printer_info_details" msgid="9141700614096334947">"Nav zināms"</string>
+    <string name="printer_name" featureFlag="com.android.bips.flags.printer_info_details" msgid="518518465578369850">"Printera nosaukums"</string>
+    <string name="status" featureFlag="com.android.bips.flags.printer_info_details" msgid="7895525662471923742">"Statuss"</string>
+    <string name="media_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="8259402637635303256">"Ielādēti papīra izmēru dati"</string>
+    <string name="supply_levels" featureFlag="com.android.bips.flags.printer_info_details" msgid="3292306109407433125">"Izejmateriālu līmenis"</string>
+    <string name="information" featureFlag="com.android.bips.flags.printer_info_details" msgid="894176958646461459">"Informācija"</string>
+    <string name="printer_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="6343136701327532305">"Gatavs"</string>
+    <string name="printer_state__printing" featureFlag="com.android.bips.flags.printer_info_details" msgid="7991962306019119834">"Notiek drukāšana…"</string>
+    <string name="printer_state__offline" featureFlag="com.android.bips.flags.printer_info_details" msgid="2381616555357221771">"Bezsaistē"</string>
+    <string name="printer_state__check_printer" featureFlag="com.android.bips.flags.printer_info_details" msgid="882936062938150000">"Pārbaudīt printeri"</string>
 </resources>

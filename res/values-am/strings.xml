@@ -61,10 +61,12 @@
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"በWi-Fi Direct በኩል ያገናኛል"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"አሁን ባለ አውታረ መረብ በኩል በ<xliff:g id="IP_ADDRESS">%1$s</xliff:g> ላይ ያገናኛል"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"ነባሪው የህትመት አገልግሎት መሠረታዊ አማራጮችን ያቀርባል። ሌሎች የዚህ አታሚ አማራጮች ከሌላ የአታሚ አገልግሎት ሊገኙ ይችላሉ።"</string>
-    <string name="recommendations_heading" msgid="5086762263560605249">"የሚመከሩ አገልግሎቶች"</string>
+    <string name="recommendation_summary_new" featureFlag="com.android.bips.flags.printer_info_details" msgid="8338656202417823196">"ነባሪው የህትመት አገልግሎት መሠረታዊ አማራጮችን ያቀርባል። ለላቁ አማራጮች ተጨማሪ የህትመት አገልግሎቶች ይገኛሉ።"</string>
+    <string name="recommendations_heading" msgid="5609754983795588470">"የሚመከሩ አገልግሎቶች"</string>
+    <string name="recommendation_link" featureFlag="com.android.bips.flags.printer_info_details" msgid="8702939483024020023">"ተጨማሪ የህትመት አገልግሎት"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"ለመጫን ይምረጡ"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"ለማንቃት ይምረጡ"</string>
-    <string name="recommendation_manage" msgid="4683640588502866284">"አገልግሎቶችን ያቀናብሩ"</string>
+    <string name="recommendation_manage" msgid="6861960243377871340">"አገልግሎቶችን አስተዳድር"</string>
     <string name="security" msgid="2279008326210305401">"ደኅንነት"</string>
     <string name="certificate_update_request" msgid="1314796413107139475">"ይህ አታሚ አዲስ የደህንነት እውቅና ማረጋገጫ አቅርቧል፣ ወይም ሌላ መሣሪያ እያስመሰለው ነው። አዲሱ የእውቅና ማረጋገጫ ይቀበሉ?"</string>
     <string name="not_encrypted_request" msgid="4871472176807381642">"ይህ አታሚ ከእንግዲህ የተመሰጠሩ ስራዎችን አይቀበልም። ማተም ይቀጥሉ?"</string>
@@ -76,4 +78,15 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"በአቅራቢያ ያሉ አታሚዎችን ለማግኘት ነባሪ የህትመት አገልግሎት በአቅራቢያ ያሉ የመሣሪያዎች ፈቃድ ያስፈልገዋል።"</string>
     <string name="fix" msgid="7784394272611365393">"ፈቃድን ይገምግሙ"</string>
     <string name="print" msgid="7851318072404916362">"አትም"</string>
+    <string name="yes" featureFlag="com.android.bips.flags.printer_info_details" msgid="8146135396781327533">"አዎ"</string>
+    <string name="unknown" featureFlag="com.android.bips.flags.printer_info_details" msgid="9141700614096334947">"ያልታወቀ"</string>
+    <string name="printer_name" featureFlag="com.android.bips.flags.printer_info_details" msgid="518518465578369850">"የአታሚ ስም"</string>
+    <string name="status" featureFlag="com.android.bips.flags.printer_info_details" msgid="7895525662471923742">"ሁኔታ"</string>
+    <string name="media_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="8259402637635303256">"የተጫኑ የወረቀት መጠኖች"</string>
+    <string name="supply_levels" featureFlag="com.android.bips.flags.printer_info_details" msgid="3292306109407433125">"የአቅርቦት ደረጃዎች"</string>
+    <string name="information" featureFlag="com.android.bips.flags.printer_info_details" msgid="894176958646461459">"መረጃ"</string>
+    <string name="printer_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="6343136701327532305">"ዝግጁ"</string>
+    <string name="printer_state__printing" featureFlag="com.android.bips.flags.printer_info_details" msgid="7991962306019119834">"በማተም ላይ"</string>
+    <string name="printer_state__offline" featureFlag="com.android.bips.flags.printer_info_details" msgid="2381616555357221771">"ከመስመር ውጭ"</string>
+    <string name="printer_state__check_printer" featureFlag="com.android.bips.flags.printer_info_details" msgid="882936062938150000">"አታሚን ይፈትሹ"</string>
 </resources>

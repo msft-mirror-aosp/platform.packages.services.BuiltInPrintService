@@ -61,10 +61,12 @@
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"Huunganisha kupitia Wi-Fi moja kwa moja"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"Huunganisha kupitia mtandao wa sasa kwenye <xliff:g id="IP_ADDRESS">%1$s</xliff:g>"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"Huduma Chaguomsingi ya Kuchapisha hutoa chaguo za msingi. Huenda chaguo zingine za printa hii zikapatikana kutoka huduma nyingine ya kuchapisha."</string>
-    <string name="recommendations_heading" msgid="5086762263560605249">"Huduma zinazopendekezwa"</string>
+    <string name="recommendation_summary_new" featureFlag="com.android.bips.flags.printer_info_details" msgid="8338656202417823196">"Huduma chaguomsingi ya uchapishaji hutoa chaguo za msingi. Kwa chaguo za kina, huduma za ziada za uchapishaji zinapatikana."</string>
+    <string name="recommendations_heading" msgid="5609754983795588470">"Huduma Zinazopendekezwa"</string>
+    <string name="recommendation_link" featureFlag="com.android.bips.flags.printer_info_details" msgid="8702939483024020023">"Huduma za ziada za uchapishaji"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"Chagua ili usakinishe"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"Chagua ili uwashe"</string>
-    <string name="recommendation_manage" msgid="4683640588502866284">"Dhibiti huduma"</string>
+    <string name="recommendation_manage" msgid="6861960243377871340">"Dhibiti Huduma"</string>
     <string name="security" msgid="2279008326210305401">"Usalama"</string>
     <string name="certificate_update_request" msgid="1314796413107139475">"Printa hii imetoa cheti kipya cha usalama au kifaa kingine kinaiiga. Je, ungependa kukubali cheti kipya?"</string>
     <string name="not_encrypted_request" msgid="4871472176807381642">"Printa hii haichapishi tena kazi zilizosimbwa kwa njia fiche. Ungependa kuendelea kuchapisha?"</string>
@@ -76,4 +78,15 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"Huduma Chaguomsingi ya Kuchapisha inahitaji ruhusa ya vifaa vilivyo karibu ili kutafuta printa zilizo karibu."</string>
     <string name="fix" msgid="7784394272611365393">"Kagua ruhusa"</string>
     <string name="print" msgid="7851318072404916362">"Chapisha"</string>
+    <string name="yes" featureFlag="com.android.bips.flags.printer_info_details" msgid="8146135396781327533">"Ndiyo"</string>
+    <string name="unknown" featureFlag="com.android.bips.flags.printer_info_details" msgid="9141700614096334947">"Haijulikani"</string>
+    <string name="printer_name" featureFlag="com.android.bips.flags.printer_info_details" msgid="518518465578369850">"Jina la printa"</string>
+    <string name="status" featureFlag="com.android.bips.flags.printer_info_details" msgid="7895525662471923742">"Hali"</string>
+    <string name="media_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="8259402637635303256">"Ukubwa wa karatasi zilizopakiwa"</string>
+    <string name="supply_levels" featureFlag="com.android.bips.flags.printer_info_details" msgid="3292306109407433125">"Viwango vya usambazaji"</string>
+    <string name="information" featureFlag="com.android.bips.flags.printer_info_details" msgid="894176958646461459">"Maelezo"</string>
+    <string name="printer_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="6343136701327532305">"Tayari"</string>
+    <string name="printer_state__printing" featureFlag="com.android.bips.flags.printer_info_details" msgid="7991962306019119834">"Inachapisha"</string>
+    <string name="printer_state__offline" featureFlag="com.android.bips.flags.printer_info_details" msgid="2381616555357221771">"Nje ya mtandao"</string>
+    <string name="printer_state__check_printer" featureFlag="com.android.bips.flags.printer_info_details" msgid="882936062938150000">"Angalia printa"</string>
 </resources>

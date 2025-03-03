@@ -61,10 +61,12 @@
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"Wi-Fi Шуудаар холбогддог"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"Одоогийн сүлжээгээр <xliff:g id="IP_ADDRESS">%1$s</xliff:g>-д холбогддог"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"Стандарт хэвлэлтийн үйлчилгээ энгийн сонголттой байдаг. Энэ хэвлэгчийн бусад сонголт хэвлэлийн өөр үйлчилгээнээс боломжтой байж болзошгүй."</string>
-    <string name="recommendations_heading" msgid="5086762263560605249">"Санал болгосон үйлчилгээ"</string>
+    <string name="recommendation_summary_new" featureFlag="com.android.bips.flags.printer_info_details" msgid="8338656202417823196">"Өгөгдмөл хэвлэх үйлчилгээ нь үндсэн сонголтуудаар хангадаг. Нарийвчилсан сонголтуудын хувьд нэмэлт хэвлэх үйлчилгээ боломжтой."</string>
+    <string name="recommendations_heading" msgid="5609754983795588470">"Санал болгосон үйлчилгээ"</string>
+    <string name="recommendation_link" featureFlag="com.android.bips.flags.printer_info_details" msgid="8702939483024020023">"Хэвлэх нэмэлт үйлчилгээ"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"Суулгахын тулд сонгох"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"Идэвхжүүлэхийн тулд сонгох"</string>
-    <string name="recommendation_manage" msgid="4683640588502866284">"Үйлчилгээг удирдах"</string>
+    <string name="recommendation_manage" msgid="6861960243377871340">"Үйлчилгээг удирдах"</string>
     <string name="security" msgid="2279008326210305401">"Аюулгүй байдал"</string>
     <string name="certificate_update_request" msgid="1314796413107139475">"Энэ хэвлэгч аюулгүй байдлын шинэ сертификат олгосон эсвэл үүнийг өөр төхөөрөмж хуурамчаар дуурайж байна. Шинэ сертификатыг зөвшөөрөх үү?"</string>
     <string name="not_encrypted_request" msgid="4871472176807381642">"Энэ хэвлэгч шифрлэсэн ажлыг цаашид зөвшөөрөхөө больсон байна. Үргэлжлүүлэн хэвлэх үү?"</string>
@@ -76,4 +78,15 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"Стандарт хэвлэх үйлчилгээнд ойролцоох хэвлэгчдийг олохын тулд ойролцоох төхөөрөмжүүдийн зөвшөөрөл шаардлагатай."</string>
     <string name="fix" msgid="7784394272611365393">"Зөвшөөрлийг хянах"</string>
     <string name="print" msgid="7851318072404916362">"Хэвлэх"</string>
+    <string name="yes" featureFlag="com.android.bips.flags.printer_info_details" msgid="8146135396781327533">"Тийм"</string>
+    <string name="unknown" featureFlag="com.android.bips.flags.printer_info_details" msgid="9141700614096334947">"Тодорхойгүй"</string>
+    <string name="printer_name" featureFlag="com.android.bips.flags.printer_info_details" msgid="518518465578369850">"Хэвлэгчийн нэр"</string>
+    <string name="status" featureFlag="com.android.bips.flags.printer_info_details" msgid="7895525662471923742">"Төлөв"</string>
+    <string name="media_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="8259402637635303256">"Ачаалсан цаасны хэмжээ"</string>
+    <string name="supply_levels" featureFlag="com.android.bips.flags.printer_info_details" msgid="3292306109407433125">"Хангамжийн түвшин"</string>
+    <string name="information" featureFlag="com.android.bips.flags.printer_info_details" msgid="894176958646461459">"Мэдээлэл"</string>
+    <string name="printer_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="6343136701327532305">"Бэлэн"</string>
+    <string name="printer_state__printing" featureFlag="com.android.bips.flags.printer_info_details" msgid="7991962306019119834">"Хэвлэж байна"</string>
+    <string name="printer_state__offline" featureFlag="com.android.bips.flags.printer_info_details" msgid="2381616555357221771">"Офлайн"</string>
+    <string name="printer_state__check_printer" featureFlag="com.android.bips.flags.printer_info_details" msgid="882936062938150000">"Хэвлэгчийг шалгах"</string>
 </resources>

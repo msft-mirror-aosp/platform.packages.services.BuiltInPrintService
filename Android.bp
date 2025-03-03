@@ -52,6 +52,8 @@ android_app {
     sdk_version: "system_current",
     optimize: {
         proguard_flags_files: ["proguard.flags"],
+        shrink_resources: true,
+        optimize: true,
     },
     jni_libs: [
         "libwfds",

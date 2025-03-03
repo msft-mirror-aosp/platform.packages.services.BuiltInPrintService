@@ -61,10 +61,12 @@
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"ವೈ-ಫೈ ಡೈರೆಕ್ಟ್ ಮೂಲಕ ಸಂಪರ್ಕಿಸುತ್ತದೆ"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"ಪ್ರಸ್ತುತ ನೆಟ್‌ವರ್ಕ್‌ನಲ್ಲಿ <xliff:g id="IP_ADDRESS">%1$s</xliff:g> ಮೂಲಕ ಸಂಪರ್ಕಿಸುತ್ತದೆ"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"ಡೀಫಾಲ್ಟ್ ಮುದ್ರಣ ಸೇವೆ ಮೂಲ ಆಯ್ಕೆಗಳನ್ನು ಒದಗಿಸುತ್ತದೆ. ಈ ಪ್ರಿಂಟರ್‌ನ ಇತರ ಆಯ್ಕೆಗಳು ಮತ್ತೊಂದು ಮುದ್ರಣ ಸೇವೆಯಿಂದ ಲಭ್ಯವಿರಬಹುದು."</string>
-    <string name="recommendations_heading" msgid="5086762263560605249">"ಶಿಫಾರಸು ಮಾಡಲಾದ ಸೇವೆಗಳು"</string>
+    <string name="recommendation_summary_new" featureFlag="com.android.bips.flags.printer_info_details" msgid="8338656202417823196">"ಡೀಫಾಲ್ಟ್ ಮುದ್ರಣ ಸೇವೆಯು ಮೂಲ ಆಯ್ಕೆಗಳನ್ನು ಒದಗಿಸುತ್ತದೆ. ಸುಧಾರಿತ ಆಯ್ಕೆಗಳಿಗಾಗಿ ಹೆಚ್ಚುವರಿ ಮುದ್ರಣ ಸೇವೆಗಳು ಲಭ್ಯವಿವೆ."</string>
+    <string name="recommendations_heading" msgid="5609754983795588470">"ಶಿಫಾರಸು ಮಾಡಲಾದ ಸೇವೆಗಳು"</string>
+    <string name="recommendation_link" featureFlag="com.android.bips.flags.printer_info_details" msgid="8702939483024020023">"ಹೆಚ್ಚುವರಿ ಮುದ್ರಣ ಸೇವೆಗಳು"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಲು ಆಯ್ಕೆ ಮಾಡಿ"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"ಸಕ್ರಿಯಗೊಳಿಸಲು ಆಯ್ಕೆಮಾಡಿ"</string>
-    <string name="recommendation_manage" msgid="4683640588502866284">"ಸೇವೆಗಳನ್ನು ನಿರ್ವಹಿಸಿ"</string>
+    <string name="recommendation_manage" msgid="6861960243377871340">"ಸೇವೆಗಳನ್ನು ನಿರ್ವಹಿಸಿ"</string>
     <string name="security" msgid="2279008326210305401">"ಭದ್ರತೆ"</string>
     <string name="certificate_update_request" msgid="1314796413107139475">"ಈ ಪ್ರಿಂಟರ್ ಹೊಸ ಭದ್ರತೆ ಪ್ರಮಾಣಪತ್ರವನ್ನು ಒದಗಿಸಿದೆ ಅಥವಾ ಇನ್ನೊಂದು ಸಾಧನ ಅದನ್ನು ಸೋಗು ಹಾಕುತ್ತಿದೆ. ಹೊಸ ಪ್ರಮಾಣಪತ್ರವನ್ನು ಸ್ವೀಕರಿಸುವುದೇ?"</string>
     <string name="not_encrypted_request" msgid="4871472176807381642">"ಪ್ರಿಂಟರ್ ಇನ್ನು ಮುಂದೆ ಎನ್‌ಕ್ರಿಪ್ಟ್ ಮಾಡಿದ ಕೆಲಸಗಳನ್ನು ಸ್ವೀಕರಿಸುವುದಿಲ್ಲ. ಪ್ರಿಂಟಿಂಗ್ ಮುಂದುವರಿಸುವುದೇ?"</string>
@@ -76,4 +78,15 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"ಸಮೀಪದಲ್ಲಿರುವ ಪ್ರಿಂಟರ್‌ಗಳನ್ನು ಪತ್ತೆ ಮಾಡಲು, ಡೀಫಾಲ್ಟ್ ಪ್ರಿಂಟ್ ಸೇವೆಗೆ ಸಮೀಪದಲ್ಲಿರುವ ಸಾಧನಗಳ ಅನುಮತಿ ಅಗತ್ಯವಿದೆ."</string>
     <string name="fix" msgid="7784394272611365393">"ಅನುಮತಿ ಪರಿಶೀಲಿಸಿ"</string>
     <string name="print" msgid="7851318072404916362">"ಪ್ರಿಂಟ್"</string>
+    <string name="yes" featureFlag="com.android.bips.flags.printer_info_details" msgid="8146135396781327533">"ಹೌದು"</string>
+    <string name="unknown" featureFlag="com.android.bips.flags.printer_info_details" msgid="9141700614096334947">"ಅಪರಿಚಿತ"</string>
+    <string name="printer_name" featureFlag="com.android.bips.flags.printer_info_details" msgid="518518465578369850">"ಪ್ರಿಂಟರ್ ಹೆಸರು"</string>
+    <string name="status" featureFlag="com.android.bips.flags.printer_info_details" msgid="7895525662471923742">"ಸ್ಥಿತಿ"</string>
+    <string name="media_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="8259402637635303256">"ಲೋಡ್ ಮಾಡಲಾದ ಕಾಗದದ ಗಾತ್ರಗಳು"</string>
+    <string name="supply_levels" featureFlag="com.android.bips.flags.printer_info_details" msgid="3292306109407433125">"ಪೂರೈಕೆ ಹಂತಗಳು"</string>
+    <string name="information" featureFlag="com.android.bips.flags.printer_info_details" msgid="894176958646461459">"ಮಾಹಿತಿ"</string>
+    <string name="printer_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="6343136701327532305">"ಸಿದ್ಧವಾಗಿದೆ"</string>
+    <string name="printer_state__printing" featureFlag="com.android.bips.flags.printer_info_details" msgid="7991962306019119834">"ಮುದ್ರಣ"</string>
+    <string name="printer_state__offline" featureFlag="com.android.bips.flags.printer_info_details" msgid="2381616555357221771">"ಆಫ್‌ಲೈನ್"</string>
+    <string name="printer_state__check_printer" featureFlag="com.android.bips.flags.printer_info_details" msgid="882936062938150000">"ಪ್ರಿಂಟರ್ ಅನ್ನು ಪರಿಶೀಲಿಸಿ"</string>
 </resources>
