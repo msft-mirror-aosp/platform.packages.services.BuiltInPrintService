@@ -60,6 +60,7 @@ typedef enum {
 #define __DEFINE_WPRINT_PLATFORM_TYPES__
 
 #include "wprint_image_platform.h"
+#include "lib_wprint.h"
 
 #undef __DEFINE_WPRINT_PLATFORM_TYPES__
 
@@ -187,7 +188,7 @@ status_t wprint_image_set_output_properties(wprint_image_info_t *image_info,
         wprint_rotation_t rotation, unsigned int printable_width, unsigned int printable_height,
         unsigned int top_margin, unsigned int left_margin, unsigned int right_margin,
         unsigned int bottom_margin, unsigned int render_flags, unsigned int max_decode_stripe,
-        unsigned int concurrent_stripes, unsigned int padding_options);
+        unsigned int concurrent_stripes, unsigned int padding_options, pcl_t pclenum);
 
 /*
  * Return true if the image is wider than it is high (landscape orientation)
