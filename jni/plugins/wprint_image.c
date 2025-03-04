@@ -86,7 +86,7 @@ status_t wprint_image_set_output_properties(wprint_image_info_t *image_info,
         wprint_rotation_t rotation, unsigned int printable_width, unsigned int printable_height,
         unsigned int top_margin, unsigned int left_margin, unsigned int right_margin,
         unsigned int bottom_margin, unsigned int render_flags, unsigned int max_decode_stripe,
-        unsigned int concurrent_stripes, unsigned int padding_options) {
+        unsigned int concurrent_stripes, unsigned int padding_options, pcl_t pclenum) {
     // validate rotation
     switch (rotation) {
         default:
@@ -120,8 +120,14 @@ status_t wprint_image_set_output_properties(wprint_image_info_t *image_info,
     image_info->padding_options = (padding_options & PAD_ALL);
 
     // store margin adjusted printable area
-    image_info->printable_width = printable_width - (left_margin + right_margin);
-    image_info->printable_height = printable_height - (top_margin + bottom_margin);
+    if (pclenum == PCLPWG) {
+        // no need to adjust the margins again for PWG raster
+        image_info->printable_width = printable_width;
+        image_info->printable_height = printable_height;
+    } else {
+        image_info->printable_width = printable_width - (left_margin + right_margin);
+        image_info->printable_height = printable_height - (top_margin + bottom_margin);
+    }
 
     // store rendering parameters
     image_info->render_flags = render_flags;
