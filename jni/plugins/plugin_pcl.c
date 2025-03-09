@@ -350,7 +350,7 @@ static status_t _setup_image_info(wprint_job_params_t *job_params, wprint_image_
                 job_params->print_top_margin, job_params->print_left_margin,
                 job_params->print_right_margin, job_params->print_bottom_margin,
                 job_params->render_flags, job_params->strip_height, MAX_SEND_BUFFS,
-                image_padding);
+                image_padding, job_params->pcl_type);
     } else {
         LOGE("_setup_image_info(): file does not appear to be valid");
         result = CORRUPT;
