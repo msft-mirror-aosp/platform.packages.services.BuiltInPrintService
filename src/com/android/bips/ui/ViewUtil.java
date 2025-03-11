@@ -26,13 +26,18 @@ import androidx.core.view.WindowInsetsCompat;
 
 public final class ViewUtil {
     public static void setWindowInsetsListener(View view, Activity activity) {
-        ViewCompat.setOnApplyWindowInsetsListener(view, (v, windowInsets) -> {
-            if (activity.isFinishing()) {
-                return windowInsets;
-            }
-            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(insets.left, insets.top, insets.right, insets.bottom);
-            return WindowInsetsCompat.CONSUMED;
-        });
+        ViewCompat.setOnApplyWindowInsetsListener(
+                view,
+                (v, windowInsets) -> {
+                    if (activity.isFinishing()) {
+                        return windowInsets;
+                    }
+                    Insets insets =
+                            windowInsets.getInsets(
+                                    WindowInsetsCompat.Type.systemBars()
+                                            | WindowInsetsCompat.Type.displayCutout());
+                    v.setPadding(insets.left, insets.top, insets.right, insets.bottom);
+                    return WindowInsetsCompat.CONSUMED;
+                });
     }
 }

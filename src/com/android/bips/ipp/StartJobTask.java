@@ -74,6 +74,7 @@ class StartJobTask extends AsyncTask<Void, Void, Integer> {
     private static final int SIDES_DUPLEX_SHORT_EDGE = 2;
 
     private static final int RESOLUTION_300_DPI = 300;
+    private static final int MARGIN_CHECK_72_DPI = 72;
 
     private static final int COLOR_SPACE_MONOCHROME = 0;
     private static final int COLOR_SPACE_COLOR = 1;
@@ -81,7 +82,10 @@ class StartJobTask extends AsyncTask<Void, Void, Integer> {
     private static final int BORDERLESS_OFF = 0;
     private static final int BORDERLESS_ON = 1;
     private static final float POINTS_PER_INCH = 72;
-    private final double mZoomFactor = RESOLUTION_300_DPI / POINTS_PER_INCH;
+
+    /** Threshold value for catering slight variation b/w source and paper size dimensions*/
+    private static final float PAGE_SIZE_EPSILON = 0.04f;
+    private final double mZoomFactor = MARGIN_CHECK_72_DPI / POINTS_PER_INCH;
     private final Context mContext;
     private final Backend mBackend;
     private final Uri mDestination;
@@ -186,11 +190,13 @@ class StartJobTask extends AsyncTask<Void, Void, Integer> {
                     mJobParams.source_width = (float) pageSize.getHeight() / POINTS_PER_INCH;
                     mJobParams.source_height = (float) pageSize.getWidth() / POINTS_PER_INCH;
                 }
-                // Print at 1:1 scale only if page count is 1 and the document is not a photo and
-                // there is no content in the margins of the printer.
+
+                // Print at 1:1 scale only if the page count is 1, the document is not a photo, the
+                // document size matches the paper size, and there is no content in the margins.
                 if (pageCount == 1) {
                     mJobParams.print_at_scale = !getDocumentCategory().equals(
                             BackendConstants.PRINT_DOCUMENT_CATEGORY__PHOTO) &&
+                            isDocSizeEqualsPaperSize() &&
                             isContentAtMarginsEmpty(pdfRender, pointsToPixels(pageSize.getHeight()),
                                     pointsToPixels(pageSize.getWidth()));
                 }
@@ -226,9 +232,20 @@ class StartJobTask extends AsyncTask<Void, Void, Integer> {
         }
     }
 
-    /** Converts cmm(hundredths of mm) to pixels at 300 DPI. */
+    private boolean isDocSizeEqualsPaperSize() {
+        PrintAttributes.MediaSize mediaSize = mJobInfo.getAttributes().getMediaSize();
+        if (mediaSize == null) {
+            return false;
+        }
+        float paperWidth = mediaSize.getWidthMils() / 1000f;
+        float paperHeight = mediaSize.getHeightMils() / 1000f;
+        return Math.abs(mJobParams.source_width - paperWidth) < PAGE_SIZE_EPSILON
+                && Math.abs(mJobParams.source_height - paperHeight) < PAGE_SIZE_EPSILON;
+    }
+
+    /** Converts cmm(hundredths of mm) to pixels at 72 DPI. */
     private int cmmToPixels(int cmm) {
-        return Math.round((float) cmm / 2540 * RESOLUTION_300_DPI);
+        return Math.round((float) cmm / 2540 * MARGIN_CHECK_72_DPI);
     }
 
     /** Converts points to pixels. */

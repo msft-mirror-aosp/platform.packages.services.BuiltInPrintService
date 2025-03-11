@@ -125,6 +125,8 @@ public class MoreOptionsActivity extends FragmentActivity implements ServiceConn
         } else {
             getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
+
+        ViewUtil.setWindowInsetsListener(getWindow().getDecorView(), this);
     }
 
     @Override
