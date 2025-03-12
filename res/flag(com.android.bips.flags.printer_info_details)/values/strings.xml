@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2025 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <!-- Explain purpose of recommendation fragment [CHAR LIMIT=UNLIMITED] -->
+    <string name="recommendation_summary_new">The default print service provides basic options. For advanced options additional print services are available.</string>
+    <!-- Heading for link to services that are not currently installed, but recommended [CHAR LIMIT=UNLIMITED] -->
+    <string name="recommendation_link">Additional print services</string>
+
+    <!-- Printer Information Screen Strings -->
+    <string name="yes">Yes</string>
+    <string name="unknown">Unknown</string>
+    <string name="printer_name">Printer name</string>
+    <string name="status">Status</string>
+    <string name="media_ready">Loaded paper sizes</string>
+    <string name="supply_levels">Supply levels</string>
+    <string name="information">Information</string>
+    <string name="printer_ready">Ready</string>
+    <!-- Printer status messages-->
+    <string name="printer_state__printing">Printing</string>
+    <string name="printer_state__offline">Offline</string>
+    <string name="printer_state__check_printer">Check printer</string>
+
+</resources>
