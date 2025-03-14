@@ -61,9 +61,7 @@
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"Wi-Fi Directen keresztül csatlakozik"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"A következő címen csatlakozik az aktuális hálózaton keresztül: <xliff:g id="IP_ADDRESS">%1$s</xliff:g>"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"Az alapértelmezett nyomtatási szolgáltatás alapvető funkciókat kínál. Másik nyomtatási szolgáltatásban lehetséges, hogy a nyomtató további funkcióit is tudja használni."</string>
-    <string name="recommendation_summary_new" featureFlag="com.android.bips.flags.printer_info_details" msgid="8338656202417823196">"Az alapértelmezett nyomtatási szolgáltatás alapvető funkciókat kínál. Speciális funkciókhoz további nyomtatási szolgáltatások állnak rendelkezésre."</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"Javasolt szolgáltatások"</string>
-    <string name="recommendation_link" featureFlag="com.android.bips.flags.printer_info_details" msgid="8702939483024020023">"További nyomtatási szolgáltatások"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"Válasszon szolgáltatást a telepítéshez"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"Válasszon szolgáltatást az engedélyezéshez"</string>
     <string name="recommendation_manage" msgid="6861960243377871340">"Szolgáltatások kezelése"</string>
@@ -78,15 +76,4 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"Az alapértelmezett nyomtatási szolgáltatásnak szüksége van a Közeli eszközök engedélyére ahhoz, hogy megtalálja a közeli nyomtatókat."</string>
     <string name="fix" msgid="7784394272611365393">"Engedély áttekintése"</string>
     <string name="print" msgid="7851318072404916362">"Nyomtatás"</string>
-    <string name="yes" featureFlag="com.android.bips.flags.printer_info_details" msgid="8146135396781327533">"Igen"</string>
-    <string name="unknown" featureFlag="com.android.bips.flags.printer_info_details" msgid="9141700614096334947">"Ismeretlen"</string>
-    <string name="printer_name" featureFlag="com.android.bips.flags.printer_info_details" msgid="518518465578369850">"Nyomtató neve"</string>
-    <string name="status" featureFlag="com.android.bips.flags.printer_info_details" msgid="7895525662471923742">"Állapot"</string>
-    <string name="media_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="8259402637635303256">"Betöltött papírméretek"</string>
-    <string name="supply_levels" featureFlag="com.android.bips.flags.printer_info_details" msgid="3292306109407433125">"Utántöltési szintek"</string>
-    <string name="information" featureFlag="com.android.bips.flags.printer_info_details" msgid="894176958646461459">"Információ"</string>
-    <string name="printer_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="6343136701327532305">"Készen áll"</string>
-    <string name="printer_state__printing" featureFlag="com.android.bips.flags.printer_info_details" msgid="7991962306019119834">"Nyomtatás"</string>
-    <string name="printer_state__offline" featureFlag="com.android.bips.flags.printer_info_details" msgid="2381616555357221771">"Offline"</string>
-    <string name="printer_state__check_printer" featureFlag="com.android.bips.flags.printer_info_details" msgid="882936062938150000">"Nyomtató ellenőrzése"</string>
 </resources>
