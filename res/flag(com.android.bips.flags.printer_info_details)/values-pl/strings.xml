@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+     Copyright (C) 2025 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="recommendation_summary_new" msgid="7827367046167645850">"Domyślna usługa drukowania zapewnia opcje podstawowe. Dostępne są dodatkowe usługi drukowania z opcjami zaawansowanymi."</string>
+    <string name="recommendation_link" msgid="8300104407684336172">"Dodatkowe usługi drukowania"</string>
+    <string name="yes" msgid="1887141030777316285">"Tak"</string>
+    <string name="unknown" msgid="2526777102391303730">"Nieznane"</string>
+    <string name="printer_name" msgid="386653719801075739">"Nazwa drukarki"</string>
+    <string name="status" msgid="5948149021115901261">"Stan"</string>
+    <string name="media_ready" msgid="7205545458156298899">"Formaty załadowanego papieru"</string>
+    <string name="supply_levels" msgid="5058409966884929190">"Poziomy materiałów"</string>
+    <string name="information" msgid="7896978544179559432">"Informacje"</string>
+    <string name="printer_ready" msgid="1602057851194259669">"Gotowa"</string>
+    <string name="printer_state__printing" msgid="596624975473301735">"Drukuje"</string>
+    <string name="printer_state__offline" msgid="6755924316852857893">"Offline"</string>
+    <string name="printer_state__check_printer" msgid="4854932117258619033">"Sprawdź drukarkę"</string>
+</resources>
