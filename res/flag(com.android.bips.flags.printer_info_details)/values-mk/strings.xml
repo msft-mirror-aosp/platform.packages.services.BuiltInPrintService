@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+     Copyright (C) 2025 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="recommendation_summary_new" msgid="7827367046167645850">"Услугата за стандардно печатење обезбедува основни опции. За напредни опции, достапни се дополнителни услуги за печатење."</string>
+    <string name="recommendation_link" msgid="8300104407684336172">"Дополнителни услуги за печатење"</string>
+    <string name="yes" msgid="1887141030777316285">"Да"</string>
+    <string name="unknown" msgid="2526777102391303730">"Непознато"</string>
+    <string name="printer_name" msgid="386653719801075739">"Име на печатачот"</string>
+    <string name="status" msgid="5948149021115901261">"Статус"</string>
+    <string name="media_ready" msgid="7205545458156298899">"Големина на вметнатата хартија"</string>
+    <string name="supply_levels" msgid="5058409966884929190">"Нивоа на снабдување"</string>
+    <string name="information" msgid="7896978544179559432">"Информации"</string>
+    <string name="printer_ready" msgid="1602057851194259669">"Подготвено"</string>
+    <string name="printer_state__printing" msgid="596624975473301735">"Се печати"</string>
+    <string name="printer_state__offline" msgid="6755924316852857893">"Офлајн"</string>
+    <string name="printer_state__check_printer" msgid="4854932117258619033">"Проверете го печатачот"</string>
+</resources>

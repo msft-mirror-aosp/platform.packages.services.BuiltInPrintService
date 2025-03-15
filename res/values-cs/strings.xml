@@ -61,9 +61,7 @@
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"Připojení prostřednictvím Wi-Fi Direct"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"Připojení prostřednictvím stávající sítě s IP adresou <xliff:g id="IP_ADDRESS">%1$s</xliff:g>"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"Výchozí služba tisku nabízí základní možnosti. Další možnosti mohou být k dispozici z jiné služby tisku."</string>
-    <string name="recommendation_summary_new" featureFlag="com.android.bips.flags.printer_info_details" msgid="8338656202417823196">"Výchozí tisková služba nabízí základní možnosti. Pro pokročilé možnosti jsou k dispozici další tiskové služby."</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"Doporučené služby"</string>
-    <string name="recommendation_link" featureFlag="com.android.bips.flags.printer_info_details" msgid="8702939483024020023">"Další tiskové služby"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"Vyberte, co nainstalovat"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"Vyberte, co aktivovat"</string>
     <string name="recommendation_manage" msgid="6861960243377871340">"Spravovat služby"</string>
@@ -78,15 +76,4 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"Výchozí tisková služba potřebuje oprávnění pro přístup k zařízením v okolí, aby mohla najít tiskárny v okolí."</string>
     <string name="fix" msgid="7784394272611365393">"Kontrola oprávnění"</string>
     <string name="print" msgid="7851318072404916362">"Tisk"</string>
-    <string name="yes" featureFlag="com.android.bips.flags.printer_info_details" msgid="8146135396781327533">"Ano"</string>
-    <string name="unknown" featureFlag="com.android.bips.flags.printer_info_details" msgid="9141700614096334947">"Neznámé"</string>
-    <string name="printer_name" featureFlag="com.android.bips.flags.printer_info_details" msgid="518518465578369850">"Název tiskárny"</string>
-    <string name="status" featureFlag="com.android.bips.flags.printer_info_details" msgid="7895525662471923742">"Stav"</string>
-    <string name="media_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="8259402637635303256">"Velikosti vloženého papíru"</string>
-    <string name="supply_levels" featureFlag="com.android.bips.flags.printer_info_details" msgid="3292306109407433125">"Úrovně nabídky"</string>
-    <string name="information" featureFlag="com.android.bips.flags.printer_info_details" msgid="894176958646461459">"Informace"</string>
-    <string name="printer_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="6343136701327532305">"Připraveno"</string>
-    <string name="printer_state__printing" featureFlag="com.android.bips.flags.printer_info_details" msgid="7991962306019119834">"Tisk"</string>
-    <string name="printer_state__offline" featureFlag="com.android.bips.flags.printer_info_details" msgid="2381616555357221771">"Offline"</string>
-    <string name="printer_state__check_printer" featureFlag="com.android.bips.flags.printer_info_details" msgid="882936062938150000">"Zkontrolovat tiskárnu"</string>
 </resources>

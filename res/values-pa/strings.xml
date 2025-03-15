@@ -61,9 +61,7 @@
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"ਵਾਈ-ਫਾਈ ਡਾਇਰੈਕਟ ਰਾਹੀਂ ਕਨੈਕਟ ਕਰਦਾ ਹੈ"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"<xliff:g id="IP_ADDRESS">%1$s</xliff:g> \'ਤੇ ਵਰਤਮਾਨ ਨੈੱਟਵਰਕ ਰਾਹੀਂ ਕਨੈਕਟ ਕਰਦਾ ਹੈ"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"ਪੂਰਵ-ਨਿਰਧਾਰਤ ਪ੍ਰਿੰਟ ਸੇਵਾ ਮੂਲ ਵਿਕਲਪ ਪ੍ਰਦਾਨ ਕਰਦੀ ਹੈ। ਇਸ ਪ੍ਰਿੰਟਰ ਲਈ ਹੋਰ ਵਿਕਲਪ ਕਿਸੇ ਹੋਰ ਪ੍ਰਿੰਟ ਸੇਵਾ ਤੋਂ ਉਪਲਬਧ ਹੋ ਸਕਦੇ ਹਨ।"</string>
-    <string name="recommendation_summary_new" featureFlag="com.android.bips.flags.printer_info_details" msgid="8338656202417823196">"ਪ੍ਰਿੰਟ ਕਰਨ ਦੀ ਪੂਰਵ-ਨਿਰਧਾਰਿਤ ਸੇਵਾ ਮੂਲ ਵਿਕਲਪ ਮੁਹੱਈਆ ਕਰਵਾਉਂਦੀ ਹੈ। ਅਡਵਾਂਸ ਵਿਕਲਪਾਂ ਵਿੱਚ ਪ੍ਰਿੰਟ ਕਰਨ ਦੀਆਂ ਵਧੀਕ ਸੇਵਾਵਾਂ ਉਪਲਬਧ ਹਨ।"</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"ਸਿਫ਼ਾਰਸ਼ੀ ਸੇਵਾਵਾਂ"</string>
-    <string name="recommendation_link" featureFlag="com.android.bips.flags.printer_info_details" msgid="8702939483024020023">"ਪ੍ਰਿੰਟ ਕਰਨ ਦੀਆਂ ਵਧੀਕ ਸੇਵਾਵਾਂ"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"ਸਥਾਪਤ ਕਰਨ ਲਈ ਚੁਣੋ"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"ਚਾਲੂ ਕਰਨ ਲਈ ਚੁਣੋ"</string>
     <string name="recommendation_manage" msgid="6861960243377871340">"ਸੇਵਾਵਾਂ ਦਾ ਪ੍ਰਬੰਧਨ ਕਰੋ"</string>
@@ -78,15 +76,4 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"ਪੂਰਵ-ਨਿਰਧਾਰਿਤ ਪ੍ਰਿੰਟ ਸੇਵਾ ਨੂੰ ਨਜ਼ਦੀਕੀ ਪ੍ਰਿੰਟਰਾਂ ਨੂੰ ਲੱਭਣ ਲਈ ਨਜ਼ਦੀਕੀ ਡੀਵਾਈਸਾਂ ਸੰਬੰਧੀ ਇਜਾਜ਼ਤ ਦੀ ਲੋੜ ਹੈ।"</string>
     <string name="fix" msgid="7784394272611365393">"ਇਜਾਜ਼ਤ ਦੀ ਸਮੀਖਿਆ ਕਰੋ"</string>
     <string name="print" msgid="7851318072404916362">"ਪ੍ਰਿੰਟ ਕਰੋ"</string>
-    <string name="yes" featureFlag="com.android.bips.flags.printer_info_details" msgid="8146135396781327533">"ਹਾਂ"</string>
-    <string name="unknown" featureFlag="com.android.bips.flags.printer_info_details" msgid="9141700614096334947">"ਅਗਿਆਤ"</string>
-    <string name="printer_name" featureFlag="com.android.bips.flags.printer_info_details" msgid="518518465578369850">"ਪ੍ਰਿੰਟਰ ਦਾ ਨਾਮ"</string>
-    <string name="status" featureFlag="com.android.bips.flags.printer_info_details" msgid="7895525662471923742">"ਸਥਿਤੀ"</string>
-    <string name="media_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="8259402637635303256">"ਲੋਡ ਕੀਤੇ ਕਾਗਜ਼ ਦੇ ਆਕਾਰ"</string>
-    <string name="supply_levels" featureFlag="com.android.bips.flags.printer_info_details" msgid="3292306109407433125">"ਸਪਲਾਈ ਦੇ ਪੱਧਰ"</string>
-    <string name="information" featureFlag="com.android.bips.flags.printer_info_details" msgid="894176958646461459">"ਜਾਣਕਾਰੀ"</string>
-    <string name="printer_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="6343136701327532305">"ਤਿਆਰ ਹੈ"</string>
-    <string name="printer_state__printing" featureFlag="com.android.bips.flags.printer_info_details" msgid="7991962306019119834">"ਪ੍ਰਿੰਟਿੰਗ"</string>
-    <string name="printer_state__offline" featureFlag="com.android.bips.flags.printer_info_details" msgid="2381616555357221771">"ਆਫ਼ਲਾਈਨ"</string>
-    <string name="printer_state__check_printer" featureFlag="com.android.bips.flags.printer_info_details" msgid="882936062938150000">"ਪ੍ਰਿੰਟਰ ਦੀ ਜਾਂਚ ਕਰੋ"</string>
 </resources>
