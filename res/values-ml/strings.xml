@@ -61,9 +61,7 @@
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"വൈഫൈ ഡയറക്‌റ്റ് വഴി കണക്റ്റ് ചെയ്യുന്നു"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"<xliff:g id="IP_ADDRESS">%1$s</xliff:g> വിലാസത്തിലെ നിലവിലെ നെറ്റ്‍വര്‍ക്ക് വഴി കണക്റ്റ് ചെയ്യുന്നു"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"ഡിഫോൾട്ട് പ്രിന്റ് സേവനം അടിസ്ഥാന ഓപ്ഷനുകൾ നൽകുന്നു. ഈ പ്രിന്ററിനുള്ള മറ്റ് ഓപ്ഷനുകൾ മറ്റ് പ്രിന്റ് സേവനത്തിൽ നിന്ന് ലഭ്യമായേക്കും."</string>
-    <string name="recommendation_summary_new" featureFlag="com.android.bips.flags.printer_info_details" msgid="8338656202417823196">"ഡിഫോൾട്ട് പ്രിന്റ് സേവനം അടിസ്ഥാന ഓപ്ഷനുകൾ നൽകുന്നു. വിപുലമായ ഓപ്ഷനുകൾക്ക് അധിക പ്രിന്റ് സേവനങ്ങൾ ലഭ്യമാണ്."</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"നിർദ്ദേശിച്ചിട്ടുള്ള സേവനങ്ങൾ"</string>
-    <string name="recommendation_link" featureFlag="com.android.bips.flags.printer_info_details" msgid="8702939483024020023">"അധിക പ്രിന്റ് സേവനങ്ങൾ"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"ഇൻസ്‌റ്റാൾ ചെയ്യാൻ തിരഞ്ഞെടുക്കുക"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"പ്രവർത്തനക്ഷമമാക്കാൻ തിരഞ്ഞെടുക്കുക"</string>
     <string name="recommendation_manage" msgid="6861960243377871340">"സേവനങ്ങൾ മാനേജ് ചെയ്യുക"</string>
@@ -78,15 +76,4 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"ഡിഫോൾട്ട് പ്രിന്റ് സേവനത്തിന് അതിന്റെ സമീപമുള്ള പ്രിന്ററുകൾ കണ്ടെത്താൻ സമീപമുള്ള ഉപകരണങ്ങളുടെ അനുമതി ആവശ്യമാണ്."</string>
     <string name="fix" msgid="7784394272611365393">"അനുമതി അവലോകനം"</string>
     <string name="print" msgid="7851318072404916362">"പ്രിന്റ്"</string>
-    <string name="yes" featureFlag="com.android.bips.flags.printer_info_details" msgid="8146135396781327533">"ഉവ്വ്"</string>
-    <string name="unknown" featureFlag="com.android.bips.flags.printer_info_details" msgid="9141700614096334947">"അജ്ഞാതം"</string>
-    <string name="printer_name" featureFlag="com.android.bips.flags.printer_info_details" msgid="518518465578369850">"പ്രിന്ററിന്റെ പേര്"</string>
-    <string name="status" featureFlag="com.android.bips.flags.printer_info_details" msgid="7895525662471923742">"നില"</string>
-    <string name="media_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="8259402637635303256">"പേപ്പർ വലുപ്പങ്ങൾ ലോഡ് ചെയ്തു"</string>
-    <string name="supply_levels" featureFlag="com.android.bips.flags.printer_info_details" msgid="3292306109407433125">"വിതരണ നിലകൾ"</string>
-    <string name="information" featureFlag="com.android.bips.flags.printer_info_details" msgid="894176958646461459">"വിവരങ്ങൾ"</string>
-    <string name="printer_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="6343136701327532305">"തയ്യാറാണ്"</string>
-    <string name="printer_state__printing" featureFlag="com.android.bips.flags.printer_info_details" msgid="7991962306019119834">"പ്രിന്റിംഗ്"</string>
-    <string name="printer_state__offline" featureFlag="com.android.bips.flags.printer_info_details" msgid="2381616555357221771">"ഓഫ്‌ലൈനാണ്"</string>
-    <string name="printer_state__check_printer" featureFlag="com.android.bips.flags.printer_info_details" msgid="882936062938150000">"പ്രിന്റർ പരിശോധിക്കുക"</string>
 </resources>
