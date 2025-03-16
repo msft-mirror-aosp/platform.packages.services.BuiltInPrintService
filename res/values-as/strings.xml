@@ -61,9 +61,7 @@
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"ৱাই-ফাই ডাইৰেক্টৰ জৰিয়তে সংযোগ কৰে"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"<xliff:g id="IP_ADDRESS">%1$s</xliff:g> ঠিকনাত চলিত নেটৱৰ্কৰ জৰিয়তে সংযোগ কৰে"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"ডিফ’ল্ট প্ৰিণ্ট সেৱাটোৱে সাধাৰণ বিকল্পসমূহ প্ৰদান কৰে। এই প্ৰিণ্টাৰটোৰ অন্য বিকল্পসমূহ বেলেগ এটা প্ৰিণ্ট সেৱাৰ পৰা ল’ব পৰা যাব পাৰে।"</string>
-    <string name="recommendation_summary_new" featureFlag="com.android.bips.flags.printer_info_details" msgid="8338656202417823196">"ডিফ’ল্ট প্ৰিণ্ট সেৱাটোৱে সাধাৰণ বিকল্পসমূহ প্ৰদান কৰে। উচ্চখাপৰ বিকল্পৰ বাবে অতিৰিক্ত প্ৰিণ্ট সেৱা উপলব্ধ।"</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"চুপাৰিছ কৰা সেৱাসমূহ"</string>
-    <string name="recommendation_link" featureFlag="com.android.bips.flags.printer_info_details" msgid="8702939483024020023">"অতিৰিক্ত প্ৰিণ্ট সেৱা"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"ইনষ্টল কৰিবলৈ বাছনি কৰক"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"সক্ষম কৰিবলৈ বাছনি কৰক"</string>
     <string name="recommendation_manage" msgid="6861960243377871340">"সেৱা পৰিচালনা কৰক"</string>
@@ -78,15 +76,4 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"ডিফ’ল্ট প্ৰিণ্ট সেৱাক ওচৰত থকা প্ৰিণ্টাৰ বিচাৰিবলৈ নিকটৱৰ্তী ডিভাইচৰ অনুমতিৰ আৱশ্যক।"</string>
     <string name="fix" msgid="7784394272611365393">"পর্যালোচনাৰ অনুমতি"</string>
     <string name="print" msgid="7851318072404916362">"প্ৰিণ্ট কৰক"</string>
-    <string name="yes" featureFlag="com.android.bips.flags.printer_info_details" msgid="8146135396781327533">"হয়"</string>
-    <string name="unknown" featureFlag="com.android.bips.flags.printer_info_details" msgid="9141700614096334947">"অজ্ঞাত"</string>
-    <string name="printer_name" featureFlag="com.android.bips.flags.printer_info_details" msgid="518518465578369850">"প্ৰিণ্টাৰৰ নাম"</string>
-    <string name="status" featureFlag="com.android.bips.flags.printer_info_details" msgid="7895525662471923742">"স্থিতি"</string>
-    <string name="media_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="8259402637635303256">"ল’ড কৰা পেপাৰৰ আকাৰ"</string>
-    <string name="supply_levels" featureFlag="com.android.bips.flags.printer_info_details" msgid="3292306109407433125">"যোগানৰ স্তৰ"</string>
-    <string name="information" featureFlag="com.android.bips.flags.printer_info_details" msgid="894176958646461459">"তথ্য"</string>
-    <string name="printer_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="6343136701327532305">"সাজু"</string>
-    <string name="printer_state__printing" featureFlag="com.android.bips.flags.printer_info_details" msgid="7991962306019119834">"প্ৰিণ্ট কৰি থকা হৈছে"</string>
-    <string name="printer_state__offline" featureFlag="com.android.bips.flags.printer_info_details" msgid="2381616555357221771">"অফলাইন"</string>
-    <string name="printer_state__check_printer" featureFlag="com.android.bips.flags.printer_info_details" msgid="882936062938150000">"প্ৰিণ্টাৰ পৰীক্ষা কৰক"</string>
 </resources>

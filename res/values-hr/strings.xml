@@ -61,9 +61,7 @@
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"Povezuje se putem Izravnog Wi-Fija"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"Povezuje se putem trenutačne mreže na IP adresi <xliff:g id="IP_ADDRESS">%1$s</xliff:g>"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"Zadana usluga ispisa nudi osnovne opcije. Ostale opcije za ovaj pisač mogu biti dostupne iz druge usluge ispisa."</string>
-    <string name="recommendation_summary_new" featureFlag="com.android.bips.flags.printer_info_details" msgid="8338656202417823196">"Zadana usluga ispisa nudi osnovne opcije. Za napredne opcije dostupne su dodatne usluge ispisa."</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"Preporučene usluge"</string>
-    <string name="recommendation_link" featureFlag="com.android.bips.flags.printer_info_details" msgid="8702939483024020023">"Dodatne usluge ispisa"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"Odaberite za instaliranje"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"Odaberite za omogućavanje"</string>
     <string name="recommendation_manage" msgid="6861960243377871340">"Upravljajte uslugama"</string>
@@ -78,15 +76,4 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"Zadana usluga za ispis treba dopuštenje za uređaje u blizini da bi pronašla pisače u blizini."</string>
     <string name="fix" msgid="7784394272611365393">"Pregled dopuštenja"</string>
     <string name="print" msgid="7851318072404916362">"Ispis"</string>
-    <string name="yes" featureFlag="com.android.bips.flags.printer_info_details" msgid="8146135396781327533">"Da"</string>
-    <string name="unknown" featureFlag="com.android.bips.flags.printer_info_details" msgid="9141700614096334947">"Nepoznato"</string>
-    <string name="printer_name" featureFlag="com.android.bips.flags.printer_info_details" msgid="518518465578369850">"Naziv pisača"</string>
-    <string name="status" featureFlag="com.android.bips.flags.printer_info_details" msgid="7895525662471923742">"Status"</string>
-    <string name="media_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="8259402637635303256">"Veličine umetnutog papira"</string>
-    <string name="supply_levels" featureFlag="com.android.bips.flags.printer_info_details" msgid="3292306109407433125">"Razine potrošnog materijala"</string>
-    <string name="information" featureFlag="com.android.bips.flags.printer_info_details" msgid="894176958646461459">"Informacije"</string>
-    <string name="printer_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="6343136701327532305">"Spremno"</string>
-    <string name="printer_state__printing" featureFlag="com.android.bips.flags.printer_info_details" msgid="7991962306019119834">"Ispis"</string>
-    <string name="printer_state__offline" featureFlag="com.android.bips.flags.printer_info_details" msgid="2381616555357221771">"Offline"</string>
-    <string name="printer_state__check_printer" featureFlag="com.android.bips.flags.printer_info_details" msgid="882936062938150000">"Provjerite pisač"</string>
 </resources>

@@ -61,9 +61,7 @@
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"‏ازطریق Wi-Fi بی‌واسطه متصل می‌شود"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"ازطریق شبکه فعلی به نشانی <xliff:g id="IP_ADDRESS">%1$s</xliff:g> متصل می‌شود"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"«سرویس چاپ پیش‌فرض» گزینه‌های اصلی را ارائه می‌کند. ممکن است سایر گزینه‌ها برای این چاپگر از سرویس چاپ دیگری دردسترس باشد."</string>
-    <string name="recommendation_summary_new" featureFlag="com.android.bips.flags.printer_info_details" msgid="8338656202417823196">"سرویس چاپ پیش‌فرض گزینه‌های اصلی را ارائه می‌دهد. برای گزینه‌های پیشرفته، سرویس‌های چاپ دیگری دردسترس هستند."</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"سرویس‌های توصیه‌شده"</string>
-    <string name="recommendation_link" featureFlag="com.android.bips.flags.printer_info_details" msgid="8702939483024020023">"سرویس‌های چاپ بیشتر"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"برای نصب انتخاب کنید"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"برای فعال کردن، انتخاب کنید"</string>
     <string name="recommendation_manage" msgid="6861960243377871340">"مدیریت سرویس‌ها"</string>
@@ -78,15 +76,4 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"«سرویس چاپ پیش‌فرض» برای پیدا کردن چاپگرهای اطراف به اجازه دستگاه‌های اطراف نیاز دارد."</string>
     <string name="fix" msgid="7784394272611365393">"مرور مجوز"</string>
     <string name="print" msgid="7851318072404916362">"چاپ"</string>
-    <string name="yes" featureFlag="com.android.bips.flags.printer_info_details" msgid="8146135396781327533">"بله"</string>
-    <string name="unknown" featureFlag="com.android.bips.flags.printer_info_details" msgid="9141700614096334947">"نامشخص"</string>
-    <string name="printer_name" featureFlag="com.android.bips.flags.printer_info_details" msgid="518518465578369850">"نام چاپگر"</string>
-    <string name="status" featureFlag="com.android.bips.flags.printer_info_details" msgid="7895525662471923742">"وضعیت"</string>
-    <string name="media_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="8259402637635303256">"اندازه‌های کاغذ بارشده"</string>
-    <string name="supply_levels" featureFlag="com.android.bips.flags.printer_info_details" msgid="3292306109407433125">"سطح عرضه"</string>
-    <string name="information" featureFlag="com.android.bips.flags.printer_info_details" msgid="894176958646461459">"اطلاعات"</string>
-    <string name="printer_ready" featureFlag="com.android.bips.flags.printer_info_details" msgid="6343136701327532305">"آماده"</string>
-    <string name="printer_state__printing" featureFlag="com.android.bips.flags.printer_info_details" msgid="7991962306019119834">"درحال چاپ کردن"</string>
-    <string name="printer_state__offline" featureFlag="com.android.bips.flags.printer_info_details" msgid="2381616555357221771">"آفلاین"</string>
-    <string name="printer_state__check_printer" featureFlag="com.android.bips.flags.printer_info_details" msgid="882936062938150000">"بررسی چاپگر"</string>
 </resources>
