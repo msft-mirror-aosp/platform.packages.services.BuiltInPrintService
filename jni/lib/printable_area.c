@@ -42,14 +42,8 @@ void printable_area_get(wprint_job_params_t *job_params, float top_margin,
         }
     }
 
-    // Threshold value for catering slight variation b/w source dims and page dims
-    const float PAGE_SIZE_EPSILON = 0.04f;
-    if (job_params->print_at_scale &&
-        (fabsf(job_params->source_width - job_params->page_width) < PAGE_SIZE_EPSILON &&
-         fabsf(job_params->source_height - job_params->page_height) < PAGE_SIZE_EPSILON)) {
+    if (job_params->print_at_scale) {
         top_margin = left_margin = right_margin = bottom_margin = 0.0f;
-    } else {
-        job_params->print_at_scale = false;
     }
 
     // don't adjust for margins if job is PCLm.  dimensions of image will not
