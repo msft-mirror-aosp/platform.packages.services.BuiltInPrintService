@@ -36,4 +36,33 @@
     <string name="printer_state__offline">Offline</string>
     <string name="printer_state__check_printer">Check printer</string>
 
+    <!-- Supply levels -->
+
+    <!-- Accessibility description of the percent of cyan printer ink available -->
+    <string name="marker_level_cyan">Cyan. %1$d%%</string>
+    <!-- Accessibility description of the percent of magenta printer ink available -->
+    <string name="marker_level_magenta">Magenta. %1$d%%</string>
+    <!-- Accessibility description of the percent of yellow printer ink available -->
+    <string name="marker_level_yellow">Yellow. %1$d%%</string>
+    <!-- Accessibility description of the percent of black printer ink available -->
+    <string name="marker_level_black">Black. %1$d%%</string>
+    <!-- Accessibility description of the percent of red printer ink available -->
+    <string name="marker_level_red">Red. %1$d%%</string>
+    <!-- Accessibility description of the percent of green printer ink available -->
+    <string name="marker_level_green">Green. %1$d%%</string>
+    <!-- Accessibility description of the percent of blue printer ink available -->
+    <string name="marker_level_blue">Blue. %1$d%%</string>
+    <!-- Accessibility description of the percent of light gray printer ink available -->
+    <string name="marker_level_ltgray">Light gray. %1$d%%</string>
+    <!-- Accessibility description of the percent of dark gray printer ink available -->
+    <string name="marker_level_dkgray">Dark gray. %1$d%%</string>
+    <!-- Accessibility description of the percent of light cyan printer ink available -->
+    <string name="marker_level_ltcyan">Light cyan. %1$d%%</string>
+    <!-- Accessibility description of the percent of light magenta printer ink available -->
+    <string name="marker_level_ltmagenta">Light magenta. %1$d%%</string>
+    <!-- Accessibility description of the percent of violet printer ink available -->
+    <string name="marker_level_violet">Violet. %1$d%%</string>
+    <!-- Accessibility description of the percent of unknown color printer ink available. The coloris represented as a hex value -->
+    <string name="marker_level_custom">Custom color #%1$02X%2$02X%3$02X. %4$d%%</string>
+
 </resources>
