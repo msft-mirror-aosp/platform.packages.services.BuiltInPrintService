@@ -24,6 +24,7 @@ android_app {
         "src/**/*.java",
         "src/**/I*.aidl",
         "src/**/*.kt",
+        ":statslog-builtinprintservice-java-gen",
     ],
     static_libs: [
         "androidx.core_core",
@@ -59,4 +60,34 @@ android_app {
         "libwfds",
         "libcups",
     ],
+}
+
+genrule {
+    name: "statslog-builtinprintservice-java-gen",
+    tools: ["stats-log-api-gen"],
+    cmd: "$(location stats-log-api-gen) --java $(out) --module builtinprintservice --javaPackage com.android.bips.stats --javaClass BipsStatsLog",
+    out: ["com/android/bips/BipsStatsLog.java"],
+}
+
+android_robolectric_test {
+    name: "BuiltInPrintServiceRobolectricTest",
+
+    srcs: [
+        "tests/robolectric/**/*.kt",
+    ],
+    static_libs: [
+        "androidx.test.core",
+        "androidx.test.ext.junit",
+        "truth",
+        "kotlin-test",
+        // Order matters, keep robolectric before kotlin2
+        "mockito-robolectric-prebuilt",
+        "mockito-kotlin2",
+    ],
+    test_suites: [
+        "general-tests",
+    ],
+    instrumentation_for: "BuiltInPrintService",
+    java_resource_dirs: ["tests/robolectric/config"],
+    strict_mode: true,
 }
