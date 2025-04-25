@@ -22,15 +22,20 @@ import com.android.bips.BuiltInPrintService
 import com.android.bips.ipp.Backend
 
 class PrinterStatusMonitor(
-    path: Uri, service: BuiltInPrintService,
-    private val onPrinterStatus: (JobCallbackParams) -> Unit
+    path: Uri,
+    service: BuiltInPrintService,
+    private val onPrinterStatus: (JobCallbackParams) -> Unit,
 ) {
     private val statusId: Long
+
     init {
-        statusId = service.backend.nativeMonitorStatusSetup(
-            Backend.getIp(path.host),
-            path.port, path.path, path.scheme
-        )
+        statusId =
+            service.backend.nativeMonitorStatusSetup(
+                Backend.getIp(path.host),
+                path.port,
+                path.path,
+                path.scheme,
+            )
         if (statusId != 0L) {
             service.backend.nativeMonitorStatusStart(statusId, this)
         }
@@ -40,9 +45,7 @@ class PrinterStatusMonitor(
         service.backend.nativeMonitorStatusStop(statusId)
     }
 
-    /**
-     * This method is calling from JNI layer
-     */
+    /** This method is calling from JNI layer */
     private fun callbackReceiver(status: JobCallbackParams) {
         onPrinterStatus(status)
     }
