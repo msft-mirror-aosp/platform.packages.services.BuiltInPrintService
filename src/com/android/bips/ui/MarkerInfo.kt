@@ -17,17 +17,11 @@
 
 package com.android.bips.ui
 
-/**
- * Marker info class for showing printer supply levels
- */
+/** Marker info class for showing printer supply levels */
 data class MarkerInfo(
     val markerType: String,
-
     val markerColor: String,
-
     val markerHighLevel: Int,
-
     val markerLowLevel: Int,
-
-    val markerLevel: Int
+    val markerLevel: Int,
 )

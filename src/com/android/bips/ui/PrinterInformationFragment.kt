@@ -39,9 +39,7 @@ import com.android.bips.jni.LocalPrinterCapabilities
 import com.android.bips.jni.MediaSizes
 import java.util.*
 
-/**
- * Printer information fragment
- */
+/** Printer information fragment */
 class PrinterInformationFragment : Fragment() {
 
     /** Printer Information view model */
@@ -60,10 +58,9 @@ class PrinterInformationFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
-        return inflater.inflate(R.layout.printer_information,
-            container, false)
+        return inflater.inflate(R.layout.printer_information, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -93,9 +90,7 @@ class PrinterInformationFragment : Fragment() {
                     setMarkerView(caps)
                     view.visibility = View.VISIBLE
                     printerName.text = caps.name
-                } ?: run {
-                    view.visibility = View.GONE
-                }
+                } ?: run { view.visibility = View.GONE }
             }
         }
     }
@@ -108,14 +103,14 @@ class PrinterInformationFragment : Fragment() {
                 mediaReadyLabel.visibility = View.GONE
             }
             for (i in mediaReadySizes) {
-                mediaReadyString += MediaSizes.getInstance(context)
-                    .getMediaName(i, context) + "\n"
+                mediaReadyString += MediaSizes.getInstance(context).getMediaName(i, context) + "\n"
             }
             mediaReady.text = mediaReadyString.dropLast(1)
-        } ?: run {
-            mediaReady.visibility = View.GONE
-            mediaReadyLabel.visibility = View.GONE
         }
+            ?: run {
+                mediaReady.visibility = View.GONE
+                mediaReadyLabel.visibility = View.GONE
+            }
     }
 
     private fun getIconBitmap(caps: LocalPrinterCapabilities) {
@@ -127,57 +122,57 @@ class PrinterInformationFragment : Fragment() {
     }
 
     private fun setPrinterImage(fragmentActivity: FragmentActivity) {
-        printerInformationViewModel.value.getPrinterBitmapLiveData()
-            .observe(fragmentActivity) { printerImage ->
-                if (printerImage != null) {
-                    printerIcon.visibility = View.VISIBLE
-                    printerIcon.setImageBitmap(printerImage)
-                } else {
-                    printerIcon.visibility = View.GONE
-                }
+        printerInformationViewModel.value.getPrinterBitmapLiveData().observe(fragmentActivity) {
+            printerImage ->
+            if (printerImage != null) {
+                printerIcon.visibility = View.VISIBLE
+                printerIcon.setImageBitmap(printerImage)
+            } else {
+                printerIcon.visibility = View.GONE
             }
+        }
     }
 
-    /**
-     * Set Status Of Printer
-     */
+    /** Set Status Of Printer */
     private fun setPrinterStatus(fragmentActivity: FragmentActivity) {
-        printerInformationViewModel.value.getPrinterUnavailableLiveData()
-            .observe(fragmentActivity) {
-                if (it) printerStatusLayout.visibility = View.GONE
-            }
-        printerInformationViewModel.value.getPrinterStatusLiveData()
-            .observe(fragmentActivity) { callbackParams ->
-                callbackParams.apply {
-                    val reasonsList = blockedReasons?.toList() ?: emptyList()
-                    val statusList = getPrinterStatus(printerState, reasonsList)
-                    if (statusList.isEmpty()) {
-                        printerStatusLayout.visibility = View.GONE
-                    } else {
-                        if (DEBUG) {
-                            Log.e(TAG, "printer status list ${TextUtils.join("\n", statusList)}")
-                        }
-                        printerStatus.text = TextUtils.join("\n", statusList)
-                        printerStatusLayout.visibility = View.VISIBLE
-                        printerStatus.visibility = View.VISIBLE
-                        progressBarPrinterStatus.visibility = View.GONE
+        printerInformationViewModel.value.getPrinterUnavailableLiveData().observe(
+            fragmentActivity
+        ) {
+            if (it) printerStatusLayout.visibility = View.GONE
+        }
+        printerInformationViewModel.value.getPrinterStatusLiveData().observe(fragmentActivity) {
+            callbackParams ->
+            callbackParams.apply {
+                val reasonsList = blockedReasons?.toList() ?: emptyList()
+                val statusList = getPrinterStatus(printerState, reasonsList)
+                if (statusList.isEmpty()) {
+                    printerStatusLayout.visibility = View.GONE
+                } else {
+                    if (DEBUG) {
+                        Log.e(TAG, "printer status list ${TextUtils.join("\n", statusList)}")
                     }
+                    printerStatus.text = TextUtils.join("\n", statusList)
+                    printerStatusLayout.visibility = View.VISIBLE
+                    printerStatus.visibility = View.VISIBLE
+                    progressBarPrinterStatus.visibility = View.GONE
                 }
             }
+        }
     }
 
     /**
-     * Maps the printer state and reasons into a list of status strings
-     * If the printerReasons is not empty (printer is blocked), returns a list of (one or more)
-     * blocked reasons, otherwise it will be a one item list of printer state. May return an empty
-     * list if no resource id is found for the given status(es)
+     * Maps the printer state and reasons into a list of status strings If the printerReasons is not
+     * empty (printer is blocked), returns a list of (one or more) blocked reasons, otherwise it
+     * will be a one item list of printer state. May return an empty list if no resource id is found
+     * for the given status(es)
      */
     private fun getPrinterStatus(printerState: String, printerReasons: List<String>): Set<String> {
         val resourceIds: MutableSet<String> = LinkedHashSet()
         for (reason in printerReasons) {
-            if (TextUtils.isEmpty(reason) ||
-                reason == BackendConstants.BLOCKED_REASON__SPOOL_AREA_FULL &&
-                BackendConstants.PRINTER_STATE_BLOCKED != printerState
+            if (
+                TextUtils.isEmpty(reason) ||
+                    reason == BackendConstants.BLOCKED_REASON__SPOOL_AREA_FULL &&
+                        BackendConstants.PRINTER_STATE_BLOCKED != printerState
             ) {
                 continue
             }
@@ -190,16 +185,17 @@ class PrinterInformationFragment : Fragment() {
     }
 
     /**
-     * Set marker view
-     * Fills supplies levels views based on capabilities
+     * Set marker view Fills supplies levels views based on capabilities
+     *
      * @param view view
      * @param caps the selected printer's capabilities
      */
     private fun setMarkerView(caps: LocalPrinterCapabilities) {
         val mMarkerInfoList = ArrayList<MarkerInfo>()
         for (i in caps.markerTypes.indices) {
-            if ((validTonerTypes.contains(caps.markerTypes[i]) ||
-                        validInkTypes.contains(caps.markerTypes[i])) && caps.markerLevel[i] >= 0
+            if (
+                (validTonerTypes.contains(caps.markerTypes[i]) ||
+                    validInkTypes.contains(caps.markerTypes[i])) && caps.markerLevel[i] >= 0
             ) {
                 caps.markerColors[i].split("#").apply {
                     for (j in 1 until size) {
@@ -209,10 +205,9 @@ class PrinterInformationFragment : Fragment() {
                                 "#" + this[j],
                                 caps.markerHighLevel[i],
                                 caps.markerLowLevel[i],
-                                caps.markerLevel[i]
+                                caps.markerLevel[i],
                             )
                         )
-
                     }
                 }
             }

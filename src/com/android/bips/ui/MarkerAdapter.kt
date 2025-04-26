@@ -39,10 +39,10 @@ import com.android.bips.R
  */
 class MarkerAdapter(private val mMarkerInfoList: ArrayList<MarkerInfo>) :
     RecyclerView.Adapter<MarkerAdapter.MarkerViewHolder>() {
-        inner class MarkerViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-            var seekbar: ProgressBar = itemView.findViewById(R.id.seekbar)
-            var warningImage: ImageView = itemView.findViewById(R.id.warningImage)
-        }
+    inner class MarkerViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+        var seekbar: ProgressBar = itemView.findViewById(R.id.seekbar)
+        var warningImage: ImageView = itemView.findViewById(R.id.warningImage)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MarkerViewHolder {
         val v =
@@ -57,12 +57,12 @@ class MarkerAdapter(private val mMarkerInfoList: ArrayList<MarkerInfo>) :
             progressBarDrawable.getDrawable(0).colorFilter =
                 BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
                     Color.parseColor(BACKGROUND_COLOR),
-                    BlendModeCompat.SRC_IN
+                    BlendModeCompat.SRC_IN,
                 )
             progressBarDrawable.getDrawable(1).colorFilter =
                 BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
                     Color.parseColor(markerColor),
-                    BlendModeCompat.SRC_IN
+                    BlendModeCompat.SRC_IN,
                 )
             // Set progress level on a scale of 0-10000
             progressBarDrawable.getDrawable(1).level =
