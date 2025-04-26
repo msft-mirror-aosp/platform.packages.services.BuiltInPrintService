@@ -31,22 +31,21 @@ import com.android.bips.BuiltInPrintService
 import com.android.bips.jni.JobCallbackParams
 import com.android.bips.jni.LocalPrinterCapabilities
 import com.android.bips.jni.PrinterStatusMonitor
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.URL
 import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.HttpsURLConnection
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-/**
- * Printer Information ViewModel
- */
+/** Printer Information ViewModel */
 class PrinterInformationViewModel : ViewModel() {
     companion object {
         private const val TAG = "PrinterInformationViewModel"
         private const val DEBUG = false
     }
+
     private val HTTPS = "https"
     private val HTTP = "http"
 
@@ -97,7 +96,9 @@ class PrinterInformationViewModel : ViewModel() {
                     (con as HttpsURLConnection?)?.sslSocketFactory =
                         SSLCertificateSocketFactory.getInsecure(0, null)
                     (con as HttpsURLConnection?)?.hostnameVerifier =
-                        HostnameVerifier { s, sslSession -> true }
+                        HostnameVerifier { s, sslSession ->
+                            true
+                        }
                 } else if (protocol.equals(HTTP, ignoreCase = true)) {
                     con = url.openConnection() as HttpURLConnection
                 } else {
