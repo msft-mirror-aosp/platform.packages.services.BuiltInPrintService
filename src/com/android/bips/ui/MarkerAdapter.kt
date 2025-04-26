@@ -77,6 +77,49 @@ class MarkerAdapter(private val mMarkerInfoList: ArrayList<MarkerInfo>) :
             } else {
                 holder.warningImage.visibility = View.INVISIBLE
             }
+
+            // Marker level rounded down to the nearest int.  This goes all the
+            // way to 0 instead of stopping at 1 because we do not need to leave
+            // any visual indicator of the color.
+            val level: Int =
+                if (markerHighLevel != 0 && markerLevel > 0) {
+                    markerLevel * 100 / markerHighLevel
+                } else {
+                    0 // set 0% for unknown
+                }
+
+            // Map common colors to human-friendly names.  Everything else has a fallback to
+            // declaring the underying color value.
+            val color = Color.parseColor(markerColor)
+            val label =
+                when (color) {
+                    Color.BLACK -> holder.view.context.getString(R.string.marker_level_black, level)
+                    Color.CYAN -> holder.view.context.getString(R.string.marker_level_cyan, level)
+                    Color.MAGENTA ->
+                        holder.view.context.getString(R.string.marker_level_magenta, level)
+                    Color.YELLOW ->
+                        holder.view.context.getString(R.string.marker_level_yellow, level)
+                    Color.RED -> holder.view.context.getString(R.string.marker_level_red, level)
+                    Color.GREEN -> holder.view.context.getString(R.string.marker_level_green, level)
+                    Color.BLUE -> holder.view.context.getString(R.string.marker_level_blue, level)
+                    Color.LTGRAY ->
+                        holder.view.context.getString(R.string.marker_level_ltgray, level)
+                    Color.DKGRAY ->
+                        holder.view.context.getString(R.string.marker_level_dkgray, level)
+                    LTCYAN -> holder.view.context.getString(R.string.marker_level_ltcyan, level)
+                    LTMAGENTA ->
+                        holder.view.context.getString(R.string.marker_level_ltmagenta, level)
+                    VIOLET -> holder.view.context.getString(R.string.marker_level_violet, level)
+                    else ->
+                        holder.view.context.getString(
+                            R.string.marker_level_custom,
+                            Color.red(color),
+                            Color.green(color),
+                            Color.blue(color),
+                            level,
+                        )
+                }
+            holder.view.contentDescription = label
         }
     }
 
@@ -87,5 +130,14 @@ class MarkerAdapter(private val mMarkerInfoList: ArrayList<MarkerInfo>) :
     companion object {
         /** Seekbar background */
         private const val BACKGROUND_COLOR = "#898383"
+
+        /** Ink color for light cyan */
+        private const val LTCYAN = 0x7FFFFF
+
+        /** Ink color for light magenta */
+        private const val LTMAGENTA = 0xFF7FFF
+
+        /** Ink color for violet */
+        private const val VIOLET = 0x7F00FF
     }
 }
