@@ -17,6 +17,9 @@
 package com.android.bips.stats
 
 import android.os.Handler
+import android.print.PrintAttributes
+import android.print.PrintDocumentInfo
+import android.print.PrintJobInfo
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth.assertThat
 import java.util.concurrent.Semaphore
@@ -33,11 +36,19 @@ open class StatsAsyncLoggerTest {
     val mHandler = mock<Handler>()
     val mSemaphore = mock<Semaphore>()
 
+    val mPrintJobInfo = mock<PrintJobInfo>()
+    val mPrintDocumentInfo = mock<PrintDocumentInfo>()
+    val mPrintAttributes = mock<PrintAttributes>()
+
     @Before
     fun setup() {
         reset(mStatsLogWrapper)
         reset(mHandler)
         reset(mSemaphore)
+
+        reset(mPrintJobInfo)
+        reset(mPrintDocumentInfo)
+        reset(mPrintAttributes)
 
         StatsAsyncLogger.testSetSemaphore(mSemaphore)
         StatsAsyncLogger.testSetStatsLogWrapper(mStatsLogWrapper)
@@ -46,6 +57,107 @@ open class StatsAsyncLoggerTest {
         // Mocks should succeed by default
         whenever(mHandler.postAtTime(any(), any())).thenReturn(true)
         whenever(mSemaphore.tryAcquire()).thenReturn(true)
+        whenever(mPrintJobInfo.getAttributes()).thenReturn(mPrintAttributes)
+    }
+
+    @Test
+    fun printJobSuccessfullyLoggedTest() {
+        val logWrapperInOrder = inOrder(mStatsLogWrapper)
+        val handlerInOrder = inOrder(mHandler)
+        val semaphoreInOrder = inOrder(mSemaphore)
+        val timeCaptor = argumentCaptor<Long>()
+        val runnableCaptor = argumentCaptor<Runnable>()
+
+        // Arbitrary arguments
+        assertThat(
+                StatsAsyncLogger.PrintJob(
+                    "foo",
+                    true, // is secure
+                    StatsAsyncLogger.JobOrigin.DIRECT_PRINT,
+                    0, // Job success
+                    mPrintJobInfo,
+                    mPrintDocumentInfo,
+                    true, // borderless
+                    PrintAttributes.DUPLEX_MODE_LONG_EDGE,
+                    0, // MEDIA_PLAIN defined in wprint_df_types.h
+                )
+            )
+            .isTrue()
+        assertThat(
+                StatsAsyncLogger.PrintJob(
+                    "bar",
+                    false,
+                    StatsAsyncLogger.JobOrigin.SHARED_IMAGE,
+                    -1, // Job failed unknown
+                    mPrintJobInfo,
+                    mPrintDocumentInfo,
+                    false,
+                    PrintAttributes.DUPLEX_MODE_NONE,
+                    100, // Should be not exist (unspecified)
+                )
+            )
+            .isTrue()
+
+        handlerInOrder
+            .verify(mHandler, times(2))
+            .postAtTime(runnableCaptor.capture(), timeCaptor.capture())
+        handlerInOrder.verifyNoMoreInteractions()
+
+        // Validate delay args
+        val firstTime = timeCaptor.firstValue
+        val secondTime = timeCaptor.secondValue
+        assertThat(secondTime - firstTime)
+            .isAtLeast(StatsAsyncLogger.EVENT_REPORTED_MIN_INTERVAL.inWholeMilliseconds)
+        assertThat(secondTime - firstTime)
+            .isAtMost(2 * StatsAsyncLogger.EVENT_REPORTED_MIN_INTERVAL.inWholeMilliseconds)
+
+        // Validate Runnable logic
+        runnableCaptor.firstValue.run()
+        runnableCaptor.secondValue.run()
+        logWrapperInOrder
+            .verify(mStatsLogWrapper)
+            .internalPrintJob(
+                eq("foo"),
+                eq(StatsAsyncLogger.JobOrigin.DIRECT_PRINT.code),
+                eq(BipsStatsLog.BIPS_PRINT_JOB__RESULT__BIPS_PRINT_JOB_RESULT_COMPLETED),
+                eq(true),
+                // TODO(b/422187009): Figure out how to properly mock/shadow PrintAttributes
+                any(),
+                eq(BipsStatsLog.BIPS_PRINT_JOB__DUPLEX_MODE__FRAMEWORK_DUPLEX_MODE_LONG_EDGE),
+                eq(BipsStatsLog.BIPS_PRINT_JOB__MEDIA_TYPE__BIPS_MEDIA_TYPE_MEDIA_PLAIN),
+                // TODO(b/422187009): Figure out how to properly mock/shadow PrintAttributes
+                any(),
+                eq(true),
+                // TODO(b/422187009): Figure out how to properly mock/shadow PrintAttributes
+                any(),
+                any(),
+                any(),
+            )
+        logWrapperInOrder
+            .verify(mStatsLogWrapper)
+            .internalPrintJob(
+                eq("bar"),
+                eq(StatsAsyncLogger.JobOrigin.SHARED_IMAGE.code),
+                eq(BipsStatsLog.BIPS_PRINT_JOB__RESULT__BIPS_PRINT_JOB_RESULT_FAILED_UNKNOWN),
+                eq(false),
+                // TODO(b/422187009): Figure out how to properly mock/shadow PrintAttributes
+                any(),
+                eq(BipsStatsLog.BIPS_PRINT_JOB__DUPLEX_MODE__FRAMEWORK_DUPLEX_MODE_NONE),
+                eq(BipsStatsLog.BIPS_PRINT_JOB__MEDIA_TYPE__BIPS_MEDIA_TYPE_UNSPECIFIED),
+                // TODO(b/422187009): Figure out how to properly mock/shadow PrintAttributes
+                any(),
+                eq(false),
+                // TODO(b/422187009): Figure out how to properly mock/shadow PrintAttributes
+                any(),
+                any(),
+                any(),
+            )
+
+        logWrapperInOrder.verifyNoMoreInteractions()
+
+        // Validate Semaphore logic
+        semaphoreInOrder.verify(mSemaphore, times(2)).tryAcquire()
+        semaphoreInOrder.verify(mSemaphore, times(2)).release()
     }
 
     @Test
@@ -92,15 +204,45 @@ open class StatsAsyncLoggerTest {
     @Test
     fun failureToAcquireSemaphoreTicketNeverSchedulesEvent() {
         whenever(mSemaphore.tryAcquire()).thenReturn(false)
+        // Arbitrary Arguments
         assertThat(StatsAsyncLogger.RequestPrinterCapabilitiesStatus(0, false)).isFalse()
+        assertThat(
+                StatsAsyncLogger.PrintJob(
+                    "foo",
+                    true, // is secure
+                    StatsAsyncLogger.JobOrigin.DIRECT_PRINT,
+                    0, // Job success
+                    mPrintJobInfo,
+                    mPrintDocumentInfo,
+                    true, // borderless
+                    PrintAttributes.DUPLEX_MODE_LONG_EDGE,
+                    2,
+                )
+            )
+            .isFalse()
         verifyNoInteractions(mHandler)
     }
 
     @Test
     fun failureToScheduleReleasesSemaphoreTicket() {
         whenever(mHandler.postAtTime(any(), any())).thenReturn(false)
+        // Arbitrary Arguments
         assertThat(StatsAsyncLogger.RequestPrinterCapabilitiesStatus(0, false)).isFalse()
-        verify(mSemaphore, times(1)).release()
+        assertThat(
+                StatsAsyncLogger.PrintJob(
+                    "foo",
+                    true, // is secure
+                    StatsAsyncLogger.JobOrigin.DIRECT_PRINT,
+                    0, // Job success
+                    mPrintJobInfo,
+                    mPrintDocumentInfo,
+                    true, // borderless
+                    PrintAttributes.DUPLEX_MODE_LONG_EDGE,
+                    0, // MEDIA_PLAIN defined in wprint_df_types.h
+                )
+            )
+            .isFalse()
+        verify(mSemaphore, times(2)).release()
     }
 
     @Test
