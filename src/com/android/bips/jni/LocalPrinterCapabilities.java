@@ -37,6 +37,7 @@ public class LocalPrinterCapabilities {
     public String name;
     public String uuid;
     public String location;
+    public String makeAndModel;
 
     public boolean duplex;
     public boolean borderless;

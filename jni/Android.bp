@@ -70,6 +70,7 @@ cc_library_shared {
         "libjpeg_static_ndk",
     ],
     shared_libs: [
+        "libaconfig_storage_read_api_cc",
         "libcups",
         "liblog",
         "libz",
