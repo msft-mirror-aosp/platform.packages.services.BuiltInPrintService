@@ -74,6 +74,7 @@ static jfieldID _LocalPrinterCapabilitiesField__name;
 static jfieldID _LocalPrinterCapabilitiesField__path;
 static jfieldID _LocalPrinterCapabilitiesField__uuid;
 static jfieldID _LocalPrinterCapabilitiesField__location;
+static jfieldID _LocalPrinterCapabilitiesField__makeAndModel;
 static jfieldID _LocalPrinterCapabilitiesField__duplex;
 static jfieldID _LocalPrinterCapabilitiesField__borderless;
 static jfieldID _LocalPrinterCapabilitiesField__color;
@@ -571,6 +572,10 @@ static void _initJNI(JNIEnv *env, jobject callbackReceiver, jstring fakeDir) {
             env, _LocalPrinterCapabilitiesClass, "uuid", "Ljava/lang/String;");
     _LocalPrinterCapabilitiesField__location = (*env)->GetFieldID(
             env, _LocalPrinterCapabilitiesClass, "location", "Ljava/lang/String;");
+    if (com_android_bips_flags_printing_telemetry()) {
+      _LocalPrinterCapabilitiesField__makeAndModel = (*env)->GetFieldID(
+            env, _LocalPrinterCapabilitiesClass, "makeAndModel", "Ljava/lang/String;");
+    }
     _LocalPrinterCapabilitiesField__duplex = (*env)->GetFieldID(
             env, _LocalPrinterCapabilitiesClass, "duplex", "Z");
     _LocalPrinterCapabilitiesField__borderless = (*env)->GetFieldID(
@@ -953,6 +958,11 @@ static int _convertPrinterCaps_to_Java(JNIEnv *env, jobject javaPrinterCaps,
             wprintPrinterCaps->uuid);
     stringToJava(env, javaPrinterCaps, _LocalPrinterCapabilitiesField__location,
             wprintPrinterCaps->location);
+    if (com_android_bips_flags_printing_telemetry()) {
+      stringToJava(env, javaPrinterCaps, _LocalPrinterCapabilitiesField__makeAndModel,
+            // make represents make and model.
+            wprintPrinterCaps->make);
+    }
 
     jintArray intArray;
     int *intArrayPtr;
