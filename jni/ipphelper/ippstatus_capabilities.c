@@ -245,12 +245,22 @@ static status_t _get_capabilities(const ifc_printer_capabilities_t *this_p,
             LOGD("%s received, now call parse_printerAttributes:", ippOpString(op));
             parse_printerAttributes(response, capabilities);
 
-#if LOG_LEVEL <= LEVEL_DEBUG
-            for (attrptr = ippFirstAttribute(response); attrptr; attrptr = ippNextAttribute(
-                    response)) {
+            if (com_android_bips_flags_enable_print_debug_option() &&
+                print_debug_enabled()) {
+              LOGD("Begin Printing IPP Attributes");
+              for (attrptr = ippFirstAttribute(response); attrptr;
+                   attrptr = ippNextAttribute(response)) {
                 print_attr(attrptr);
-            }
+              }
+              LOGD("End Printing IPP Attributes");
+            } else {
+#if LOG_LEVEL <= LEVEL_DEBUG
+              for (attrptr = ippFirstAttribute(response); attrptr;
+                   attrptr = ippNextAttribute(response)) {
+                print_attr(attrptr);
+              }
 #endif // LOG_LEVEL <= LEVEL_DEBUG
+            }
             if ((attrptr = ippFindAttribute(response, "printer-state", IPP_TAG_ENUM)) == NULL) {
                 LOGD("printer-state: null");
             } else {
