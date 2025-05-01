@@ -64,6 +64,70 @@ object StatsAsyncLogger {
         eventHandler = handler
     }
 
+    fun DiscoveredPrinterCapabilities(
+        makeAndModel: String,
+        colorModeMask: Int,
+        mediaSizes: Iterable<PrintAttributes.MediaSize>,
+        duplexModeMask: Int,
+        secure: Boolean,
+        localMediaTypes: Iterable<Int>,
+    ): Boolean {
+        if (DEBUG) {
+            Log.d(TAG, "Logging BipsDiscoveredPrinterCapabilities event")
+        }
+
+        val colors =
+            InternalColorModeDiscoveredPrinterCapsEvent.values()
+                .filter { color -> (color.colorMode ?: 0) and colorModeMask != 0 }
+                .toSet()
+
+        val supportedSizes =
+            mediaSizes
+                .map { InternalMediaSizeDiscoveredPrinterCapsEvent.fromMediaSizeId(it.getId()) }
+                .toSet()
+
+        val duplexModes =
+            InternalDuplexModeDiscoveredPrinterCapsEvent.values()
+                .filter { mode -> (mode.duplexMode ?: 0) and duplexModeMask != 0 }
+                .toSet()
+
+        val mediaTypes =
+            localMediaTypes
+                .map { InternalMediaTypeDiscoveredPrinterCapsEvent.fromBipsMediaType(it) }
+                .toSet()
+
+        synchronized(semaphore) {
+            if (!semaphore.tryAcquire()) {
+                Log.w(TAG, "Logging too many events, dropping DiscoveredPrinterCapabilities event")
+                return false
+            }
+            val result =
+                eventHandler.postAtTime(
+                    Runnable {
+                        synchronized(semaphore) {
+                            statsLogWrapper.internalDiscoveredPrinterCapabilities(
+                                makeAndModel,
+                                colors,
+                                supportedSizes,
+                                duplexModes,
+                                secure,
+                                mediaTypes,
+                            )
+                            semaphore.release()
+                        }
+                    },
+                    nextAvailableTimeMillis,
+                )
+            if (!result) {
+                Log.e(TAG, "Could not log DiscoveredPrinterCapabilities event")
+                semaphore.release()
+                return false
+            }
+            nextAvailableTimeMillis = getNextAvailableTimeMillis()
+            return true
+        }
+    }
+
     fun PrintJob(
         makeAndModel: String,
         secure: Boolean,
@@ -208,6 +272,682 @@ object StatsAsyncLogger {
     // proto values for print jobs.
     // Most of these are internal to the package so are prefixed with
     // Internal
+
+    // DiscoveredPrinterCapabilities enums
+
+    enum class InternalMediaTypeDiscoveredPrinterCapsEvent(
+        val mediaTypeId: Int?,
+        val rawValue: Int,
+    ) {
+        // These numbers are defined in jni/include/wprint_df_types.h
+        PLAIN(
+            0,
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__MEDIA_TYPE__BIPS_MEDIA_TYPE_MEDIA_PLAIN,
+        ),
+        SPECIAL(
+            1,
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__MEDIA_TYPE__BIPS_MEDIA_TYPE_MEDIA_SPECIAL,
+        ),
+        PHOTO(
+            2,
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__MEDIA_TYPE__BIPS_MEDIA_TYPE_MEDIA_PHOTO,
+        ),
+        TRANSPARENCY(
+            3,
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__MEDIA_TYPE__BIPS_MEDIA_TYPE_MEDIA_TRANSPARENCY,
+        ),
+        IRON_ON(
+            4,
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__MEDIA_TYPE__BIPS_MEDIA_TYPE_MEDIA_IRON_ON,
+        ),
+        IRON_ON_MIRROR(
+            5,
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__MEDIA_TYPE__BIPS_MEDIA_TYPE_MEDIA_IRON_ON_MIRROR,
+        ),
+        ADVANCED_PHOTO(
+            6,
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__MEDIA_TYPE__BIPS_MEDIA_TYPE_MEDIA_ADVANCED_PHOTO,
+        ),
+        FAST_TRANSPARENCY(
+            7,
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__MEDIA_TYPE__BIPS_MEDIA_TYPE_MEDIA_FAST_TRANSPARENCY,
+        ),
+        BROCHURE_GLOSSY(
+            8,
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__MEDIA_TYPE__BIPS_MEDIA_TYPE_MEDIA_BROCHURE_GLOSSY,
+        ),
+        BROCHURE_MATTE(
+            9,
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__MEDIA_TYPE__BIPS_MEDIA_TYPE_MEDIA_BROCHURE_MATTE,
+        ),
+        PHOTO_GLOSSY(
+            10,
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__MEDIA_TYPE__BIPS_MEDIA_TYPE_MEDIA_PHOTO_GLOSSY,
+        ),
+        PHOTO_MATTE(
+            11,
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__MEDIA_TYPE__BIPS_MEDIA_TYPE_MEDIA_PHOTO_MATTE,
+        ),
+        PREMIUM_PHOTO(
+            12,
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__MEDIA_TYPE__BIPS_MEDIA_TYPE_MEDIA_PREMIUM_PHOTO,
+        ),
+        OTHER_PHOTO(
+            13,
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__MEDIA_TYPE__BIPS_MEDIA_TYPE_MEDIA_OTHER_PHOTO,
+        ),
+        PRINTABLE_CD(
+            14,
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__MEDIA_TYPE__BIPS_MEDIA_TYPE_MEDIA_PRINTABLE_CD,
+        ),
+        PREMIUM_PRESENTATION(
+            15,
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__MEDIA_TYPE__BIPS_MEDIA_TYPE_MEDIA_PREMIUM_PRESENTATION,
+        ),
+        // New types above this line
+        AUTO(
+            98,
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__MEDIA_TYPE__BIPS_MEDIA_TYPE_MEDIA_AUTO,
+        ),
+        UNKNOWN(
+            99,
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__MEDIA_TYPE__BIPS_MEDIA_TYPE_MEDIA_UNKNOWN,
+        ),
+        UNSPECIFIED(
+            null,
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__MEDIA_TYPE__BIPS_MEDIA_TYPE_UNSPECIFIED,
+        );
+
+        companion object {
+            private val map =
+                entries.associateBy(InternalMediaTypeDiscoveredPrinterCapsEvent::mediaTypeId)
+
+            fun fromBipsMediaType(mediaTypeId: Int): InternalMediaTypeDiscoveredPrinterCapsEvent {
+                return map.getOrDefault(
+                    mediaTypeId,
+                    InternalMediaTypeDiscoveredPrinterCapsEvent.UNSPECIFIED,
+                )
+            }
+        }
+    }
+
+    enum class InternalDuplexModeDiscoveredPrinterCapsEvent(
+        val duplexMode: Int?,
+        val rawValue: Int,
+    ) {
+        // Keep this up to date to map any new duplex modes in the framework
+        LONG_EDGE(
+            PrintAttributes.DUPLEX_MODE_LONG_EDGE,
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_DUPLEX_MODES__FRAMEWORK_DUPLEX_MODE_LONG_EDGE,
+        ),
+        SHORT_EDGE(
+            PrintAttributes.DUPLEX_MODE_SHORT_EDGE,
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_DUPLEX_MODES__FRAMEWORK_DUPLEX_MODE_SHORT_EDGE,
+        ),
+        NONE(
+            PrintAttributes.DUPLEX_MODE_NONE,
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_DUPLEX_MODES__FRAMEWORK_DUPLEX_MODE_NONE,
+        ),
+        UNSPECIFIED(
+            null,
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_DUPLEX_MODES__FRAMEWORK_DUPLEX_MODE_UNSPECIFIED,
+        );
+
+        companion object {
+            private val map =
+                entries.associateBy(InternalDuplexModeDiscoveredPrinterCapsEvent::duplexMode)
+
+            fun fromDuplexMode(duplexMode: Int): InternalDuplexModeDiscoveredPrinterCapsEvent {
+                return map.getOrDefault(
+                    duplexMode,
+                    InternalDuplexModeDiscoveredPrinterCapsEvent.UNSPECIFIED,
+                )
+            }
+        }
+    }
+
+    enum class InternalMediaSizeDiscoveredPrinterCapsEvent(
+        val mediaSizeId: String?,
+        val rawValue: Int,
+    ) {
+        // Keep this up to date to map any new media sizes in the framework
+        UNKNOWN_PORTRAIT(
+            PrintAttributes.MediaSize.UNKNOWN_PORTRAIT.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_UNKNOWN_PORTRAIT,
+        ),
+        UNKNOWN_LANDSCAPE(
+            PrintAttributes.MediaSize.UNKNOWN_LANDSCAPE.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_UNKNOWN_LANDSCAPE,
+        ),
+        ISO_A0(
+            PrintAttributes.MediaSize.ISO_A0.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ISO_A0,
+        ),
+        ISO_A1(
+            PrintAttributes.MediaSize.ISO_A1.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ISO_A1,
+        ),
+        ISO_A2(
+            PrintAttributes.MediaSize.ISO_A2.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ISO_A2,
+        ),
+        ISO_A3(
+            PrintAttributes.MediaSize.ISO_A3.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ISO_A3,
+        ),
+        ISO_A4(
+            PrintAttributes.MediaSize.ISO_A4.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ISO_A4,
+        ),
+        ISO_A5(
+            PrintAttributes.MediaSize.ISO_A5.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ISO_A5,
+        ),
+        ISO_A6(
+            PrintAttributes.MediaSize.ISO_A6.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ISO_A6,
+        ),
+        ISO_A7(
+            PrintAttributes.MediaSize.ISO_A7.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ISO_A7,
+        ),
+        ISO_A8(
+            PrintAttributes.MediaSize.ISO_A8.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ISO_A8,
+        ),
+        ISO_A9(
+            PrintAttributes.MediaSize.ISO_A9.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ISO_A9,
+        ),
+        ISO_A10(
+            PrintAttributes.MediaSize.ISO_A10.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ISO_A10,
+        ),
+        ISO_B0(
+            PrintAttributes.MediaSize.ISO_B0.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ISO_B0,
+        ),
+        ISO_B1(
+            PrintAttributes.MediaSize.ISO_B1.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ISO_B1,
+        ),
+        ISO_B2(
+            PrintAttributes.MediaSize.ISO_B2.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ISO_B2,
+        ),
+        ISO_B3(
+            PrintAttributes.MediaSize.ISO_B3.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ISO_B3,
+        ),
+        ISO_B4(
+            PrintAttributes.MediaSize.ISO_B4.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ISO_B4,
+        ),
+        ISO_B5(
+            PrintAttributes.MediaSize.ISO_B5.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ISO_B5,
+        ),
+        ISO_B6(
+            PrintAttributes.MediaSize.ISO_B6.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ISO_B6,
+        ),
+        ISO_B7(
+            PrintAttributes.MediaSize.ISO_B7.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ISO_B7,
+        ),
+        ISO_B8(
+            PrintAttributes.MediaSize.ISO_B8.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ISO_B8,
+        ),
+        ISO_B9(
+            PrintAttributes.MediaSize.ISO_B9.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ISO_B9,
+        ),
+        ISO_B10(
+            PrintAttributes.MediaSize.ISO_B10.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ISO_B10,
+        ),
+        ISO_C0(
+            PrintAttributes.MediaSize.ISO_C0.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ISO_C0,
+        ),
+        ISO_C1(
+            PrintAttributes.MediaSize.ISO_C1.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ISO_C1,
+        ),
+        ISO_C2(
+            PrintAttributes.MediaSize.ISO_C2.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ISO_C2,
+        ),
+        ISO_C3(
+            PrintAttributes.MediaSize.ISO_C3.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ISO_C3,
+        ),
+        ISO_C4(
+            PrintAttributes.MediaSize.ISO_C4.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ISO_C4,
+        ),
+        ISO_C5(
+            PrintAttributes.MediaSize.ISO_C5.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ISO_C5,
+        ),
+        ISO_C6(
+            PrintAttributes.MediaSize.ISO_C6.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ISO_C6,
+        ),
+        ISO_C7(
+            PrintAttributes.MediaSize.ISO_C7.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ISO_C7,
+        ),
+        ISO_C8(
+            PrintAttributes.MediaSize.ISO_C8.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ISO_C8,
+        ),
+        ISO_C9(
+            PrintAttributes.MediaSize.ISO_C9.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ISO_C9,
+        ),
+        ISO_C10(
+            PrintAttributes.MediaSize.ISO_C10.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ISO_C10,
+        ),
+        NA_LETTER(
+            PrintAttributes.MediaSize.NA_LETTER.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_NA_LETTER,
+        ),
+        NA_GOVT_LETTER(
+            PrintAttributes.MediaSize.NA_GOVT_LETTER.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_NA_GOVT_LETTER,
+        ),
+        NA_LEGAL(
+            PrintAttributes.MediaSize.NA_LEGAL.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_NA_LEGAL,
+        ),
+        NA_JUNIOR_LEGAL(
+            PrintAttributes.MediaSize.NA_JUNIOR_LEGAL.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_NA_JUNIOR_LEGAL,
+        ),
+        NA_LEDGER(
+            PrintAttributes.MediaSize.NA_LEDGER.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_NA_LEDGER,
+        ),
+        NA_TABLOID(
+            PrintAttributes.MediaSize.NA_TABLOID.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_NA_TABLOID,
+        ),
+        NA_INDEX_3X5(
+            PrintAttributes.MediaSize.NA_INDEX_3X5.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_NA_INDEX_3X5,
+        ),
+        NA_INDEX_4X6(
+            PrintAttributes.MediaSize.NA_INDEX_4X6.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_NA_INDEX_4X6,
+        ),
+        NA_INDEX_5X8(
+            PrintAttributes.MediaSize.NA_INDEX_5X8.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_NA_INDEX_5X8,
+        ),
+        NA_MONARCH(
+            PrintAttributes.MediaSize.NA_MONARCH.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_NA_MONARCH,
+        ),
+        NA_QUARTO(
+            PrintAttributes.MediaSize.NA_QUARTO.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_NA_QUARTO,
+        ),
+        NA_FOOLSCAP(
+            PrintAttributes.MediaSize.NA_FOOLSCAP.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_NA_FOOLSCAP,
+        ),
+        ANSI_C(
+            PrintAttributes.MediaSize.ANSI_C.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ANSI_C,
+        ),
+        ANSI_D(
+            PrintAttributes.MediaSize.ANSI_D.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ANSI_D,
+        ),
+        ANSI_E(
+            PrintAttributes.MediaSize.ANSI_E.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ANSI_E,
+        ),
+        ANSI_F(
+            PrintAttributes.MediaSize.ANSI_F.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ANSI_F,
+        ),
+        NA_ARCH_A(
+            PrintAttributes.MediaSize.NA_ARCH_A.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_NA_ARCH_A,
+        ),
+        NA_ARCH_B(
+            PrintAttributes.MediaSize.NA_ARCH_B.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_NA_ARCH_B,
+        ),
+        NA_ARCH_C(
+            PrintAttributes.MediaSize.NA_ARCH_C.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_NA_ARCH_C,
+        ),
+        NA_ARCH_D(
+            PrintAttributes.MediaSize.NA_ARCH_D.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_NA_ARCH_D,
+        ),
+        NA_ARCH_E(
+            PrintAttributes.MediaSize.NA_ARCH_E.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_NA_ARCH_E,
+        ),
+        NA_ARCH_E1(
+            PrintAttributes.MediaSize.NA_ARCH_E1.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_NA_ARCH_E1,
+        ),
+        NA_SUPER_B(
+            PrintAttributes.MediaSize.NA_SUPER_B.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_NA_SUPER_B,
+        ),
+        ROC_8K(
+            PrintAttributes.MediaSize.ROC_8K.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ROC_8K,
+        ),
+        ROC_16K(
+            PrintAttributes.MediaSize.ROC_16K.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_ROC_16K,
+        ),
+        PRC_1(
+            PrintAttributes.MediaSize.PRC_1.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_PRC_1,
+        ),
+        PRC_2(
+            PrintAttributes.MediaSize.PRC_2.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_PRC_2,
+        ),
+        PRC_3(
+            PrintAttributes.MediaSize.PRC_3.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_PRC_3,
+        ),
+        PRC_4(
+            PrintAttributes.MediaSize.PRC_4.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_PRC_4,
+        ),
+        PRC_5(
+            PrintAttributes.MediaSize.PRC_5.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_PRC_5,
+        ),
+        PRC_6(
+            PrintAttributes.MediaSize.PRC_6.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_PRC_6,
+        ),
+        PRC_7(
+            PrintAttributes.MediaSize.PRC_7.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_PRC_7,
+        ),
+        PRC_8(
+            PrintAttributes.MediaSize.PRC_8.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_PRC_8,
+        ),
+        PRC_9(
+            PrintAttributes.MediaSize.PRC_9.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_PRC_9,
+        ),
+        PRC_10(
+            PrintAttributes.MediaSize.PRC_10.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_PRC_10,
+        ),
+        PRC_16K(
+            PrintAttributes.MediaSize.PRC_16K.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_PRC_16K,
+        ),
+        OM_PA_KAI(
+            PrintAttributes.MediaSize.OM_PA_KAI.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_OM_PA_KAI,
+        ),
+        OM_DAI_PA_KAI(
+            PrintAttributes.MediaSize.OM_DAI_PA_KAI.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_OM_DAI_PA_KAI,
+        ),
+        OM_JUURO_KU_KAI(
+            PrintAttributes.MediaSize.OM_JUURO_KU_KAI.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_OM_JUURO_KU_KAI,
+        ),
+        JIS_B10(
+            PrintAttributes.MediaSize.JIS_B10.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_JIS_B10,
+        ),
+        JIS_B9(
+            PrintAttributes.MediaSize.JIS_B9.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_JIS_B9,
+        ),
+        JIS_B8(
+            PrintAttributes.MediaSize.JIS_B8.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_JIS_B8,
+        ),
+        JIS_B7(
+            PrintAttributes.MediaSize.JIS_B7.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_JIS_B7,
+        ),
+        JIS_B6(
+            PrintAttributes.MediaSize.JIS_B6.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_JIS_B6,
+        ),
+        JIS_B5(
+            PrintAttributes.MediaSize.JIS_B5.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_JIS_B5,
+        ),
+        JIS_B4(
+            PrintAttributes.MediaSize.JIS_B4.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_JIS_B4,
+        ),
+        JIS_B3(
+            PrintAttributes.MediaSize.JIS_B3.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_JIS_B3,
+        ),
+        JIS_B2(
+            PrintAttributes.MediaSize.JIS_B2.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_JIS_B2,
+        ),
+        JIS_B1(
+            PrintAttributes.MediaSize.JIS_B1.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_JIS_B1,
+        ),
+        JIS_B0(
+            PrintAttributes.MediaSize.JIS_B0.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_JIS_B0,
+        ),
+        JIS_EXEC(
+            PrintAttributes.MediaSize.JIS_EXEC.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_JIS_EXEC,
+        ),
+        JPN_CHOU4(
+            PrintAttributes.MediaSize.JPN_CHOU4.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_JPN_CHOU4,
+        ),
+        JPN_CHOU3(
+            PrintAttributes.MediaSize.JPN_CHOU3.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_JPN_CHOU3,
+        ),
+        JPN_CHOU2(
+            PrintAttributes.MediaSize.JPN_CHOU2.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_JPN_CHOU2,
+        ),
+        JPN_HAGAKI(
+            PrintAttributes.MediaSize.JPN_HAGAKI.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_JPN_HAGAKI,
+        ),
+        JPN_OUFUKU(
+            PrintAttributes.MediaSize.JPN_OUFUKU.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_JPN_OUFUKU,
+        ),
+        JPN_KAHU(
+            PrintAttributes.MediaSize.JPN_KAHU.getId(),
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_JPN_KAHU,
+        ),
+        UNSPECIFIED(
+            null,
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_SIZES__FRAMEWORK_MEDIA_SIZE_UNSPECIFIED,
+        );
+
+        companion object {
+            private val map =
+                entries.associateBy(InternalMediaSizeDiscoveredPrinterCapsEvent::mediaSizeId)
+
+            fun fromMediaSizeId(mediaSizeId: String?): InternalMediaSizeDiscoveredPrinterCapsEvent {
+                return when (mediaSizeId) {
+                    null -> InternalMediaSizeDiscoveredPrinterCapsEvent.UNSPECIFIED
+                    else -> {
+                        map.getOrDefault(
+                            mediaSizeId,
+                            InternalMediaSizeDiscoveredPrinterCapsEvent.UNSPECIFIED,
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    enum class InternalColorModeDiscoveredPrinterCapsEvent(val colorMode: Int?, val rawValue: Int) {
+        // Keep this up to date to map any new color modes in the framework
+        COLOR(
+            PrintAttributes.COLOR_MODE_COLOR,
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_COLORS__FRAMEWORK_COLOR_MODE_COLOR,
+        ),
+        MONOCHROME(
+            PrintAttributes.COLOR_MODE_MONOCHROME,
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_COLORS__FRAMEWORK_COLOR_MODE_MONOCRHOME,
+        ),
+        UNSPECIFIED(
+            null,
+            BipsStatsLog
+                .BIPS_DISCOVERED_PRINTER_CAPABILITIES__SUPPORTED_COLORS__FRAMEWORK_COLOR_MODE_UNSPECIFIED,
+        );
+
+        companion object {
+            private val map =
+                entries.associateBy(InternalColorModeDiscoveredPrinterCapsEvent::colorMode)
+
+            fun fromColorMode(colorMode: Int): InternalColorModeDiscoveredPrinterCapsEvent {
+                return map.getOrDefault(
+                    colorMode,
+                    InternalColorModeDiscoveredPrinterCapsEvent.UNSPECIFIED,
+                )
+            }
+        }
+    }
 
     // PrintJob event enums
 

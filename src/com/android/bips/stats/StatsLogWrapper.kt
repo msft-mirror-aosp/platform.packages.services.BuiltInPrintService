@@ -37,6 +37,31 @@ open class StatsLogWrapper {
         )
     }
 
+    open fun internalDiscoveredPrinterCapabilities(
+        makeAndModel: String,
+        supportedColors: Set<StatsAsyncLogger.InternalColorModeDiscoveredPrinterCapsEvent>,
+        supportedSizes: Set<StatsAsyncLogger.InternalMediaSizeDiscoveredPrinterCapsEvent>,
+        supportedDuplexModes: Set<StatsAsyncLogger.InternalDuplexModeDiscoveredPrinterCapsEvent>,
+        secure: Boolean,
+        supportedMediaTypes: Set<StatsAsyncLogger.InternalMediaTypeDiscoveredPrinterCapsEvent>,
+    ) {
+
+        val colorBits = supportedColors.map { it.rawValue }.toIntArray()
+        val mediaSizes = supportedSizes.map { it.rawValue }.toIntArray()
+        val duplexModes = supportedDuplexModes.map { it.rawValue }.toIntArray()
+        val mediaTypes = supportedMediaTypes.map { it.rawValue }.toIntArray()
+
+        BipsStatsLog.write(
+            BipsStatsLog.BIPS_DISCOVERED_PRINTER_CAPABILITIES,
+            makeAndModel,
+            colorBits,
+            mediaSizes,
+            duplexModes,
+            secure,
+            mediaTypes,
+        )
+    }
+
     open fun internalPrintJob(
         makeAndModel: String,
         jobOrigin: StatsAsyncLogger.OriginPrintJobEvent,
