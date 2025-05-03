@@ -30,4 +30,17 @@
     <string name="printer_state__printing" msgid="596624975473301735">"S\'està imprimint"</string>
     <string name="printer_state__offline" msgid="6755924316852857893">"Sense connexió"</string>
     <string name="printer_state__check_printer" msgid="4854932117258619033">"Comprova la impressora"</string>
+    <string name="marker_level_cyan" msgid="5336603473668190361">"Cian. %1$d%%"</string>
+    <string name="marker_level_magenta" msgid="7522291481654771752">"Magenta. %1$d%%"</string>
+    <string name="marker_level_yellow" msgid="1394790774846459656">"Groc. %1$d%%"</string>
+    <string name="marker_level_black" msgid="8169613731999901161">"Negre. %1$d%%"</string>
+    <string name="marker_level_red" msgid="6322728797617451050">"Vermell. %1$d%%"</string>
+    <string name="marker_level_green" msgid="4341485089035826733">"Verd. %1$d%%"</string>
+    <string name="marker_level_blue" msgid="6093087793287535042">"Blau. %1$d%%"</string>
+    <string name="marker_level_ltgray" msgid="35187469450032645">"Gris clar. %1$d%%"</string>
+    <string name="marker_level_dkgray" msgid="5314300850228586851">"Gris fosc. %1$d%%"</string>
+    <string name="marker_level_ltcyan" msgid="6793088455903750830">"Cian clar. %1$d%%"</string>
+    <string name="marker_level_ltmagenta" msgid="3104489452878039184">"Magenta clar. %1$d%%"</string>
+    <string name="marker_level_violet" msgid="1616979275172835644">"Violeta. %1$d%%"</string>
+    <string name="marker_level_custom" msgid="586736254509490403">"Color personalitzat #%1$02X%2$02X%3$02X. %4$d%%"</string>
 </resources>

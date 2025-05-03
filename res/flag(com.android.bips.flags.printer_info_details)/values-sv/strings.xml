@@ -30,4 +30,17 @@
     <string name="printer_state__printing" msgid="596624975473301735">"Skriver ut"</string>
     <string name="printer_state__offline" msgid="6755924316852857893">"Offline"</string>
     <string name="printer_state__check_printer" msgid="4854932117258619033">"Kontrollera skrivare"</string>
+    <string name="marker_level_cyan" msgid="5336603473668190361">"Cyan. %1$d%%"</string>
+    <string name="marker_level_magenta" msgid="7522291481654771752">"Magenta. %1$d%%"</string>
+    <string name="marker_level_yellow" msgid="1394790774846459656">"Gul. %1$d%%"</string>
+    <string name="marker_level_black" msgid="8169613731999901161">"Svart. %1$d%%"</string>
+    <string name="marker_level_red" msgid="6322728797617451050">"Röd. %1$d%%"</string>
+    <string name="marker_level_green" msgid="4341485089035826733">"Grön. %1$d%%"</string>
+    <string name="marker_level_blue" msgid="6093087793287535042">"Blå. %1$d%%"</string>
+    <string name="marker_level_ltgray" msgid="35187469450032645">"Ljusgrå. %1$d%%"</string>
+    <string name="marker_level_dkgray" msgid="5314300850228586851">"Mörkgrå. %1$d%%"</string>
+    <string name="marker_level_ltcyan" msgid="6793088455903750830">"Ljus cyan. %1$d%%"</string>
+    <string name="marker_level_ltmagenta" msgid="3104489452878039184">"Ljus magenta. %1$d%%"</string>
+    <string name="marker_level_violet" msgid="1616979275172835644">"Lila. %1$d%%"</string>
+    <string name="marker_level_custom" msgid="586736254509490403">"Anpassad färg #%1$02X%2$02X%3$02X. %4$d%%"</string>
 </resources>
