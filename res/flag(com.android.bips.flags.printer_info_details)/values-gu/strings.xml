@@ -30,30 +30,17 @@
     <string name="printer_state__printing" msgid="596624975473301735">"પ્રિન્ટિંગ"</string>
     <string name="printer_state__offline" msgid="6755924316852857893">"ઑફલાઇન"</string>
     <string name="printer_state__check_printer" msgid="4854932117258619033">"પ્રિન્ટર ચેક કરો"</string>
-    <!-- no translation found for marker_level_cyan (5336603473668190361) -->
-    <skip />
-    <!-- no translation found for marker_level_magenta (7522291481654771752) -->
-    <skip />
-    <!-- no translation found for marker_level_yellow (1394790774846459656) -->
-    <skip />
-    <!-- no translation found for marker_level_black (8169613731999901161) -->
-    <skip />
-    <!-- no translation found for marker_level_red (6322728797617451050) -->
-    <skip />
-    <!-- no translation found for marker_level_green (4341485089035826733) -->
-    <skip />
-    <!-- no translation found for marker_level_blue (6093087793287535042) -->
-    <skip />
-    <!-- no translation found for marker_level_ltgray (35187469450032645) -->
-    <skip />
-    <!-- no translation found for marker_level_dkgray (5314300850228586851) -->
-    <skip />
-    <!-- no translation found for marker_level_ltcyan (6793088455903750830) -->
-    <skip />
-    <!-- no translation found for marker_level_ltmagenta (3104489452878039184) -->
-    <skip />
-    <!-- no translation found for marker_level_violet (1616979275172835644) -->
-    <skip />
-    <!-- no translation found for marker_level_custom (586736254509490403) -->
-    <skip />
+    <string name="marker_level_cyan" msgid="5336603473668190361">"સાયન. %1$d%%"</string>
+    <string name="marker_level_magenta" msgid="7522291481654771752">"મજેન્ટા. %1$d%%"</string>
+    <string name="marker_level_yellow" msgid="1394790774846459656">"પીળો. %1$d%%"</string>
+    <string name="marker_level_black" msgid="8169613731999901161">"કાળો. %1$d%%"</string>
+    <string name="marker_level_red" msgid="6322728797617451050">"લાલ. %1$d%%"</string>
+    <string name="marker_level_green" msgid="4341485089035826733">"લીલો. %1$d%%"</string>
+    <string name="marker_level_blue" msgid="6093087793287535042">"વાદળી. %1$d%%"</string>
+    <string name="marker_level_ltgray" msgid="35187469450032645">"આછો રાખોડી. %1$d%%"</string>
+    <string name="marker_level_dkgray" msgid="5314300850228586851">"ઘાટો રાખોડી. %1$d%%"</string>
+    <string name="marker_level_ltcyan" msgid="6793088455903750830">"આછો સાયન. %1$d%%"</string>
+    <string name="marker_level_ltmagenta" msgid="3104489452878039184">"આછો મજેન્ટા. %1$d%%"</string>
+    <string name="marker_level_violet" msgid="1616979275172835644">"જાંબલી. %1$d%%"</string>
+    <string name="marker_level_custom" msgid="586736254509490403">"કસ્ટમ રંગ #%1$02X%2$02X%3$02X. %4$d%%"</string>
 </resources>
