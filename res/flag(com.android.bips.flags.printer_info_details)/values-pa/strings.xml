@@ -40,7 +40,7 @@
     <string name="marker_level_ltgray" msgid="35187469450032645">"ਹਲਕਾ ਸਲੇਟੀ। %1$d%%"</string>
     <string name="marker_level_dkgray" msgid="5314300850228586851">"ਗੂੜ੍ਹਾ ਸਲੇਟੀ। %1$d%%"</string>
     <string name="marker_level_ltcyan" msgid="6793088455903750830">"ਹਲਕਾ ਸੀਆਨ। %1$d%%"</string>
-    <string name="marker_level_ltmagenta" msgid="3104489452878039184">"ਹਲਕਾ ਮਜੈਂਟਾ। %1$d%%"</string>
+    <string name="marker_level_ltmagenta" msgid="3104489452878039184">"ਹਲਕਾ ਮੈਜੰਟਾ। %1$d%%"</string>
     <string name="marker_level_violet" msgid="1616979275172835644">"ਬੈਂਗਣੀ। %1$d%%"</string>
     <string name="marker_level_custom" msgid="586736254509490403">"ਵਿਉਂਤਿਆ ਰੰਗ #%1$02X%2$02X%3$02X. %4$d%%"</string>
 </resources>
