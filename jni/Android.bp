@@ -71,6 +71,7 @@ cc_library_shared {
     ],
     shared_libs: [
         "libaconfig_storage_read_api_cc",
+        "libcutils",
         "libcups",
         "liblog",
         "libz",

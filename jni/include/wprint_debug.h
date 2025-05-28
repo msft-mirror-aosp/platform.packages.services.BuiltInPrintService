@@ -21,6 +21,8 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <android/log.h>
+#include <cutils/properties.h>
+#include "com_android_bips_flags.h"
 
 #define LEVEL_DEBUG     3
 #define LEVEL_INFO      4
@@ -33,20 +35,34 @@
 #define LOG_LEVEL       LEVEL_ERROR
 #endif // LOG_LEVEL
 
+#define DEBUG_SYSPROP_STR "debug.printing.logs.enabled"
+
+static inline int print_debug_enabled() {
+  return property_get_bool(DEBUG_SYSPROP_STR, 0);
+}
+
+#define _LOG_PRINT_IF_DEBUG_PROP_ENABLED(ANDROID_LOG_LEVEL, ...)              \
+  com_android_bips_flags_enable_print_debug_option() && print_debug_enabled() \
+      ? __android_log_print(ANDROID_LOG_LEVEL, TAG, __VA_ARGS__)              \
+      : 0
+
 #if LOG_LEVEL > LEVEL_DEBUG
-#define LOGD(...)
+#define LOGD(...) \
+  _LOG_PRINT_IF_DEBUG_PROP_ENABLED(ANDROID_LOG_DEBUG, __VA_ARGS__)
 #else
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, TAG, __VA_ARGS__)
 #endif
 
 #if LOG_LEVEL > LEVEL_INFO
-#define LOGI(...)
+#define LOGI(...) \
+  _LOG_PRINT_IF_DEBUG_PROP_ENABLED(ANDROID_LOG_INFO, __VA_ARGS__)
 #else
 #define LOGI(...) __android_log_print(ANDROID_LOG_INFO, TAG, __VA_ARGS__)
 #endif
 
 #if LOG_LEVEL > LEVEL_ERROR
-#define LOGE(...)
+#define LOGE(...) \
+  _LOG_PRINT_IF_DEBUG_PROP_ENABLED(ANDROID_LOG_ERROR, __VA_ARGS__)
 #else
 #define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, TAG, __VA_ARGS__)
 #endif
