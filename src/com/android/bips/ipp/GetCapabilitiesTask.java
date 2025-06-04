@@ -21,8 +21,10 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.android.bips.flags.Flags;
 import com.android.bips.jni.BackendConstants;
 import com.android.bips.jni.LocalPrinterCapabilities;
+import com.android.bips.stats.StatsAsyncLogger;
 import com.android.bips.util.PriorityLock;
 
 import java.io.IOException;
@@ -121,6 +123,11 @@ public class GetCapabilitiesTask extends AsyncTask<Void, Void, LocalPrinterCapab
         if (DEBUG) {
             Log.d(TAG, "callNativeGetCapabilities uri=" + mUri + " status=" + status
                     + " (" + (System.currentTimeMillis() - start) + "ms)");
+        }
+
+        if (Flags.printingTelemetry()) {
+            final Boolean isSecure = mUri.getScheme().equals("ipps");
+            StatsAsyncLogger.INSTANCE.RequestPrinterCapabilitiesStatus(status, isSecure);
         }
 
         return status == BackendConstants.STATUS_OK ? printerCaps : null;

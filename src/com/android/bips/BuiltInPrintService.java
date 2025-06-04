@@ -45,11 +45,13 @@ import com.android.bips.discovery.MdnsDiscovery;
 import com.android.bips.discovery.MultiDiscovery;
 import com.android.bips.discovery.NsdResolveQueue;
 import com.android.bips.discovery.P2pDiscovery;
+import com.android.bips.flags.Flags;
 import com.android.bips.ipp.Backend;
 import com.android.bips.ipp.CapabilitiesCache;
 import com.android.bips.ipp.CertificateStore;
 import com.android.bips.p2p.P2pMonitor;
 import com.android.bips.p2p.P2pUtils;
+import com.android.bips.stats.StatsAsyncLogger;
 import com.android.bips.util.BroadcastMonitor;
 
 import java.lang.ref.WeakReference;
@@ -153,6 +155,12 @@ public class BuiltInPrintService extends PrintService {
         unlockWifi();
         sInstance = null;
         mMainHandler.removeCallbacksAndMessages(null);
+        if (Flags.printingTelemetry()) {
+            // Await stats events after main handler callbacks and
+            // messages are removed to reduce risk of waiting too long
+            // while awaiting events.
+            StatsAsyncLogger.INSTANCE.tryAwaitingAllEvents();
+        }
         super.onDestroy();
     }
 
