@@ -89,5 +89,8 @@ android_robolectric_test {
     ],
     instrumentation_for: "BuiltInPrintService",
     java_resource_dirs: ["tests/robolectric/config"],
+    // TODO(b/422187009): We may turn strict mode off or create a
+    // separate unstrict test when we figure out how to properly
+    // shadow some of the printing framework from BIPS.
     strict_mode: true,
 }

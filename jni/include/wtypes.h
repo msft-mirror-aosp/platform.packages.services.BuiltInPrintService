@@ -25,6 +25,7 @@
 /*
  * A return type for functions.
  */
+// LINT.IfChange
 typedef enum {
     /* Request succeeded */
     OK = 0,
@@ -41,6 +42,7 @@ typedef enum {
     /* Request failed because unexpected ssl certificate received */
     BAD_CERTIFICATE = -4
 } status_t;
+// LINT.ThenChange(/src/com/android/bips/stats/StatsAsyncLogger.kt:localPrintJobResultMap)
 
 #define ARRAY_SIZE(X) (sizeof(X)/sizeof(X[0]))
 

@@ -33,4 +33,35 @@ open class StatsLogWrapper {
             secure,
         )
     }
+
+    open fun internalPrintJob(
+        makeAndModel: String,
+        jobOrigin: Int,
+        result: Int,
+        borderless: Boolean,
+        size: Int,
+        duplexMode: Int,
+        mediaType: Int,
+        color: Int,
+        secure: Boolean,
+        horizontalDpi: Int,
+        verticalDpi: Int,
+        pageCount: Int,
+    ) {
+        BipsStatsLog.write(
+            BipsStatsLog.BIPS_PRINT_JOB,
+            makeAndModel,
+            jobOrigin,
+            result,
+            borderless,
+            size,
+            duplexMode,
+            mediaType,
+            color,
+            secure,
+            horizontalDpi,
+            verticalDpi,
+            pageCount,
+        )
+    }
 }
