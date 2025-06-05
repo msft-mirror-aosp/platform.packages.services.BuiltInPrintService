@@ -64,6 +64,6 @@ typedef enum {
     MEDIA_AUTO = 98,
     MEDIA_UNKNOWN = 99 // New types above this line
 } media_type_t;
-// LINT.ThenChange(/src/com/android/bips/stats/StatsAsyncLogger.kt:localMediaTypeMap)
+// LINT.ThenChange(/src/com/android/bips/stats/StatsAsyncLogger.kt)
 
 #endif // __WPRINT_DF_TYPES_H__

@@ -73,7 +73,7 @@ open class StatsAsyncLoggerTest {
                 StatsAsyncLogger.PrintJob(
                     "foo",
                     true, // is secure
-                    StatsAsyncLogger.JobOrigin.DIRECT_PRINT,
+                    StatsAsyncLogger.OriginPrintJobEvent.DIRECT_PRINT,
                     0, // Job success
                     mPrintJobInfo,
                     mPrintDocumentInfo,
@@ -87,7 +87,7 @@ open class StatsAsyncLoggerTest {
                 StatsAsyncLogger.PrintJob(
                     "bar",
                     false,
-                    StatsAsyncLogger.JobOrigin.SHARED_IMAGE,
+                    StatsAsyncLogger.OriginPrintJobEvent.SHARED_IMAGE,
                     -1, // Job failed unknown
                     mPrintJobInfo,
                     mPrintDocumentInfo,
@@ -118,13 +118,13 @@ open class StatsAsyncLoggerTest {
             .verify(mStatsLogWrapper)
             .internalPrintJob(
                 eq("foo"),
-                eq(StatsAsyncLogger.JobOrigin.DIRECT_PRINT.code),
-                eq(BipsStatsLog.BIPS_PRINT_JOB__RESULT__BIPS_PRINT_JOB_RESULT_COMPLETED),
+                eq(StatsAsyncLogger.OriginPrintJobEvent.DIRECT_PRINT),
+                eq(StatsAsyncLogger.InternalLocalPrintJobResultPrintJobEvent.COMPLETED),
                 eq(true),
                 // TODO(b/422187009): Figure out how to properly mock/shadow PrintAttributes
                 any(),
-                eq(BipsStatsLog.BIPS_PRINT_JOB__DUPLEX_MODE__FRAMEWORK_DUPLEX_MODE_LONG_EDGE),
-                eq(BipsStatsLog.BIPS_PRINT_JOB__MEDIA_TYPE__BIPS_MEDIA_TYPE_MEDIA_PLAIN),
+                eq(StatsAsyncLogger.InternalFrameworkDuplexModePrintJobEvent.LONG_EDGE),
+                eq(StatsAsyncLogger.InternalLocalMediaTypePrintJobEvent.PLAIN),
                 // TODO(b/422187009): Figure out how to properly mock/shadow PrintAttributes
                 any(),
                 eq(true),
@@ -137,13 +137,13 @@ open class StatsAsyncLoggerTest {
             .verify(mStatsLogWrapper)
             .internalPrintJob(
                 eq("bar"),
-                eq(StatsAsyncLogger.JobOrigin.SHARED_IMAGE.code),
-                eq(BipsStatsLog.BIPS_PRINT_JOB__RESULT__BIPS_PRINT_JOB_RESULT_FAILED_UNKNOWN),
+                eq(StatsAsyncLogger.OriginPrintJobEvent.SHARED_IMAGE),
+                eq(StatsAsyncLogger.InternalLocalPrintJobResultPrintJobEvent.FAILED_UNKNOWN),
                 eq(false),
                 // TODO(b/422187009): Figure out how to properly mock/shadow PrintAttributes
                 any(),
-                eq(BipsStatsLog.BIPS_PRINT_JOB__DUPLEX_MODE__FRAMEWORK_DUPLEX_MODE_NONE),
-                eq(BipsStatsLog.BIPS_PRINT_JOB__MEDIA_TYPE__BIPS_MEDIA_TYPE_UNSPECIFIED),
+                eq(StatsAsyncLogger.InternalFrameworkDuplexModePrintJobEvent.NONE),
+                eq(StatsAsyncLogger.InternalLocalMediaTypePrintJobEvent.UNSPECIFIED),
                 // TODO(b/422187009): Figure out how to properly mock/shadow PrintAttributes
                 any(),
                 eq(false),
@@ -210,7 +210,7 @@ open class StatsAsyncLoggerTest {
                 StatsAsyncLogger.PrintJob(
                     "foo",
                     true, // is secure
-                    StatsAsyncLogger.JobOrigin.DIRECT_PRINT,
+                    StatsAsyncLogger.OriginPrintJobEvent.DIRECT_PRINT,
                     0, // Job success
                     mPrintJobInfo,
                     mPrintDocumentInfo,
@@ -232,7 +232,7 @@ open class StatsAsyncLoggerTest {
                 StatsAsyncLogger.PrintJob(
                     "foo",
                     true, // is secure
-                    StatsAsyncLogger.JobOrigin.DIRECT_PRINT,
+                    StatsAsyncLogger.OriginPrintJobEvent.DIRECT_PRINT,
                     0, // Job success
                     mPrintJobInfo,
                     mPrintDocumentInfo,
