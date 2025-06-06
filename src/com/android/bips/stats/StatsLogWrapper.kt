@@ -26,10 +26,13 @@ package com.android.bips.stats
 // modifier isn't used as it doesn't play nice with @VisibleForTesting
 // annotation within package clients.
 open class StatsLogWrapper {
-    open fun internalRequestPrinterCapabilitiesStatus(getLocalCapsStatus: Int, secure: Boolean) {
+    open fun internalRequestPrinterCapabilitiesStatus(
+        getLocalCapsStatus: StatsAsyncLogger.InternalLocalRequestCapabilitiesStatus,
+        secure: Boolean,
+    ) {
         BipsStatsLog.write(
             BipsStatsLog.BIPS_REQUEST_PRINTER_CAPABILITIES_STATUS,
-            getLocalCapsStatus,
+            getLocalCapsStatus.rawValue,
             secure,
         )
     }

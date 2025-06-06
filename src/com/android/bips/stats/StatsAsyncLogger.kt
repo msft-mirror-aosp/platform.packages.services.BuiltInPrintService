@@ -151,7 +151,9 @@ object StatsAsyncLogger {
                                 Log.d(TAG, "Async logging RequestPrinterCapabilitiesStatus event")
                             }
                             statsLogWrapper.internalRequestPrinterCapabilitiesStatus(
-                                getLocalCapsStatus,
+                                InternalLocalRequestCapabilitiesStatus.fromLocalResult(
+                                    getLocalCapsStatus
+                                ),
                                 secure,
                             )
                             semaphore.release()
@@ -757,6 +759,54 @@ object StatsAsyncLogger {
                 return map.getOrDefault(
                     localResult,
                     InternalLocalPrintJobResultPrintJobEvent.UNSPECIFIED,
+                )
+            }
+        }
+    }
+
+    // RequestPrinterCapabilitiesStatus enum
+
+    enum class InternalLocalRequestCapabilitiesStatus(val localResult: Int?, val rawValue: Int) {
+        // These keys are defined in jni/include/wtypes.h
+        OK(
+            0,
+            BipsStatsLog
+                .BIPS_REQUEST_PRINTER_CAPABILITIES_STATUS__STATUS__BIPS_REQUEST_CAPABILITIES_STATUS_OK,
+        ),
+        ERROR(
+            -1,
+            BipsStatsLog
+                .BIPS_REQUEST_PRINTER_CAPABILITIES_STATUS__STATUS__BIPS_REQUEST_CAPABILITIES_STATUS_ERROR,
+        ),
+        CANCELLED(
+            -2,
+            BipsStatsLog
+                .BIPS_REQUEST_PRINTER_CAPABILITIES_STATUS__STATUS__BIPS_REQUEST_CAPABILITIES_STATUS_CANCELLED,
+        ),
+        FAILED_CORRUPT(
+            -3,
+            BipsStatsLog
+                .BIPS_REQUEST_PRINTER_CAPABILITIES_STATUS__STATUS__BIPS_REQUEST_CAPABILITIES_STATUS_CORRUPT,
+        ),
+        FAILED_CERTIFICATE(
+            -4,
+            BipsStatsLog
+                .BIPS_REQUEST_PRINTER_CAPABILITIES_STATUS__STATUS__BIPS_REQUEST_CAPABILITIES_STATUS_BAD_CERTIFICATE,
+        ),
+        UNSPECIFIED(
+            null,
+            BipsStatsLog
+                .BIPS_REQUEST_PRINTER_CAPABILITIES_STATUS__STATUS__BIPS_REQUEST_CAPABILITIES_STATUS_UNSPECIFIED,
+        );
+
+        companion object {
+            private val map =
+                entries.associateBy(InternalLocalRequestCapabilitiesStatus::localResult)
+
+            fun fromLocalResult(localResult: Int): InternalLocalRequestCapabilitiesStatus {
+                return map.getOrDefault(
+                    localResult,
+                    InternalLocalRequestCapabilitiesStatus.UNSPECIFIED,
                 )
             }
         }

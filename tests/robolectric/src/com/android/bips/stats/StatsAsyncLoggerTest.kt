@@ -190,10 +190,16 @@ open class StatsAsyncLoggerTest {
         runnableCaptor.secondValue.run()
         logWrapperInOrder
             .verify(mStatsLogWrapper)
-            .internalRequestPrinterCapabilitiesStatus(0, false)
+            .internalRequestPrinterCapabilitiesStatus(
+                StatsAsyncLogger.InternalLocalRequestCapabilitiesStatus.OK,
+                false,
+            )
         logWrapperInOrder
             .verify(mStatsLogWrapper)
-            .internalRequestPrinterCapabilitiesStatus(42, true)
+            .internalRequestPrinterCapabilitiesStatus(
+                StatsAsyncLogger.InternalLocalRequestCapabilitiesStatus.UNSPECIFIED,
+                true,
+            )
         logWrapperInOrder.verifyNoMoreInteractions()
 
         // Validate Semaphore logic
