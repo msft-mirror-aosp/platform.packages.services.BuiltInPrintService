@@ -160,7 +160,7 @@ public class PdfPrintActivity extends Activity {
      *
      * @return A PrintJobId, can be null
      */
-    static PrintJobId getLastPrintJobId() {
+    public static PrintJobId getLastPrintJobId() {
         return sPrintJobId;
     }
 }
