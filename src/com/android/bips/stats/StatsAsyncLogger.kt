@@ -64,6 +64,41 @@ object StatsAsyncLogger {
         eventHandler = handler
     }
 
+    fun PrinterDiscovery(
+        scheme: StatsAsyncLogger.DiscoverySchemePrinterDiscoveryEvent,
+        secure: Boolean,
+    ): Boolean {
+        if (DEBUG) {
+            Log.d(TAG, "Logging PrinterDiscovery event")
+        }
+        synchronized(semaphore) {
+            if (!semaphore.tryAcquire()) {
+                Log.w(TAG, "Logging too many events, dropping PrinterDiscovery event")
+                return false
+            }
+            val result =
+                eventHandler.postAtTime(
+                    Runnable {
+                        synchronized(semaphore) {
+                            if (DEBUG) {
+                                Log.d(TAG, "Async logging PrinterDiscovery event")
+                            }
+                            statsLogWrapper.internalPrinterDiscovery(scheme, secure)
+                            semaphore.release()
+                        }
+                    },
+                    nextAvailableTimeMillis,
+                )
+            if (!result) {
+                Log.e(TAG, "Could not log PrinterDiscovery event")
+                semaphore.release()
+                return false
+            }
+            nextAvailableTimeMillis = getNextAvailableTimeMillis()
+        }
+        return true
+    }
+
     fun DiscoveredPrinterCapabilities(
         makeAndModel: String,
         colorModeMask: Int,
@@ -272,6 +307,28 @@ object StatsAsyncLogger {
     // proto values for print jobs.
     // Most of these are internal to the package so are prefixed with
     // Internal
+
+    // PrinterDiscovery enums
+
+    // Not Internal because it is used by clients.
+    enum class DiscoverySchemePrinterDiscoveryEvent(val rawValue: Int) {
+        // Unspecified should never be used
+        UNSPECIFIED(
+            BipsStatsLog
+                .BIPS_PRINTER_DISCOVERY__DISCOVERY_SCHEME__BIPS_PRINTER_DISCOVERY_SCHEME_UNSPECIFIED
+        ),
+        MDNS(
+            BipsStatsLog
+                .BIPS_PRINTER_DISCOVERY__DISCOVERY_SCHEME__BIPS_PRINTER_DISCOVERY_SCHEME_MDNS
+        ),
+        MANUAL(
+            BipsStatsLog
+                .BIPS_PRINTER_DISCOVERY__DISCOVERY_SCHEME__BIPS_PRINTER_DISCOVERY_SCHEME_MANUAL
+        ),
+        P2P(
+            BipsStatsLog.BIPS_PRINTER_DISCOVERY__DISCOVERY_SCHEME__BIPS_PRINTER_DISCOVERY_SCHEME_P2P
+        ),
+    }
 
     // DiscoveredPrinterCapabilities enums
 

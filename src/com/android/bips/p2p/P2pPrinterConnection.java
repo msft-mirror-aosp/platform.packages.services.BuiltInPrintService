@@ -28,7 +28,9 @@ import com.android.bips.discovery.ConnectionListener;
 import com.android.bips.discovery.DiscoveredPrinter;
 import com.android.bips.discovery.Discovery;
 import com.android.bips.discovery.P2pDiscovery;
+import com.android.bips.flags.Flags;
 import com.android.bips.jni.LocalPrinterCapabilities;
+import com.android.bips.stats.StatsAsyncLogger;
 
 import java.net.Inet4Address;
 import java.net.NetworkInterface;
@@ -68,6 +70,12 @@ public class P2pPrinterConnection implements Discovery.Listener, P2pConnectionLi
         if (DEBUG) Log.d(TAG, "Connecting to " + P2pMonitor.toString(peer));
         // Initialize mPrinter to handle onPeerFound callback for re-discover cases
         mPrinter = toPrinter(peer);
+        if (Flags.printingTelemetry()) {
+            StatsAsyncLogger.INSTANCE
+                     .PrinterDiscovery(
+                              StatsAsyncLogger.DiscoverySchemePrinterDiscoveryEvent.P2P,
+                              mPrinter.isSecure());
+        }
         connectToPeer(peer);
     }
 

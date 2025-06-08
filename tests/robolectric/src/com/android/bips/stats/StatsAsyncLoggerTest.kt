@@ -61,6 +61,65 @@ open class StatsAsyncLoggerTest {
     }
 
     @Test
+    fun printerDiscoverySuccessfullyLoggedTest() {
+        val logWrapperInOrder = inOrder(mStatsLogWrapper)
+        val handlerInOrder = inOrder(mHandler)
+        val semaphoreInOrder = inOrder(mSemaphore)
+        val timeCaptor = argumentCaptor<Long>()
+        val runnableCaptor = argumentCaptor<Runnable>()
+
+        // Arbitrary arguments
+        assertThat(
+                StatsAsyncLogger.PrinterDiscovery(
+                    StatsAsyncLogger.DiscoverySchemePrinterDiscoveryEvent.MDNS,
+                    false,
+                )
+            )
+            .isTrue()
+        assertThat(
+                StatsAsyncLogger.PrinterDiscovery(
+                    StatsAsyncLogger.DiscoverySchemePrinterDiscoveryEvent.P2P,
+                    true,
+                )
+            )
+            .isTrue()
+
+        handlerInOrder
+            .verify(mHandler, times(2))
+            .postAtTime(runnableCaptor.capture(), timeCaptor.capture())
+        handlerInOrder.verifyNoMoreInteractions()
+
+        // Validate delay args
+        val firstTime = timeCaptor.firstValue
+        val secondTime = timeCaptor.secondValue
+        assertThat(secondTime - firstTime)
+            .isAtLeast(StatsAsyncLogger.EVENT_REPORTED_MIN_INTERVAL.inWholeMilliseconds)
+        assertThat(secondTime - firstTime)
+            .isAtMost(2 * StatsAsyncLogger.EVENT_REPORTED_MIN_INTERVAL.inWholeMilliseconds)
+
+        // Validate Runnable logic
+        runnableCaptor.firstValue.run()
+        runnableCaptor.secondValue.run()
+        logWrapperInOrder
+            .verify(mStatsLogWrapper)
+            .internalPrinterDiscovery(
+                StatsAsyncLogger.DiscoverySchemePrinterDiscoveryEvent.MDNS,
+                false,
+            )
+        logWrapperInOrder
+            .verify(mStatsLogWrapper)
+            .internalPrinterDiscovery(
+                StatsAsyncLogger.DiscoverySchemePrinterDiscoveryEvent.P2P,
+                true,
+            )
+        logWrapperInOrder.verifyNoMoreInteractions()
+
+        // Validate Semaphore logic
+        semaphoreInOrder.verify(mSemaphore, times(2)).tryAcquire()
+        semaphoreInOrder.verify(mSemaphore, times(2)).release()
+    }
+
+    @Test
     fun discoveredPrinterCapsSuccessfullyLoggedTest() {
         val logWrapperInOrder = inOrder(mStatsLogWrapper)
         val handlerInOrder = inOrder(mHandler)
@@ -355,6 +414,13 @@ open class StatsAsyncLoggerTest {
                 )
             )
             .isFalse()
+        assertThat(
+                StatsAsyncLogger.PrinterDiscovery(
+                    StatsAsyncLogger.DiscoverySchemePrinterDiscoveryEvent.MDNS,
+                    false,
+                )
+            )
+            .isFalse()
         verifyNoInteractions(mHandler)
     }
 
@@ -381,7 +447,14 @@ open class StatsAsyncLoggerTest {
                 StatsAsyncLogger.DiscoveredPrinterCapabilities("foo", 0, setOf(), 0, true, setOf())
             )
             .isFalse()
-        verify(mSemaphore, times(3)).release()
+        assertThat(
+                StatsAsyncLogger.PrinterDiscovery(
+                    StatsAsyncLogger.DiscoverySchemePrinterDiscoveryEvent.MDNS,
+                    false,
+                )
+            )
+            .isFalse()
+        verify(mSemaphore, times(4)).release()
     }
 
     @Test

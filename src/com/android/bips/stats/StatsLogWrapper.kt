@@ -37,6 +37,13 @@ open class StatsLogWrapper {
         )
     }
 
+    open fun internalPrinterDiscovery(
+        scheme: StatsAsyncLogger.DiscoverySchemePrinterDiscoveryEvent,
+        secure: Boolean,
+    ) {
+        BipsStatsLog.write(BipsStatsLog.BIPS_PRINTER_DISCOVERY, scheme.rawValue, secure)
+    }
+
     open fun internalDiscoveredPrinterCapabilities(
         makeAndModel: String,
         supportedColors: Set<StatsAsyncLogger.InternalColorModeDiscoveredPrinterCapsEvent>,
