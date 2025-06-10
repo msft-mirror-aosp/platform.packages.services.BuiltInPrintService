@@ -17,6 +17,7 @@
 
 package com.android.bips;
 
+import android.net.Uri;
 import android.print.PrintManager;
 import android.print.PrinterId;
 import android.print.PrinterInfo;
@@ -29,15 +30,19 @@ import android.util.Log;
 
 import com.android.bips.discovery.DiscoveredPrinter;
 import com.android.bips.discovery.Discovery;
+import com.android.bips.flags.Flags;
+import com.android.bips.stats.StatsAsyncLogger;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 class LocalDiscoverySession extends PrinterDiscoverySession implements Discovery.Listener,
         PrintManager.PrintServiceRecommendationsChangeListener,
@@ -210,7 +215,7 @@ class LocalDiscoverySession extends PrinterDiscoverySession implements Discovery
         }
     }
 
-    /** A complete printer record is available */
+    /** A complete printer record may be available */
     void handlePrinter(LocalPrinter localPrinter) {
         if (DEBUG) Log.d(TAG, "handlePrinter record " + localPrinter);
 
@@ -239,6 +244,25 @@ class LocalDiscoverySession extends PrinterDiscoverySession implements Discovery
         }
 
         if (!isHandledByOtherService(localPrinter)) {
+            // Checking if capabilities are null because BIPS will
+            // attempt to start tracking a printer before it has its
+            // capabilities and re-call this function from
+            // LocalPrinter.onCapabilities() when capabilities are
+            // successfully found.
+            if (Flags.printingTelemetry() && localPrinter.getCapabilities() != null) {
+                final Boolean isSecure = Uri.parse(localPrinter.getCapabilities().path).getScheme()
+                        .equals("ipps");
+                final Iterable<Integer> mediaTypes = Arrays.stream(localPrinter.getCapabilities()
+                                                                   .supportedMediaTypes)
+                        .boxed().collect(Collectors.toList());
+                StatsAsyncLogger.INSTANCE
+                        .DiscoveredPrinterCapabilities(localPrinter.getCapabilities().makeAndModel,
+                                                       info.getCapabilities().getColorModes(),
+                                                       info.getCapabilities().getMediaSizes(),
+                                                       info.getCapabilities().getDuplexModes(),
+                                                       isSecure,
+                                                       mediaTypes);
+            }
             addPrinters(Collections.singletonList(info));
         }
     }

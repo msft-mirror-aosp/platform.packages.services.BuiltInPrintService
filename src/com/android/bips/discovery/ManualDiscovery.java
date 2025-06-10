@@ -22,8 +22,10 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.android.bips.BuiltInPrintService;
+import com.android.bips.flags.Flags;
 import com.android.bips.ipp.CapabilitiesCache;
 import com.android.bips.jni.LocalPrinterCapabilities;
+import com.android.bips.stats.StatsAsyncLogger;
 import com.android.bips.util.WifiMonitor;
 
 import java.util.ArrayList;
@@ -220,6 +222,12 @@ public class ManualDiscovery extends SavedDiscovery {
             }
             mAddRequests.remove(this);
             mFinalCallback.onFound(resolvedPrinter, capabilities.isSupported);
+            if (Flags.printingTelemetry()) {
+                StatsAsyncLogger.INSTANCE
+                         .PrinterDiscovery(
+                                  StatsAsyncLogger.DiscoverySchemePrinterDiscoveryEvent.MANUAL,
+                                  resolvedPrinter.isSecure());
+            }
         }
 
         /** Stop all in-progress capability requests that are in progress */

@@ -226,13 +226,13 @@ class StartJobTask extends AsyncTask<Void, Void, Integer> {
                         // The above cases should catch every one.
                         Log.e(TAG, "getSides() returned an unrecognized duplex mode");
                 }
-                StatsAsyncLogger.JobOrigin origin;
+                StatsAsyncLogger.OriginPrintJobEvent origin;
                 if (isSharedPhoto()) {
-                    origin = StatsAsyncLogger.JobOrigin.SHARED_IMAGE;
+                    origin = StatsAsyncLogger.OriginPrintJobEvent.SHARED_IMAGE;
                 } else if (isSharedPdf()) {
-                    origin = StatsAsyncLogger.JobOrigin.SHARED_PDF;
+                    origin = StatsAsyncLogger.OriginPrintJobEvent.SHARED_PDF;
                 } else {
-                    origin = StatsAsyncLogger.JobOrigin.DIRECT_PRINT;
+                    origin = StatsAsyncLogger.OriginPrintJobEvent.DIRECT_PRINT;
                 }
                 final Boolean isSecure = mDestination.getScheme().equals("ipps");
 

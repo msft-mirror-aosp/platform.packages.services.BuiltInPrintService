@@ -25,6 +25,8 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.android.bips.BuiltInPrintService;
+import com.android.bips.flags.Flags;
+import com.android.bips.stats.StatsAsyncLogger;
 
 import java.net.Inet4Address;
 import java.util.ArrayList;
@@ -116,7 +118,18 @@ public class MdnsDiscovery extends Discovery {
                 + "/" + resourcePath);
         String location = getStringAttribute(info, ATTRIBUTE_NOTE);
 
-        return new DiscoveredPrinter(uuidUri, info.getServiceName(), path, location);
+        if (Flags.printingTelemetry()) {
+            final DiscoveredPrinter discoveredPrinter = new DiscoveredPrinter(uuidUri,
+                                                                              info.getServiceName(),
+                                                                              path, location);
+            StatsAsyncLogger.INSTANCE
+                     .PrinterDiscovery(
+                              StatsAsyncLogger.DiscoverySchemePrinterDiscoveryEvent.MDNS,
+                              discoveredPrinter.isSecure());
+            return discoveredPrinter;
+        } else {
+            return new DiscoveredPrinter(uuidUri, info.getServiceName(), path, location);
+        }
     }
 
     /** Return the value of an attribute or null if not present */

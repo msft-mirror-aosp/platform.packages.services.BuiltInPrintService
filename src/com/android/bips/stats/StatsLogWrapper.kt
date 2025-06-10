@@ -26,23 +26,58 @@ package com.android.bips.stats
 // modifier isn't used as it doesn't play nice with @VisibleForTesting
 // annotation within package clients.
 open class StatsLogWrapper {
-    open fun internalRequestPrinterCapabilitiesStatus(getLocalCapsStatus: Int, secure: Boolean) {
+    open fun internalRequestPrinterCapabilitiesStatus(
+        getLocalCapsStatus: StatsAsyncLogger.InternalLocalRequestCapabilitiesStatus,
+        secure: Boolean,
+    ) {
         BipsStatsLog.write(
             BipsStatsLog.BIPS_REQUEST_PRINTER_CAPABILITIES_STATUS,
-            getLocalCapsStatus,
+            getLocalCapsStatus.rawValue,
             secure,
+        )
+    }
+
+    open fun internalPrinterDiscovery(
+        scheme: StatsAsyncLogger.DiscoverySchemePrinterDiscoveryEvent,
+        secure: Boolean,
+    ) {
+        BipsStatsLog.write(BipsStatsLog.BIPS_PRINTER_DISCOVERY, scheme.rawValue, secure)
+    }
+
+    open fun internalDiscoveredPrinterCapabilities(
+        makeAndModel: String,
+        supportedColors: Set<StatsAsyncLogger.InternalColorModeDiscoveredPrinterCapsEvent>,
+        supportedSizes: Set<StatsAsyncLogger.InternalMediaSizeDiscoveredPrinterCapsEvent>,
+        supportedDuplexModes: Set<StatsAsyncLogger.InternalDuplexModeDiscoveredPrinterCapsEvent>,
+        secure: Boolean,
+        supportedMediaTypes: Set<StatsAsyncLogger.InternalMediaTypeDiscoveredPrinterCapsEvent>,
+    ) {
+
+        val colorBits = supportedColors.map { it.rawValue }.toIntArray()
+        val mediaSizes = supportedSizes.map { it.rawValue }.toIntArray()
+        val duplexModes = supportedDuplexModes.map { it.rawValue }.toIntArray()
+        val mediaTypes = supportedMediaTypes.map { it.rawValue }.toIntArray()
+
+        BipsStatsLog.write(
+            BipsStatsLog.BIPS_DISCOVERED_PRINTER_CAPABILITIES,
+            makeAndModel,
+            colorBits,
+            mediaSizes,
+            duplexModes,
+            secure,
+            mediaTypes,
         )
     }
 
     open fun internalPrintJob(
         makeAndModel: String,
-        jobOrigin: Int,
-        result: Int,
+        jobOrigin: StatsAsyncLogger.OriginPrintJobEvent,
+        result: StatsAsyncLogger.InternalLocalPrintJobResultPrintJobEvent,
         borderless: Boolean,
-        size: Int,
-        duplexMode: Int,
-        mediaType: Int,
-        color: Int,
+        size: StatsAsyncLogger.InternalFrameworkMediaSizePrintJobEvent,
+        duplexMode: StatsAsyncLogger.InternalFrameworkDuplexModePrintJobEvent,
+        mediaType: StatsAsyncLogger.InternalLocalMediaTypePrintJobEvent,
+        color: StatsAsyncLogger.InternalFrameworkColorModePrintJobEvent,
         secure: Boolean,
         horizontalDpi: Int,
         verticalDpi: Int,
@@ -51,13 +86,13 @@ open class StatsLogWrapper {
         BipsStatsLog.write(
             BipsStatsLog.BIPS_PRINT_JOB,
             makeAndModel,
-            jobOrigin,
-            result,
+            jobOrigin.rawValue,
+            result.rawValue,
             borderless,
-            size,
-            duplexMode,
-            mediaType,
-            color,
+            size.rawValue,
+            duplexMode.rawValue,
+            mediaType.rawValue,
+            color.rawValue,
             secure,
             horizontalDpi,
             verticalDpi,
