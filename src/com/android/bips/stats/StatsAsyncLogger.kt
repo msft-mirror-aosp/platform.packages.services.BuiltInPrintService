@@ -39,15 +39,12 @@ object StatsAsyncLogger {
     @VisibleForTesting val EVENT_REPORTED_MIN_INTERVAL: Duration = 10.milliseconds
     private val MAX_EVENT_QUEUE = 150
 
-    // Only var for testing purposes
     private var semaphore = Semaphore(MAX_EVENT_QUEUE)
-    // We must call start() before getting the HandlerThread's looper.
-    // NOTE: We never quit() this HandlerThread because we want this
-    // running for the lifetime of the process.
-    private val handlerThread = HandlerThread("StatsEventLoggerWrapper").also { it.start() }
-    private var eventHandler = Handler(handlerThread.getLooper())
+    private lateinit var handlerThread: HandlerThread
+    private lateinit var eventHandler: Handler
     private var nextAvailableTimeMillis = SystemClock.uptimeMillis()
     private var statsLogWrapper = StatsLogWrapper()
+    private var logging = false
 
     @VisibleForTesting
     fun testSetStatsLogWrapper(wrapper: StatsLogWrapper) {
@@ -70,6 +67,9 @@ object StatsAsyncLogger {
     ): Boolean {
         if (DEBUG) {
             Log.d(TAG, "Logging PrinterDiscovery event")
+        }
+        if (!logging) {
+            return false
         }
         synchronized(semaphore) {
             if (!semaphore.tryAcquire()) {
@@ -109,6 +109,9 @@ object StatsAsyncLogger {
     ): Boolean {
         if (DEBUG) {
             Log.d(TAG, "Logging BipsDiscoveredPrinterCapabilities event")
+        }
+        if (!logging) {
+            return false
         }
 
         val colors =
@@ -177,7 +180,9 @@ object StatsAsyncLogger {
         if (DEBUG) {
             Log.d(TAG, "Logging PrintJob event")
         }
-
+        if (!logging) {
+            return false
+        }
         synchronized(semaphore) {
             if (!semaphore.tryAcquire()) {
                 Log.w(TAG, "Logging too many events, dropping PrintJob event")
@@ -234,6 +239,9 @@ object StatsAsyncLogger {
         if (DEBUG) {
             Log.d(TAG, "Logging RequestPrinterCapabilitiesStatus event")
         }
+        if (!logging) {
+            return false
+        }
         synchronized(semaphore) {
             if (!semaphore.tryAcquire()) {
                 Log.w(
@@ -279,8 +287,31 @@ object StatsAsyncLogger {
         )
     }
 
-    // Returns true if successfully awaited all pending events, false otherwise
-    fun tryAwaitingAllEvents(): Boolean {
+    // Initializes Async Logger for logging events. Returns true if
+    // started logging and false if logging was already started.
+    fun startLogging(): Boolean {
+        if (logging) {
+            return false
+        }
+        logging = true
+        if (DEBUG) {
+            Log.d(TAG, "Logging started")
+        }
+        semaphore = Semaphore(MAX_EVENT_QUEUE)
+        handlerThread = HandlerThread("StatsEventLoggerWrapper").also { it.start() }
+        eventHandler = Handler(handlerThread.getLooper())
+        nextAvailableTimeMillis = SystemClock.uptimeMillis()
+        return true
+    }
+
+    // Returns true if logging was started and the logger successfully
+    // logged all pending events while ending. Returns false
+    // otherwise.
+    fun stopLogging(): Boolean {
+        if (!logging) {
+            return false
+        }
+        logging = false
         if (DEBUG) {
             Log.d(TAG, "Begin flushing events")
         }
@@ -292,12 +323,12 @@ object StatsAsyncLogger {
             )
         if (!acquired) {
             Log.w(TAG, "Time exceeded awaiting stats events")
-            return false
         }
         if (DEBUG) {
             Log.d(TAG, "End flushing events")
         }
-        return true
+        handlerThread.quit()
+        return acquired
     }
 
     // Mappings for internal values to associated proto values.

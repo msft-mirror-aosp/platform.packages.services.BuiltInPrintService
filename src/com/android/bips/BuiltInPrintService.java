@@ -113,6 +113,9 @@ public class BuiltInPrintService extends PrintService {
             }
         }
         super.onCreate();
+        if (Flags.printingTelemetry()) {
+            StatsAsyncLogger.INSTANCE.startLogging();
+        }
         createNotificationChannel();
         mP2pPermissionManager = new P2pPermissionManager(this);
         mP2pPermissionManager.reset();
@@ -156,10 +159,7 @@ public class BuiltInPrintService extends PrintService {
         sInstance = null;
         mMainHandler.removeCallbacksAndMessages(null);
         if (Flags.printingTelemetry()) {
-            // Await stats events after main handler callbacks and
-            // messages are removed to reduce risk of waiting too long
-            // while awaiting events.
-            StatsAsyncLogger.INSTANCE.tryAwaitingAllEvents();
+            StatsAsyncLogger.INSTANCE.stopLogging();
         }
         super.onDestroy();
     }
