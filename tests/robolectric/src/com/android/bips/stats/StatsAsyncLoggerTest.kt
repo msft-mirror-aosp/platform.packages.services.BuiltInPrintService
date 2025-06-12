@@ -23,6 +23,7 @@ import android.print.PrintJobInfo
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth.assertThat
 import java.util.concurrent.Semaphore
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -60,6 +61,11 @@ open class StatsAsyncLoggerTest {
         whenever(mPrintJobInfo.getAttributes()).thenReturn(mPrintAttributes)
     }
 
+    @After
+    fun teardown() {
+        StatsAsyncLogger.stopLogging()
+    }
+
     @Test
     fun printerDiscoverySuccessfullyLoggedTest() {
         val logWrapperInOrder = inOrder(mStatsLogWrapper)
@@ -67,6 +73,11 @@ open class StatsAsyncLoggerTest {
         val semaphoreInOrder = inOrder(mSemaphore)
         val timeCaptor = argumentCaptor<Long>()
         val runnableCaptor = argumentCaptor<Runnable>()
+
+        StatsAsyncLogger.startLogging()
+        StatsAsyncLogger.testSetSemaphore(mSemaphore)
+        StatsAsyncLogger.testSetHandler(mHandler)
+        StatsAsyncLogger.testSetStatsLogWrapper(mStatsLogWrapper)
 
         // Arbitrary arguments
         assertThat(
@@ -126,6 +137,11 @@ open class StatsAsyncLoggerTest {
         val semaphoreInOrder = inOrder(mSemaphore)
         val timeCaptor = argumentCaptor<Long>()
         val runnableCaptor = argumentCaptor<Runnable>()
+
+        StatsAsyncLogger.startLogging()
+        StatsAsyncLogger.testSetSemaphore(mSemaphore)
+        StatsAsyncLogger.testSetHandler(mHandler)
+        StatsAsyncLogger.testSetStatsLogWrapper(mStatsLogWrapper)
 
         // "foo" printer: Generally arbitrary arguments focusing more on creating non-empty lists.
         val colorsMaskFoo =
@@ -244,6 +260,11 @@ open class StatsAsyncLoggerTest {
         val timeCaptor = argumentCaptor<Long>()
         val runnableCaptor = argumentCaptor<Runnable>()
 
+        StatsAsyncLogger.startLogging()
+        StatsAsyncLogger.testSetSemaphore(mSemaphore)
+        StatsAsyncLogger.testSetHandler(mHandler)
+        StatsAsyncLogger.testSetStatsLogWrapper(mStatsLogWrapper)
+
         // Arbitrary arguments
         assertThat(
                 StatsAsyncLogger.PrintJob(
@@ -344,6 +365,11 @@ open class StatsAsyncLoggerTest {
         val timeCaptor = argumentCaptor<Long>()
         val runnableCaptor = argumentCaptor<Runnable>()
 
+        StatsAsyncLogger.startLogging()
+        StatsAsyncLogger.testSetSemaphore(mSemaphore)
+        StatsAsyncLogger.testSetHandler(mHandler)
+        StatsAsyncLogger.testSetStatsLogWrapper(mStatsLogWrapper)
+
         // Arbitrary arguments
         StatsAsyncLogger.RequestPrinterCapabilitiesStatus(0, false)
         StatsAsyncLogger.RequestPrinterCapabilitiesStatus(42, true)
@@ -385,6 +411,10 @@ open class StatsAsyncLoggerTest {
 
     @Test
     fun failureToAcquireSemaphoreTicketNeverSchedulesEvent() {
+        StatsAsyncLogger.startLogging()
+        StatsAsyncLogger.testSetSemaphore(mSemaphore)
+        StatsAsyncLogger.testSetHandler(mHandler)
+
         whenever(mSemaphore.tryAcquire()).thenReturn(false)
         // Arbitrary Arguments
         // These numbers are defined in jni/include/wprint_df_types.h
@@ -426,6 +456,10 @@ open class StatsAsyncLoggerTest {
 
     @Test
     fun failureToScheduleReleasesSemaphoreTicket() {
+        StatsAsyncLogger.startLogging()
+        StatsAsyncLogger.testSetSemaphore(mSemaphore)
+        StatsAsyncLogger.testSetHandler(mHandler)
+
         whenever(mHandler.postAtTime(any(), any())).thenReturn(false)
         // Arbitrary Arguments
         assertThat(StatsAsyncLogger.RequestPrinterCapabilitiesStatus(0, false)).isFalse()
@@ -458,14 +492,91 @@ open class StatsAsyncLoggerTest {
     }
 
     @Test
-    fun tryAwaitingAllEventsSucceeds() {
+    fun stopLoggingSucceeds() {
+        StatsAsyncLogger.startLogging()
         whenever(mSemaphore.tryAcquire(any(), any(), any())).thenReturn(true)
-        assertThat(StatsAsyncLogger.tryAwaitingAllEvents()).isTrue()
+        assertThat(StatsAsyncLogger.stopLogging()).isTrue()
     }
 
     @Test
-    fun tryAwaitingAllEventsFails() {
+    fun stopLoggingFails() {
+        StatsAsyncLogger.startLogging()
+        StatsAsyncLogger.testSetSemaphore(mSemaphore)
+        StatsAsyncLogger.testSetHandler(mHandler)
         whenever(mSemaphore.tryAcquire(any(), any(), any())).thenReturn(false)
-        assertThat(StatsAsyncLogger.tryAwaitingAllEvents()).isFalse()
+        assertThat(StatsAsyncLogger.stopLogging()).isFalse()
+    }
+
+    @Test
+    fun stopLoggingSucceedsAwaitingEvents() {
+        StatsAsyncLogger.startLogging()
+
+        StatsAsyncLogger.testSetSemaphore(mSemaphore)
+        whenever(mSemaphore.tryAcquire(any(), any(), any())).thenReturn(true)
+        assertThat(StatsAsyncLogger.stopLogging()).isTrue()
+    }
+
+    @Test
+    fun stopLoggingFailsAwaitingEvents() {
+        StatsAsyncLogger.startLogging()
+
+        StatsAsyncLogger.testSetSemaphore(mSemaphore)
+        whenever(mSemaphore.tryAcquire(any(), any(), any())).thenReturn(false)
+        assertThat(StatsAsyncLogger.stopLogging()).isFalse()
+    }
+
+    @Test
+    fun stopLoggingFailsToLog() {
+        StatsAsyncLogger.startLogging()
+        StatsAsyncLogger.stopLogging()
+
+        StatsAsyncLogger.testSetSemaphore(mSemaphore)
+        StatsAsyncLogger.testSetHandler(mHandler)
+        StatsAsyncLogger.testSetStatsLogWrapper(mStatsLogWrapper)
+
+        // Arbitrary Arguments
+        assertThat(StatsAsyncLogger.RequestPrinterCapabilitiesStatus(0, false)).isFalse()
+        assertThat(
+                StatsAsyncLogger.PrintJob(
+                    "foo",
+                    true, // is secure
+                    StatsAsyncLogger.OriginPrintJobEvent.DIRECT_PRINT,
+                    0, // Job success
+                    mPrintJobInfo,
+                    mPrintDocumentInfo,
+                    true, // borderless
+                    PrintAttributes.DUPLEX_MODE_LONG_EDGE,
+                    0, // MEDIA_PLAIN defined in wprint_df_types.h
+                )
+            )
+            .isFalse()
+        assertThat(
+                StatsAsyncLogger.DiscoveredPrinterCapabilities("foo", 0, setOf(), 0, true, setOf())
+            )
+            .isFalse()
+        assertThat(
+                StatsAsyncLogger.PrinterDiscovery(
+                    StatsAsyncLogger.DiscoverySchemePrinterDiscoveryEvent.MDNS,
+                    false,
+                )
+            )
+            .isFalse()
+        verifyNoInteractions(mHandler)
+        verifyNoInteractions(mSemaphore)
+        verifyNoInteractions(mStatsLogWrapper)
+    }
+
+    @Test
+    fun successiveStartLogging() {
+        assertThat(StatsAsyncLogger.startLogging()).isTrue()
+        assertThat(StatsAsyncLogger.startLogging()).isFalse()
+    }
+
+    @Test
+    fun successiveStopLogging() {
+        assertThat(StatsAsyncLogger.startLogging()).isTrue()
+
+        assertThat(StatsAsyncLogger.stopLogging()).isTrue()
+        assertThat(StatsAsyncLogger.stopLogging()).isFalse()
     }
 }
