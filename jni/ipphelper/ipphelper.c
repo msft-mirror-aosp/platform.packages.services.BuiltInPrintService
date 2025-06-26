@@ -699,6 +699,39 @@ ipp_status_t get_JobStatus(http_t *http,
     return ipp_status;
 }
 
+static const char * redact_attr_str(const char * attr_name, const char * attr_val) {
+  if (!REDACT_DEBUG_LOGS) {
+    return attr_val;
+  }
+  if (attr_val == NULL) {
+    return attr_val;
+  }
+  if (!com_android_bips_flags_enable_print_debug_option()) {
+    return attr_val;
+  }
+  static const char * redacted = "REDACTED";
+
+  if (strstr(attr_name, "password")) {
+    return redacted;
+  } else if (strstr(attr_name, "printer-message-from-operator")) {
+    return redacted;
+  } else if (strstr(attr_name, "printer-geo-location")) {
+    return redacted;
+  } else if (strstr(attr_name, "printer-location")) {
+    return redacted;
+  } else if (strstr(attr_name, "document-number")) {
+    return redacted;
+  } else if (strstr(attr_name, "job-account-")) {
+    return redacted;
+  } else if (strstr(attr_name, "phone")) {
+    return redacted;
+  } else if (strstr(attr_name, "original-requesting-user-name")) {
+    return redacted;
+  }
+
+  return attr_val;
+}
+
 static void print_col(ipp_t *col) {
     int i;
     ipp_attribute_t *attr;
@@ -762,7 +795,8 @@ static void print_col(ipp_t *col) {
                 for (i = 0; i < ippGetCount(attr); i++) {
                     LOGD("  %s(%s%s)= \"%s\" ", ippGetName(attr),
                             ippGetCount(attr) > 1 ? "1setOf " : "",
-                            ippTagString(ippGetValueTag(attr)), ippGetString(attr, i, NULL));
+                            ippTagString(ippGetValueTag(attr)),
+                            redact_attr_str(ippGetName(attr), ippGetString(attr, i, NULL)));
                 }
                 break;
             case IPP_TAG_TEXTLANG:
@@ -850,7 +884,8 @@ void print_attr(ipp_attribute_t *attr) {
             for (i = 0; i < ippGetCount(attr); i++) {
                 LOGD("%s (%s%s) = \"%s\" ", ippGetName(attr),
                         ippGetCount(attr) > 1 ? "1setOf " : "",
-                        ippTagString(ippGetValueTag(attr)), ippGetString(attr, i, NULL));
+                        ippTagString(ippGetValueTag(attr)),
+                        redact_attr_str(ippGetName(attr), ippGetString(attr, i, NULL)));
             }
             break;
         case IPP_TAG_TEXTLANG:
