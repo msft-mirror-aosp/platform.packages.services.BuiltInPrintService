@@ -17,14 +17,14 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="recommendation_summary_new" msgid="7827367046167645850">"Dịch vụ in mặc định đưa ra các lựa chọn cơ bản. Hiện có các dịch vụ in khác trong các lựa chọn nâng cao."</string>
+    <string name="recommendation_summary_new" msgid="7827367046167645850">"Dịch vụ in mặc định cung cấp các lựa chọn cơ bản. Đối với các lựa chọn nâng cao, vui lòng sử dụng các dịch vụ in bổ sung."</string>
     <string name="recommendation_link" msgid="8300104407684336172">"Dịch vụ in bổ sung"</string>
     <string name="yes" msgid="1887141030777316285">"Có"</string>
     <string name="unknown" msgid="2526777102391303730">"Không xác định"</string>
     <string name="printer_name" msgid="386653719801075739">"Tên máy in"</string>
     <string name="status" msgid="5948149021115901261">"Trạng thái"</string>
     <string name="media_ready" msgid="7205545458156298899">"Khổ giấy đã nạp"</string>
-    <string name="supply_levels" msgid="5058409966884929190">"Mức cung ứng"</string>
+    <string name="supply_levels" msgid="5058409966884929190">"Mức mực"</string>
     <string name="information" msgid="7896978544179559432">"Thông tin"</string>
     <string name="printer_ready" msgid="1602057851194259669">"Sẵn sàng"</string>
     <string name="printer_state__printing" msgid="596624975473301735">"Đang in"</string>
