@@ -29,6 +29,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.android.bips.R;
+import com.android.bips.flags.Flags;
 import com.android.bips.jni.BackendConstants;
 import com.android.bips.jni.JobCallback;
 import com.android.bips.jni.JobCallbackParams;
@@ -40,6 +41,7 @@ import com.android.bips.util.FileUtils;
 
 import java.io.File;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 public class Backend implements JobCallback {
@@ -58,6 +60,7 @@ public class Backend implements JobCallback {
     private final Handler mMainHandler;
     private final Context mContext;
     private JobStatus mCurrentJobStatus;
+    private Optional<LocalJobParams> mCurrentJobParams = Optional.empty();
     private Consumer<JobStatus> mJobStatusListener;
     private AsyncTask<Void, Void, Integer> mStartTask;
 
@@ -114,6 +117,9 @@ public class Backend implements JobCallback {
 
         mJobStatusListener = listener;
         mCurrentJobStatus = new JobStatus();
+        if (Flags.printingTelemetry()) {
+            mCurrentJobParams = Optional.empty();
+        }
 
         mStartTask = new StartJobTask(mContext, this, uri, printJob, capabilities) {
             @Override
@@ -232,6 +238,19 @@ public class Backend implements JobCallback {
                 }
             }
         }
+    }
+
+    // Called by StartJobTask
+    void onFinalizedJobParams(LocalJobParams jobParams) {
+        if (!Flags.printingTelemetry()) {
+            return;
+        }
+        mCurrentJobParams = Optional.of(jobParams);
+    }
+
+    /** Returns finalized job params as Optional, and an empty Optional otherwise */
+    public Optional<LocalJobParams> getFinalizedJobParams() {
+        return mCurrentJobParams;
     }
 
     /**

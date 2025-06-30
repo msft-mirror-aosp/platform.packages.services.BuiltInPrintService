@@ -19,24 +19,31 @@ package com.android.bips;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.print.PrintDocumentInfo;
 import android.print.PrintJobId;
+import android.print.PrintJobInfo;
 import android.printservice.PrintJob;
 import android.util.Log;
 
 import com.android.bips.discovery.ConnectionListener;
 import com.android.bips.discovery.DiscoveredPrinter;
 import com.android.bips.discovery.MdnsDiscovery;
+import com.android.bips.flags.Flags;
 import com.android.bips.ipp.Backend;
 import com.android.bips.ipp.CapabilitiesCache;
 import com.android.bips.ipp.CertificateStore;
 import com.android.bips.ipp.JobStatus;
 import com.android.bips.jni.BackendConstants;
+import com.android.bips.jni.LocalJobParams;
 import com.android.bips.jni.LocalPrinterCapabilities;
 import com.android.bips.p2p.P2pPrinterConnection;
 import com.android.bips.p2p.P2pUtils;
+import com.android.bips.stats.StatsAsyncLogger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.StringJoiner;
 import java.util.function.Consumer;
 
@@ -280,6 +287,54 @@ class LocalPrintJob implements MdnsDiscovery.Listener, ConnectionListener,
         }
     }
 
+    private void reportPrintJob(String result) {
+        if (!Flags.printingTelemetry()) {
+            return;
+        }
+        if (mCapabilities == null) {
+            Log.e(TAG, "Final job state without defining printer's capabilities,"
+                    + " this should never happen");
+            return;
+        }
+        // While many of these values are embedded in LocalJobParams,
+        // StartJobTask may fail to populate LocalJobParams when
+        // failing to start the print job. We record print job
+        // parameters that we know how to determine here.
+        final boolean isSharedPhoto =
+                Objects.equals(mPrintJob.getId(), ImagePrintActivity.getLastPrintJobId());
+        final boolean isSharedPdf =
+                Objects.equals(mPrintJob.getId(), PdfPrintActivity.getLastPrintJobId());
+        StatsAsyncLogger.OriginPrintJobEvent origin;
+        if (isSharedPhoto) {
+            origin = StatsAsyncLogger.OriginPrintJobEvent.SHARED_IMAGE;
+        } else if (isSharedPdf) {
+            origin = StatsAsyncLogger.OriginPrintJobEvent.SHARED_PDF;
+        } else {
+            origin = StatsAsyncLogger.OriginPrintJobEvent.DIRECT_PRINT;
+        }
+        final PrintJobInfo jobInfo = mPrintJob.getInfo();
+        final PrintDocumentInfo docInfo = mPrintJob.getDocument().getInfo();
+        final Boolean isSecure = Objects.equals(mPath.getScheme(), "ipps");
+        // See StartJobTask.isBorderless()
+        final Boolean isBorderless = mCapabilities.borderless && docInfo.getContentType()
+                == PrintDocumentInfo.CONTENT_TYPE_PHOTO;
+        // JobParams might not be finalized based on cancellation or
+        // some failure interrupting the delivery of a job to a printer.
+        final Optional<LocalJobParams> params = mBackend.getFinalizedJobParams();
+        // See MEDIA_UNKNOWN in jni/include/wprint_df_types.h
+        final int mediaTypeUnknown = 99;
+        final int mediaType = (params.isEmpty()) ? mediaTypeUnknown : params.get().media_size;
+        StatsAsyncLogger.INSTANCE.PrintJob(mCapabilities.makeAndModel,
+                                           isSecure,
+                                           origin,
+                                           result,
+                                           jobInfo,
+                                           docInfo,
+                                           isBorderless,
+                                           jobInfo.getAttributes().getDuplexMode(),
+                                           mediaType);
+    }
+
     private void handleJobStatus(JobStatus jobStatus) {
         if (DEBUG) Log.d(TAG, "onJobStatus() " + jobStatus);
 
@@ -300,9 +355,11 @@ class LocalPrintJob implements MdnsDiscovery.Listener, ConnectionListener,
 
                 switch (jobStatus.getJobResult()) {
                     case BackendConstants.JOB_DONE_OK:
+                        reportPrintJob(BackendConstants.JOB_DONE_OK);
                         finish(true, null);
                         break;
                     case BackendConstants.JOB_DONE_CANCELLED:
+                        reportPrintJob(BackendConstants.JOB_DONE_CANCELLED);
                         mState = STATE_CANCEL;
                         finish(false, null);
                         bundle.putString(
@@ -310,16 +367,19 @@ class LocalPrintJob implements MdnsDiscovery.Listener, ConnectionListener,
                                 getStringifiedBlockedReasons());
                         break;
                     case BackendConstants.JOB_DONE_CORRUPT:
+                        reportPrintJob(BackendConstants.JOB_DONE_CORRUPT);
                         finish(false, mPrintService.getString(R.string.unreadable_input));
                         bundle.putString(
                                 BackendConstants.PARAM_ERROR_MESSAGES,
                                 getStringifiedBlockedReasons());
                         break;
                     case BackendConstants.JOB_DONE_BAD_CERTIFICATE:
+                        reportPrintJob(BackendConstants.JOB_DONE_BAD_CERTIFICATE);
                         handleBadCertificate(jobStatus);
                         break;
                     default:
                         // Job failed
+                        reportPrintJob(BackendConstants.JOB_DONE_ERROR);
                         finish(false, null);
                         bundle.putString(
                                 BackendConstants.PARAM_ERROR_MESSAGES,

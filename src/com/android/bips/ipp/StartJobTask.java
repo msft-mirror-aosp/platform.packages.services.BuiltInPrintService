@@ -37,7 +37,6 @@ import android.util.Log;
 import android.view.Gravity;
 
 import com.android.bips.ImagePrintActivity;
-import com.android.bips.PdfPrintActivity;
 import com.android.bips.flags.Flags;
 import com.android.bips.jni.BackendConstants;
 import com.android.bips.jni.LocalJobParams;
@@ -45,7 +44,6 @@ import com.android.bips.jni.LocalPrinterCapabilities;
 import com.android.bips.jni.MediaSizes;
 import com.android.bips.jni.PdfRender;
 import com.android.bips.jni.SizeD;
-import com.android.bips.stats.StatsAsyncLogger;
 import com.android.bips.util.FileUtils;
 
 import java.io.BufferedOutputStream;
@@ -208,43 +206,8 @@ class StartJobTask extends AsyncTask<Void, Void, Integer> {
 
             // Finalize job parameters
             mBackend.nativeGetFinalJobParameters(mJobParams, mCapabilities);
-
             if (Flags.printingTelemetry()) {
-                // Convert back to framework duplex mode. See StartJobtask.getSides()
-                int frameworkDuplex = -1;
-                switch (getSides()) {
-                    case SIDES_SIMPLEX:
-                        frameworkDuplex = PrintAttributes.DUPLEX_MODE_NONE;
-                        break;
-                    case SIDES_DUPLEX_LONG_EDGE:
-                        frameworkDuplex = PrintAttributes.DUPLEX_MODE_LONG_EDGE;
-                        break;
-                    case SIDES_DUPLEX_SHORT_EDGE:
-                        frameworkDuplex = PrintAttributes.DUPLEX_MODE_SHORT_EDGE;
-                        break;
-                    default:
-                        // The above cases should catch every one.
-                        Log.e(TAG, "getSides() returned an unrecognized duplex mode");
-                }
-                StatsAsyncLogger.OriginPrintJobEvent origin;
-                if (isSharedPhoto()) {
-                    origin = StatsAsyncLogger.OriginPrintJobEvent.SHARED_IMAGE;
-                } else if (isSharedPdf()) {
-                    origin = StatsAsyncLogger.OriginPrintJobEvent.SHARED_PDF;
-                } else {
-                    origin = StatsAsyncLogger.OriginPrintJobEvent.DIRECT_PRINT;
-                }
-                final Boolean isSecure = mDestination.getScheme().equals("ipps");
-
-                StatsAsyncLogger.INSTANCE.PrintJob(mCapabilities.makeAndModel,
-                                                   isSecure,
-                                                   origin,
-                                                   result,
-                                                   mJobInfo,
-                                                   mDocInfo,
-                                                   isBorderless(),
-                                                   frameworkDuplex,
-                                                   getMediaType());
+                mBackend.onFinalizedJobParams(mJobParams);
             }
 
             if (isCancelled()) {
@@ -424,9 +387,5 @@ class StartJobTask extends AsyncTask<Void, Void, Integer> {
 
     private boolean isSharedPhoto() {
         return Objects.equals(mJobInfo.getId(), ImagePrintActivity.getLastPrintJobId());
-    }
-
-    private boolean isSharedPdf() {
-        return Objects.equals(mJobInfo.getId(), PdfPrintActivity.getLastPrintJobId());
     }
 }
