@@ -24,7 +24,7 @@
     <string name="printer_name" msgid="386653719801075739">"プリンタ名"</string>
     <string name="status" msgid="5948149021115901261">"ステータス"</string>
     <string name="media_ready" msgid="7205545458156298899">"読み込まれた用紙のサイズ"</string>
-    <string name="supply_levels" msgid="5058409966884929190">"供給レベル"</string>
+    <string name="supply_levels" msgid="5058409966884929190">"サプライのレベル"</string>
     <string name="information" msgid="7896978544179559432">"情報"</string>
     <string name="printer_ready" msgid="1602057851194259669">"準備完了"</string>
     <string name="printer_state__printing" msgid="596624975473301735">"印刷"</string>

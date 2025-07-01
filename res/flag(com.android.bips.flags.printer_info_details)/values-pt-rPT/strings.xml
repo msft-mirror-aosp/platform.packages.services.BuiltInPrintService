@@ -17,7 +17,7 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="recommendation_summary_new" msgid="7827367046167645850">"O serviço de impressão padrão oferece opções básicas. Para opções avançadas, estão disponíveis serviços de impressão adicionais."</string>
+    <string name="recommendation_summary_new" msgid="7827367046167645850">"O serviço de impressão predefinido oferece opções básicas. Para opções avançadas, estão disponíveis serviços de impressão adicionais."</string>
     <string name="recommendation_link" msgid="8300104407684336172">"Serviços de impressão adicionais"</string>
     <string name="yes" msgid="1887141030777316285">"Sim"</string>
     <string name="unknown" msgid="2526777102391303730">"Desconhecido"</string>

@@ -24,7 +24,7 @@
     <string name="printer_name" msgid="386653719801075739">"Názov tlačiarne"</string>
     <string name="status" msgid="5948149021115901261">"Stav"</string>
     <string name="media_ready" msgid="7205545458156298899">"Veľkosti vkladaného papiera"</string>
-    <string name="supply_levels" msgid="5058409966884929190">"Úrovne zásob"</string>
+    <string name="supply_levels" msgid="5058409966884929190">"Stav náplní"</string>
     <string name="information" msgid="7896978544179559432">"Informácia"</string>
     <string name="printer_ready" msgid="1602057851194259669">"Pripravené"</string>
     <string name="printer_state__printing" msgid="596624975473301735">"Tlač"</string>

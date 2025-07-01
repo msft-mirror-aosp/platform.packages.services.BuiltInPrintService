@@ -62,7 +62,7 @@
     <string name="connects_via_network" msgid="5990041581556733898">"מתבצע חיבור דרך הרשת הנוכחית בכתובת <xliff:g id="IP_ADDRESS">%1$s</xliff:g>"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"שירות ההדפסה המוגדר כברירת מחדל מספק אפשרויות בסיסיות. ייתכן שאפשרויות נוספות למדפסת הזו יהיו זמינות משירות הדפסה אחר."</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"שירותים מומלצים"</string>
-    <string name="recommendation_install_summary" msgid="374785283809791669">"יש לבחור כדי להתקין"</string>
+    <string name="recommendation_install_summary" msgid="374785283809791669">"כדי להתקין, צריך ללחוץ כאן"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"יש לבחור כדי להפעיל"</string>
     <string name="recommendation_manage" msgid="6861960243377871340">"ניהול השירותים"</string>
     <string name="security" msgid="2279008326210305401">"אבטחה"</string>

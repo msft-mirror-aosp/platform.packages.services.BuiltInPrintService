@@ -17,14 +17,14 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="recommendation_summary_new" msgid="7827367046167645850">"प्रिंट करने की डिफ़ॉल्ट सेवा में बुनियादी विकल्प मिलते हैं. बेहतर विकल्पों में, प्रिंट करने की अतिरिक्त सेवाएं उपलब्ध हैं."</string>
+    <string name="recommendation_summary_new" msgid="7827367046167645850">"प्रिंट करने की डिफ़ॉल्ट सेवा में बुनियादी विकल्प मिलते हैं. बेहतर विकल्पों के लिए, प्रिंट करने की अतिरिक्त सेवाओं का इस्तेमाल करें."</string>
     <string name="recommendation_link" msgid="8300104407684336172">"प्रिंट करने की अतिरिक्त सेवाएं"</string>
     <string name="yes" msgid="1887141030777316285">"हां"</string>
     <string name="unknown" msgid="2526777102391303730">"कोई जानकारी नहीं है"</string>
     <string name="printer_name" msgid="386653719801075739">"प्रिंटर का नाम"</string>
     <string name="status" msgid="5948149021115901261">"स्थिति"</string>
     <string name="media_ready" msgid="7205545458156298899">"लोड किए गए पेपर के साइज़"</string>
-    <string name="supply_levels" msgid="5058409966884929190">"सप्लाई के लेवल"</string>
+    <string name="supply_levels" msgid="5058409966884929190">"इंक के लेवल"</string>
     <string name="information" msgid="7896978544179559432">"जानकारी"</string>
     <string name="printer_ready" msgid="1602057851194259669">"तैयार है"</string>
     <string name="printer_state__printing" msgid="596624975473301735">"प्रिंटिंग"</string>
