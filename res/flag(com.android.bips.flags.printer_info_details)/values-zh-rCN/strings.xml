@@ -17,14 +17,14 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="recommendation_summary_new" msgid="7827367046167645850">"默认打印服务会提供基本选项。如需高级选项，请使用其他打印服务。"</string>
+    <string name="recommendation_summary_new" msgid="7827367046167645850">"默认打印服务只提供基本选项。如需高级选项，请使用其他打印服务。"</string>
     <string name="recommendation_link" msgid="8300104407684336172">"其他打印服务"</string>
     <string name="yes" msgid="1887141030777316285">"是"</string>
     <string name="unknown" msgid="2526777102391303730">"未知"</string>
     <string name="printer_name" msgid="386653719801075739">"打印机名称"</string>
     <string name="status" msgid="5948149021115901261">"状态"</string>
     <string name="media_ready" msgid="7205545458156298899">"装入的纸张大小"</string>
-    <string name="supply_levels" msgid="5058409966884929190">"耗材等级"</string>
+    <string name="supply_levels" msgid="5058409966884929190">"耗材余量"</string>
     <string name="information" msgid="7896978544179559432">"信息"</string>
     <string name="printer_ready" msgid="1602057851194259669">"准备就绪"</string>
     <string name="printer_state__printing" msgid="596624975473301735">"正在打印"</string>

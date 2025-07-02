@@ -62,7 +62,7 @@
     <string name="connects_via_network" msgid="5990041581556733898">"Připojení prostřednictvím stávající sítě s IP adresou <xliff:g id="IP_ADDRESS">%1$s</xliff:g>"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"Výchozí služba tisku nabízí základní možnosti. Další možnosti mohou být k dispozici z jiné služby tisku."</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"Doporučené služby"</string>
-    <string name="recommendation_install_summary" msgid="374785283809791669">"Vyberte, co nainstalovat"</string>
+    <string name="recommendation_install_summary" msgid="374785283809791669">"Vybrat a nainstalovat"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"Vyberte, co aktivovat"</string>
     <string name="recommendation_manage" msgid="6861960243377871340">"Spravovat služby"</string>
     <string name="security" msgid="2279008326210305401">"Zabezpečení"</string>
