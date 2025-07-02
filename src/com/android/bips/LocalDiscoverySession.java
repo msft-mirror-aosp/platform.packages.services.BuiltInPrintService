@@ -56,6 +56,7 @@ class LocalDiscoverySession extends PrinterDiscoverySession implements Discovery
     private final BuiltInPrintService mPrintService;
     private final Map<PrinterId, LocalPrinter> mPrinters = new HashMap<>();
     private final Set<PrinterId> mTrackingIds = new HashSet<>();
+    private final Set<PrinterId> mCapsReported = new HashSet<>();
     private final LocalDiscoverySessionInfo mInfo;
     private DelayedAction mExpirePrinters;
     private PrintManager mPrintManager;
@@ -139,6 +140,9 @@ class LocalDiscoverySession extends PrinterDiscoverySession implements Discovery
             localPrinter.stopTracking();
         }
         mTrackingIds.remove(printerId);
+        if (Flags.printingTelemetry()) {
+            mCapsReported.remove(printerId);
+        }
     }
 
     @Override
@@ -249,19 +253,30 @@ class LocalDiscoverySession extends PrinterDiscoverySession implements Discovery
             // capabilities and re-call this function from
             // LocalPrinter.onCapabilities() when capabilities are
             // successfully found.
-            if (Flags.printingTelemetry() && localPrinter.getCapabilities() != null) {
+            if (Flags.printingTelemetry()
+                    && localPrinter.getCapabilities() != null
+                    && !mCapsReported.contains(localPrinter.getPrinterId())) {
                 final Boolean isSecure = Uri.parse(localPrinter.getCapabilities().path).getScheme()
                         .equals("ipps");
                 final Iterable<Integer> mediaTypes = Arrays.stream(localPrinter.getCapabilities()
                                                                    .supportedMediaTypes)
                         .boxed().collect(Collectors.toList());
-                StatsAsyncLogger.INSTANCE
+                final boolean reported = StatsAsyncLogger.INSTANCE
                         .DiscoveredPrinterCapabilities(localPrinter.getCapabilities().makeAndModel,
                                                        info.getCapabilities().getColorModes(),
                                                        info.getCapabilities().getMediaSizes(),
                                                        info.getCapabilities().getDuplexModes(),
                                                        isSecure,
                                                        mediaTypes);
+
+                // Through printer info screen and multiple delayed
+                // discovery schemes it is possible more than one
+                // printer record is handled. This can result in
+                // multiple calls to handlePrinter(). This results in
+                // duplicate printer cap reports.
+                if (reported) {
+                    mCapsReported.add(localPrinter.getPrinterId());
+                }
             }
             addPrinters(Collections.singletonList(info));
         }
