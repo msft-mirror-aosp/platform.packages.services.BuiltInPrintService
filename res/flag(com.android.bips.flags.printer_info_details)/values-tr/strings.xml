@@ -17,7 +17,7 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="recommendation_summary_new" msgid="7827367046167645850">"Varsayılan yazdırma hizmeti, temel seçenekler sağlar. Gelişmiş seçeneklerde ek yazdırma hizmetleri mevcuttur."</string>
+    <string name="recommendation_summary_new" msgid="7827367046167645850">"Varsayılan yazdırma hizmeti, temel seçenekler sağlar. Sunulan ek yazdırma hizmetlerinde gelişmiş seçenekler bulabilirsiniz."</string>
     <string name="recommendation_link" msgid="8300104407684336172">"Ek yazdırma hizmetleri"</string>
     <string name="yes" msgid="1887141030777316285">"Evet"</string>
     <string name="unknown" msgid="2526777102391303730">"Bilinmiyor"</string>

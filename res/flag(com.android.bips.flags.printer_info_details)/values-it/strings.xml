@@ -26,7 +26,7 @@
     <string name="media_ready" msgid="7205545458156298899">"Dimensioni foglio caricato"</string>
     <string name="supply_levels" msgid="5058409966884929190">"Livelli di alimentazione"</string>
     <string name="information" msgid="7896978544179559432">"Informazioni"</string>
-    <string name="printer_ready" msgid="1602057851194259669">"Pronto"</string>
+    <string name="printer_ready" msgid="1602057851194259669">"Pronta"</string>
     <string name="printer_state__printing" msgid="596624975473301735">"Stampa in corso…"</string>
     <string name="printer_state__offline" msgid="6755924316852857893">"Offline"</string>
     <string name="printer_state__check_printer" msgid="4854932117258619033">"Controlla la stampante"</string>

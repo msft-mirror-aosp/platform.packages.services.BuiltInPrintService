@@ -62,7 +62,7 @@
     <string name="connects_via_network" msgid="5990041581556733898">"透過目前的網絡 (<xliff:g id="IP_ADDRESS">%1$s</xliff:g>) 連線"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"「預設列印服務」提供基本選項，此打印機的其他選項或可在其他列印服務中使用。"</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"建議的服務"</string>
-    <string name="recommendation_install_summary" msgid="374785283809791669">"選取即可安裝"</string>
+    <string name="recommendation_install_summary" msgid="374785283809791669">"選取以安裝"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"選取即可啟用"</string>
     <string name="recommendation_manage" msgid="6861960243377871340">"管理服務"</string>
     <string name="security" msgid="2279008326210305401">"安全性"</string>

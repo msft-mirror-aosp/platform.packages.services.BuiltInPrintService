@@ -17,14 +17,14 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="recommendation_summary_new" msgid="7827367046167645850">"O serviço de impressão padrão oferece opções básicas. Para acessar as opções avançadas, outros serviços de impressão estão disponíveis."</string>
-    <string name="recommendation_link" msgid="8300104407684336172">"Serviços de impressão extras"</string>
+    <string name="recommendation_summary_new" msgid="7827367046167645850">"O serviço de impressão padrão oferece opções básicas. Para opções avançadas, serviços adicionais de impressão estão disponíveis."</string>
+    <string name="recommendation_link" msgid="8300104407684336172">"Serviços adicionais de impressão"</string>
     <string name="yes" msgid="1887141030777316285">"Sim"</string>
     <string name="unknown" msgid="2526777102391303730">"Desconhecido"</string>
     <string name="printer_name" msgid="386653719801075739">"Nome da impressora"</string>
     <string name="status" msgid="5948149021115901261">"Status"</string>
     <string name="media_ready" msgid="7205545458156298899">"Tamanhos de papel carregados"</string>
-    <string name="supply_levels" msgid="5058409966884929190">"Níveis de fornecimento"</string>
+    <string name="supply_levels" msgid="5058409966884929190">"Níveis de tinta"</string>
     <string name="information" msgid="7896978544179559432">"Informações"</string>
     <string name="printer_ready" msgid="1602057851194259669">"Pronto"</string>
     <string name="printer_state__printing" msgid="596624975473301735">"Imprimindo"</string>

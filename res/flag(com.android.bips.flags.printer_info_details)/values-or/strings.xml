@@ -17,7 +17,7 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="recommendation_summary_new" msgid="7827367046167645850">"ଡିଫଲ୍ଟ ପ୍ରିଣ୍ଟ ସେବା ପ୍ରଦାନକାରୀ ମୌଳିକ ବିକଳ୍ପ ଉନ୍ନତ ବିକଳ୍ପ ପାଇଁ ଅତିରିକ୍ତ ପ୍ରିଣ୍ଟ ସେବା ଉପଲବ୍ଧ।"</string>
+    <string name="recommendation_summary_new" msgid="7827367046167645850">"ଡିଫଲ୍ଟ ପ୍ରିଣ୍ଟ ସେବା ବେସିକ ବିକଳ୍ପଗୁଡ଼ିକ ପ୍ରଦାନ କରେ। ଉନ୍ନତ ବିକଳ୍ପଗୁଡ଼ିକ ପାଇଁ ଅତିରିକ୍ତ ପ୍ରିଣ୍ଟ ସେବା ଉପଲବ୍ଧ।"</string>
     <string name="recommendation_link" msgid="8300104407684336172">"ଅତିରିକ୍ତ ପ୍ରିଣ୍ଟ ସେବା"</string>
     <string name="yes" msgid="1887141030777316285">"ହଁ"</string>
     <string name="unknown" msgid="2526777102391303730">"ଅଜଣା"</string>

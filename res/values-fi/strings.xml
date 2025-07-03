@@ -62,7 +62,7 @@
     <string name="connects_via_network" msgid="5990041581556733898">"Yhdistetään nykyisen verkon kautta osoitteessa <xliff:g id="IP_ADDRESS">%1$s</xliff:g>"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"Oletustulostuspalveluun kuuluu perusvaihtoehdot. Muita vaihtoehtoja voi olla saatavilla toisissa tulostuspalveluissa."</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"Suositellut palvelut"</string>
-    <string name="recommendation_install_summary" msgid="374785283809791669">"Asenna valitsemalla"</string>
+    <string name="recommendation_install_summary" msgid="374785283809791669">"Valitse ja asenna"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"Ota käyttöön valitsemalla"</string>
     <string name="recommendation_manage" msgid="6861960243377871340">"Ylläpidä palveluita"</string>
     <string name="security" msgid="2279008326210305401">"Suojaus"</string>

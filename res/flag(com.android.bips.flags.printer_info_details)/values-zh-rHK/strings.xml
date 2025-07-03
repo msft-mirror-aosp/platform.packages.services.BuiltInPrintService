@@ -24,7 +24,7 @@
     <string name="printer_name" msgid="386653719801075739">"打印機名稱"</string>
     <string name="status" msgid="5948149021115901261">"狀態"</string>
     <string name="media_ready" msgid="7205545458156298899">"已載入的紙張大小"</string>
-    <string name="supply_levels" msgid="5058409966884929190">"供應等級"</string>
+    <string name="supply_levels" msgid="5058409966884929190">"墨水餘量"</string>
     <string name="information" msgid="7896978544179559432">"資訊"</string>
     <string name="printer_ready" msgid="1602057851194259669">"準備就緒"</string>
     <string name="printer_state__printing" msgid="596624975473301735">"列印"</string>

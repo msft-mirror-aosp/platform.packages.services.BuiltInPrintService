@@ -17,7 +17,7 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="recommendation_summary_new" msgid="7827367046167645850">"기본인쇄 서비스에서는 기본적인 옵션만 제공됩니다. 고급 옵션의 경우 추가 인쇄 서비스를 이용할 수 있습니다."</string>
+    <string name="recommendation_summary_new" msgid="7827367046167645850">"기본 인쇄 서비스에서는 기본적인 옵션만 제공됩니다. 고급 옵션의 경우 추가 인쇄 서비스를 이용할 수 있습니다."</string>
     <string name="recommendation_link" msgid="8300104407684336172">"추가 인쇄 서비스"</string>
     <string name="yes" msgid="1887141030777316285">"예"</string>
     <string name="unknown" msgid="2526777102391303730">"알 수 없음"</string>
