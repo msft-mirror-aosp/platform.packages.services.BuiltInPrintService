@@ -24,7 +24,7 @@
     <string name="printer_name" msgid="386653719801075739">"ชื่อเครื่องพิมพ์"</string>
     <string name="status" msgid="5948149021115901261">"สถานะ"</string>
     <string name="media_ready" msgid="7205545458156298899">"ขนาดกระดาษที่มีอยู่ในเครื่อง"</string>
-    <string name="supply_levels" msgid="5058409966884929190">"ระดับของสิ่งต่างๆ ที่จำเป็นต่อการทำงาน"</string>
+    <string name="supply_levels" msgid="5058409966884929190">"ปริมาณหมึกพิมพ์"</string>
     <string name="information" msgid="7896978544179559432">"ข้อมูล"</string>
     <string name="printer_ready" msgid="1602057851194259669">"พร้อมใช้งาน"</string>
     <string name="printer_state__printing" msgid="596624975473301735">"กำลังพิมพ์"</string>

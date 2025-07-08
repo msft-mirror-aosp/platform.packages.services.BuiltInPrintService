@@ -19,7 +19,7 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name" msgid="3551052199033657984">"ఆటోమేటిక్ ప్రింట్‌ సర్వీస్"</string>
     <string name="printer_busy" msgid="8604311528104955859">"బిజీగా ఉంది"</string>
-    <string name="printer_out_of_paper" msgid="4882186432807703877">"కాగితం లేదు"</string>
+    <string name="printer_out_of_paper" msgid="4882186432807703877">"పేపర్ లేదు"</string>
     <string name="printer_out_of_ink" msgid="7361897651097675464">"ఇంక్ లేదు"</string>
     <string name="printer_out_of_toner" msgid="2077516357225364154">"టోనర్ లేదు"</string>
     <string name="printer_low_on_ink" msgid="3515015872393897705">"ఇంక్ తక్కువగా ఉంది"</string>
@@ -64,7 +64,7 @@
     <string name="recommendations_heading" msgid="5609754983795588470">"సిఫార్సు చేసిన సర్వీస్‌లు"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"ఇన్‌స్టాల్ చేయడానికి ఎంచుకోండి"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"ప్రారంభించడానికి ఎంచుకోండి"</string>
-    <string name="recommendation_manage" msgid="6861960243377871340">"సర్వీస్‌లను మేనేజ్ చేస్తుంది"</string>
+    <string name="recommendation_manage" msgid="6861960243377871340">"సర్వీస్‌లను మేనేజ్ చేయండి"</string>
     <string name="security" msgid="2279008326210305401">"సెక్యూరిటీ"</string>
     <string name="certificate_update_request" msgid="1314796413107139475">"ఈ ప్రింటర్‌కు కొత్త సెక్యూరిటీ సర్టిఫికెట్‌ అందించి ఉండవచ్చు, లేదా వేరే పరికరం ఏదైనా దీన్ని అనుకరిస్తూ ఉండవచ్చు. కొత్త సర్టిఫికెట్‌ను ఆమోదిస్తారా?"</string>
     <string name="not_encrypted_request" msgid="4871472176807381642">"ఈ ప్రింటర్ ఇకపై ఎన్‌క్రిప్ట్ చేసిన ఫైళ్లను తీసుకోదు అయినా ప్రింట్ చేయడాన్ని కొనసాగిస్తారా?"</string>

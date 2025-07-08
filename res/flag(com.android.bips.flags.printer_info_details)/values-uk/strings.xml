@@ -24,7 +24,7 @@
     <string name="printer_name" msgid="386653719801075739">"Назва принтера"</string>
     <string name="status" msgid="5948149021115901261">"Статус"</string>
     <string name="media_ready" msgid="7205545458156298899">"Розміри завантаженого паперу"</string>
-    <string name="supply_levels" msgid="5058409966884929190">"Рівні витратних матеріалів"</string>
+    <string name="supply_levels" msgid="5058409966884929190">"Рівень чорнил"</string>
     <string name="information" msgid="7896978544179559432">"Інформація"</string>
     <string name="printer_ready" msgid="1602057851194259669">"Готово"</string>
     <string name="printer_state__printing" msgid="596624975473301735">"Друк"</string>

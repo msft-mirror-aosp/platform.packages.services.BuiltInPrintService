@@ -62,7 +62,7 @@
     <string name="connects_via_network" msgid="5990041581556733898">"Es connecta a través de la xarxa actual a l\'adreça IP <xliff:g id="IP_ADDRESS">%1$s</xliff:g>"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"El servei d\'impressió predeterminat ofereix algunes opcions bàsiques. Pot ser que hi hagi més opcions disponibles per a aquesta impressora en un altre servei d\'impressió."</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"Serveis recomanats"</string>
-    <string name="recommendation_install_summary" msgid="374785283809791669">"Selecciona\'n un per instal·lar-lo"</string>
+    <string name="recommendation_install_summary" msgid="374785283809791669">"Selecciona per instal·lar"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"Selecciona\'n per activar-lo"</string>
     <string name="recommendation_manage" msgid="6861960243377871340">"Gestiona els serveis"</string>
     <string name="security" msgid="2279008326210305401">"Seguretat"</string>
