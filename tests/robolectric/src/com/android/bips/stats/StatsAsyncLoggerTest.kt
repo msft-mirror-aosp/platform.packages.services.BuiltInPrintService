@@ -21,6 +21,7 @@ import android.print.PrintAttributes
 import android.print.PrintDocumentInfo
 import android.print.PrintJobInfo
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.android.bips.jni.BackendConstants
 import com.google.common.truth.Truth.assertThat
 import java.util.concurrent.Semaphore
 import org.junit.After
@@ -271,7 +272,7 @@ open class StatsAsyncLoggerTest {
                     "foo",
                     true, // is secure
                     StatsAsyncLogger.OriginPrintJobEvent.DIRECT_PRINT,
-                    0, // Job success
+                    BackendConstants.JOB_DONE_OK,
                     mPrintJobInfo,
                     mPrintDocumentInfo,
                     true, // borderless
@@ -285,7 +286,7 @@ open class StatsAsyncLoggerTest {
                     "bar",
                     false,
                     StatsAsyncLogger.OriginPrintJobEvent.SHARED_IMAGE,
-                    -1, // Job failed unknown
+                    BackendConstants.JOB_DONE_ERROR, // Job failed unknown
                     mPrintJobInfo,
                     mPrintDocumentInfo,
                     false,
@@ -424,7 +425,7 @@ open class StatsAsyncLoggerTest {
                     "foo",
                     true, // is secure
                     StatsAsyncLogger.OriginPrintJobEvent.DIRECT_PRINT,
-                    0, // Job success
+                    BackendConstants.JOB_DONE_OK,
                     mPrintJobInfo,
                     mPrintDocumentInfo,
                     true, // borderless
@@ -468,7 +469,7 @@ open class StatsAsyncLoggerTest {
                     "foo",
                     true, // is secure
                     StatsAsyncLogger.OriginPrintJobEvent.DIRECT_PRINT,
-                    0, // Job success
+                    BackendConstants.JOB_DONE_OK,
                     mPrintJobInfo,
                     mPrintDocumentInfo,
                     true, // borderless
@@ -541,7 +542,7 @@ open class StatsAsyncLoggerTest {
                     "foo",
                     true, // is secure
                     StatsAsyncLogger.OriginPrintJobEvent.DIRECT_PRINT,
-                    0, // Job success
+                    BackendConstants.JOB_DONE_OK,
                     mPrintJobInfo,
                     mPrintDocumentInfo,
                     true, // borderless
