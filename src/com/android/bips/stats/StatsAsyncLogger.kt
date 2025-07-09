@@ -19,7 +19,6 @@ package com.android.bips.stats
 import android.os.Handler
 import android.os.HandlerThread
 import android.os.SystemClock
-import android.print.PageRange
 import android.print.PrintAttributes
 import android.print.PrintDocumentInfo
 import android.print.PrintJobInfo
@@ -189,11 +188,6 @@ object StatsAsyncLogger {
                 Log.w(TAG, "Logging too many events, dropping PrintJob event")
                 return false
             }
-            val pageCount =
-                // pageRange.getSize() is hidden so this is essentially copied from framework
-                jobInfo.getPages()?.sumOf { pageRange: PageRange ->
-                    (pageRange.getEnd() - pageRange.getStart() + 1)
-                } ?: 0
             val result =
                 eventHandler.postAtTime(
                     Runnable {
@@ -218,7 +212,7 @@ object StatsAsyncLogger {
                                 secure,
                                 jobInfo.getAttributes().getResolution()?.getHorizontalDpi() ?: 0,
                                 jobInfo.getAttributes().getResolution()?.getVerticalDpi() ?: 0,
-                                pageCount,
+                                docInfo?.getPageCount() ?: PrintDocumentInfo.PAGE_COUNT_UNKNOWN,
                             )
                             semaphore.release()
                         }
