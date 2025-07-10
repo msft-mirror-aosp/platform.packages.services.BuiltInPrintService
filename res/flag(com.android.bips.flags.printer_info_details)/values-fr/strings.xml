@@ -18,7 +18,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="recommendation_summary_new" msgid="7827367046167645850">"Le service d\'impression par défaut fournit des options de base. Pour les options avancées, d\'autres services d\'impression sont disponibles."</string>
-    <string name="recommendation_link" msgid="8300104407684336172">"Services d\'impression supplémentaires"</string>
+    <string name="recommendation_link" msgid="8300104407684336172">"Autres services d\'impression"</string>
     <string name="yes" msgid="1887141030777316285">"Oui"</string>
     <string name="unknown" msgid="2526777102391303730">"Inconnu"</string>
     <string name="printer_name" msgid="386653719801075739">"Nom de l\'imprimante"</string>
