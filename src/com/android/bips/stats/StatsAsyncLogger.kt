@@ -19,12 +19,12 @@ package com.android.bips.stats
 import android.os.Handler
 import android.os.HandlerThread
 import android.os.SystemClock
-import android.print.PageRange
 import android.print.PrintAttributes
 import android.print.PrintDocumentInfo
 import android.print.PrintJobInfo
 import android.util.Log
 import androidx.annotation.VisibleForTesting
+import com.android.bips.jni.BackendConstants
 import java.util.concurrent.Semaphore
 import java.util.concurrent.TimeUnit
 import kotlin.math.max
@@ -170,7 +170,7 @@ object StatsAsyncLogger {
         makeAndModel: String,
         secure: Boolean,
         jobOrigin: OriginPrintJobEvent,
-        localJobRawResult: Int,
+        localJobRawResult: String,
         jobInfo: PrintJobInfo,
         docInfo: PrintDocumentInfo,
         borderless: Boolean,
@@ -188,11 +188,6 @@ object StatsAsyncLogger {
                 Log.w(TAG, "Logging too many events, dropping PrintJob event")
                 return false
             }
-            val pageCount =
-                // pageRange.getSize() is hidden so this is essentially copied from framework
-                jobInfo.getPages()?.sumOf { pageRange: PageRange ->
-                    (pageRange.getEnd() - pageRange.getStart() + 1)
-                } ?: 0
             val result =
                 eventHandler.postAtTime(
                     Runnable {
@@ -217,7 +212,7 @@ object StatsAsyncLogger {
                                 secure,
                                 jobInfo.getAttributes().getResolution()?.getHorizontalDpi() ?: 0,
                                 jobInfo.getAttributes().getResolution()?.getVerticalDpi() ?: 0,
-                                pageCount,
+                                docInfo?.getPageCount() ?: PrintDocumentInfo.PAGE_COUNT_UNKNOWN,
                             )
                             semaphore.release()
                         }
@@ -1561,20 +1556,33 @@ object StatsAsyncLogger {
         }
     }
 
-    enum class InternalLocalPrintJobResultPrintJobEvent(val localResult: Int?, val rawValue: Int) {
-        // These keys are defined in jni/include/wtypes.h
-        COMPLETED(0, BipsStatsLog.BIPS_PRINT_JOB__RESULT__BIPS_PRINT_JOB_RESULT_COMPLETED),
-        CANCELLED(-2, BipsStatsLog.BIPS_PRINT_JOB__RESULT__BIPS_PRINT_JOB_RESULT_CANCELLED),
+    enum class InternalLocalPrintJobResultPrintJobEvent(
+        val localResult: String?,
+        val rawValue: Int,
+    ) {
+        // These values are originally sourced from
+        // jni/include/wtypes.h similar to
+        // LocalRequestCapabilitiesStatus below.
+        COMPLETED(
+            BackendConstants.JOB_DONE_OK,
+            BipsStatsLog.BIPS_PRINT_JOB__RESULT__BIPS_PRINT_JOB_RESULT_COMPLETED,
+        ),
+        CANCELLED(
+            BackendConstants.JOB_DONE_CANCELLED,
+            BipsStatsLog.BIPS_PRINT_JOB__RESULT__BIPS_PRINT_JOB_RESULT_CANCELLED,
+        ),
         FAILED_CORRUPT(
-            -3,
+            BackendConstants.JOB_DONE_CORRUPT,
             BipsStatsLog.BIPS_PRINT_JOB__RESULT__BIPS_PRINT_JOB_RESULT_FAILED_CORRUPT,
         ),
         FAILED_CERTIFICATE(
-            -4,
+            BackendConstants.JOB_DONE_BAD_CERTIFICATE,
             BipsStatsLog.BIPS_PRINT_JOB__RESULT__BIPS_PRINT_JOB_RESULT_FAILED_CERTIFICATE,
         ),
         FAILED_UNKNOWN(
-            -1,
+            // Unspecified job error is mapped to JOB_DONE_ERROR by
+            // jni/lib/wprintJNI.c:_wprint_callback_fn()
+            BackendConstants.JOB_DONE_ERROR,
             BipsStatsLog.BIPS_PRINT_JOB__RESULT__BIPS_PRINT_JOB_RESULT_FAILED_UNKNOWN,
         ),
         UNSPECIFIED(null, BipsStatsLog.BIPS_PRINT_JOB__RESULT__BIPS_PRINT_JOB_RESULT_UNSPECIFIED);
@@ -1583,7 +1591,7 @@ object StatsAsyncLogger {
             private val map =
                 entries.associateBy(InternalLocalPrintJobResultPrintJobEvent::localResult)
 
-            fun fromLocalResult(localResult: Int): InternalLocalPrintJobResultPrintJobEvent {
+            fun fromLocalResult(localResult: String): InternalLocalPrintJobResultPrintJobEvent {
                 return map.getOrDefault(
                     localResult,
                     InternalLocalPrintJobResultPrintJobEvent.UNSPECIFIED,
