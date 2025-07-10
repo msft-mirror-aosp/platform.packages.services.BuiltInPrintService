@@ -24,7 +24,7 @@
     <string name="printer_name" msgid="386653719801075739">"Ime tiskalnika"</string>
     <string name="status" msgid="5948149021115901261">"Stanje"</string>
     <string name="media_ready" msgid="7205545458156298899">"Naložene velikosti papirja"</string>
-    <string name="supply_levels" msgid="5058409966884929190">"Ravni oskrbe"</string>
+    <string name="supply_levels" msgid="5058409966884929190">"Zaloge"</string>
     <string name="information" msgid="7896978544179559432">"Informacije"</string>
     <string name="printer_ready" msgid="1602057851194259669">"Pripravljeno"</string>
     <string name="printer_state__printing" msgid="596624975473301735">"Tiskanje"</string>

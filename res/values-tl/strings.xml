@@ -62,7 +62,7 @@
     <string name="connects_via_network" msgid="5990041581556733898">"Kumokonekta sa pamamagitan ng kasalukuyang network sa <xliff:g id="IP_ADDRESS">%1$s</xliff:g>"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"Nagbibigay ng mga basic na opsyon ang Serbisyo sa Default na Pag-print. Puwedeng available ang ibang opsyon para sa printer na ito sa ibang serbisyo sa pag-print."</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"Mga Inirerekomendang Serbisyo"</string>
-    <string name="recommendation_install_summary" msgid="374785283809791669">"Piliin para ma-install"</string>
+    <string name="recommendation_install_summary" msgid="374785283809791669">"Piliin para i-install"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"Piliin para ma-enable"</string>
     <string name="recommendation_manage" msgid="6861960243377871340">"Pamahalaan ang Mga Serbisyo"</string>
     <string name="security" msgid="2279008326210305401">"Seguridad"</string>

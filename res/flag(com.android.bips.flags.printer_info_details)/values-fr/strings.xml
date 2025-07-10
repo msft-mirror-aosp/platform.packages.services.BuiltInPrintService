@@ -24,7 +24,7 @@
     <string name="printer_name" msgid="386653719801075739">"Nom de l\'imprimante"</string>
     <string name="status" msgid="5948149021115901261">"État"</string>
     <string name="media_ready" msgid="7205545458156298899">"Formats de papier chargés"</string>
-    <string name="supply_levels" msgid="5058409966884929190">"Niveaux d\'approvisionnement"</string>
+    <string name="supply_levels" msgid="5058409966884929190">"Niveaux des consommables"</string>
     <string name="information" msgid="7896978544179559432">"Informations"</string>
     <string name="printer_ready" msgid="1602057851194259669">"Prête"</string>
     <string name="printer_state__printing" msgid="596624975473301735">"Impression"</string>

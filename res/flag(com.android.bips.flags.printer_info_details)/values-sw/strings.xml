@@ -17,14 +17,14 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="recommendation_summary_new" msgid="7827367046167645850">"Huduma chaguomsingi ya uchapishaji hutoa chaguo za msingi. Kwa chaguo za kina, huduma za ziada za uchapishaji zinapatikana."</string>
+    <string name="recommendation_summary_new" msgid="7827367046167645850">"Huduma chaguomsingi ya uchapishaji hutoa huduma za msingi. Kwa chaguo za kina, kuna huduma za ziada za uchapishaji."</string>
     <string name="recommendation_link" msgid="8300104407684336172">"Huduma za ziada za uchapishaji"</string>
     <string name="yes" msgid="1887141030777316285">"Ndiyo"</string>
     <string name="unknown" msgid="2526777102391303730">"Haijulikani"</string>
     <string name="printer_name" msgid="386653719801075739">"Jina la printa"</string>
     <string name="status" msgid="5948149021115901261">"Hali"</string>
     <string name="media_ready" msgid="7205545458156298899">"Ukubwa wa karatasi zilizopakiwa"</string>
-    <string name="supply_levels" msgid="5058409966884929190">"Viwango vya usambazaji"</string>
+    <string name="supply_levels" msgid="5058409966884929190">"Viwango vya wino"</string>
     <string name="information" msgid="7896978544179559432">"Maelezo"</string>
     <string name="printer_ready" msgid="1602057851194259669">"Tayari"</string>
     <string name="printer_state__printing" msgid="596624975473301735">"Inachapisha"</string>

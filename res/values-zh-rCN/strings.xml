@@ -60,9 +60,9 @@
     <string name="forget" msgid="892068061425802502">"取消保存"</string>
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"通过 WLAN 直连连接"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"在 <xliff:g id="IP_ADDRESS">%1$s</xliff:g> 通过当前网络连接"</string>
-    <string name="recommendation_summary" msgid="2979700524954307566">"默认打印服务会提供基本选项。这个打印机的其他选项可能由其他打印服务提供。"</string>
+    <string name="recommendation_summary" msgid="2979700524954307566">"默认打印服务只提供基本选项。其他打印服务可能为这台打印机提供更多选项。"</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"推荐的服务"</string>
-    <string name="recommendation_install_summary" msgid="374785283809791669">"选择以安装"</string>
+    <string name="recommendation_install_summary" msgid="374785283809791669">"选择即可安装"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"选择以启用"</string>
     <string name="recommendation_manage" msgid="6861960243377871340">"管理服务"</string>
     <string name="security" msgid="2279008326210305401">"安全"</string>
