@@ -36,6 +36,7 @@
 #endif // LOG_LEVEL
 
 #define DEBUG_SYSPROP_STR "debug.printing.logs.enabled"
+#define REDACT_DEBUG_LOGS true
 
 static inline int print_debug_enabled() {
   return property_get_bool(DEBUG_SYSPROP_STR, 0);
