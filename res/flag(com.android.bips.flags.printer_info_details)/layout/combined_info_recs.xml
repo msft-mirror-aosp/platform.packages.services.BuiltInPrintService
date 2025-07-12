@@ -47,7 +47,7 @@
                 style="@style/TextAppearance.AppCompat.Subhead"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_menu_add"
+                android:drawableStart="@drawable/ic_menu_add"
                 android:drawablePadding="@dimen/mopria_padding_2dp"
                 android:maxLines="1"
                 android:padding="@dimen/mopria_padding_5dp"
