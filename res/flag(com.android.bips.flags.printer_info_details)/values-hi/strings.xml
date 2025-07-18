@@ -17,8 +17,8 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="recommendation_summary_new" msgid="7827367046167645850">"प्रिंट करने की डिफ़ॉल्ट सेवा में बुनियादी विकल्प मिलते हैं. बेहतर विकल्पों के लिए, प्रिंट करने की अतिरिक्त सेवाओं का इस्तेमाल करें."</string>
-    <string name="recommendation_link" msgid="8300104407684336172">"प्रिंट करने की अतिरिक्त सेवाएं"</string>
+    <string name="recommendation_summary_new" msgid="7827367046167645850">"प्रिंट से जुड़ी डिफ़ॉल्ट सेवा में बुनियादी सुविधाएं मिलती हैं. बेहतर विकल्पों के लिए, प्रिंट से जुड़ी अतिरिक्ट सेवाओं का इस्तेमाल करें."</string>
+    <string name="recommendation_link" msgid="8300104407684336172">"प्रिंट से जुड़ी अलग-अलग सेवाएं"</string>
     <string name="yes" msgid="1887141030777316285">"हां"</string>
     <string name="unknown" msgid="2526777102391303730">"कोई जानकारी नहीं है"</string>
     <string name="printer_name" msgid="386653719801075739">"प्रिंटर का नाम"</string>

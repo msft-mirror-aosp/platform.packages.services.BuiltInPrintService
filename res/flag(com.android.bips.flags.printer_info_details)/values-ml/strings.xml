@@ -24,7 +24,7 @@
     <string name="printer_name" msgid="386653719801075739">"പ്രിന്ററിന്റെ പേര്"</string>
     <string name="status" msgid="5948149021115901261">"നില"</string>
     <string name="media_ready" msgid="7205545458156298899">"പേപ്പർ വലുപ്പങ്ങൾ ലോഡ് ചെയ്തു"</string>
-    <string name="supply_levels" msgid="5058409966884929190">"വിതരണ നിലകൾ"</string>
+    <string name="supply_levels" msgid="5058409966884929190">"സപ്ലൈ നിലകൾ"</string>
     <string name="information" msgid="7896978544179559432">"വിവരങ്ങൾ"</string>
     <string name="printer_ready" msgid="1602057851194259669">"തയ്യാറാണ്"</string>
     <string name="printer_state__printing" msgid="596624975473301735">"പ്രിന്റിംഗ്"</string>

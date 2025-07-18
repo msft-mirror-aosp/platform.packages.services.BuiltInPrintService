@@ -19,7 +19,7 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name" msgid="3551052199033657984">"प्रिंट करने की डिफ़ॉल्ट सेवा"</string>
     <string name="printer_busy" msgid="8604311528104955859">"व्यस्त"</string>
-    <string name="printer_out_of_paper" msgid="4882186432807703877">"कागज़ नहीं है"</string>
+    <string name="printer_out_of_paper" msgid="4882186432807703877">"काग़ज़ नहीं है"</string>
     <string name="printer_out_of_ink" msgid="7361897651097675464">"इंक खत्म है"</string>
     <string name="printer_out_of_toner" msgid="2077516357225364154">"टोनर खत्म है"</string>
     <string name="printer_low_on_ink" msgid="3515015872393897705">"इंक कम है"</string>
