@@ -19,7 +19,7 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name" msgid="3551052199033657984">"ડિફૉલ્ટ પ્રિન્ટ સેવા"</string>
     <string name="printer_busy" msgid="8604311528104955859">"વ્યસ્ત"</string>
-    <string name="printer_out_of_paper" msgid="4882186432807703877">"પેપર પૂરા થઇ ગયા છે"</string>
+    <string name="printer_out_of_paper" msgid="4882186432807703877">"પેપર પૂરા થઈ ગયા છે"</string>
     <string name="printer_out_of_ink" msgid="7361897651097675464">"શાહી પૂરી થઇ ગઇ છે"</string>
     <string name="printer_out_of_toner" msgid="2077516357225364154">"ટોનર પૂરું થઇ ગયું છે"</string>
     <string name="printer_low_on_ink" msgid="3515015872393897705">"શાહી ઓછી છે"</string>

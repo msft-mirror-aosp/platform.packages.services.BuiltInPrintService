@@ -62,7 +62,7 @@
     <string name="connects_via_network" msgid="5990041581556733898">"A következő címen csatlakozik az aktuális hálózaton keresztül: <xliff:g id="IP_ADDRESS">%1$s</xliff:g>"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"Az alapértelmezett nyomtatási szolgáltatás alapvető funkciókat kínál. Másik nyomtatási szolgáltatásban lehetséges, hogy a nyomtató további funkcióit is tudja használni."</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"Javasolt szolgáltatások"</string>
-    <string name="recommendation_install_summary" msgid="374785283809791669">"Válasszon szolgáltatást a telepítéshez"</string>
+    <string name="recommendation_install_summary" msgid="374785283809791669">"Válassza ki a telepítéshez"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"Válasszon szolgáltatást az engedélyezéshez"</string>
     <string name="recommendation_manage" msgid="6861960243377871340">"Szolgáltatások kezelése"</string>
     <string name="security" msgid="2279008326210305401">"Biztonság"</string>

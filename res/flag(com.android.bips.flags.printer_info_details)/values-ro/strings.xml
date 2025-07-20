@@ -24,7 +24,7 @@
     <string name="printer_name" msgid="386653719801075739">"Numele imprimantei"</string>
     <string name="status" msgid="5948149021115901261">"Stare"</string>
     <string name="media_ready" msgid="7205545458156298899">"Dimensiunile hârtiei încărcate"</string>
-    <string name="supply_levels" msgid="5058409966884929190">"Niveluri de aprovizionare"</string>
+    <string name="supply_levels" msgid="5058409966884929190">"Nivelul consumabilelor"</string>
     <string name="information" msgid="7896978544179559432">"Informații"</string>
     <string name="printer_ready" msgid="1602057851194259669">"Gata"</string>
     <string name="printer_state__printing" msgid="596624975473301735">"Printare"</string>

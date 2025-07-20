@@ -62,7 +62,7 @@
     <string name="connects_via_network" msgid="5990041581556733898">"Se conecta a través de la red actual con la dirección IP <xliff:g id="IP_ADDRESS">%1$s</xliff:g>"</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"El servicio de impresión predeterminado solo tiene opciones básicas. Es posible que en otro servicio de impresión haya más opciones disponibles para esta impresora."</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"Servicios recomendados"</string>
-    <string name="recommendation_install_summary" msgid="374785283809791669">"Selecciona lo que quieras instalar"</string>
+    <string name="recommendation_install_summary" msgid="374785283809791669">"Selecciónalo para instalarlo"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"Selecciona lo que quieras habilitar"</string>
     <string name="recommendation_manage" msgid="6861960243377871340">"Gestionar servicios"</string>
     <string name="security" msgid="2279008326210305401">"Seguridad"</string>
