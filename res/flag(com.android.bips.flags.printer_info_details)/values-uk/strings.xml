@@ -17,7 +17,7 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="recommendation_summary_new" msgid="7827367046167645850">"Стандартний сервіс друку надає основні параметри. Розширені параметри доступні в додаткових сервісах друку."</string>
+    <string name="recommendation_summary_new" msgid="7827367046167645850">"Стандартний сервіс друку має базові параметри. Розширені параметри доступні в додаткових сервісах друку."</string>
     <string name="recommendation_link" msgid="8300104407684336172">"Додаткові сервіси друку"</string>
     <string name="yes" msgid="1887141030777316285">"Так"</string>
     <string name="unknown" msgid="2526777102391303730">"Невідомо"</string>

@@ -62,7 +62,7 @@
     <string name="connects_via_network" msgid="5990041581556733898">"يتم الاتصال عبر الشبكة الحالية باستخدام العنوان <xliff:g id="IP_ADDRESS">%1$s</xliff:g>."</string>
     <string name="recommendation_summary" msgid="2979700524954307566">"تقدم \"خدمة النسبة التلقائية للصفحات المطبوعة\" خيارات أساسية. وقد تتوفر خيارات أخرى لهذا الطابعة من خدمة طباعة أخرى."</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"الخدمات الموصّى بها"</string>
-    <string name="recommendation_install_summary" msgid="374785283809791669">"اختيار للتثبيت"</string>
+    <string name="recommendation_install_summary" msgid="374785283809791669">"انقر لتثبيتها"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"اختيار للتفعيل"</string>
     <string name="recommendation_manage" msgid="6861960243377871340">"إدارة الخدمات"</string>
     <string name="security" msgid="2279008326210305401">"الأمان"</string>
