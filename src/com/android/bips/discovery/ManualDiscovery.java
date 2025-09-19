@@ -183,7 +183,7 @@ public class ManualDiscovery extends SavedDiscovery {
 
                 // Force a clean attempt from scratch
                 mCapabilitiesCache.remove(uri);
-                mCapabilitiesCache.request(new DiscoveredPrinter(null, "", uri, null),
+                mCapabilitiesCache.request(new DiscoveredPrinter(null, "", uri, null, true),
                         true, capabilitiesCallback);
             }
         }
@@ -212,7 +212,7 @@ public class ManualDiscovery extends SavedDiscovery {
                     : capabilities.name;
 
             DiscoveredPrinter resolvedPrinter = new DiscoveredPrinter(uuid, name, printerPath,
-                    capabilities.location);
+                    capabilities.location, true);
 
             // Only add supported printers
             if (capabilities.isSupported) {
