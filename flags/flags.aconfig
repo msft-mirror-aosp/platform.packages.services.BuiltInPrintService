@@ -22,3 +22,10 @@ flag {
     description: "Enable extra debug logging by checking a runtime system property."
     bug: "397418860"
 }
+
+flag {
+    name: "ipp_print_service_integration"
+    namespace: "printing"
+    description: "Suppress printers if they are supported by IppPrintService."
+    bug: "444253321"
+}

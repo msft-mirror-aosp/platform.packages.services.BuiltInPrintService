@@ -24,6 +24,8 @@ import android.text.TextUtils;
 import android.util.JsonReader;
 import android.util.JsonWriter;
 
+import com.android.bips.flags.Flags;
+
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Collections;
@@ -47,6 +49,9 @@ public class DiscoveredPrinter {
     /** All paths at which this this printer can be reached. Includes "path". */
     public final List<Uri> paths;
 
+    /** Whether or not this printer was manually discovered */
+    public final boolean isManual;
+
     /** Lazily-created printer id. */
     private PrinterId mPrinterId;
 
@@ -57,13 +62,16 @@ public class DiscoveredPrinter {
      * @param name     Self-identified printer or service name
      * @param paths    One or more network paths at which the printer is currently available
      * @param location Self-advertised location of the printer, if known
+     * @param isManual Whether or not the printer was manually added
      */
-    public DiscoveredPrinter(Uri uuid, String name, List<Uri> paths, String location) {
+    public DiscoveredPrinter(
+            Uri uuid, String name, List<Uri> paths, String location, boolean isManual) {
         this.uuid = uuid;
         this.name = name;
         this.path = paths.get(0);
         this.paths = Collections.unmodifiableList(paths);
         this.location = location;
+        this.isManual = isManual;
     }
 
     /**
@@ -73,15 +81,43 @@ public class DiscoveredPrinter {
      * @param name     Self-identified printer or service name
      * @param path     Network path at which the printer is currently available
      * @param location Self-advertised location of the printer, if known
+     * @param isManual Whether or not the printer was manually added
+     */
+    public DiscoveredPrinter(Uri uuid, String name, Uri path, String location, boolean isManual) {
+        this(uuid, name, Collections.singletonList(path), location, isManual);
+    }
+
+    /**
+     * Construct minimal information about a network printer. Assumes the printer is not
+     * manually added.
+     *
+     * @param uuid     Unique identification of the network printer, if known
+     * @param name     Self-identified printer or service name
+     * @param paths    One or more network paths at which the printer is currently available
+     * @param location Self-advertised location of the printer, if known
+     */
+    public DiscoveredPrinter(Uri uuid, String name, List<Uri> paths, String location) {
+        this(uuid, name, paths, location, false);
+    }
+
+    /**
+     * Construct minimal information about a network printer. Assumes the printer is not
+     * manually added.
+     *
+     * @param uuid     Unique identification of the network printer, if known
+     * @param name     Self-identified printer or service name
+     * @param path     Network path at which the printer is currently available
+     * @param location Self-advertised location of the printer, if known
      */
     public DiscoveredPrinter(Uri uuid, String name, Uri path, String location) {
-        this(uuid, name, Collections.singletonList(path), location);
+        this(uuid, name, Collections.singletonList(path), location, false);
     }
 
     /** Construct an object based on field values of an JSON object found next in the JsonReader */
     public DiscoveredPrinter(JsonReader reader) throws IOException {
         String printerName = null, location = null;
         Uri uuid = null, path = null;
+        Boolean isManual = false;
 
         reader.beginObject();
         while (reader.hasNext()) {
@@ -99,6 +135,13 @@ public class DiscoveredPrinter {
                 case "location":
                     location = reader.nextString();
                     break;
+                case "manual":
+                    if (Flags.ippPrintServiceIntegration()) {
+                        isManual = reader.nextBoolean();
+                    } else {
+                        reader.skipValue();
+                    }
+                    break;
             }
         }
         reader.endObject();
@@ -111,6 +154,7 @@ public class DiscoveredPrinter {
         this.path = path;
         this.paths = Collections.singletonList(path);
         this.location = location;
+        this.isManual = isManual;
     }
 
     /**
@@ -127,6 +171,18 @@ public class DiscoveredPrinter {
     public boolean isSecure() {
         for (Uri path : paths) {
             if (path.getScheme().equals("ipps")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Return true if this printer has an IPP or IPPS path.
+     */
+    public boolean isIpp() {
+        for (Uri path : paths) {
+            if (path.getScheme().equals("ipps") || path.getScheme().equals("ipp")) {
                 return true;
             }
         }
@@ -158,6 +214,9 @@ public class DiscoveredPrinter {
         }
         if (!TextUtils.isEmpty(location)) {
             writer.name("location").value(location);
+        }
+        if (Flags.ippPrintServiceIntegration()) {
+            writer.name("manual").value(isManual);
         }
         writer.endObject();
     }

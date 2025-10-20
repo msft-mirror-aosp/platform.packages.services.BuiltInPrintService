@@ -49,6 +49,7 @@ class LocalDiscoverySession extends PrinterDiscoverySession implements Discovery
         PrintManager.PrintServicesChangeListener {
     private static final String TAG = LocalDiscoverySession.class.getSimpleName();
     private static final boolean DEBUG = false;
+    private static final String IPP_PRINT_SERVICE_NAME = "com.android.desktop.printservice";
 
     // Printers are removed after not being seen for this long
     static final int PRINTER_EXPIRATION_MILLIS = 3000;
@@ -90,13 +91,19 @@ class LocalDiscoverySession extends PrinterDiscoverySession implements Discovery
         }
         monitorExpiredPrinters();
 
-        mPrintService.getDiscovery().start(this);
+        if (!Flags.ippPrintServiceIntegration()) {
+            mPrintService.getDiscovery().start(this);
+        }
 
         mPrintManager.addPrintServicesChangeListener(this, null);
         onPrintServicesChanged();
 
         mPrintManager.addPrintServiceRecommendationsChangeListener(this, null);
         onPrintServiceRecommendationsChanged();
+
+        if (Flags.ippPrintServiceIntegration()) {
+            mPrintService.getDiscovery().start(this);
+        }
     }
 
     @Override
@@ -304,6 +311,13 @@ class LocalDiscoverySession extends PrinterDiscoverySession implements Discovery
      * @return {@code true} iff the printer should be suppressed
      */
     private boolean isHandledByOtherService(LocalPrinter printer) {
+        if (Flags.ippPrintServiceIntegration()) {
+            if (mEnabledServices.contains(IPP_PRINT_SERVICE_NAME)
+                    && printer.isIpp() && !printer.isManual() && !printer.isP2p()) {
+                return true;
+            }
+        }
+
         InetAddress address = printer.getAddress();
         if (address == null) {
             return false;

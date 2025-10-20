@@ -244,6 +244,21 @@ class LocalPrinter implements CapabilitiesCache.OnLocalPrinterCapabilities {
         return mDiscoveredPrinter.uuid;
     }
 
+    /** Return whether or not this printer is an IPP or IPPS printer */
+    public boolean isIpp() {
+        return mDiscoveredPrinter.isIpp();
+    }
+
+    /** Return whether or not this printer was manually added */
+    public boolean isManual() {
+        return mDiscoveredPrinter.isManual;
+    }
+
+    /** Return whether or not this printer is P2P */
+    public boolean isP2p() {
+        return P2pUtils.isP2p(mDiscoveredPrinter);
+    }
+
     @Override
     public String toString() {
         return mDiscoveredPrinter.toString();
