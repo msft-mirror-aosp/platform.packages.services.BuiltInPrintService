@@ -60,6 +60,9 @@ android_app {
         "libwfds",
         "libcups",
     ],
+    required: [
+        "default-permissions_bips.xml",
+    ],
 }
 
 genrule {
@@ -93,4 +96,10 @@ android_robolectric_test {
     // separate unstrict test when we figure out how to properly
     // shadow some of the printing framework from BIPS.
     strict_mode: true,
+}
+
+prebuilt_etc {
+    name: "default-permissions_bips.xml",
+    relative_install_path: "default-permissions",
+    srcs: ["default-permissions_bips.xml"],
 }
