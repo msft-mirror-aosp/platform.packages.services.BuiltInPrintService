@@ -31,3 +31,13 @@ flag {
         purpose: PURPOSE_BUGFIX
     }
 }
+
+flag {
+    name: "mopria_26q2_fixes"
+    namespace: "printing"
+    description: "Mopria-provided bug fixes for 26Q2 release."
+    bug: "470364937"
+    metadata {
+        purpose: PURPOSE_BUGFIX
+    }
+}

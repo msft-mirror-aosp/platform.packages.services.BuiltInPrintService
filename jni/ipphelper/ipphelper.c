@@ -295,7 +295,8 @@ ipp_status_t get_PrinterState(http_t *http, char *printer_uri,
 
     // Requested printer attributes
     static const char *pattrs[] = {"printer-make-and-model", "printer-state",
-            "printer-state-message", "printer-state-reasons"};
+                                   "printer-state-message", "printer-state-reasons",
+                                   "printer-is-accepting-jobs"};
 
     ipp_t *request = NULL;
     ipp_t *response = NULL;
@@ -326,9 +327,24 @@ ipp_status_t get_PrinterState(http_t *http, char *printer_uri,
         LOGE("get_PrinterState(): response is null: ipp_status %d", ipp_status);
         printer_state_dyn->printer_status = PRINT_STATUS_UNABLE_TO_CONNECT;
         printer_state_dyn->printer_reasons[0] = PRINT_STATUS_UNABLE_TO_CONNECT;
+        if (com_android_bips_flags_mopria_26q2_fixes()) {
+            printer_state_dyn->printer_is_accepting_jobs = 0;
+        }
     } else {
         ipp_status = cupsLastError();
         LOGD("ipp CUPS last ERROR: %d, %s", ipp_status, ippErrorString(ipp_status));
+        ipp_attribute_t *attrptr;
+        if (com_android_bips_flags_mopria_26q2_fixes()) {
+            if ((attrptr = ippFindAttribute(response, "printer-is-accepting-jobs",
+                                            IPP_TAG_BOOLEAN)) == NULL) {
+                printer_state_dyn->printer_is_accepting_jobs = 1;  // Assume true if not present
+                LOGD("get_PrinterState(): printer-is-accepting-jobs not found, assume true");
+            } else {
+                printer_state_dyn->printer_is_accepting_jobs = ippGetBoolean(attrptr, 0);
+                LOGD("get_PrinterState(): printer-is-accepting-jobs %u",
+                     printer_state_dyn->printer_is_accepting_jobs);
+            }
+        }
         get_PrinterStateReason(response, printer_state, printer_state_dyn);
         LOGD("get_PrinterState(): printer_state_dyn->printer_status: %d",
                 printer_state_dyn->printer_status);
