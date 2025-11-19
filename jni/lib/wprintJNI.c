@@ -89,6 +89,7 @@ static jfieldID _LocalPrinterCapabilitiesField__supportedMediaSizes;
 static jfieldID _LocalPrinterCapabilitiesField__nativeData;
 static jfieldID _LocalPrinterCapabilitiesField__certificate;
 static jfieldID _LocalPrinterCapabilitiesField__mediaReadySizes;
+static jfieldID _LocalPrinterCapabilitiesField__print_wfds;
 static jfieldID _LocalPrinterCapabilitiesField__mopriaCertified;
 static jfieldID _LocalPrinterCapabilitiesField__markerNames;
 static jfieldID _LocalPrinterCapabilitiesField__markerTypes;
@@ -604,6 +605,8 @@ static void _initJNI(JNIEnv *env, jobject callbackReceiver, jstring fakeDir) {
             env, _LocalPrinterCapabilitiesClass, "certificate", "[B");
     _LocalPrinterCapabilitiesField__mediaReadySizes = (*env)->GetFieldID(
             env, _LocalPrinterCapabilitiesClass, "mediaReadySizes", "[I");
+    _LocalPrinterCapabilitiesField__print_wfds = (*env)->GetFieldID(
+            env, _LocalPrinterCapabilitiesClass, "printWfds", "Ljava/lang/String;");
     _LocalPrinterCapabilitiesField__markerNames = (*env)->GetFieldID(
             env, _LocalPrinterCapabilitiesClass, "markerNames", "[Ljava/lang/String;");
     _LocalPrinterCapabilitiesField__markerTypes = (*env)->GetFieldID(
@@ -956,6 +959,8 @@ static int _convertPrinterCaps_to_Java(JNIEnv *env, jobject javaPrinterCaps,
             wprintPrinterCaps->uuid);
     stringToJava(env, javaPrinterCaps, _LocalPrinterCapabilitiesField__location,
             wprintPrinterCaps->location);
+    stringToJava(env, javaPrinterCaps, _LocalPrinterCapabilitiesField__print_wfds,
+                 wprintPrinterCaps->print_wfds);
     if (com_android_bips_flags_printing_telemetry()) {
       stringToJava(env, javaPrinterCaps, _LocalPrinterCapabilitiesField__makeAndModel,
             // make represents make and model.

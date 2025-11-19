@@ -76,6 +76,7 @@ static const char *pattrs[] = {
         "job-pages-per-set-supported",
         "mopria-certified",
         "mopria_certified",
+        "print_wfds",
         "marker-colors",
         "marker-high-levels",
         "marker-levels",

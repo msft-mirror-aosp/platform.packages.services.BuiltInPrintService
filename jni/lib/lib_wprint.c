@@ -1745,6 +1745,7 @@ status_t wprintGetCapabilities(const wprint_connect_info_t *connect_info,
         for (index = 0; index < printer_cap->numSupportedResolutions; index++) {
             LOGD("\t (%d dpi)", printer_cap->supportedResolutions[index]);
         }
+        LOGD("\tprint_wfds: %s", printer_cap->print_wfds);
     }
     LOGD("wprintGetCapabilities: Exit");
     return result;
