@@ -542,7 +542,7 @@ static void _send_status_callback(_job_queue_t *jq, wprint_job_callback_params_t
  * Handles a new status message from the printer. Based on the status of wprint and the printer,
  * this function will start/end a job, send another page, or return blocking errors.
  */
-static void _job_status_callback(const printer_state_dyn_t *new_status,
+static void _printer_status_callback(const printer_state_dyn_t *new_status,
         const printer_state_dyn_t *old_status, void *param) {
     wprint_job_callback_params_t cb_param;
     _job_queue_t *jq = (_job_queue_t *) param;
@@ -554,13 +554,13 @@ static void _job_status_callback(const printer_state_dyn_t *new_status,
     cb_param.certificate = jq->certificate;
     cb_param.certificate_len = jq->certificate_len;
 
-    LOGD("_job_status_callback(): current printer state: %d", statusnew);
+    LOGD("_printer_status_callback(): current printer state: %d", statusnew);
     blocked_reasons = 0;
     for (i = 0; i <= PRINT_STATUS_MAX_STATE; i++) {
         if (new_status->printer_reasons[i] == PRINT_STATUS_MAX_STATE) {
             break;
         }
-        LOGD("_job_status_callback(): blocking reason %d: %d", i, new_status->printer_reasons[i]);
+        LOGD("_printer_status_callback(): blocking reason %d: %d", i, new_status->printer_reasons[i]);
         blocked_reasons |= (1 << new_status->printer_reasons[i]);
     }
 
@@ -590,8 +590,7 @@ static void _job_status_callback(const printer_state_dyn_t *new_status,
             break;
 
         case PRINT_STATUS_PRINTING:
-            // print job is unblocked but job-id is not generated
-            if (new_status->job_id == -1) {
+            if (com_android_bips_flags_mopria_26q2_fixes() || new_status->job_id == -1) {
                 sem_post(&_job_start_wait_sem);
                 _lock();
                 if ((jq->job_state != JOB_STATE_RUNNING) ||
@@ -618,8 +617,7 @@ static void _job_status_callback(const printer_state_dyn_t *new_status,
             if ((jq->job_state != JOB_STATE_BLOCKED) || (jq->blocked_reasons != blocked_reasons)) {
                 jq->job_state = JOB_STATE_BLOCKED;
                 jq->blocked_reasons = blocked_reasons;
-                // print job is blocked at the initial stage and job-id is not generated
-                if (new_status->job_id == -1) {
+                if (com_android_bips_flags_mopria_26q2_fixes() || new_status->job_id == -1) {
                     _send_status_callback(jq, cb_param, JOB_BLOCKED, blocked_reasons, OK);
                 }
             }
@@ -668,7 +666,8 @@ static void _print_job_state_callback(const job_state_dyn_t *new_state, void *pa
             sem_post(&_job_start_wait_sem);
             // clear errors
             _lock();
-            if (jq->job_state != JOB_STATE_RUNNING) {
+            // Do not resume printing in blocked state, handled by printer-state callbacks
+            if (jq->job_state != JOB_STATE_RUNNING && (!com_android_bips_flags_mopria_26q2_fixes() || jq->job_state != JOB_STATE_BLOCKED)) {
                 jq->job_state = JOB_STATE_RUNNING;
                 _send_status_callback(jq, cb_param, JOB_RUNNING, 0, OK);
             }
@@ -713,7 +712,7 @@ static void _print_job_state_callback(const job_state_dyn_t *new_state, void *pa
 
 static void *_job_status_thread(void *param) {
     _job_queue_t *jq = (_job_queue_t *) param;
-    (jq->status_ifc->start)(jq->status_ifc, _job_status_callback, _print_job_state_callback, param);
+    (jq->status_ifc->start)(jq->status_ifc, _printer_status_callback, _print_job_state_callback, param);
     return NULL;
 }
 
