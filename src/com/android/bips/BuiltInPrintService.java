@@ -59,7 +59,7 @@ import java.lang.ref.WeakReference;
 public class BuiltInPrintService extends PrintService {
     private static final String TAG = BuiltInPrintService.class.getSimpleName();
     private static final boolean DEBUG = false;
-    private static final int IPPS_PRINTER_DELAY = 150;
+    private static final int IPP_PRINTER_DELAY = 150;
     private static final int P2P_DISCOVERY_DELAY = 1000;
     private static final String CHANNEL_ID_SECURITY = "security";
     private static final String TAG_CERTIFICATE_REQUEST =
@@ -133,8 +133,8 @@ public class BuiltInPrintService extends PrintService {
         // Delay IPP results so that IPP is preferred
         Discovery ippDiscovery = new MdnsDiscovery(this, MdnsDiscovery.SCHEME_IPP);
         Discovery ippsDiscovery = new MdnsDiscovery(this, MdnsDiscovery.SCHEME_IPPS);
-        mMdnsDiscovery = new MultiDiscovery(ippDiscovery, new DelayedDiscovery(ippsDiscovery, 0,
-                IPPS_PRINTER_DELAY));
+        mMdnsDiscovery = new MultiDiscovery(ippsDiscovery, new DelayedDiscovery(ippDiscovery, 0,
+                IPP_PRINTER_DELAY));
         mP2pDiscovery = new P2pDiscovery(this);
         mManualDiscovery = new ManualDiscovery(this);
 
