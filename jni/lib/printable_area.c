@@ -115,10 +115,18 @@ void printable_area_get(wprint_job_params_t *job_params, float top_margin,
     job_params->height = (job_params->printable_area_height -
             (job_params->print_top_margin + job_params->print_bottom_margin));
 
-    LOGD("printable_area_get(): source dimensions: %fx%f",
-         job_params->source_width, job_params->source_height);
-    LOGD("printable_area_get(): page dimensions: %fx%f",
+    LOGD("printable_area_get(): selected media dimensions inches: %fx%f",
          job_params->page_width, job_params->page_height);
+
+    LOGD("printable_area_get(): selected media dimensions pixels: %ux%u",
+         (unsigned int) _MI_TO_PIXELS(
+                 job_params->page_width * 1000, job_params->pixel_units),
+         (unsigned int) _MI_TO_PIXELS(
+                 job_params->page_height * 1000, job_params->pixel_units));
+
+    LOGD("printable_area_get(): printable area dimensions: %ux%u",
+         job_params->printable_area_width, job_params->printable_area_height);
+
 }
 
 void printable_area_get_default_margins(const wprint_job_params_t *job_params,

@@ -87,6 +87,20 @@ status_t wprint_image_set_output_properties(wprint_image_info_t *image_info,
         unsigned int top_margin, unsigned int left_margin, unsigned int right_margin,
         unsigned int bottom_margin, unsigned int render_flags, unsigned int max_decode_stripe,
         unsigned int concurrent_stripes, unsigned int padding_options, pcl_t pclenum) {
+    if (com_android_bips_flags_mopria_26q2_fixes()) {
+        // store printable area
+        image_info->printable_width = printable_width;
+        image_info->printable_height = printable_height;
+
+        // reset margins for PCLm as it does not require margin to be converted to padding
+        if (pclenum == PCLm) {
+            top_margin = left_margin = right_margin = bottom_margin = 0;
+        }
+    }
+
+    LOGD("printable area: image_info->printable_width and image_info->printable_height %dx%d",
+         image_info->printable_width, image_info->printable_height);
+
     // validate rotation
     switch (rotation) {
         default:
@@ -119,14 +133,16 @@ status_t wprint_image_set_output_properties(wprint_image_info_t *image_info,
     // store padding options
     image_info->padding_options = (padding_options & PAD_ALL);
 
-    // store margin adjusted printable area
-    if (pclenum == PCLPWG) {
-        // no need to adjust the margins again for PWG raster
-        image_info->printable_width = printable_width;
-        image_info->printable_height = printable_height;
-    } else {
-        image_info->printable_width = printable_width - (left_margin + right_margin);
-        image_info->printable_height = printable_height - (top_margin + bottom_margin);
+    if (!com_android_bips_flags_mopria_26q2_fixes()) {
+        // store margin adjusted printable area
+        if (pclenum == PCLPWG) {
+            // no need to adjust the margins again for PWG raster
+            image_info->printable_width = printable_width;
+            image_info->printable_height = printable_height;
+        } else {
+            image_info->printable_width = printable_width - (left_margin + right_margin);
+            image_info->printable_height = printable_height - (top_margin + bottom_margin);
+        }
     }
 
     // store rendering parameters
@@ -261,6 +277,8 @@ status_t wprint_image_set_output_properties(wprint_image_info_t *image_info,
             // update the output size
             image_output_width /= image_info->scaled_sample_size;
             image_output_height /= image_info->scaled_sample_size;
+            LOGD("subsampled image size image_output_width and image_output_height: %dx%d",
+                 image_output_width, image_output_height);
         }
 
         /*
@@ -307,6 +325,9 @@ status_t wprint_image_set_output_properties(wprint_image_info_t *image_info,
     image_info->sampled_width = (image_info->width / image_info->scaled_sample_size);
     image_info->sampled_height = (image_info->height / image_info->scaled_sample_size);
 
+    LOGD("image_info->sampled_width and image_info->sampled_height: %dx%d",
+         image_info->sampled_width, image_info->sampled_height);
+
     // do we have any additional scaling to do?
     if ((image_info->render_flags & (RENDER_FLAG_AUTO_SCALE | RENDER_FLAG_AUTO_FIT))
             || (native_scaling != 1.0f)) {
@@ -344,6 +365,8 @@ status_t wprint_image_set_output_properties(wprint_image_info_t *image_info,
             image_info->scaled_height = native_image_output_height;
             image_info->scaled_width = native_image_output_width;
         }
+        LOGD("image_info->scaled_width and image_info->scaled_height: %dx%d",
+             image_info->scaled_width, image_info->scaled_height);
         image_info->scaling_needed = TRUE;
 
         /*
@@ -570,7 +593,7 @@ status_t wprint_image_set_output_properties(wprint_image_info_t *image_info,
     LOGD("wprint_image_set_output_properties(): image rotation: %d", image_info->rotation);
     LOGD("wprint_image_set_output_properties(): final render flags - %d (0x%8.8x)",
          image_info->render_flags, image_info->render_flags);
-    LOGD("wprint_image_set_output_properties(): printable area after margins - %dx%d",
+    LOGD("wprint_image_set_output_properties(): printable area after padding - %dx%d",
          image_info->printable_width, image_info->printable_height);
     LOGD("wprint_image_set_output_properties(): output_padding: Top:%d Left:%d Right:%d Bottom:%d",
          image_info->output_padding_top, image_info->output_padding_left,

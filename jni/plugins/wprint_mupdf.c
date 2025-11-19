@@ -74,6 +74,8 @@ static status_t _mupdf_get_hdr(wprint_image_info_t *image_info) {
 
     long now = get_millis();
 
+    LOGI("Calling renderPageStripe with imageWidth = %d, imageHeight = %d", imageWidth,
+         imageHeight);
     result = pdf_render->renderPageStripe(pdf_render, image_info->decoder_data.page, imageWidth,
             imageHeight, zoom, rawBuffer);
     if (result != OK) {
