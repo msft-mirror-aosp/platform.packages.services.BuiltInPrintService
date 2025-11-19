@@ -64,8 +64,6 @@ static jfieldID _LocalJobParamsField__document_scaling;
 static jfieldID _LocalJobParamsField__job_name;
 static jfieldID _LocalJobParamsField__job_originating_user_name;
 static jfieldID _LocalJobParamsField__pdf_render_resolution;
-static jfieldID _LocalJobParamsField__source_width;
-static jfieldID _LocalJobParamsField__source_height;
 static jfieldID _LocalJobParamsField__shared_photo;
 static jfieldID _LocalJobParamsField__print_at_scale;
 
@@ -557,10 +555,6 @@ static void _initJNI(JNIEnv *env, jobject callbackReceiver, jstring fakeDir) {
             env, _LocalJobParamsClass, "job_originating_user_name", "Ljava/lang/String;");
     _LocalJobParamsField__pdf_render_resolution = (*env)->GetFieldID(env, _LocalJobParamsClass,
             "pdf_render_resolution", "I");
-    _LocalJobParamsField__source_width = (*env)->GetFieldID(env, _LocalJobParamsClass,
-                                                            "source_width", "F");
-    _LocalJobParamsField__source_height = (*env)->GetFieldID(env, _LocalJobParamsClass,
-                                                             "source_height", "F");
 
     // fill out static accessors for LocalPrinterCapabilities
     _LocalPrinterCapabilitiesClass = (jclass) (*env)->NewGlobalRef(env, (*env)->FindClass(
@@ -1152,10 +1146,6 @@ static int _convertJobParams_to_C(JNIEnv *env, jobject javaJobParams,
             env, javaJobParams, _LocalJobParamsField__job_margin_right);
     wprintJobParams->job_bottom_margin = (float) (*env)->GetFloatField(
             env, javaJobParams, _LocalJobParamsField__job_margin_bottom);
-    wprintJobParams->source_height = (float) (*env)->GetFloatField(
-            env, javaJobParams, _LocalJobParamsField__source_height);
-    wprintJobParams->source_width = (float) (*env)->GetFloatField(
-            env, javaJobParams, _LocalJobParamsField__source_width);
     wprintJobParams->print_at_scale = (bool) (*env)->GetBooleanField(env, javaJobParams,
             _LocalJobParamsField__print_at_scale);
 
@@ -1344,10 +1334,6 @@ static int _covertJobParams_to_Java(JNIEnv *env, jobject javaJobParams,
             wprintJobParams->job_right_margin);
     (*env)->SetFloatField(env, javaJobParams, _LocalJobParamsField__job_margin_bottom,
             wprintJobParams->job_bottom_margin);
-    (*env)->SetFloatField(env, javaJobParams, _LocalJobParamsField__source_width,
-            wprintJobParams->source_width);
-    (*env)->SetFloatField(env, javaJobParams, _LocalJobParamsField__source_height,
-            wprintJobParams->source_height);
 
     return OK;
 }
