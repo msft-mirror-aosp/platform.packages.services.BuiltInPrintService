@@ -73,7 +73,8 @@ static const char *pattrs[] = {
         "print-scaling-supported",
         "print-scaling-default",
         "job-pages-per-set-supported",
-        "mopria-certified"
+        "mopria-certified",
+        "mopria_certified"
 };
 
 /*
@@ -121,6 +122,7 @@ static const char *pattrs_printer_info[] = {
         "print-scaling-default",
         "job-pages-per-set-supported",
         "mopria-certified",
+        "mopria_certified",
         "marker-colors",
         "marker-high-levels",
         "marker-levels",
