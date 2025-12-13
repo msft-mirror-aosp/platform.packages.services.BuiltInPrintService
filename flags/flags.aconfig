@@ -29,3 +29,13 @@ flag {
     description: "Suppress printers if they are supported by IppPrintService."
     bug: "444253321"
 }
+
+flag {
+    name: "collate_by_default"
+    namespace: "printing"
+    description: "Always request collated printouts if the printer supports it."
+    bug: "468447980"
+    metadata {
+        purpose: PURPOSE_BUGFIX
+    }
+}

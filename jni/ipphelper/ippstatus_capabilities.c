@@ -74,7 +74,8 @@ static const char *pattrs[] = {
         "print-scaling-default",
         "job-pages-per-set-supported",
         "mopria-certified",
-        "mopria_certified"
+        "mopria_certified",
+        "multiple-document-handling-supported",
 };
 
 /*
@@ -129,7 +130,8 @@ static const char *pattrs_printer_info[] = {
         "marker-low-levels",
         "marker-names",
         "marker-types",
-        "printer-icons"
+        "printer-icons",
+        "multiple-document-handling-supported",
 };
 
 static void _init(const ifc_printer_capabilities_t *this_p,
