@@ -87,9 +87,11 @@
     </string>
 
     <!-- Explain purpose of recommendation fragment [CHAR LIMIT=UNLIMITED] -->
-    <string name="recommendation_summary">The Default Print Service provides basic options. Other options for this printer may be available from another print service.</string>
+    <string name="recommendation_summary">The default print service provides basic options. For advanced options additional print services are available.</string>
     <!-- Heading for services that are not currently installed, but recommended [CHAR LIMIT=UNLIMITED] -->
     <string name="recommendations_heading">Recommended Services</string>
+    <!-- Heading for link to services that are not currently installed, but recommended [CHAR LIMIT=UNLIMITED] -->
+    <string name="recommendation_link">Additional print services</string>
     <!-- Summary for recommended services that are not installed [CHAR LIMIT=UNLIMITED] -->
     <string name="recommendation_install_summary">Select to install</string>
     <!-- Summary for recommended services that are installed [CHAR LIMIT=UNLIMITED] -->
@@ -122,5 +124,48 @@
 
     <!-- Share-to-print label [CHAR LIMIT=20] -->
     <string name="print">Print</string>
+
+    <!-- Printer Information Screen Strings -->
+    <string name="yes">Yes</string>
+    <string name="unknown">Unknown</string>
+    <string name="printer_name">Printer name</string>
+    <string name="status">Status</string>
+    <string name="media_ready">Loaded paper sizes</string>
+    <string name="supply_levels">Supply levels</string>
+    <string name="information">Information</string>
+    <string name="printer_ready">Ready</string>
+    <!-- Printer status messages-->
+    <string name="printer_state__printing">Printing</string>
+    <string name="printer_state__offline">Offline</string>
+    <string name="printer_state__check_printer">Check printer</string>
+
+    <!-- Supply levels -->
+
+    <!-- Accessibility description of the percent of cyan printer ink available -->
+    <string name="marker_level_cyan">Cyan. %1$d%%</string>
+    <!-- Accessibility description of the percent of magenta printer ink available -->
+    <string name="marker_level_magenta">Magenta. %1$d%%</string>
+    <!-- Accessibility description of the percent of yellow printer ink available -->
+    <string name="marker_level_yellow">Yellow. %1$d%%</string>
+    <!-- Accessibility description of the percent of black printer ink available -->
+    <string name="marker_level_black">Black. %1$d%%</string>
+    <!-- Accessibility description of the percent of red printer ink available -->
+    <string name="marker_level_red">Red. %1$d%%</string>
+    <!-- Accessibility description of the percent of green printer ink available -->
+    <string name="marker_level_green">Green. %1$d%%</string>
+    <!-- Accessibility description of the percent of blue printer ink available -->
+    <string name="marker_level_blue">Blue. %1$d%%</string>
+    <!-- Accessibility description of the percent of light gray printer ink available -->
+    <string name="marker_level_ltgray">Light gray. %1$d%%</string>
+    <!-- Accessibility description of the percent of dark gray printer ink available -->
+    <string name="marker_level_dkgray">Dark gray. %1$d%%</string>
+    <!-- Accessibility description of the percent of light cyan printer ink available -->
+    <string name="marker_level_ltcyan">Light cyan. %1$d%%</string>
+    <!-- Accessibility description of the percent of light magenta printer ink available -->
+    <string name="marker_level_ltmagenta">Light magenta. %1$d%%</string>
+    <!-- Accessibility description of the percent of violet printer ink available -->
+    <string name="marker_level_violet">Violet. %1$d%%</string>
+    <!-- Accessibility description of the percent of unknown color printer ink available. The coloris represented as a hex value -->
+    <string name="marker_level_custom">Custom color #%1$02X%2$02X%3$02X. %4$d%%</string>
 
 </resources>

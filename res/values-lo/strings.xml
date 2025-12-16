@@ -60,8 +60,9 @@
     <string name="forget" msgid="892068061425802502">"ລືມ"</string>
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"ເຊື່ອມຕໍ່ຜ່ານ Wi-Fi Direct"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"ເຊື່ອມຕໍ່ຜ່ານເຄືອຂ່າຍປັດຈຸບັນທີ່ <xliff:g id="IP_ADDRESS">%1$s</xliff:g>"</string>
-    <string name="recommendation_summary" msgid="2979700524954307566">"ບໍລິການການ​ພິມ​ມາດ​ຕະ​ຖານສະໜອງຕົວເລືອກພື້ນຖານໃຫ້. ຕົວເລືອກອື່ນໆສຳລັບເຄື່ອງພິມນີ້ອາດມີໃຫ້ໃຊ້ໄດ້ຈາກບໍລິການພິມອື່ນ."</string>
+    <string name="recommendation_summary" msgid="7827367046167645850">"ບໍລິການການພິມມາດຕະຖານມີຕົວເລືອກພື້ນຖານຕ່າງໆ. ບໍລິການເພີ່ມເຕີມກ່ຽວກັບການພິມຈະມີຕົວເລືອກຂັ້ນສູງພ້ອມໃຫ້ນຳໃຊ້."</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"ບໍລິການທີ່ແນະນຳ"</string>
+    <string name="recommendation_link" msgid="8300104407684336172">"ບໍລິການເພີ່ມເຕີມກ່ຽວກັບການພິມ"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"ເລືອກເພື່ອຕິດຕັ້ງ"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"ເລືອກເພື່ອເປີດໃຊ້"</string>
     <string name="recommendation_manage" msgid="6861960243377871340">"ຈັດການບໍລິການ"</string>
@@ -76,4 +77,28 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"ບໍລິການພິມມາດຕະຖານຕ້ອງການການອະນຸຍາດອຸປະກອນທີ່ຢູ່ໃກ້ຄຽງເພື່ອຊອກຫາເຄື່ອງພິມໃກ້ຄຽງ."</string>
     <string name="fix" msgid="7784394272611365393">"ກວດສອບສິດອະນຸຍາດ"</string>
     <string name="print" msgid="7851318072404916362">"ພິມ"</string>
+    <string name="yes" msgid="1887141030777316285">"ແມ່ນ"</string>
+    <string name="unknown" msgid="2526777102391303730">"ບໍ່ຮູ້ຈັກ"</string>
+    <string name="printer_name" msgid="386653719801075739">"ຊື່ເຄື່ອງພິມ"</string>
+    <string name="status" msgid="5948149021115901261">"ສະຖານະ"</string>
+    <string name="media_ready" msgid="7205545458156298899">"ຂະໜາດເຈ້ຍທີ່ມີຢູ່ໃນເຄື່ອງ"</string>
+    <string name="supply_levels" msgid="5058409966884929190">"ລະດັບຂອງສິ່ງຕ່າງໆທີ່ຈຳເປັນຕໍ່ການເຮັດວຽກ"</string>
+    <string name="information" msgid="7896978544179559432">"ຂໍ້ມູນ"</string>
+    <string name="printer_ready" msgid="1602057851194259669">"ພ້ອມນຳໃຊ້"</string>
+    <string name="printer_state__printing" msgid="596624975473301735">"ກຳລັງພິມ"</string>
+    <string name="printer_state__offline" msgid="6755924316852857893">"ອອບລາຍ"</string>
+    <string name="printer_state__check_printer" msgid="4854932117258619033">"ກວດສອບເຄື່ອງພິມ"</string>
+    <string name="marker_level_cyan" msgid="5336603473668190361">"ສີຟ້າອົມຂຽວ. %1$d%%"</string>
+    <string name="marker_level_magenta" msgid="7522291481654771752">"ສີມ່ວງອົມແດງ. %1$d%%"</string>
+    <string name="marker_level_yellow" msgid="1394790774846459656">"ສີເຫຼືອງ. %1$d%%"</string>
+    <string name="marker_level_black" msgid="8169613731999901161">"ສີດຳ. %1$d%%"</string>
+    <string name="marker_level_red" msgid="6322728797617451050">"ສີແດງ. %1$d%%"</string>
+    <string name="marker_level_green" msgid="4341485089035826733">"ສີຂຽວ. %1$d%%"</string>
+    <string name="marker_level_blue" msgid="6093087793287535042">"ສີຟ້າ. %1$d%%"</string>
+    <string name="marker_level_ltgray" msgid="35187469450032645">"ສີເທົາອ່ອນ. %1$d%%"</string>
+    <string name="marker_level_dkgray" msgid="5314300850228586851">"ສີເທົາເຂັ້ມ. %1$d%%"</string>
+    <string name="marker_level_ltcyan" msgid="6793088455903750830">"ສີຟ້າອົມຂຽວອ່ອນ. %1$d%%"</string>
+    <string name="marker_level_ltmagenta" msgid="3104489452878039184">"ສີມ່ວງອົມແດງອ່ອນ. %1$d%%"</string>
+    <string name="marker_level_violet" msgid="1616979275172835644">"ສີມ່ວງ. %1$d%%"</string>
+    <string name="marker_level_custom" msgid="586736254509490403">"ສີແບບກຳນົດເອງ #%1$02X%2$02X%3$02X. %4$d%%"</string>
 </resources>

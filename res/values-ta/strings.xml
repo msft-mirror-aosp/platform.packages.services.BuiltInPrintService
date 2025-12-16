@@ -60,8 +60,9 @@
     <string name="forget" msgid="892068061425802502">"அகற்று"</string>
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"வைஃபை டைரக்ட் மூலமாக இணைக்கிறது"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"<xliff:g id="IP_ADDRESS">%1$s</xliff:g> இல் தற்போதைய நெட்வொர்க் மூலம் இணைக்கிறது"</string>
-    <string name="recommendation_summary" msgid="2979700524954307566">"இயல்புநிலை அச்சிடுதல் சேவையானது அடிப்படையான விருப்பத்தேர்வுகளை வழங்குகிறது. இந்த பிரிண்ட்டருக்கான மற்ற விருப்பத்தேர்வுகள் வேறு அச்சிடுதல் சேவை மூலம் கிடைக்கக்கூடும்."</string>
+    <string name="recommendation_summary" msgid="7827367046167645850">"இயல்பு பிரிண்ட் சேவை அடிப்படையான விருப்பங்களை வழங்குகிறது. மேம்பட்ட விருப்பங்களுக்கு, கூடுதல் பிரிண்ட் சேவைகள் கிடைக்கின்றன."</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"பரிந்துரைக்கப்படும் சேவைகள்"</string>
+    <string name="recommendation_link" msgid="8300104407684336172">"கூடுதல் பிரிண்ட் சேவைகள்"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"நிறுவுவதற்கு தேர்வு செய்யவும்"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"இயக்குவதற்குத் தேர்ந்தெடுக்கவும்"</string>
     <string name="recommendation_manage" msgid="6861960243377871340">"சேவைகளை நிர்வகியுங்கள்"</string>
@@ -76,4 +77,28 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"அருகிலுள்ள பிரிண்டர்களைக் கண்டறிய, இயல்புநிலைப் பிரிண்ட் சேவைக்கு \'அருகிலுள்ள சாதனங்கள்\' அம்சத்திற்கான அனுமதி தேவை."</string>
     <string name="fix" msgid="7784394272611365393">"அனுமதியைச் சரிபார்"</string>
     <string name="print" msgid="7851318072404916362">"அச்சிடு"</string>
+    <string name="yes" msgid="1887141030777316285">"ஆம்"</string>
+    <string name="unknown" msgid="2526777102391303730">"தெரியவில்லை"</string>
+    <string name="printer_name" msgid="386653719801075739">"பிரிண்ட்டர் பெயர்"</string>
+    <string name="status" msgid="5948149021115901261">"நிலை"</string>
+    <string name="media_ready" msgid="7205545458156298899">"ஏற்றப்பட்டிருக்கும் பேப்பர் அளவுகள்"</string>
+    <string name="supply_levels" msgid="5058409966884929190">"சப்ளை நிலைகள்"</string>
+    <string name="information" msgid="7896978544179559432">"தகவல்கள்"</string>
+    <string name="printer_ready" msgid="1602057851194259669">"தயார்"</string>
+    <string name="printer_state__printing" msgid="596624975473301735">"அச்சிடுகிறது"</string>
+    <string name="printer_state__offline" msgid="6755924316852857893">"ஆஃப்லைன்"</string>
+    <string name="printer_state__check_printer" msgid="4854932117258619033">"பிரிண்ட்டரைச் சரிபாருங்கள்"</string>
+    <string name="marker_level_cyan" msgid="5336603473668190361">"சியான். %1$d%%"</string>
+    <string name="marker_level_magenta" msgid="7522291481654771752">"மெஜந்தா. %1$d%%"</string>
+    <string name="marker_level_yellow" msgid="1394790774846459656">"மஞ்சள். %1$d%%"</string>
+    <string name="marker_level_black" msgid="8169613731999901161">"கருப்பு. %1$d%%"</string>
+    <string name="marker_level_red" msgid="6322728797617451050">"சிவப்பு. %1$d%%"</string>
+    <string name="marker_level_green" msgid="4341485089035826733">"பச்சை. %1$d%%"</string>
+    <string name="marker_level_blue" msgid="6093087793287535042">"நீலம். %1$d%%"</string>
+    <string name="marker_level_ltgray" msgid="35187469450032645">"வெளிர் சாம்பல். %1$d%%"</string>
+    <string name="marker_level_dkgray" msgid="5314300850228586851">"அடர் சாம்பல். %1$d%%"</string>
+    <string name="marker_level_ltcyan" msgid="6793088455903750830">"வெளிர் சியான். %1$d%%"</string>
+    <string name="marker_level_ltmagenta" msgid="3104489452878039184">"வெளிர் மெஜந்தா. %1$d%%"</string>
+    <string name="marker_level_violet" msgid="1616979275172835644">"ஊதா. %1$d%%"</string>
+    <string name="marker_level_custom" msgid="586736254509490403">"பிரத்தியேக வண்ணம் #%1$02X%2$02X%3$02X. %4$d%%"</string>
 </resources>

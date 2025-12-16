@@ -60,8 +60,9 @@
     <string name="forget" msgid="892068061425802502">"Заборави"</string>
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"Повезује се преко WiFi Direct-а"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"Повезује се преко тренутне мреже помоћу IP адресе <xliff:g id="IP_ADDRESS">%1$s</xliff:g>"</string>
-    <string name="recommendation_summary" msgid="2979700524954307566">"Подразумевана услуга штампања пружа основне опције. Остале опције овог штампача су можда доступне у другој услузи штампања."</string>
+    <string name="recommendation_summary" msgid="7827367046167645850">"Подразумевана услуга штампања пружа основне опције. За напредне опције су доступне додатне услуге штампања."</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"Препоручене услуге"</string>
+    <string name="recommendation_link" msgid="8300104407684336172">"Додатне услуге штампања"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"Изаберите да бисте инсталирали"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"Изаберите да бисте омогућили"</string>
     <string name="recommendation_manage" msgid="6861960243377871340">"Управљајте услугама"</string>
@@ -76,4 +77,28 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"Подразумевана услуга штампања треба да има дозволу за уређаје у близини да би пронашла штампаче у близини."</string>
     <string name="fix" msgid="7784394272611365393">"Прикажи дозволу"</string>
     <string name="print" msgid="7851318072404916362">"Штампај"</string>
+    <string name="yes" msgid="1887141030777316285">"Да"</string>
+    <string name="unknown" msgid="2526777102391303730">"Непознато"</string>
+    <string name="printer_name" msgid="386653719801075739">"Назив штампача"</string>
+    <string name="status" msgid="5948149021115901261">"Статус"</string>
+    <string name="media_ready" msgid="7205545458156298899">"Уметнуте величине папира"</string>
+    <string name="supply_levels" msgid="5058409966884929190">"Нивои залиха"</string>
+    <string name="information" msgid="7896978544179559432">"Информације"</string>
+    <string name="printer_ready" msgid="1602057851194259669">"Спремно"</string>
+    <string name="printer_state__printing" msgid="596624975473301735">"Штампање"</string>
+    <string name="printer_state__offline" msgid="6755924316852857893">"Офлајн"</string>
+    <string name="printer_state__check_printer" msgid="4854932117258619033">"Проверите штампач"</string>
+    <string name="marker_level_cyan" msgid="5336603473668190361">"Цијан. %1$d%%"</string>
+    <string name="marker_level_magenta" msgid="7522291481654771752">"Циклама. %1$d%%"</string>
+    <string name="marker_level_yellow" msgid="1394790774846459656">"Жута. %1$d%%"</string>
+    <string name="marker_level_black" msgid="8169613731999901161">"Црна. %1$d%%"</string>
+    <string name="marker_level_red" msgid="6322728797617451050">"Црвена. %1$d%%"</string>
+    <string name="marker_level_green" msgid="4341485089035826733">"Зелена. %1$d%%"</string>
+    <string name="marker_level_blue" msgid="6093087793287535042">"Плава. %1$d%%"</string>
+    <string name="marker_level_ltgray" msgid="35187469450032645">"Светлосива. %1$d%%"</string>
+    <string name="marker_level_dkgray" msgid="5314300850228586851">"Тамносива. %1$d%%"</string>
+    <string name="marker_level_ltcyan" msgid="6793088455903750830">"Светлоцијан. %1$d%%"</string>
+    <string name="marker_level_ltmagenta" msgid="3104489452878039184">"Светлоциклама. %1$d%%"</string>
+    <string name="marker_level_violet" msgid="1616979275172835644">"Љубичаста. %1$d%%"</string>
+    <string name="marker_level_custom" msgid="586736254509490403">"Прилагођена боја #%1$02X%2$02X%3$02X. %4$d%%"</string>
 </resources>

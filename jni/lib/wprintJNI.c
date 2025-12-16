@@ -621,13 +621,11 @@ static void _initJNI(JNIEnv *env, jobject callbackReceiver, jstring fakeDir) {
     _LocalPrinterCapabilitiesField__mPrinterIconUris = (*env)->GetFieldID(
             env, _LocalPrinterCapabilitiesClass, "mPrinterIconUris", "[Ljava/lang/String;");
 
-    if (com_android_bips_flags_printer_info_details()) {
-        _WPrintPrinterStatusMonitorClass = (jclass) (*env)->NewGlobalRef(env, (*env)->
-                FindClass(env, "com/android/bips/jni/PrinterStatusMonitor"));
-        _WPrintPrinterStatusMonitorMethod__callbackReceiver = (*env)->
-                GetMethodID(env, _WPrintPrinterStatusMonitorClass, "callbackReceiver",
-                            "(Lcom/android/bips/jni/JobCallbackParams;)V");
-    }
+    _WPrintPrinterStatusMonitorClass = (jclass) (*env)->NewGlobalRef(env, (*env)->
+            FindClass(env, "com/android/bips/jni/PrinterStatusMonitor"));
+    _WPrintPrinterStatusMonitorMethod__callbackReceiver = (*env)->
+            GetMethodID(env, _WPrintPrinterStatusMonitorClass, "callbackReceiver",
+                        "(Lcom/android/bips/jni/JobCallbackParams;)V");
 
     _JobCallbackParamsClass = (jclass) (*env)->NewGlobalRef(env, (*env)->FindClass(
             env, "com/android/bips/jni/JobCallbackParams"));
@@ -995,97 +993,95 @@ static int _convertPrinterCaps_to_Java(JNIEnv *env, jobject javaPrinterCaps,
         }
     }
 
-    if (com_android_bips_flags_printer_info_details()) {
-        stringToJava(env, javaPrinterCaps, _LocalPrinterCapabilitiesField__mopriaCertified,
-                     wprintPrinterCaps->certification);
+    stringToJava(env, javaPrinterCaps, _LocalPrinterCapabilitiesField__mopriaCertified,
+                 wprintPrinterCaps->certification);
 
-        jstring jStr;
-        jobjectArray jPrinterIconArray =
-                (jobjectArray) (*env)->NewObjectArray(env, wprintPrinterCaps->num_printer_icons,
-                                                      (*env)->FindClass(env, "java/lang/String"),
-                                                      (*env)->NewStringUTF(env, ""));
-        for (index = 0; index < wprintPrinterCaps->num_printer_icons; index++) {
-            jStr = (*env)->NewStringUTF(env, wprintPrinterCaps->printer_icons[index]);
-            (*env)->SetObjectArrayElement(env, jPrinterIconArray, index, jStr);
-        }
-
-        (*env)->SetObjectField(env, javaPrinterCaps,
-                               _LocalPrinterCapabilitiesField__mPrinterIconUris,
-                               jPrinterIconArray);
-
-        jobjectArray jMarkerTypesArray =
-                (jobjectArray) (*env)->NewObjectArray(env, wprintPrinterCaps->marker_levels_count,
-                                                      (*env)->FindClass(env, "java/lang/String"),
-                                                      (*env)->NewStringUTF(env, ""));
-        for (index = 0; index < wprintPrinterCaps->marker_levels_count; index++) {
-            jStr = (*env)->NewStringUTF(env, wprintPrinterCaps->marker_types[index]);
-            (*env)->SetObjectArrayElement(env, jMarkerTypesArray, index, jStr);
-        }
-        (*env)->SetObjectField(env, javaPrinterCaps, _LocalPrinterCapabilitiesField__markerTypes,
-                               jMarkerTypesArray);
-
-        jobjectArray jMarkerNamesArray =
-                (jobjectArray) (*env)->NewObjectArray(env, wprintPrinterCaps->marker_levels_count,
-                                                      (*env)->FindClass(env, "java/lang/String"),
-                                                      (*env)->NewStringUTF(env, ""));
-        for (index = 0; index < wprintPrinterCaps->marker_levels_count; index++) {
-            jStr = (*env)->NewStringUTF(env, wprintPrinterCaps->marker_names[index]);
-            (*env)->SetObjectArrayElement(env, jMarkerNamesArray, index, jStr);
-        }
-        (*env)->SetObjectField(env, javaPrinterCaps, _LocalPrinterCapabilitiesField__markerNames,
-                               jMarkerNamesArray);
-
-        jobjectArray jMarkerColorsArray =
-                (jobjectArray) (*env)->NewObjectArray(env, wprintPrinterCaps->marker_levels_count,
-                                                      (*env)->FindClass(env, "java/lang/String"),
-                                                      (*env)->NewStringUTF(env, ""));
-        for (index = 0; index < wprintPrinterCaps->marker_levels_count; index++) {
-            jStr = (*env)->NewStringUTF(env, wprintPrinterCaps->marker_colors[index]);
-            (*env)->SetObjectArrayElement(env, jMarkerColorsArray, index, jStr);
-        }
-        (*env)->SetObjectField(env, javaPrinterCaps, _LocalPrinterCapabilitiesField__markerColors,
-                               jMarkerColorsArray);
-
-        intArray = (*env)->NewIntArray(env, wprintPrinterCaps->marker_levels_count);
-        intArrayPtr = (*env)->GetIntArrayElements(env, intArray, NULL);
-        for (index = 0; index < wprintPrinterCaps->marker_levels_count; index++) {
-            intArrayPtr[index] = (int) wprintPrinterCaps->marker_levels[index];
-        }
-        (*env)->ReleaseIntArrayElements(env, intArray, intArrayPtr, 0);
-        (*env)->SetObjectField(env, javaPrinterCaps, _LocalPrinterCapabilitiesField__markerLevel,
-                               intArray);
-        (*env)->DeleteLocalRef(env, intArray);
-
-        intArray = (*env)->NewIntArray(env, wprintPrinterCaps->marker_levels_count);
-        intArrayPtr = (*env)->GetIntArrayElements(env, intArray, NULL);
-        for (index = 0; index < wprintPrinterCaps->marker_levels_count; index++) {
-            intArrayPtr[index] = (int) wprintPrinterCaps->marker_low_levels[index];
-        }
-        (*env)->ReleaseIntArrayElements(env, intArray, intArrayPtr, 0);
-        (*env)->SetObjectField(env, javaPrinterCaps, _LocalPrinterCapabilitiesField__markerLowLevel,
-                               intArray);
-        (*env)->DeleteLocalRef(env, intArray);
-
-        intArray = (*env)->NewIntArray(env, wprintPrinterCaps->marker_levels_count);
-        intArrayPtr = (*env)->GetIntArrayElements(env, intArray, NULL);
-        for (index = 0; index < wprintPrinterCaps->marker_levels_count; index++) {
-            intArrayPtr[index] = (int) wprintPrinterCaps->marker_high_levels[index];
-        }
-        (*env)->ReleaseIntArrayElements(env, intArray, intArrayPtr, 0);
-        (*env)->SetObjectField(env, javaPrinterCaps, _LocalPrinterCapabilitiesField__markerHighLevel,
-                               intArray);
-        (*env)->DeleteLocalRef(env, intArray);
-
-        intArray = (*env)->NewIntArray(env, wprintPrinterCaps->numSupportedMediaReadySizes);
-        intArrayPtr = (*env)->GetIntArrayElements(env, intArray, NULL);
-        for (index = 0; index < wprintPrinterCaps->numSupportedMediaReadySizes; index++) {
-            intArrayPtr[index] = (int) wprintPrinterCaps->supportedMediaReadySizes[index];
-        }
-        (*env)->ReleaseIntArrayElements(env, intArray, intArrayPtr, 0);
-        (*env)->SetObjectField(env, javaPrinterCaps,
-                               _LocalPrinterCapabilitiesField__mediaReadySizes, intArray);
-        (*env)->DeleteLocalRef(env, intArray);
+    jstring jStr;
+    jobjectArray jPrinterIconArray =
+            (jobjectArray) (*env)->NewObjectArray(env, wprintPrinterCaps->num_printer_icons,
+                                                  (*env)->FindClass(env, "java/lang/String"),
+                                                  (*env)->NewStringUTF(env, ""));
+    for (index = 0; index < wprintPrinterCaps->num_printer_icons; index++) {
+        jStr = (*env)->NewStringUTF(env, wprintPrinterCaps->printer_icons[index]);
+        (*env)->SetObjectArrayElement(env, jPrinterIconArray, index, jStr);
     }
+
+    (*env)->SetObjectField(env, javaPrinterCaps,
+                           _LocalPrinterCapabilitiesField__mPrinterIconUris,
+                           jPrinterIconArray);
+
+    jobjectArray jMarkerTypesArray =
+            (jobjectArray) (*env)->NewObjectArray(env, wprintPrinterCaps->marker_levels_count,
+                                                  (*env)->FindClass(env, "java/lang/String"),
+                                                  (*env)->NewStringUTF(env, ""));
+    for (index = 0; index < wprintPrinterCaps->marker_levels_count; index++) {
+        jStr = (*env)->NewStringUTF(env, wprintPrinterCaps->marker_types[index]);
+        (*env)->SetObjectArrayElement(env, jMarkerTypesArray, index, jStr);
+    }
+    (*env)->SetObjectField(env, javaPrinterCaps, _LocalPrinterCapabilitiesField__markerTypes,
+                           jMarkerTypesArray);
+
+    jobjectArray jMarkerNamesArray =
+            (jobjectArray) (*env)->NewObjectArray(env, wprintPrinterCaps->marker_levels_count,
+                                                  (*env)->FindClass(env, "java/lang/String"),
+                                                  (*env)->NewStringUTF(env, ""));
+    for (index = 0; index < wprintPrinterCaps->marker_levels_count; index++) {
+        jStr = (*env)->NewStringUTF(env, wprintPrinterCaps->marker_names[index]);
+        (*env)->SetObjectArrayElement(env, jMarkerNamesArray, index, jStr);
+    }
+    (*env)->SetObjectField(env, javaPrinterCaps, _LocalPrinterCapabilitiesField__markerNames,
+                           jMarkerNamesArray);
+
+    jobjectArray jMarkerColorsArray =
+            (jobjectArray) (*env)->NewObjectArray(env, wprintPrinterCaps->marker_levels_count,
+                                                  (*env)->FindClass(env, "java/lang/String"),
+                                                  (*env)->NewStringUTF(env, ""));
+    for (index = 0; index < wprintPrinterCaps->marker_levels_count; index++) {
+        jStr = (*env)->NewStringUTF(env, wprintPrinterCaps->marker_colors[index]);
+        (*env)->SetObjectArrayElement(env, jMarkerColorsArray, index, jStr);
+    }
+    (*env)->SetObjectField(env, javaPrinterCaps, _LocalPrinterCapabilitiesField__markerColors,
+                           jMarkerColorsArray);
+
+    intArray = (*env)->NewIntArray(env, wprintPrinterCaps->marker_levels_count);
+    intArrayPtr = (*env)->GetIntArrayElements(env, intArray, NULL);
+    for (index = 0; index < wprintPrinterCaps->marker_levels_count; index++) {
+        intArrayPtr[index] = (int) wprintPrinterCaps->marker_levels[index];
+    }
+    (*env)->ReleaseIntArrayElements(env, intArray, intArrayPtr, 0);
+    (*env)->SetObjectField(env, javaPrinterCaps, _LocalPrinterCapabilitiesField__markerLevel,
+                           intArray);
+    (*env)->DeleteLocalRef(env, intArray);
+
+    intArray = (*env)->NewIntArray(env, wprintPrinterCaps->marker_levels_count);
+    intArrayPtr = (*env)->GetIntArrayElements(env, intArray, NULL);
+    for (index = 0; index < wprintPrinterCaps->marker_levels_count; index++) {
+        intArrayPtr[index] = (int) wprintPrinterCaps->marker_low_levels[index];
+    }
+    (*env)->ReleaseIntArrayElements(env, intArray, intArrayPtr, 0);
+    (*env)->SetObjectField(env, javaPrinterCaps, _LocalPrinterCapabilitiesField__markerLowLevel,
+                           intArray);
+    (*env)->DeleteLocalRef(env, intArray);
+
+    intArray = (*env)->NewIntArray(env, wprintPrinterCaps->marker_levels_count);
+    intArrayPtr = (*env)->GetIntArrayElements(env, intArray, NULL);
+    for (index = 0; index < wprintPrinterCaps->marker_levels_count; index++) {
+        intArrayPtr[index] = (int) wprintPrinterCaps->marker_high_levels[index];
+    }
+    (*env)->ReleaseIntArrayElements(env, intArray, intArrayPtr, 0);
+    (*env)->SetObjectField(env, javaPrinterCaps, _LocalPrinterCapabilitiesField__markerHighLevel,
+                           intArray);
+    (*env)->DeleteLocalRef(env, intArray);
+
+    intArray = (*env)->NewIntArray(env, wprintPrinterCaps->numSupportedMediaReadySizes);
+    intArrayPtr = (*env)->GetIntArrayElements(env, intArray, NULL);
+    for (index = 0; index < wprintPrinterCaps->numSupportedMediaReadySizes; index++) {
+        intArrayPtr[index] = (int) wprintPrinterCaps->supportedMediaReadySizes[index];
+    }
+    (*env)->ReleaseIntArrayElements(env, intArray, intArrayPtr, 0);
+    (*env)->SetObjectField(env, javaPrinterCaps,
+                           _LocalPrinterCapabilitiesField__mediaReadySizes, intArray);
+    (*env)->DeleteLocalRef(env, intArray);
 
     return OK;
 }

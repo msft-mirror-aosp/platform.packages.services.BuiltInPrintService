@@ -60,8 +60,9 @@
     <string name="forget" msgid="892068061425802502">"जानकारी हटाएं"</string>
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"Wi-Fi Direct के ज़रिए कनेक्ट किया जाता है"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"<xliff:g id="IP_ADDRESS">%1$s</xliff:g> पर मौजूदा नेटवर्क के ज़रिए कनेक्ट किया जाता है"</string>
-    <string name="recommendation_summary" msgid="2979700524954307566">"डिफ़ॉल्ट रूप से प्रिंट करने की सेवा में बुनियादी विकल्प मिलते हैं. इस प्रिंटर के लिए दूसरे विकल्प, किसी और प्रिंट सेवा में उपलब्ध हो सकते हैं."</string>
+    <string name="recommendation_summary" msgid="7827367046167645850">"प्रिंट से जुड़ी डिफ़ॉल्ट सेवा में बुनियादी सुविधाएं मिलती हैं. बेहतर विकल्पों के लिए, प्रिंट से जुड़ी अतिरिक्त सेवाओं का इस्तेमाल करें."</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"सुझाई गई सेवाएं"</string>
+    <string name="recommendation_link" msgid="8300104407684336172">"प्रिंट से जुड़ी अलग-अलग सेवाएं"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"इंस्टॉल करने के लिए चुनें"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"चालू करने के लिए चुनें"</string>
     <string name="recommendation_manage" msgid="6861960243377871340">"सेवाएं मैनेज करें"</string>
@@ -76,4 +77,28 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"\'प्रिंट करने की डिफ़ॉल्ट सेवा\' का इस्तेमाल करने के लिए, आस-पास मौजूद डिवाइसों को ऐक्सेस करने की अनुमति ज़रूरी है, ताकि आस-पास के प्रिंटर खोजे जा सकें."</string>
     <string name="fix" msgid="7784394272611365393">"अनुमति दें"</string>
     <string name="print" msgid="7851318072404916362">"प्रिंट करें"</string>
+    <string name="yes" msgid="1887141030777316285">"हां"</string>
+    <string name="unknown" msgid="2526777102391303730">"कोई जानकारी नहीं है"</string>
+    <string name="printer_name" msgid="386653719801075739">"प्रिंटर का नाम"</string>
+    <string name="status" msgid="5948149021115901261">"स्थिति"</string>
+    <string name="media_ready" msgid="7205545458156298899">"लोड किए गए पेपर के साइज़"</string>
+    <string name="supply_levels" msgid="5058409966884929190">"इंक के लेवल"</string>
+    <string name="information" msgid="7896978544179559432">"जानकारी"</string>
+    <string name="printer_ready" msgid="1602057851194259669">"तैयार है"</string>
+    <string name="printer_state__printing" msgid="596624975473301735">"प्रिंटिंग"</string>
+    <string name="printer_state__offline" msgid="6755924316852857893">"ऑफ़लाइन"</string>
+    <string name="printer_state__check_printer" msgid="4854932117258619033">"प्रिंटर की जांच करें"</string>
+    <string name="marker_level_cyan" msgid="5336603473668190361">"सायन. %1$d%%"</string>
+    <string name="marker_level_magenta" msgid="7522291481654771752">"मजेंटा. %1$d%%"</string>
+    <string name="marker_level_yellow" msgid="1394790774846459656">"पीला. %1$d%%"</string>
+    <string name="marker_level_black" msgid="8169613731999901161">"काला. %1$d%%"</string>
+    <string name="marker_level_red" msgid="6322728797617451050">"लाल. %1$d%%"</string>
+    <string name="marker_level_green" msgid="4341485089035826733">"हरा. %1$d%%"</string>
+    <string name="marker_level_blue" msgid="6093087793287535042">"नीला. %1$d%%"</string>
+    <string name="marker_level_ltgray" msgid="35187469450032645">"हल्का स्लेटी. %1$d%%"</string>
+    <string name="marker_level_dkgray" msgid="5314300850228586851">"गहरा स्लेटी. %1$d%%"</string>
+    <string name="marker_level_ltcyan" msgid="6793088455903750830">"हल्का सायन. %1$d%%"</string>
+    <string name="marker_level_ltmagenta" msgid="3104489452878039184">"हल्का मजेंटा. %1$d%%"</string>
+    <string name="marker_level_violet" msgid="1616979275172835644">"बैंगनी. %1$d%%"</string>
+    <string name="marker_level_custom" msgid="586736254509490403">"पसंद के हिसाब से रंग #%1$02X%2$02X%3$02X. %4$d%%"</string>
 </resources>

@@ -60,8 +60,9 @@
     <string name="forget" msgid="892068061425802502">"ଭୁଲିଯାଆନ୍ତୁ"</string>
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"ୱାଇ-ଫାଇ ଡାଇରେକ୍ଟ ମାଧ୍ୟମରେ କନେକ୍ଟ ହେବ"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"<xliff:g id="IP_ADDRESS">%1$s</xliff:g>ରେ ବର୍ତ୍ତମାନର ନେଟ୍‌ୱର୍କ ମାଧ୍ୟମରେ କନେକ୍ଟ କରାଯାଇଥାଏ"</string>
-    <string name="recommendation_summary" msgid="2979700524954307566">"ଡିଫଲ୍ଟ ପ୍ରିଣ୍ଟ ସେବା ପ୍ରଦାନକାରୀ ମୌଳିକ ବିକଳ୍ପଗୁଡ଼ିକ। ଏହି ଫ୍ରିଣ୍ଟର୍ ପାଇଁ ଅନ୍ୟ ବିକଳ୍ପଗୁଡ଼ିକ ଅନ୍ୟ ପ୍ରିଣ୍ଟ ସେବାରୁ ଉପଲବ୍ଧ ହୋଇପାରେ।"</string>
+    <string name="recommendation_summary" msgid="7827367046167645850">"ଡିଫଲ୍ଟ ପ୍ରିଣ୍ଟ ସେବା ବେସିକ ବିକଳ୍ପଗୁଡ଼ିକ ପ୍ରଦାନ କରେ। ଉନ୍ନତ ବିକଳ୍ପଗୁଡ଼ିକ ପାଇଁ ଅତିରିକ୍ତ ପ୍ରିଣ୍ଟ ସେବା ଉପଲବ୍ଧ।"</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"ସୁପାରିଶ କରାଯାଇଥିବା ସେବା"</string>
+    <string name="recommendation_link" msgid="8300104407684336172">"ଅତିରିକ୍ତ ପ୍ରିଣ୍ଟ ସେବା"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"ଇନ୍‌ଷ୍ଟଲ୍ କରିବା ପାଇଁ ଚୟନ କରନ୍ତୁ"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"ସକ୍ଷମ କରିବା ପାଇଁ ଚୟନ କରନ୍ତୁ"</string>
     <string name="recommendation_manage" msgid="6861960243377871340">"ସେବାଗୁଡ଼ିକୁ ପରିଚାଳନା କରନ୍ତୁ"</string>
@@ -76,4 +77,28 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"ନିକଟସ୍ଥ ପ୍ରିଣ୍ଟରଗୁଡ଼ିକୁ ଖୋଜିବା ପାଇଁ ଡିଫଲ୍ଟ ପ୍ରିଣ୍ଟ ସେବା ଆଖପାଖର ଡିଭାଇସଗୁଡ଼ିକର ଅନୁମତି ଆବଶ୍ୟକ କରେ।"</string>
     <string name="fix" msgid="7784394272611365393">"ସମୀକ୍ଷା ଅନୁମତି"</string>
     <string name="print" msgid="7851318072404916362">"ପ୍ରିଣ୍ଟ କରନ୍ତୁ"</string>
+    <string name="yes" msgid="1887141030777316285">"ହଁ"</string>
+    <string name="unknown" msgid="2526777102391303730">"ଅଜଣା"</string>
+    <string name="printer_name" msgid="386653719801075739">"ପ୍ରିଣ୍ଟର ନାମ"</string>
+    <string name="status" msgid="5948149021115901261">"ସ୍ଥିତି"</string>
+    <string name="media_ready" msgid="7205545458156298899">"ଲୋଡ କରାଯାଇଥିବା କାଗଜ ଆକାର"</string>
+    <string name="supply_levels" msgid="5058409966884929190">"ସପ୍ଲାଏ ଲେଭେଲ"</string>
+    <string name="information" msgid="7896978544179559432">"ସୂଚନା"</string>
+    <string name="printer_ready" msgid="1602057851194259669">"ପ୍ରସ୍ତୁତ"</string>
+    <string name="printer_state__printing" msgid="596624975473301735">"ପ୍ରିଣ୍ଟ କରାଯାଉଛି"</string>
+    <string name="printer_state__offline" msgid="6755924316852857893">"ଅଫଲାଇନ"</string>
+    <string name="printer_state__check_printer" msgid="4854932117258619033">"ପ୍ରିଣ୍ଟର ଯାଞ୍ଚ କରନ୍ତୁ"</string>
+    <string name="marker_level_cyan" msgid="5336603473668190361">"ସାଇଆନ। %1$d%%"</string>
+    <string name="marker_level_magenta" msgid="7522291481654771752">"ମାଜେଣ୍ଟା। %1$d%%"</string>
+    <string name="marker_level_yellow" msgid="1394790774846459656">"ହଳଦିଆ। %1$d%%"</string>
+    <string name="marker_level_black" msgid="8169613731999901161">"କଳା। %1$d%%"</string>
+    <string name="marker_level_red" msgid="6322728797617451050">"ଲାଲ। %1$d%%"</string>
+    <string name="marker_level_green" msgid="4341485089035826733">"ସବୁଜ। %1$d%%"</string>
+    <string name="marker_level_blue" msgid="6093087793287535042">"ନୀଳ। %1$d%%"</string>
+    <string name="marker_level_ltgray" msgid="35187469450032645">"ଫିକା ଧୂସର। %1$d%%"</string>
+    <string name="marker_level_dkgray" msgid="5314300850228586851">"ଗାଢ଼ ଧୂସର। %1$d%%"</string>
+    <string name="marker_level_ltcyan" msgid="6793088455903750830">"ଫିକା ସାଇଆନ। %1$d%%"</string>
+    <string name="marker_level_ltmagenta" msgid="3104489452878039184">"ଫିକା ମାଜେଣ୍ଟା। %1$d%%"</string>
+    <string name="marker_level_violet" msgid="1616979275172835644">"ବାଇଗଣୀ। %1$d%%"</string>
+    <string name="marker_level_custom" msgid="586736254509490403">"କଷ୍ଟମ ରଙ୍ଗ #%1$02X%2$02X%3$02X। %4$d%%"</string>
 </resources>

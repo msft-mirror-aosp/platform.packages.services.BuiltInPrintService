@@ -60,8 +60,9 @@
     <string name="forget" msgid="892068061425802502">"فراموش کردن"</string>
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"‏ازطریق Wi-Fi بی‌واسطه متصل می‌شود"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"ازطریق شبکه فعلی به نشانی <xliff:g id="IP_ADDRESS">%1$s</xliff:g> متصل می‌شود"</string>
-    <string name="recommendation_summary" msgid="2979700524954307566">"«سرویس چاپ پیش‌فرض» گزینه‌های اصلی را ارائه می‌کند. ممکن است سایر گزینه‌ها برای این چاپگر از سرویس چاپ دیگری دردسترس باشد."</string>
+    <string name="recommendation_summary" msgid="7827367046167645850">"سرویس چاپ پیش‌فرض گزینه‌های اصلی را ارائه می‌دهد. برای گزینه‌های پیشرفته، سرویس‌های چاپ دیگری دردسترس هستند."</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"سرویس‌های توصیه‌شده"</string>
+    <string name="recommendation_link" msgid="8300104407684336172">"سرویس‌های چاپ بیشتر"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"برای نصب انتخاب کنید"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"برای فعال کردن، انتخاب کنید"</string>
     <string name="recommendation_manage" msgid="6861960243377871340">"مدیریت سرویس‌ها"</string>
@@ -76,4 +77,28 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"«سرویس چاپ پیش‌فرض» برای پیدا کردن چاپگرهای اطراف به اجازه دستگاه‌های اطراف نیاز دارد."</string>
     <string name="fix" msgid="7784394272611365393">"مرور مجوز"</string>
     <string name="print" msgid="7851318072404916362">"چاپ"</string>
+    <string name="yes" msgid="1887141030777316285">"بله"</string>
+    <string name="unknown" msgid="2526777102391303730">"نامشخص"</string>
+    <string name="printer_name" msgid="386653719801075739">"نام چاپگر"</string>
+    <string name="status" msgid="5948149021115901261">"وضعیت"</string>
+    <string name="media_ready" msgid="7205545458156298899">"اندازه‌های کاغذ بارشده"</string>
+    <string name="supply_levels" msgid="5058409966884929190">"سطح عرضه"</string>
+    <string name="information" msgid="7896978544179559432">"اطلاعات"</string>
+    <string name="printer_ready" msgid="1602057851194259669">"آماده"</string>
+    <string name="printer_state__printing" msgid="596624975473301735">"درحال چاپ کردن"</string>
+    <string name="printer_state__offline" msgid="6755924316852857893">"آفلاین"</string>
+    <string name="printer_state__check_printer" msgid="4854932117258619033">"بررسی چاپگر"</string>
+    <string name="marker_level_cyan" msgid="5336603473668190361">"‏فیروزه‌ای. %1$d%%"</string>
+    <string name="marker_level_magenta" msgid="7522291481654771752">"‏سرخابی. %1$d%%"</string>
+    <string name="marker_level_yellow" msgid="1394790774846459656">"‏زرد. %1$d%%"</string>
+    <string name="marker_level_black" msgid="8169613731999901161">"‏سیاه. %1$d%%"</string>
+    <string name="marker_level_red" msgid="6322728797617451050">"‏قرمز. %1$d%%"</string>
+    <string name="marker_level_green" msgid="4341485089035826733">"‏سبز. %1$d%%"</string>
+    <string name="marker_level_blue" msgid="6093087793287535042">"‏آبی. %1$d%%"</string>
+    <string name="marker_level_ltgray" msgid="35187469450032645">"‏خاکستری روشن. %1$d%%"</string>
+    <string name="marker_level_dkgray" msgid="5314300850228586851">"‏خاکستری تیره. %1$d%%"</string>
+    <string name="marker_level_ltcyan" msgid="6793088455903750830">"‏فیروزه‌ای روشن. %1$d%%"</string>
+    <string name="marker_level_ltmagenta" msgid="3104489452878039184">"‏سرخابی روشن. %1$d%%"</string>
+    <string name="marker_level_violet" msgid="1616979275172835644">"‏بنفش. %1$d%%"</string>
+    <string name="marker_level_custom" msgid="586736254509490403">"‏رنگ سفارشی #%1$02X%2$02X%3$02X. %4$d%%"</string>
 </resources>
