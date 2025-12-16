@@ -1746,6 +1746,18 @@ void parse_printerAttributes(ipp_t *response, printer_capabilities_t *capabiliti
         }
     }
 
+    capabilities->supportsCollate = false;
+    if (com_android_bips_flags_collate_by_default() &&
+        (attrptr = ippFindAttribute(response, "multiple-document-handling-supported",
+                                    IPP_TAG_KEYWORD)) != NULL) {
+        for (i = 0; i < ippGetCount(attrptr); i++) {
+            if (!strcmp("separate-documents-collated-copies", ippGetString(attrptr, i, NULL))) {
+                capabilities->supportsCollate = true;
+                break;
+            }
+        }
+    }
+
     debuglist_printerCapabilities(capabilities);
 }
 

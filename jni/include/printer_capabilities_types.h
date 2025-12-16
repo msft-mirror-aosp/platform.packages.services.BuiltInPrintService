@@ -113,6 +113,7 @@ typedef struct {
     int marker_levels[MAX_MARKER];
     int marker_low_levels[MAX_MARKER];
     int marker_high_levels[MAX_MARKER];
+    bool supportsCollate;
 } printer_capabilities_t;
 
 #endif // __PRINTER_CAPABILITIES_TYPES_H__
