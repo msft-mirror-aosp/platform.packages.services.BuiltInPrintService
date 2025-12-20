@@ -41,7 +41,6 @@ import com.android.bips.R;
 import com.android.bips.discovery.ConnectionListener;
 import com.android.bips.discovery.DiscoveredPrinter;
 import com.android.bips.discovery.Discovery;
-import com.android.bips.flags.Flags;
 import com.android.bips.p2p.P2pPrinterConnection;
 import com.android.bips.p2p.P2pUtils;
 
@@ -90,41 +89,37 @@ public class MoreOptionsActivity extends FragmentActivity implements ServiceConn
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-        if ((Flags.printerInfoDetails())) {
-            setContentView(R.layout.combined_info_recs);
-            mPrinterInformationViewModel =
-                    new ViewModelProvider(this).get(PrinterInformationViewModel.class);
-            getSupportFragmentManager().popBackStack(null,
-                    FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            mLlRecommendedServicesSummary = findViewById(R.id.ll_recommended_services_summary);
-            mLlRecommendedServices = findViewById(R.id.ll_recommended_services);
-            mLlRecommendedServices.setOnClickListener(view -> {
-                if (getSupportFragmentManager().findFragmentByTag(TAG_RECOMMENDATION_FRAGMENT)
-                        == null) {
-                    MoreOptionsFragment fragment = new MoreOptionsFragment();
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_container, fragment, TAG_RECOMMENDATION_FRAGMENT)
-                            .setReorderingAllowed(true)
-                            .addToBackStack(null)
-                            .commit();
-                    mLlRecommendedServices.setVisibility(View.GONE);
-                    mLlRecommendedServicesSummary.setVisibility(View.GONE);
-                }
-            });
-            getSupportFragmentManager().addOnBackStackChangedListener(
-                    () -> {
-                        if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
-                            mLlRecommendedServices.setVisibility(View.VISIBLE);
-                            mLlRecommendedServicesSummary.setVisibility(View.VISIBLE);
-                            if (mPrinter != null) {
-                                setTitle(mPrinter.name);
-                            }
+        setContentView(R.layout.combined_info_recs);
+        mPrinterInformationViewModel =
+                new ViewModelProvider(this).get(PrinterInformationViewModel.class);
+        getSupportFragmentManager().popBackStack(null,
+                FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        mLlRecommendedServicesSummary = findViewById(R.id.ll_recommended_services_summary);
+        mLlRecommendedServices = findViewById(R.id.ll_recommended_services);
+        mLlRecommendedServices.setOnClickListener(view -> {
+            if (getSupportFragmentManager().findFragmentByTag(TAG_RECOMMENDATION_FRAGMENT)
+                    == null) {
+                MoreOptionsFragment fragment = new MoreOptionsFragment();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, fragment, TAG_RECOMMENDATION_FRAGMENT)
+                        .setReorderingAllowed(true)
+                        .addToBackStack(null)
+                        .commit();
+                mLlRecommendedServices.setVisibility(View.GONE);
+                mLlRecommendedServicesSummary.setVisibility(View.GONE);
+            }
+        });
+        getSupportFragmentManager().addOnBackStackChangedListener(
+                () -> {
+                    if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+                        mLlRecommendedServices.setVisibility(View.VISIBLE);
+                        mLlRecommendedServicesSummary.setVisibility(View.VISIBLE);
+                        if (mPrinter != null) {
+                            setTitle(mPrinter.name);
                         }
-                    });
-            setTitle(R.string.information);
-        } else {
-            getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        }
+                    }
+                });
+        setTitle(R.string.information);
 
         ViewUtil.setWindowInsetsListener(getWindow().getDecorView(), this);
     }
@@ -156,9 +151,7 @@ public class MoreOptionsActivity extends FragmentActivity implements ServiceConn
         }
 
         if (mPrintService != null) {
-            if ((Flags.printerInfoDetails())) {
-                mPrinterInformationViewModel.stopPrinterStatusMonitor(mPrintService);
-            }
+            mPrinterInformationViewModel.stopPrinterStatusMonitor(mPrintService);
             mPrintService.getDiscovery().stop(this);
         }
         unbindService(this);
@@ -235,12 +228,10 @@ public class MoreOptionsActivity extends FragmentActivity implements ServiceConn
     private void loadPrinterInfoFragment(DiscoveredPrinter printer) {
         mPrinter = printer;
         setTitle(mPrinter.name);
-        if ((Flags.printerInfoDetails())) {
-            if (printer.path != null) {
-                mPrinterInformationViewModel.getPrinterStatus(printer.path, mPrintService);
-            } else {
-                mPrinterInformationViewModel.setPrinterUnavailableLiveData(true);
-            }
+        if (printer.path != null) {
+            mPrinterInformationViewModel.getPrinterStatus(printer.path, mPrintService);
+        } else {
+            mPrinterInformationViewModel.setPrinterUnavailableLiveData(true);
         }
         // Network operation in non UI thread
         mExecutorService.execute(() -> {
@@ -250,39 +241,28 @@ public class MoreOptionsActivity extends FragmentActivity implements ServiceConn
                 mPrintService.getDiscovery().stop(this);
                 if (!mExecutorService.isShutdown() && mPrintService != null) {
                     mPrintService.getMainHandler().post(() -> {
-                        if ((Flags.printerInfoDetails())) {
-                            if (getSupportFragmentManager().findFragmentByTag(
-                                    TAG_PRINTER_INFORMATION_FRAGMENT) == null) {
-                                PrinterInformationFragment informationFragment =
-                                        new PrinterInformationFragment();
-                                getSupportFragmentManager().beginTransaction()
-                                        .replace(R.id.fragment_container, informationFragment,
-                                                TAG_PRINTER_INFORMATION_FRAGMENT)
-                                        .commit();
-                            }
-                            mPrintService.getCapabilitiesCache().request(mPrinter, true,
-                                    capabilities -> {
-                                        if (capabilities != null) {
-                                            mPrinterInformationViewModel.setPrinterCapsLiveData(
-                                                    capabilities);
-                                        } else {
-                                            mPrinterInformationViewModel.setPrinterUnavailableLiveData(
-                                                    true);
-                                            Toast.makeText(mPrintService,
-                                                    R.string.failed_printer_connection,
-                                                    Toast.LENGTH_LONG).show();
-                                        }
-                                    });
-                        } else {
-                            if (getFragmentManager().findFragmentByTag(TAG_RECOMMENDATION_FRAGMENT)
-                                    == null) {
-                                MoreOptionsFragment fragment = new MoreOptionsFragment();
-                                getSupportFragmentManager().beginTransaction()
-                                        .replace(android.R.id.content, fragment,
-                                                TAG_RECOMMENDATION_FRAGMENT)
-                                        .commit();
-                            }
+                        if (getSupportFragmentManager().findFragmentByTag(
+                                TAG_PRINTER_INFORMATION_FRAGMENT) == null) {
+                            PrinterInformationFragment informationFragment =
+                                    new PrinterInformationFragment();
+                            getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.fragment_container, informationFragment,
+                                            TAG_PRINTER_INFORMATION_FRAGMENT)
+                                    .commit();
                         }
+                        mPrintService.getCapabilitiesCache().request(mPrinter, true,
+                                capabilities -> {
+                                    if (capabilities != null) {
+                                        mPrinterInformationViewModel.setPrinterCapsLiveData(
+                                                capabilities);
+                                    } else {
+                                        mPrinterInformationViewModel.setPrinterUnavailableLiveData(
+                                                true);
+                                        Toast.makeText(mPrintService,
+                                                R.string.failed_printer_connection,
+                                                Toast.LENGTH_LONG).show();
+                                    }
+                                });
                     });
                 }
             } catch (UnknownHostException ignored) {

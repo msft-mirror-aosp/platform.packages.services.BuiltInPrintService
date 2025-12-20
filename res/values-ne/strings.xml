@@ -60,8 +60,9 @@
     <string name="forget" msgid="892068061425802502">"हटाउनुहोस्"</string>
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"Wi-Fi प्रत्यक्षमार्फत जडान गर्छ"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"<xliff:g id="IP_ADDRESS">%1$s</xliff:g> को हालको नेटवर्कमार्फत जडान गर्छ"</string>
-    <string name="recommendation_summary" msgid="2979700524954307566">"डिफल्ट छपाइ सेवाले आधारभूत विकल्पहरू प्रदान गर्दछ। यो प्रिन्टरका अन्य विकल्पहरू अन्य छपाइ सेवाबाट उपलब्ध हुन सक्छन्।"</string>
+    <string name="recommendation_summary" msgid="7827367046167645850">"डिफल्ट प्रिन्ट सेवाअन्तर्गत आधारभूत विकल्पहरू प्रदान गरिन्छ। उन्नत विकल्पहरूका निम्ति अतिरिक्त प्रिन्ट सेवाहरू उपलब्ध छन्।"</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"सिफारिस गरिएका सेवाहरू"</string>
+    <string name="recommendation_link" msgid="8300104407684336172">"अतिरिक्त प्रिन्ट सेवाहरू"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"इन्स्टल गर्न चयन गर्नुहोस्"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"सक्षम पार्न चयन गर्नुहोस्"</string>
     <string name="recommendation_manage" msgid="6861960243377871340">"सेवाहरू व्यवस्थापन गर्नुहोस्"</string>
@@ -76,4 +77,28 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"प्रिन्ट गर्ने डिफल्ट सेवाले नजिकैका प्रिन्टरहरू भेट्टाउन यसलाई नजिकैका डिभाइसहरू खोज्ने र तिनमा कनेक्ट गर्ने अनुमति दिनु पर्ने हुन्छ।"</string>
     <string name="fix" msgid="7784394272611365393">"अनुमतिको समीक्षा गर्नु"</string>
     <string name="print" msgid="7851318072404916362">"प्रिन्ट गर्नुहोस्"</string>
+    <string name="yes" msgid="1887141030777316285">"अँ"</string>
+    <string name="unknown" msgid="2526777102391303730">"अज्ञात"</string>
+    <string name="printer_name" msgid="386653719801075739">"प्रिन्टरको नाम"</string>
+    <string name="status" msgid="5948149021115901261">"स्थिति"</string>
+    <string name="media_ready" msgid="7205545458156298899">"लोड गरिएका कागजका आकार"</string>
+    <string name="supply_levels" msgid="5058409966884929190">"सप्लाई लेभलहरू"</string>
+    <string name="information" msgid="7896978544179559432">"जानकारी"</string>
+    <string name="printer_ready" msgid="1602057851194259669">"तयार छ"</string>
+    <string name="printer_state__printing" msgid="596624975473301735">"प्रिन्ट गरिँदै छ"</string>
+    <string name="printer_state__offline" msgid="6755924316852857893">"अफलाइन छ"</string>
+    <string name="printer_state__check_printer" msgid="4854932117258619033">"प्रिन्टर जाँच्नुहोस्"</string>
+    <string name="marker_level_cyan" msgid="5336603473668190361">"सायन। %1$d%%"</string>
+    <string name="marker_level_magenta" msgid="7522291481654771752">"मजेन्टा। %1$d%%"</string>
+    <string name="marker_level_yellow" msgid="1394790774846459656">"पहेँलो। %1$d%%"</string>
+    <string name="marker_level_black" msgid="8169613731999901161">"कालो। %1$d%%"</string>
+    <string name="marker_level_red" msgid="6322728797617451050">"रातो। %1$d%%"</string>
+    <string name="marker_level_green" msgid="4341485089035826733">"हरियो। %1$d%%"</string>
+    <string name="marker_level_blue" msgid="6093087793287535042">"निलो। %1$d%%"</string>
+    <string name="marker_level_ltgray" msgid="35187469450032645">"हल्का खरानी रङ। %1$d%%"</string>
+    <string name="marker_level_dkgray" msgid="5314300850228586851">"गाढा खरानी रङ। %1$d%%"</string>
+    <string name="marker_level_ltcyan" msgid="6793088455903750830">"हल्का सायन। %1$d%%"</string>
+    <string name="marker_level_ltmagenta" msgid="3104489452878039184">"हल्का मजेन्टा। %1$d%%"</string>
+    <string name="marker_level_violet" msgid="1616979275172835644">"बैजनी। %1$d%%"</string>
+    <string name="marker_level_custom" msgid="586736254509490403">"कस्टम रङ #%1$02X%2$02X%3$02X। %4$d%%"</string>
 </resources>

@@ -30,7 +30,6 @@ import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.android.bips.R;
-import com.android.bips.flags.Flags;
 
 import java.net.InetAddress;
 import java.text.Collator;
@@ -62,17 +61,11 @@ public class MoreOptionsFragment extends PreferenceFragmentCompat implements
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        if ((Flags.printerInfoDetails())) {
-            addPreferencesFromResource(R.xml.more_options_prefs_new);
-        } else {
-            addPreferencesFromResource(R.xml.more_options_prefs);
-        }
+        addPreferencesFromResource(R.xml.more_options_prefs);
 
         mRecommendations = getPreferenceScreen().findPreference(
                 KEY_RECOMMENDATION_CATEGORY);
-        if ((Flags.printerInfoDetails())) {
-            mRecommendations.setIconSpaceReserved(false);
-        }
+        mRecommendations.setIconSpaceReserved(false);
 
         getPreferenceScreen().findPreference(KEY_MANAGE)
                 .setOnPreferenceClickListener(preference -> {
@@ -95,9 +88,7 @@ public class MoreOptionsFragment extends PreferenceFragmentCompat implements
         }
 
         mActivity = (MoreOptionsActivity) getActivity();
-        if ((Flags.printerInfoDetails())) {
-            mActivity.setTitle(mActivity.getResources().getString(R.string.recommendation_link));
-        }
+        mActivity.setTitle(mActivity.getResources().getString(R.string.recommendation_link));
 
         mPrintManager = getContext().getSystemService(PrintManager.class);
 

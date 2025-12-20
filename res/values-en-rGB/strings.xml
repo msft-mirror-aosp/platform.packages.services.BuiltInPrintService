@@ -60,8 +60,9 @@
     <string name="forget" msgid="892068061425802502">"Forget"</string>
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"Connects via Wi-Fi Direct"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"Connects via current network at <xliff:g id="IP_ADDRESS">%1$s</xliff:g>"</string>
-    <string name="recommendation_summary" msgid="2979700524954307566">"The default print service provides basic options. Other options for this printer may be available from another print service."</string>
+    <string name="recommendation_summary" msgid="7827367046167645850">"The default print service provides basic options. For advanced options, additional print services are available."</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"Recommended services"</string>
+    <string name="recommendation_link" msgid="8300104407684336172">"Additional print services"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"Select to install"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"Select to enable"</string>
     <string name="recommendation_manage" msgid="6861960243377871340">"Manage services"</string>
@@ -76,4 +77,28 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"Default print service needs Nearby devices permission to find nearby printers."</string>
     <string name="fix" msgid="7784394272611365393">"Review permission"</string>
     <string name="print" msgid="7851318072404916362">"Print"</string>
+    <string name="yes" msgid="1887141030777316285">"Yes"</string>
+    <string name="unknown" msgid="2526777102391303730">"Unknown"</string>
+    <string name="printer_name" msgid="386653719801075739">"Printer name"</string>
+    <string name="status" msgid="5948149021115901261">"Status"</string>
+    <string name="media_ready" msgid="7205545458156298899">"Loaded paper sizes"</string>
+    <string name="supply_levels" msgid="5058409966884929190">"Supply levels"</string>
+    <string name="information" msgid="7896978544179559432">"Information"</string>
+    <string name="printer_ready" msgid="1602057851194259669">"Ready"</string>
+    <string name="printer_state__printing" msgid="596624975473301735">"Printing"</string>
+    <string name="printer_state__offline" msgid="6755924316852857893">"Offline"</string>
+    <string name="printer_state__check_printer" msgid="4854932117258619033">"Check printer"</string>
+    <string name="marker_level_cyan" msgid="5336603473668190361">"Cyan. %1$d%%"</string>
+    <string name="marker_level_magenta" msgid="7522291481654771752">"Magenta. %1$d%%"</string>
+    <string name="marker_level_yellow" msgid="1394790774846459656">"Yellow. %1$d%%"</string>
+    <string name="marker_level_black" msgid="8169613731999901161">"Black. %1$d%%"</string>
+    <string name="marker_level_red" msgid="6322728797617451050">"Red. %1$d%%"</string>
+    <string name="marker_level_green" msgid="4341485089035826733">"Green. %1$d%%"</string>
+    <string name="marker_level_blue" msgid="6093087793287535042">"Blue. %1$d%%"</string>
+    <string name="marker_level_ltgray" msgid="35187469450032645">"Light grey. %1$d%%"</string>
+    <string name="marker_level_dkgray" msgid="5314300850228586851">"Dark grey. %1$d%%"</string>
+    <string name="marker_level_ltcyan" msgid="6793088455903750830">"Light cyan. %1$d%%"</string>
+    <string name="marker_level_ltmagenta" msgid="3104489452878039184">"Light magenta. %1$d%%"</string>
+    <string name="marker_level_violet" msgid="1616979275172835644">"Violet. %1$d%%"</string>
+    <string name="marker_level_custom" msgid="586736254509490403">"Custom colour #%1$02X%2$02X%3$02X. %4$d%%"</string>
 </resources>

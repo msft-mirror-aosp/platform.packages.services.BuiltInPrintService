@@ -60,8 +60,9 @@
     <string name="forget" msgid="892068061425802502">"সরিয়ে দিন"</string>
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"ওয়াই-ফাই ডাইরেক্টের মাধ্যমে সংযুক্ত হয়"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"বর্তমান নেটওয়ার্কের মাধ্যমে <xliff:g id="IP_ADDRESS">%1$s</xliff:g> অ্যাড্রেসে সংযুক্ত হয়"</string>
-    <string name="recommendation_summary" msgid="2979700524954307566">"ডিফল্ট প্রিন্টিং পরিষেবার প্রাথমিক বিকল্প। এই প্রিন্টারের জন্য অন্যান্য বিকল্প অন্য প্রিন্ট পরিষেবার সাথে উপলভ্য হতে পারে।"</string>
+    <string name="recommendation_summary" msgid="7827367046167645850">"ডিফল্ট প্রিন্ট পরিষেবা প্রাথমিক বিকল্প প্রদান করে। উন্নত বিকল্পের জন্য অতিরিক্ত প্রিন্ট পরিষেবা উপলভ্য আছে।"</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"সাজেস্ট করা পরিষেবা"</string>
+    <string name="recommendation_link" msgid="8300104407684336172">"প্রিন্ট করার অতিরিক্ত পরিষেবা"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"ইনস্টল করতে বেছে নিন"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"চালু করতে বেছে নিন"</string>
     <string name="recommendation_manage" msgid="6861960243377871340">"পরিষেবা ম্যানেজ করুন"</string>
@@ -76,4 +77,28 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"আশপাশের প্রিন্টার খুঁজে পেতে ডিফল্ট প্রিন্টার পরিষেবার আশেপাশের ডিভাইসের অনুমতি প্রয়োজন।"</string>
     <string name="fix" msgid="7784394272611365393">"রিভিউ করার অনুমতি"</string>
     <string name="print" msgid="7851318072404916362">"প্রিন্ট করুন"</string>
+    <string name="yes" msgid="1887141030777316285">"হ্যাঁ"</string>
+    <string name="unknown" msgid="2526777102391303730">"অজানা"</string>
+    <string name="printer_name" msgid="386653719801075739">"প্রিন্টারের নাম"</string>
+    <string name="status" msgid="5948149021115901261">"স্ট্যাটাস"</string>
+    <string name="media_ready" msgid="7205545458156298899">"কাগজের সাইজ লোড করা হয়েছে"</string>
+    <string name="supply_levels" msgid="5058409966884929190">"সরবরাহের স্তর"</string>
+    <string name="information" msgid="7896978544179559432">"তথ্য"</string>
+    <string name="printer_ready" msgid="1602057851194259669">"রেডি"</string>
+    <string name="printer_state__printing" msgid="596624975473301735">"প্রিন্ট করা হচ্ছে"</string>
+    <string name="printer_state__offline" msgid="6755924316852857893">"অফলাইন আছে"</string>
+    <string name="printer_state__check_printer" msgid="4854932117258619033">"প্রিন্টার চেক করুন"</string>
+    <string name="marker_level_cyan" msgid="5336603473668190361">"সায়ান। %1$d%%"</string>
+    <string name="marker_level_magenta" msgid="7522291481654771752">"ম্যাজেন্টা। %1$d%%"</string>
+    <string name="marker_level_yellow" msgid="1394790774846459656">"হলুদ। %1$d%%"</string>
+    <string name="marker_level_black" msgid="8169613731999901161">"কালো। %1$d%%"</string>
+    <string name="marker_level_red" msgid="6322728797617451050">"লাল। %1$d%%"</string>
+    <string name="marker_level_green" msgid="4341485089035826733">"সবুজ। %1$d%%"</string>
+    <string name="marker_level_blue" msgid="6093087793287535042">"নীল। %1$d%%"</string>
+    <string name="marker_level_ltgray" msgid="35187469450032645">"লাইট গ্রে। %1$d%%"</string>
+    <string name="marker_level_dkgray" msgid="5314300850228586851">"ডার্ক-গ্রে। %1$d%%"</string>
+    <string name="marker_level_ltcyan" msgid="6793088455903750830">"লাইট সায়ান। %1$d%%"</string>
+    <string name="marker_level_ltmagenta" msgid="3104489452878039184">"লাইট ম্যাজেন্টা। %1$d%%"</string>
+    <string name="marker_level_violet" msgid="1616979275172835644">"বেগুনি। %1$d%%"</string>
+    <string name="marker_level_custom" msgid="586736254509490403">"কাস্টম কালার #%1$02X%2$02X%3$02X. %4$d%%"</string>
 </resources>

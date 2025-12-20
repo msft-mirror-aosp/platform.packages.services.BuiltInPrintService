@@ -833,6 +833,30 @@ static void _initialize_status_ifc(_job_queue_t *jq) {
 }
 
 /*
+ * Check printer's current blocked reasons and updates the job state.
+ */
+static void update_job_blocked_state(_job_queue_t *jq, printer_state_dyn_t printer_state,
+                                     wprint_job_callback_params_t cb_param) {
+    int i;
+    int blocked_reasons = 0;
+    for (i = 0; i <= PRINT_STATUS_MAX_STATE; i++) {
+        if (printer_state.printer_reasons[i] == PRINT_STATUS_MAX_STATE) {
+            break;
+        }
+        blocked_reasons |= (LONG_ONE << printer_state.printer_reasons[i]);
+    }
+    if (blocked_reasons == 0) {
+        blocked_reasons |= BLOCKED_REASONS_PRINTER_BUSY;
+    }
+    if ((jq->job_state != JOB_STATE_BLOCKED)
+        || (jq->blocked_reasons != blocked_reasons)) {
+        jq->job_state = JOB_STATE_BLOCKED;
+        jq->blocked_reasons = blocked_reasons;
+        _send_status_callback(jq, cb_param, JOB_BLOCKED, blocked_reasons, OK);
+    }
+}
+
+/*
  * Runs a print job. Contains logic for what to do given different printer statuses.
  */
 static void *_job_thread(void *param) {
@@ -901,53 +925,86 @@ static void *_job_thread(void *param) {
 
                     // Presume we found an idle state
                     idle = true;
-                    if (status == PRINT_STATUS_IDLE) {
-                        printer_state.printer_status = PRINT_STATUS_IDLE;
-                        jq->blocked_reasons = 0;
-                    } else if (status == PRINT_STATUS_UNKNOWN
-                            && printer_state.printer_reasons[0] == PRINT_STATUS_UNKNOWN) {
-                        // no status available, break out and hope for the best
-                        printer_state.printer_status = PRINT_STATUS_IDLE;
-                    } else if ((status == PRINT_STATUS_UNKNOWN || status == PRINT_STATUS_SVC_REQUEST)
-                            && ((printer_state.printer_reasons[0] == PRINT_STATUS_UNABLE_TO_CONNECT)
-                                || (printer_state.printer_reasons[0] == PRINT_STATUS_OFFLINE))) {
-                        if (_is_certificate_allowed(jq)) {
-                            LOGD("%s: Received an Unable to Connect message", __func__);
-                            jq->blocked_reasons = BLOCKED_REASON_UNABLE_TO_CONNECT;
-                        } else {
-                            LOGD("%s: Bad certificate", __func__);
-                            bad_certificate = true;
-                        }
-                    } else if (printer_state.printer_status & PRINTER_IDLE_BIT) {
-                        LOGD("%s: printer blocked but appears to be in an idle state. "
-                                "Allowing job to proceed", __func__);
-                        printer_state.printer_status = PRINT_STATUS_IDLE;
-                    } else if (retry >= MAX_IDLE_WAIT) {
-                        jq->blocked_reasons |= BLOCKED_REASONS_PRINTER_BUSY;
-                    } else if (!jq->job_params.cancelled) {
-                        // Printer still appears busy, so stay in loop, notify, and poll again.
-                        idle = false;
-                        int blocked_reasons = 0;
-                        for (i = 0; i <= PRINT_STATUS_MAX_STATE; i++) {
-                            if (printer_state.printer_reasons[i] == PRINT_STATUS_MAX_STATE) {
-                                break;
+                    if (com_android_bips_flags_mopria_26q2_fixes()) {
+                        if (retry > MAX_IDLE_WAIT) {
+                            jq->blocked_reasons |= BLOCKED_REASONS_PRINTER_BUSY;
+                        } else if (!printer_state.printer_is_accepting_jobs) {
+                            // Printer is not accepting jobs, check block reasons and poll again
+                            update_job_blocked_state(jq, printer_state, cb_param);
+                            idle = false;
+                            _unlock();
+                            sleep(1);
+                            _lock();
+                            retry++;
+                        } else if (status == PRINT_STATUS_IDLE) {
+                            printer_state.printer_status = PRINT_STATUS_IDLE;
+                            jq->blocked_reasons = 0;
+                        } else if (status == PRINT_STATUS_UNKNOWN
+                                   && printer_state.printer_reasons[0] == PRINT_STATUS_UNKNOWN) {
+                            // no status available, break out and hope for the best
+                            printer_state.printer_status = PRINT_STATUS_IDLE;
+                        } else if ((status == PRINT_STATUS_UNKNOWN ||
+                                    status == PRINT_STATUS_SVC_REQUEST)
+                                   && ((printer_state.printer_reasons[0] ==
+                                        PRINT_STATUS_UNABLE_TO_CONNECT)
+                                       || (printer_state.printer_reasons[0] ==
+                                           PRINT_STATUS_OFFLINE))) {
+                            if (_is_certificate_allowed(jq)) {
+                                LOGD("%s: Received an Unable to Connect message", __func__);
+                                jq->blocked_reasons = BLOCKED_REASON_UNABLE_TO_CONNECT;
+                            } else {
+                                LOGD("%s: Bad certificate", __func__);
+                                bad_certificate = true;
                             }
-                            blocked_reasons |= (LONG_ONE << printer_state.printer_reasons[i]);
+                        } else if (printer_state.printer_status & PRINTER_IDLE_BIT) {
+                            LOGD("%s: printer blocked but appears to be in an idle state. "
+                                 "Allowing job to proceed", __func__);
+                            printer_state.printer_status = PRINT_STATUS_IDLE;
+                        } else if (!jq->job_params.cancelled) {
+                            // Printer still appears busy, so stay in loop, notify, and poll again.
+                            idle = false;
+                            update_job_blocked_state(jq, printer_state, cb_param);
+                            _unlock();
+                            sleep(1);
+                            _lock();
+                            retry++;
                         }
-                        if (blocked_reasons == 0) {
-                            blocked_reasons |= BLOCKED_REASONS_PRINTER_BUSY;
+                    } else {
+                        if (status == PRINT_STATUS_IDLE) {
+                            printer_state.printer_status = PRINT_STATUS_IDLE;
+                            jq->blocked_reasons = 0;
+                        } else if (status == PRINT_STATUS_UNKNOWN
+                                   && printer_state.printer_reasons[0] == PRINT_STATUS_UNKNOWN) {
+                            // no status available, break out and hope for the best
+                            printer_state.printer_status = PRINT_STATUS_IDLE;
+                        } else if ((status == PRINT_STATUS_UNKNOWN ||
+                                    status == PRINT_STATUS_SVC_REQUEST)
+                                   && ((printer_state.printer_reasons[0] ==
+                                        PRINT_STATUS_UNABLE_TO_CONNECT)
+                                       || (printer_state.printer_reasons[0] ==
+                                           PRINT_STATUS_OFFLINE))) {
+                            if (_is_certificate_allowed(jq)) {
+                                LOGD("%s: Received an Unable to Connect message", __func__);
+                                jq->blocked_reasons = BLOCKED_REASON_UNABLE_TO_CONNECT;
+                            } else {
+                                LOGD("%s: Bad certificate", __func__);
+                                bad_certificate = true;
+                            }
+                        } else if (printer_state.printer_status & PRINTER_IDLE_BIT) {
+                            LOGD("%s: printer blocked but appears to be in an idle state. "
+                                 "Allowing job to proceed", __func__);
+                            printer_state.printer_status = PRINT_STATUS_IDLE;
+                        } else if (retry >= MAX_IDLE_WAIT) {
+                            jq->blocked_reasons |= BLOCKED_REASONS_PRINTER_BUSY;
+                        } else if (!jq->job_params.cancelled) {
+                            // Printer still appears busy, so stay in loop, notify, and poll again.
+                            idle = false;
+                            update_job_blocked_state(jq, printer_state, cb_param);
+                            _unlock();
+                            sleep(1);
+                            _lock();
+                            retry++;
                         }
-
-                        if ((jq->job_state != JOB_STATE_BLOCKED)
-                                || (jq->blocked_reasons != blocked_reasons)) {
-                            jq->job_state = JOB_STATE_BLOCKED;
-                            jq->blocked_reasons = blocked_reasons;
-                            _send_status_callback(jq, cb_param, JOB_BLOCKED, blocked_reasons, OK);
-                        }
-                        _unlock();
-                        sleep(1);
-                        _lock();
-                        retry++;
                     }
                 }
 

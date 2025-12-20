@@ -60,8 +60,9 @@
     <string name="forget" msgid="892068061425802502">"清除"</string>
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"透過 Wi-Fi Direct 連線"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"透過目前的網路 (<xliff:g id="IP_ADDRESS">%1$s</xliff:g>) 連線"</string>
-    <string name="recommendation_summary" msgid="2979700524954307566">"預設列印服務會提供基本選項，這個印表機的其他選項則可能由其他列印服務提供。"</string>
+    <string name="recommendation_summary" msgid="7827367046167645850">"預設列印服務會提供基本選項，如需進階選項，請使用其他列印服務。"</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"推薦的服務"</string>
+    <string name="recommendation_link" msgid="8300104407684336172">"其他列印服務"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"選取即可安裝"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"選取即可啟用"</string>
     <string name="recommendation_manage" msgid="6861960243377871340">"管理服務"</string>
@@ -76,4 +77,28 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"預設列印服務需要鄰近裝置權限，才能尋找附近的印表機。"</string>
     <string name="fix" msgid="7784394272611365393">"查看權限"</string>
     <string name="print" msgid="7851318072404916362">"列印"</string>
+    <string name="yes" msgid="1887141030777316285">"是"</string>
+    <string name="unknown" msgid="2526777102391303730">"不明"</string>
+    <string name="printer_name" msgid="386653719801075739">"印表機名稱"</string>
+    <string name="status" msgid="5948149021115901261">"狀態"</string>
+    <string name="media_ready" msgid="7205545458156298899">"裝入紙張大小"</string>
+    <string name="supply_levels" msgid="5058409966884929190">"墨水存量"</string>
+    <string name="information" msgid="7896978544179559432">"資訊"</string>
+    <string name="printer_ready" msgid="1602057851194259669">"就緒"</string>
+    <string name="printer_state__printing" msgid="596624975473301735">"列印中"</string>
+    <string name="printer_state__offline" msgid="6755924316852857893">"離線"</string>
+    <string name="printer_state__check_printer" msgid="4854932117258619033">"檢查印表機"</string>
+    <string name="marker_level_cyan" msgid="5336603473668190361">"青色：%1$d%%"</string>
+    <string name="marker_level_magenta" msgid="7522291481654771752">"洋紅色：%1$d%%"</string>
+    <string name="marker_level_yellow" msgid="1394790774846459656">"黃色：%1$d%%"</string>
+    <string name="marker_level_black" msgid="8169613731999901161">"黑色：%1$d%%"</string>
+    <string name="marker_level_red" msgid="6322728797617451050">"紅色：%1$d%%"</string>
+    <string name="marker_level_green" msgid="4341485089035826733">"綠色：%1$d%%"</string>
+    <string name="marker_level_blue" msgid="6093087793287535042">"藍色：%1$d%%"</string>
+    <string name="marker_level_ltgray" msgid="35187469450032645">"淺灰色：%1$d%%"</string>
+    <string name="marker_level_dkgray" msgid="5314300850228586851">"深灰色：%1$d%%"</string>
+    <string name="marker_level_ltcyan" msgid="6793088455903750830">"淺青色：%1$d%%"</string>
+    <string name="marker_level_ltmagenta" msgid="3104489452878039184">"淺洋紅色：%1$d%%"</string>
+    <string name="marker_level_violet" msgid="1616979275172835644">"紫羅蘭色：%1$d%%"</string>
+    <string name="marker_level_custom" msgid="586736254509490403">"自訂顏色 #%1$02X%2$02X%3$02X：%4$d%%"</string>
 </resources>

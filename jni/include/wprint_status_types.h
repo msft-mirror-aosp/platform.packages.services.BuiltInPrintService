@@ -211,6 +211,7 @@ typedef struct printer_state_dyn_s {
     print_status_t printer_reasons[PRINT_STATUS_MAX_STATE + 1];
 
     int job_id;
+    int printer_is_accepting_jobs;
 } printer_state_dyn_t;
 
 typedef enum {

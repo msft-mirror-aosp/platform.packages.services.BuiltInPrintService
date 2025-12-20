@@ -60,8 +60,9 @@
     <string name="forget" msgid="892068061425802502">"မေ့ပစ်ရန်"</string>
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"Wi-Fi Direct ဖြင့် ချိတ်ဆက်သည်"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"<xliff:g id="IP_ADDRESS">%1$s</xliff:g> ရှိ လက်ရှိကွန်ရက် မှတစ်ဆင့် ချိတ်ဆက်သည်"</string>
-    <string name="recommendation_summary" msgid="2979700524954307566">"မူရင်းပုံနှိပ်ခြင်းဝန်ဆောင်မှုတွင် အခြေခံလုပ်ဆောင်ချက်များ ပါဝင်သည်။ ဤပရင်တာအတွက် အခြားလုပ်ဆောင်ချက်များကို အခြားပုံနှိပ်ခြင်းဝန်ဆောင်မှုမှ ရနိုင်ပါမည်။"</string>
+    <string name="recommendation_summary" msgid="7827367046167645850">"မူလ ပုံနှိပ်ဝန်ဆောင်မှုသည် အခြေခံရွေးစရာများကို ပေးသည်။ အဆင့်မြင့်ရွေးစရာများအတွက် ထပ်ဆောင်း ပုံနှိပ်ဝန်ဆောင်မှုများ ရနိုင်သည်။"</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"အကြံပြုထားသည့် ဝန်ဆောင်မှုများ"</string>
+    <string name="recommendation_link" msgid="8300104407684336172">"ထပ်ဆောင်း ပုံနှိပ်ဝန်ဆောင်မှုများ"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"ထည့်သွင်းရန် ရွေးပါ"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"ဖွင့်ရန် ရွေးပါ"</string>
     <string name="recommendation_manage" msgid="6861960243377871340">"ဝန်ဆောင်မှုများ စီမံရန်"</string>
@@ -76,4 +77,28 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"အနီးရှိပုံနှိပ်စက်များကို ရှာရန် ‘ပုံသေပုံနှိပ်ပေးသည့် ဝန်ဆောင်မှု’ က အနီးတစ်ဝိုက်ရှိ စက်များဆိုင်ရာ ခွင့်ပြုချက်လိုအပ်သည်။"</string>
     <string name="fix" msgid="7784394272611365393">"ခွင့်ပြုချက် စစ်ရန်"</string>
     <string name="print" msgid="7851318072404916362">"ပရင့်ထုတ်ရန်"</string>
+    <string name="yes" msgid="1887141030777316285">"Yes"</string>
+    <string name="unknown" msgid="2526777102391303730">"မသိပါ"</string>
+    <string name="printer_name" msgid="386653719801075739">"ပုံနှိပ်စက်အမည်"</string>
+    <string name="status" msgid="5948149021115901261">"အခြေအနေ"</string>
+    <string name="media_ready" msgid="7205545458156298899">"ဖွင့်ထားသော စာရွက်အရွယ်အစားများ"</string>
+    <string name="supply_levels" msgid="5058409966884929190">"လက်ကျန်ပမာဏ"</string>
+    <string name="information" msgid="7896978544179559432">"အချက်အလက်"</string>
+    <string name="printer_ready" msgid="1602057851194259669">"အဆင်သင့်"</string>
+    <string name="printer_state__printing" msgid="596624975473301735">"ပုံနှိပ်ထုတ်ယူနေသည်"</string>
+    <string name="printer_state__offline" msgid="6755924316852857893">"အော့ဖ်လိုင်း"</string>
+    <string name="printer_state__check_printer" msgid="4854932117258619033">"ပရင်တာကို စစ်ဆေးရန်"</string>
+    <string name="marker_level_cyan" msgid="5336603473668190361">"စိမ်းပြာ။ %1$d%%"</string>
+    <string name="marker_level_magenta" msgid="7522291481654771752">"ပန်းခရမ်း။ %1$d%%"</string>
+    <string name="marker_level_yellow" msgid="1394790774846459656">"အဝါ။ %1$d%%"</string>
+    <string name="marker_level_black" msgid="8169613731999901161">"အနက်။ %1$d%%"</string>
+    <string name="marker_level_red" msgid="6322728797617451050">"အနီ။ %1$d%%"</string>
+    <string name="marker_level_green" msgid="4341485089035826733">"အစိမ်း။ %1$d%%"</string>
+    <string name="marker_level_blue" msgid="6093087793287535042">"အပြာ။ %1$d%%"</string>
+    <string name="marker_level_ltgray" msgid="35187469450032645">"မီးခိုးဖျော့။ %1$d%%"</string>
+    <string name="marker_level_dkgray" msgid="5314300850228586851">"မီးခိုးရင့်။ %1$d%%"</string>
+    <string name="marker_level_ltcyan" msgid="6793088455903750830">"စိမ်းပြာဖျော့။ %1$d%%"</string>
+    <string name="marker_level_ltmagenta" msgid="3104489452878039184">"ပန်းခရမ်းဖျော့။ %1$d%%"</string>
+    <string name="marker_level_violet" msgid="1616979275172835644">"ခရမ်း။ %1$d%%"</string>
+    <string name="marker_level_custom" msgid="586736254509490403">"စိတ်ကြိုက်အရောင် #%1$02X%2$02X%3$02X။ %4$d%%"</string>
 </resources>

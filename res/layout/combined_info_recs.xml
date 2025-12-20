@@ -79,7 +79,7 @@
                 android:layout_marginTop="@dimen/mopria_padding_5dp"
                 android:drawablePadding="@dimen/mopria_padding_2dp"
                 android:padding="@dimen/mopria_padding_5dp"
-                android:text="@string/recommendation_summary_new"
+                android:text="@string/recommendation_summary"
                 android:textAppearance="?android:attr/textAppearanceListItem"
                 android:textColor="?android:attr/textColorPrimary" />
         </LinearLayout>

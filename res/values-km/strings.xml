@@ -60,8 +60,9 @@
     <string name="forget" msgid="892068061425802502">"បំភ្លេច"</string>
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"ភ្ជាប់​តាមរយៈ Wi-Fi​ ផ្ទាល់"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"ភ្ជាប់​តាមរយៈ​បណ្តាញបច្ចុប្បន្ន​នៅ <xliff:g id="IP_ADDRESS">%1$s</xliff:g>"</string>
-    <string name="recommendation_summary" msgid="2979700524954307566">"សេវាកម្ម​បោះពុម្ពលំនាំដើម​ផ្ដល់ជូនជម្រើស​មូលដ្ឋាន។ ជម្រើសផ្សេង​ទៀតសម្រាប់ម៉ាស៊ីន​បោះពុម្ពនេះអាចនឹងមាន​ពីសេវាកម្ម​បោះពុម្ពផ្សេងទៀត។"</string>
+    <string name="recommendation_summary" msgid="7827367046167645850">"សេវាកម្ម​បោះពុម្ពលំនាំដើម​ផ្ដល់ជូនជម្រើស​មូលដ្ឋាន។ សម្រាប់ជម្រើសកម្រិតខ្ពស់ អាចប្រើសេវាកម្មបោះពុម្ពបន្ថែមបាន។"</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"សេវាកម្មដែល​បានណែនាំ"</string>
+    <string name="recommendation_link" msgid="8300104407684336172">"សេវាកម្មបោះពុម្ពបន្ថែម"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"ជ្រើសរើស​ដើម្បីដំឡើង"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"ជ្រើសរើសដើម្បីបើក"</string>
     <string name="recommendation_manage" msgid="6861960243377871340">"គ្រប់គ្រង​សេវាកម្ម"</string>
@@ -76,4 +77,28 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"សេវាកម្មបោះពុម្ពលំនាំដើមត្រូវការការអនុញ្ញាតឧបករណ៍នៅជិត ដើម្បីស្វែងរកម៉ាស៊ីនបោះពុម្ពដែលនៅជិត។"</string>
     <string name="fix" msgid="7784394272611365393">"ពិនិត្យមើលការអនុញ្ញាត"</string>
     <string name="print" msgid="7851318072404916362">"បោះពុម្ព"</string>
+    <string name="yes" msgid="1887141030777316285">"បាទ/ចាស"</string>
+    <string name="unknown" msgid="2526777102391303730">"មិនស្គាល់"</string>
+    <string name="printer_name" msgid="386653719801075739">"ឈ្មោះម៉ាស៊ីនបោះពុម្ព"</string>
+    <string name="status" msgid="5948149021115901261">"ស្ថានភាព"</string>
+    <string name="media_ready" msgid="7205545458156298899">"ទំហំក្រដាសដែលបានផ្ទុក"</string>
+    <string name="supply_levels" msgid="5058409966884929190">"កម្រិតផ្គត់ផ្គង់"</string>
+    <string name="information" msgid="7896978544179559432">"ព័ត៌មាន"</string>
+    <string name="printer_ready" msgid="1602057851194259669">"រួចរាល់"</string>
+    <string name="printer_state__printing" msgid="596624975473301735">"ការ​បោះពុម្ព"</string>
+    <string name="printer_state__offline" msgid="6755924316852857893">"គ្មានអ៊ីនធឺណិត"</string>
+    <string name="printer_state__check_printer" msgid="4854932117258619033">"ពិនិត្យ​ម៉ាស៊ីនបោះពុម្ព"</string>
+    <string name="marker_level_cyan" msgid="5336603473668190361">"ស៊ីលៀប។ %1$d%%"</string>
+    <string name="marker_level_magenta" msgid="7522291481654771752">"ក្រហមស្វាយ។ %1$d%%"</string>
+    <string name="marker_level_yellow" msgid="1394790774846459656">"លឿង។ %1$d%%"</string>
+    <string name="marker_level_black" msgid="8169613731999901161">"ខ្មៅ។ %1$d%%"</string>
+    <string name="marker_level_red" msgid="6322728797617451050">"ក្រហម។ %1$d%%"</string>
+    <string name="marker_level_green" msgid="4341485089035826733">"បៃតង។ %1$d%%"</string>
+    <string name="marker_level_blue" msgid="6093087793287535042">"ខៀវ។ %1$d%%"</string>
+    <string name="marker_level_ltgray" msgid="35187469450032645">"ប្រផេះ​ស្រាល។ %1$d%%"</string>
+    <string name="marker_level_dkgray" msgid="5314300850228586851">"ប្រផេះ​ចាស់។ %1$d%%"</string>
+    <string name="marker_level_ltcyan" msgid="6793088455903750830">"ស៊ីលៀប​ស្រាល។ %1$d%%"</string>
+    <string name="marker_level_ltmagenta" msgid="3104489452878039184">"ក្រហម​ស្វាយស្រាល។ %1$d%%"</string>
+    <string name="marker_level_violet" msgid="1616979275172835644">"ត្របែកព្រៃ។ %1$d%%"</string>
+    <string name="marker_level_custom" msgid="586736254509490403">"ពណ៌ផ្ទាល់ខ្លួន #%1$02X%2$02X%3$02X។ %4$d%%"</string>
 </resources>
