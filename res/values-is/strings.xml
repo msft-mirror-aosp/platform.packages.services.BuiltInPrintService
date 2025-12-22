@@ -60,9 +60,10 @@
     <string name="forget" msgid="892068061425802502">"Gleyma"</string>
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"Tengist um Wi-Fi Direct"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"Tengist um núverandi netkerfi á <xliff:g id="IP_ADDRESS">%1$s</xliff:g>"</string>
-    <string name="recommendation_summary" msgid="7827367046167645850">"Sjálfgefin prentþjónusta inniheldur grunnvalkosti. Viðbótarprentþjónusta er í boði fyrir ítarlegri valkosti."</string>
+    <!-- no translation found for recommendation_summary (6005124008945335822) -->
+    <skip />
     <string name="recommendations_heading" msgid="5609754983795588470">"Þjónusta sem mælt er með"</string>
-    <string name="recommendation_link" msgid="8300104407684336172">"Viðbótarprentþjónusta"</string>
+    <string name="recommendation_link" msgid="8702939483024020023">"Viðbótarprentþjónusta"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"Veldu til að setja upp"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"Veldu til að virkja"</string>
     <string name="recommendation_manage" msgid="6861960243377871340">"Stjórna þjónustu"</string>
@@ -77,28 +78,41 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"Sjálfgefin prentunarþjónusta verður að fá heimild frá nálægum tækjum til að leita að nálægum prenturum."</string>
     <string name="fix" msgid="7784394272611365393">"Yfirfara heimild"</string>
     <string name="print" msgid="7851318072404916362">"Prenta"</string>
-    <string name="yes" msgid="1887141030777316285">"Já"</string>
-    <string name="unknown" msgid="2526777102391303730">"Óþekkt"</string>
-    <string name="printer_name" msgid="386653719801075739">"Heiti prentara"</string>
-    <string name="status" msgid="5948149021115901261">"Staða"</string>
-    <string name="media_ready" msgid="7205545458156298899">"Pappírsstærðir sem hefur verið hlaðið"</string>
-    <string name="supply_levels" msgid="5058409966884929190">"Birgðir"</string>
-    <string name="information" msgid="7896978544179559432">"Upplýsingar"</string>
-    <string name="printer_ready" msgid="1602057851194259669">"Tilbúinn"</string>
-    <string name="printer_state__printing" msgid="596624975473301735">"Prentar"</string>
-    <string name="printer_state__offline" msgid="6755924316852857893">"Án nettengingar"</string>
-    <string name="printer_state__check_printer" msgid="4854932117258619033">"Athugaðu prentara"</string>
-    <string name="marker_level_cyan" msgid="5336603473668190361">"Blágrænn. %1$d%%"</string>
-    <string name="marker_level_magenta" msgid="7522291481654771752">"Blárauður. %1$d%%"</string>
-    <string name="marker_level_yellow" msgid="1394790774846459656">"Gulur. %1$d%%"</string>
-    <string name="marker_level_black" msgid="8169613731999901161">"Svartur. %1$d%%"</string>
-    <string name="marker_level_red" msgid="6322728797617451050">"Rauður. %1$d%%"</string>
-    <string name="marker_level_green" msgid="4341485089035826733">"Grænn. %1$d%%"</string>
-    <string name="marker_level_blue" msgid="6093087793287535042">"Blár. %1$d%%"</string>
-    <string name="marker_level_ltgray" msgid="35187469450032645">"Ljósgrár. %1$d%%"</string>
-    <string name="marker_level_dkgray" msgid="5314300850228586851">"Dökkgrár. %1$d%%"</string>
-    <string name="marker_level_ltcyan" msgid="6793088455903750830">"Ljósblágrænn. %1$d%%"</string>
-    <string name="marker_level_ltmagenta" msgid="3104489452878039184">"Ljósblárauður. %1$d%%"</string>
-    <string name="marker_level_violet" msgid="1616979275172835644">"Fjólublár. %1$d%%"</string>
-    <string name="marker_level_custom" msgid="586736254509490403">"Sérsniðinn litur: #%1$02X%2$02X%3$02X. %4$d%%"</string>
+    <string name="yes" msgid="8146135396781327533">"Já"</string>
+    <string name="unknown" msgid="9141700614096334947">"Óþekkt"</string>
+    <string name="printer_name" msgid="518518465578369850">"Heiti prentara"</string>
+    <string name="status" msgid="7895525662471923742">"Staða"</string>
+    <string name="media_ready" msgid="8259402637635303256">"Pappírsstærðir sem hefur verið hlaðið"</string>
+    <string name="supply_levels" msgid="3292306109407433125">"Birgðir"</string>
+    <string name="information" msgid="894176958646461459">"Upplýsingar"</string>
+    <string name="printer_ready" msgid="6343136701327532305">"Tilbúinn"</string>
+    <string name="printer_state__printing" msgid="7991962306019119834">"Prentar"</string>
+    <string name="printer_state__offline" msgid="2381616555357221771">"Án nettengingar"</string>
+    <string name="printer_state__check_printer" msgid="882936062938150000">"Athugaðu prentara"</string>
+    <!-- no translation found for marker_level_cyan (5726099418534404112) -->
+    <skip />
+    <!-- no translation found for marker_level_magenta (3221219396554669048) -->
+    <skip />
+    <!-- no translation found for marker_level_yellow (4648577001843680880) -->
+    <skip />
+    <!-- no translation found for marker_level_black (4206328790507150925) -->
+    <skip />
+    <!-- no translation found for marker_level_red (3907122722653274794) -->
+    <skip />
+    <!-- no translation found for marker_level_green (2532882384172262884) -->
+    <skip />
+    <!-- no translation found for marker_level_blue (6696226663941024544) -->
+    <skip />
+    <!-- no translation found for marker_level_ltgray (7833155421911775625) -->
+    <skip />
+    <!-- no translation found for marker_level_dkgray (7337253190239376395) -->
+    <skip />
+    <!-- no translation found for marker_level_ltcyan (558183623562750614) -->
+    <skip />
+    <!-- no translation found for marker_level_ltmagenta (3211040937246650422) -->
+    <skip />
+    <!-- no translation found for marker_level_violet (863148315069042084) -->
+    <skip />
+    <!-- no translation found for marker_level_custom (346068151037269985) -->
+    <skip />
 </resources>

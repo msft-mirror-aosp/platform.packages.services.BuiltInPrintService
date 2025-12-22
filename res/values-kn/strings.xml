@@ -60,9 +60,9 @@
     <string name="forget" msgid="892068061425802502">"ಮರೆಯಿರಿ"</string>
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"ವೈ-ಫೈ ಡೈರೆಕ್ಟ್ ಮೂಲಕ ಸಂಪರ್ಕಿಸುತ್ತದೆ"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"ಪ್ರಸ್ತುತ ನೆಟ್‌ವರ್ಕ್‌ನಲ್ಲಿ <xliff:g id="IP_ADDRESS">%1$s</xliff:g> ಮೂಲಕ ಸಂಪರ್ಕಿಸುತ್ತದೆ"</string>
-    <string name="recommendation_summary" msgid="7827367046167645850">"ಡೀಫಾಲ್ಟ್ ಮುದ್ರಣ ಸೇವೆಯು ಮೂಲ ಆಯ್ಕೆಗಳನ್ನು ಒದಗಿಸುತ್ತದೆ. ಸುಧಾರಿತ ಆಯ್ಕೆಗಳಿಗಾಗಿ ಹೆಚ್ಚುವರಿ ಮುದ್ರಣ ಸೇವೆಗಳು ಲಭ್ಯವಿವೆ."</string>
+    <string name="recommendation_summary" msgid="6005124008945335822">"ಡೀಫಾಲ್ಟ್ ಮುದ್ರಣ ಸೇವೆಯು ಬೇಸಿಕ್ ಆಯ್ಕೆಗಳನ್ನು ಒದಗಿಸುತ್ತದೆ. ಸುಧಾರಿತ ಆಯ್ಕೆಗಳಿಗಾಗಿ ಹೆಚ್ಚುವರಿ ಮುದ್ರಣ ಸೇವೆಗಳು ಲಭ್ಯವಿವೆ."</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"ಶಿಫಾರಸು ಮಾಡಲಾದ ಸೇವೆಗಳು"</string>
-    <string name="recommendation_link" msgid="8300104407684336172">"ಹೆಚ್ಚುವರಿ ಮುದ್ರಣ ಸೇವೆಗಳು"</string>
+    <string name="recommendation_link" msgid="8702939483024020023">"ಹೆಚ್ಚುವರಿ ಮುದ್ರಣ ಸೇವೆಗಳು"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಲು ಆಯ್ಕೆ ಮಾಡಿ"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"ಸಕ್ರಿಯಗೊಳಿಸಲು ಆಯ್ಕೆಮಾಡಿ"</string>
     <string name="recommendation_manage" msgid="6861960243377871340">"ಸೇವೆಗಳನ್ನು ನಿರ್ವಹಿಸಿ"</string>
@@ -77,28 +77,28 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"ಸಮೀಪದಲ್ಲಿರುವ ಪ್ರಿಂಟರ್‌ಗಳನ್ನು ಪತ್ತೆ ಮಾಡಲು, ಡೀಫಾಲ್ಟ್ ಪ್ರಿಂಟ್ ಸೇವೆಗೆ ಸಮೀಪದಲ್ಲಿರುವ ಸಾಧನಗಳ ಅನುಮತಿ ಅಗತ್ಯವಿದೆ."</string>
     <string name="fix" msgid="7784394272611365393">"ಅನುಮತಿ ಪರಿಶೀಲಿಸಿ"</string>
     <string name="print" msgid="7851318072404916362">"ಪ್ರಿಂಟ್"</string>
-    <string name="yes" msgid="1887141030777316285">"ಹೌದು"</string>
-    <string name="unknown" msgid="2526777102391303730">"ಅಪರಿಚಿತ"</string>
-    <string name="printer_name" msgid="386653719801075739">"ಪ್ರಿಂಟರ್ ಹೆಸರು"</string>
-    <string name="status" msgid="5948149021115901261">"ಸ್ಥಿತಿ"</string>
-    <string name="media_ready" msgid="7205545458156298899">"ಲೋಡ್ ಮಾಡಲಾದ ಕಾಗದದ ಗಾತ್ರಗಳು"</string>
-    <string name="supply_levels" msgid="5058409966884929190">"ಪೂರೈಕೆ ಹಂತಗಳು"</string>
-    <string name="information" msgid="7896978544179559432">"ಮಾಹಿತಿ"</string>
-    <string name="printer_ready" msgid="1602057851194259669">"ಸಿದ್ಧವಾಗಿದೆ"</string>
-    <string name="printer_state__printing" msgid="596624975473301735">"ಮುದ್ರಣ"</string>
-    <string name="printer_state__offline" msgid="6755924316852857893">"ಆಫ್‌ಲೈನ್"</string>
-    <string name="printer_state__check_printer" msgid="4854932117258619033">"ಪ್ರಿಂಟರ್ ಅನ್ನು ಪರಿಶೀಲಿಸಿ"</string>
-    <string name="marker_level_cyan" msgid="5336603473668190361">"ಹಸಿರುನೀಲಿ. %1$d%%"</string>
-    <string name="marker_level_magenta" msgid="7522291481654771752">"ಮೆಜೆಂತಾ. %1$d%%"</string>
-    <string name="marker_level_yellow" msgid="1394790774846459656">"ಹಳದಿ. %1$d%%"</string>
-    <string name="marker_level_black" msgid="8169613731999901161">"ಕಪ್ಪು. %1$d%%"</string>
-    <string name="marker_level_red" msgid="6322728797617451050">"ಕೆಂಪು. %1$d%%"</string>
-    <string name="marker_level_green" msgid="4341485089035826733">"ಹಸಿರು. %1$d%%"</string>
-    <string name="marker_level_blue" msgid="6093087793287535042">"ನೀಲಿ. %1$d%%"</string>
-    <string name="marker_level_ltgray" msgid="35187469450032645">"ತಿಳಿ ಬೂದು. %1$d%%"</string>
-    <string name="marker_level_dkgray" msgid="5314300850228586851">"ಗಾಢ ಬೂದು. %1$d%%"</string>
-    <string name="marker_level_ltcyan" msgid="6793088455903750830">"ತಿಳಿ ಹಸಿರುನೀಲಿ. %1$d%%"</string>
-    <string name="marker_level_ltmagenta" msgid="3104489452878039184">"ತಿಳಿ ಮೆಜೆಂತಾ. %1$d%%"</string>
-    <string name="marker_level_violet" msgid="1616979275172835644">"ನೇರಳೆ. %1$d%%"</string>
-    <string name="marker_level_custom" msgid="586736254509490403">"ಕಸ್ಟಮ್ ಬಣ್ಣ #%1$02X%2$02X%3$02X. %4$d%%"</string>
+    <string name="yes" msgid="8146135396781327533">"ಹೌದು"</string>
+    <string name="unknown" msgid="9141700614096334947">"ಅಪರಿಚಿತ"</string>
+    <string name="printer_name" msgid="518518465578369850">"ಪ್ರಿಂಟರ್ ಹೆಸರು"</string>
+    <string name="status" msgid="7895525662471923742">"ಸ್ಥಿತಿ"</string>
+    <string name="media_ready" msgid="8259402637635303256">"ಲೋಡ್ ಮಾಡಲಾದ ಕಾಗದದ ಗಾತ್ರಗಳು"</string>
+    <string name="supply_levels" msgid="3292306109407433125">"ಪೂರೈಕೆ ಹಂತಗಳು"</string>
+    <string name="information" msgid="894176958646461459">"ಮಾಹಿತಿ"</string>
+    <string name="printer_ready" msgid="6343136701327532305">"ಸಿದ್ಧವಾಗಿದೆ"</string>
+    <string name="printer_state__printing" msgid="7991962306019119834">"ಮುದ್ರಣ"</string>
+    <string name="printer_state__offline" msgid="2381616555357221771">"ಆಫ್‌ಲೈನ್"</string>
+    <string name="printer_state__check_printer" msgid="882936062938150000">"ಪ್ರಿಂಟರ್ ಅನ್ನು ಪರಿಶೀಲಿಸಿ"</string>
+    <string name="marker_level_cyan" msgid="5726099418534404112">"ಹಸಿರುನೀಲಿ. %1$d%%"</string>
+    <string name="marker_level_magenta" msgid="3221219396554669048">"ಮೆಜೆಂತಾ. %1$d%%"</string>
+    <string name="marker_level_yellow" msgid="4648577001843680880">"ಹಳದಿ. %1$d%%"</string>
+    <string name="marker_level_black" msgid="4206328790507150925">"ಕಪ್ಪು. %1$d%%"</string>
+    <string name="marker_level_red" msgid="3907122722653274794">"ಕೆಂಪು. %1$d%%"</string>
+    <string name="marker_level_green" msgid="2532882384172262884">"ಹಸಿರು. %1$d%%"</string>
+    <string name="marker_level_blue" msgid="6696226663941024544">"ನೀಲಿ. %1$d%%"</string>
+    <string name="marker_level_ltgray" msgid="7833155421911775625">"ತಿಳಿ ಬೂದು. %1$d%%"</string>
+    <string name="marker_level_dkgray" msgid="7337253190239376395">"ಗಾಢ ಬೂದು. %1$d%%"</string>
+    <string name="marker_level_ltcyan" msgid="558183623562750614">"ತಿಳಿ ಹಸಿರುನೀಲಿ. %1$d%%"</string>
+    <string name="marker_level_ltmagenta" msgid="3211040937246650422">"ತಿಳಿ ಮೆಜೆಂತಾ. %1$d%%"</string>
+    <string name="marker_level_violet" msgid="863148315069042084">"ನೇರಳೆ. %1$d%%"</string>
+    <string name="marker_level_custom" msgid="346068151037269985">"ಕಸ್ಟಮ್ ಬಣ್ಣ #%1$02X%2$02X%3$02X. %4$d%%"</string>
 </resources>
