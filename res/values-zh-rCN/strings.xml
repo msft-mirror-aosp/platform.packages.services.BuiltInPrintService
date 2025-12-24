@@ -60,9 +60,10 @@
     <string name="forget" msgid="892068061425802502">"取消保存"</string>
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"通过 WLAN 直连连接"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"在 <xliff:g id="IP_ADDRESS">%1$s</xliff:g> 通过当前网络连接"</string>
-    <string name="recommendation_summary" msgid="7827367046167645850">"默认打印服务只提供基本选项。如需高级选项，请使用其他打印服务。"</string>
+    <!-- no translation found for recommendation_summary (6005124008945335822) -->
+    <skip />
     <string name="recommendations_heading" msgid="5609754983795588470">"推荐的服务"</string>
-    <string name="recommendation_link" msgid="8300104407684336172">"其他打印服务"</string>
+    <string name="recommendation_link" msgid="8702939483024020023">"其他打印服务"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"选择即可安装"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"选择以启用"</string>
     <string name="recommendation_manage" msgid="6861960243377871340">"管理服务"</string>
@@ -77,28 +78,41 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"默认打印服务需要获得“附近的设备”权限，才能查找附近的打印机。"</string>
     <string name="fix" msgid="7784394272611365393">"查看权限"</string>
     <string name="print" msgid="7851318072404916362">"打印"</string>
-    <string name="yes" msgid="1887141030777316285">"是"</string>
-    <string name="unknown" msgid="2526777102391303730">"未知"</string>
-    <string name="printer_name" msgid="386653719801075739">"打印机名称"</string>
-    <string name="status" msgid="5948149021115901261">"状态"</string>
-    <string name="media_ready" msgid="7205545458156298899">"装入的纸张大小"</string>
-    <string name="supply_levels" msgid="5058409966884929190">"耗材余量"</string>
-    <string name="information" msgid="7896978544179559432">"信息"</string>
-    <string name="printer_ready" msgid="1602057851194259669">"准备就绪"</string>
-    <string name="printer_state__printing" msgid="596624975473301735">"正在打印"</string>
-    <string name="printer_state__offline" msgid="6755924316852857893">"离线"</string>
-    <string name="printer_state__check_printer" msgid="4854932117258619033">"检查打印机"</string>
-    <string name="marker_level_cyan" msgid="5336603473668190361">"青色：%1$d%%"</string>
-    <string name="marker_level_magenta" msgid="7522291481654771752">"品红色：%1$d%%"</string>
-    <string name="marker_level_yellow" msgid="1394790774846459656">"黄色：%1$d%%"</string>
-    <string name="marker_level_black" msgid="8169613731999901161">"黑色：%1$d%%"</string>
-    <string name="marker_level_red" msgid="6322728797617451050">"红色：%1$d%%"</string>
-    <string name="marker_level_green" msgid="4341485089035826733">"绿色：%1$d%%"</string>
-    <string name="marker_level_blue" msgid="6093087793287535042">"蓝色：%1$d%%"</string>
-    <string name="marker_level_ltgray" msgid="35187469450032645">"浅灰色：%1$d%%"</string>
-    <string name="marker_level_dkgray" msgid="5314300850228586851">"深灰色：%1$d%%"</string>
-    <string name="marker_level_ltcyan" msgid="6793088455903750830">"浅青色：%1$d%%"</string>
-    <string name="marker_level_ltmagenta" msgid="3104489452878039184">"浅品红色：%1$d%%"</string>
-    <string name="marker_level_violet" msgid="1616979275172835644">"紫罗兰色：%1$d%%"</string>
-    <string name="marker_level_custom" msgid="586736254509490403">"自定义颜色 #%1$02X%2$02X%3$02X：%4$d%%"</string>
+    <string name="yes" msgid="8146135396781327533">"是"</string>
+    <string name="unknown" msgid="9141700614096334947">"未知"</string>
+    <string name="printer_name" msgid="518518465578369850">"打印机名称"</string>
+    <string name="status" msgid="7895525662471923742">"状态"</string>
+    <string name="media_ready" msgid="8259402637635303256">"装入的纸张大小"</string>
+    <string name="supply_levels" msgid="3292306109407433125">"耗材等级"</string>
+    <string name="information" msgid="894176958646461459">"信息"</string>
+    <string name="printer_ready" msgid="6343136701327532305">"准备就绪"</string>
+    <string name="printer_state__printing" msgid="7991962306019119834">"正在打印"</string>
+    <string name="printer_state__offline" msgid="2381616555357221771">"离线"</string>
+    <string name="printer_state__check_printer" msgid="882936062938150000">"检查打印机"</string>
+    <!-- no translation found for marker_level_cyan (5726099418534404112) -->
+    <skip />
+    <!-- no translation found for marker_level_magenta (3221219396554669048) -->
+    <skip />
+    <!-- no translation found for marker_level_yellow (4648577001843680880) -->
+    <skip />
+    <!-- no translation found for marker_level_black (4206328790507150925) -->
+    <skip />
+    <!-- no translation found for marker_level_red (3907122722653274794) -->
+    <skip />
+    <!-- no translation found for marker_level_green (2532882384172262884) -->
+    <skip />
+    <!-- no translation found for marker_level_blue (6696226663941024544) -->
+    <skip />
+    <!-- no translation found for marker_level_ltgray (7833155421911775625) -->
+    <skip />
+    <!-- no translation found for marker_level_dkgray (7337253190239376395) -->
+    <skip />
+    <!-- no translation found for marker_level_ltcyan (558183623562750614) -->
+    <skip />
+    <!-- no translation found for marker_level_ltmagenta (3211040937246650422) -->
+    <skip />
+    <!-- no translation found for marker_level_violet (863148315069042084) -->
+    <skip />
+    <!-- no translation found for marker_level_custom (346068151037269985) -->
+    <skip />
 </resources>

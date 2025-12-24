@@ -60,9 +60,9 @@
     <string name="forget" msgid="892068061425802502">"Unusta"</string>
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"Ühendab funktsiooni Wi-Fi Direct kaudu"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"Ühendab praeguse võrgu kaudu IP-aadressil <xliff:g id="IP_ADDRESS">%1$s</xliff:g>"</string>
-    <string name="recommendation_summary" msgid="7827367046167645850">"Printimise vaiketeenus hõlmab põhivalikuid. Täpsemate valikute jaoks on saadaval printimise lisateenused."</string>
+    <string name="recommendation_summary" msgid="6005124008945335822">"Printimise vaiketeenus hõlmab põhivalikuid. Täpsemate valikute jaoks on saadaval printimise lisateenused."</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"Soovitatud teenused"</string>
-    <string name="recommendation_link" msgid="8300104407684336172">"Printimise lisateenused"</string>
+    <string name="recommendation_link" msgid="8702939483024020023">"Printimise lisateenused"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"Valige installitavad teenused"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"Valige lubamiseks"</string>
     <string name="recommendation_manage" msgid="6861960243377871340">"Teenuste haldamine"</string>
@@ -77,28 +77,28 @@
     <string name="wifi_direct_permission_rationale" msgid="4671416845852665202">"Läheduses asuvate printerite leidmiseks vajab printimise vaiketeenus läheduses asuvate seadmete nägemise luba."</string>
     <string name="fix" msgid="7784394272611365393">"Loa ülevaatamine"</string>
     <string name="print" msgid="7851318072404916362">"Prindi"</string>
-    <string name="yes" msgid="1887141030777316285">"Jah"</string>
-    <string name="unknown" msgid="2526777102391303730">"Teadmata"</string>
-    <string name="printer_name" msgid="386653719801075739">"Printeri nimi"</string>
-    <string name="status" msgid="5948149021115901261">"Olek"</string>
-    <string name="media_ready" msgid="7205545458156298899">"Laaditud paberi suurused"</string>
-    <string name="supply_levels" msgid="5058409966884929190">"Tarvikute tasemed"</string>
-    <string name="information" msgid="7896978544179559432">"Teave"</string>
-    <string name="printer_ready" msgid="1602057851194259669">"Valmis"</string>
-    <string name="printer_state__printing" msgid="596624975473301735">"Printimine"</string>
-    <string name="printer_state__offline" msgid="6755924316852857893">"Võrguühenduseta"</string>
-    <string name="printer_state__check_printer" msgid="4854932117258619033">"Printeri kontrollimine"</string>
-    <string name="marker_level_cyan" msgid="5336603473668190361">"Tsüaansinine. %1$d%%"</string>
-    <string name="marker_level_magenta" msgid="7522291481654771752">"Magenta. %1$d%%"</string>
-    <string name="marker_level_yellow" msgid="1394790774846459656">"Kollane. %1$d%%"</string>
-    <string name="marker_level_black" msgid="8169613731999901161">"Must. %1$d%%"</string>
-    <string name="marker_level_red" msgid="6322728797617451050">"Punane. %1$d%%"</string>
-    <string name="marker_level_green" msgid="4341485089035826733">"Roheline. %1$d%%"</string>
-    <string name="marker_level_blue" msgid="6093087793287535042">"Sinine. %1$d%%"</string>
-    <string name="marker_level_ltgray" msgid="35187469450032645">"Helehall. %1$d%%"</string>
-    <string name="marker_level_dkgray" msgid="5314300850228586851">"Tumehall. %1$d%%"</string>
-    <string name="marker_level_ltcyan" msgid="6793088455903750830">"Hele tsüaansinine. %1$d%%"</string>
-    <string name="marker_level_ltmagenta" msgid="3104489452878039184">"Hele magenta. %1$d%%"</string>
-    <string name="marker_level_violet" msgid="1616979275172835644">"Violetne. %1$d%%"</string>
-    <string name="marker_level_custom" msgid="586736254509490403">"Kohandatud värv: #%1$02X%2$02X%3$02X. %4$d%%"</string>
+    <string name="yes" msgid="8146135396781327533">"Jah"</string>
+    <string name="unknown" msgid="9141700614096334947">"Teadmata"</string>
+    <string name="printer_name" msgid="518518465578369850">"Printeri nimi"</string>
+    <string name="status" msgid="7895525662471923742">"Olek"</string>
+    <string name="media_ready" msgid="8259402637635303256">"Laaditud paberi suurused"</string>
+    <string name="supply_levels" msgid="3292306109407433125">"Tarvikute tasemed"</string>
+    <string name="information" msgid="894176958646461459">"Teave"</string>
+    <string name="printer_ready" msgid="6343136701327532305">"Valmis"</string>
+    <string name="printer_state__printing" msgid="7991962306019119834">"Printimine"</string>
+    <string name="printer_state__offline" msgid="2381616555357221771">"Võrguühenduseta"</string>
+    <string name="printer_state__check_printer" msgid="882936062938150000">"Printeri kontrollimine"</string>
+    <string name="marker_level_cyan" msgid="5726099418534404112">"Tsüaansinine. %1$d%%"</string>
+    <string name="marker_level_magenta" msgid="3221219396554669048">"Magenta. %1$d%%"</string>
+    <string name="marker_level_yellow" msgid="4648577001843680880">"Kollane. %1$d%%"</string>
+    <string name="marker_level_black" msgid="4206328790507150925">"Must. %1$d%%"</string>
+    <string name="marker_level_red" msgid="3907122722653274794">"Punane. %1$d%%"</string>
+    <string name="marker_level_green" msgid="2532882384172262884">"Roheline. %1$d%%"</string>
+    <string name="marker_level_blue" msgid="6696226663941024544">"Sinine. %1$d%%"</string>
+    <string name="marker_level_ltgray" msgid="7833155421911775625">"Helehall. %1$d%%"</string>
+    <string name="marker_level_dkgray" msgid="7337253190239376395">"Tumehall. %1$d%%"</string>
+    <string name="marker_level_ltcyan" msgid="558183623562750614">"Hele tsüaansinine. %1$d%%"</string>
+    <string name="marker_level_ltmagenta" msgid="3211040937246650422">"Hele magenta. %1$d%%"</string>
+    <string name="marker_level_violet" msgid="863148315069042084">"Violetne. %1$d%%"</string>
+    <string name="marker_level_custom" msgid="346068151037269985">"Kohandatud värv: #%1$02X%2$02X%3$02X. %4$d%%"</string>
 </resources>
