@@ -60,8 +60,7 @@
     <string name="forget" msgid="892068061425802502">"हटाउनुहोस्"</string>
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"Wi-Fi प्रत्यक्षमार्फत जडान गर्छ"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"<xliff:g id="IP_ADDRESS">%1$s</xliff:g> को हालको नेटवर्कमार्फत जडान गर्छ"</string>
-    <!-- no translation found for recommendation_summary (6005124008945335822) -->
-    <skip />
+    <string name="recommendation_summary" msgid="6005124008945335822">"डिफल्ट प्रिन्ट सेवाअन्तर्गत आधारभूत विकल्पहरू प्रदान गरिन्छन्। उन्नत विकल्पहरूका लागि अतिरिक्त प्रिन्ट सेवाहरू उपलब्ध छन्।"</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"सिफारिस गरिएका सेवाहरू"</string>
     <string name="recommendation_link" msgid="8702939483024020023">"अतिरिक्त प्रिन्ट सेवाहरू"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"इन्स्टल गर्न चयन गर्नुहोस्"</string>
@@ -89,30 +88,17 @@
     <string name="printer_state__printing" msgid="7991962306019119834">"प्रिन्ट गरिँदै छ"</string>
     <string name="printer_state__offline" msgid="2381616555357221771">"अफलाइन छ"</string>
     <string name="printer_state__check_printer" msgid="882936062938150000">"प्रिन्टर जाँच्नुहोस्"</string>
-    <!-- no translation found for marker_level_cyan (5726099418534404112) -->
-    <skip />
-    <!-- no translation found for marker_level_magenta (3221219396554669048) -->
-    <skip />
-    <!-- no translation found for marker_level_yellow (4648577001843680880) -->
-    <skip />
-    <!-- no translation found for marker_level_black (4206328790507150925) -->
-    <skip />
-    <!-- no translation found for marker_level_red (3907122722653274794) -->
-    <skip />
-    <!-- no translation found for marker_level_green (2532882384172262884) -->
-    <skip />
-    <!-- no translation found for marker_level_blue (6696226663941024544) -->
-    <skip />
-    <!-- no translation found for marker_level_ltgray (7833155421911775625) -->
-    <skip />
-    <!-- no translation found for marker_level_dkgray (7337253190239376395) -->
-    <skip />
-    <!-- no translation found for marker_level_ltcyan (558183623562750614) -->
-    <skip />
-    <!-- no translation found for marker_level_ltmagenta (3211040937246650422) -->
-    <skip />
-    <!-- no translation found for marker_level_violet (863148315069042084) -->
-    <skip />
-    <!-- no translation found for marker_level_custom (346068151037269985) -->
-    <skip />
+    <string name="marker_level_cyan" msgid="5726099418534404112">"सायन। %1$d%%"</string>
+    <string name="marker_level_magenta" msgid="3221219396554669048">"मजेन्टा। %1$d%%"</string>
+    <string name="marker_level_yellow" msgid="4648577001843680880">"पहेँलो। %1$d%%"</string>
+    <string name="marker_level_black" msgid="4206328790507150925">"कालो। %1$d%%"</string>
+    <string name="marker_level_red" msgid="3907122722653274794">"रातो। %1$d%%"</string>
+    <string name="marker_level_green" msgid="2532882384172262884">"हरियो। %1$d%%"</string>
+    <string name="marker_level_blue" msgid="6696226663941024544">"निलो। %1$d%%"</string>
+    <string name="marker_level_ltgray" msgid="7833155421911775625">"फिक्का खरानी। %1$d%%"</string>
+    <string name="marker_level_dkgray" msgid="7337253190239376395">"गाढा खरानी। %1$d%%"</string>
+    <string name="marker_level_ltcyan" msgid="558183623562750614">"फिक्का सायन। %1$d%%"</string>
+    <string name="marker_level_ltmagenta" msgid="3211040937246650422">"फिक्का मजेन्टा। %1$d%%"</string>
+    <string name="marker_level_violet" msgid="863148315069042084">"बैजनी। %1$d%%"</string>
+    <string name="marker_level_custom" msgid="346068151037269985">"कस्टम रङ #%1$02X%2$02X%3$02X। %4$d%%"</string>
 </resources>
