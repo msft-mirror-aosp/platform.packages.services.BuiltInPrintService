@@ -56,7 +56,7 @@
     <string name="connecting_to" msgid="2665161014972086194">"<xliff:g id="PRINTER">%1$s</xliff:g> ಗೆ ಸಂಪರ್ಕಿಸುತ್ತಿದೆ"</string>
     <string name="failed_printer_connection" msgid="4196305972749960362">"ಪ್ರಿಂಟರ್‌ಗೆ ಸಂಪರ್ಕಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ"</string>
     <string name="failed_connection" msgid="8068661997318286575">"<xliff:g id="PRINTER">%1$s</xliff:g> ಗೆ ಸಂಪರ್ಕಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ"</string>
-    <string name="saved_printers" msgid="4567534965213125526">"ಉಳಿಸಿದ ಪ್ರಿಂಟರ್‌ಗಳು"</string>
+    <string name="saved_printers" msgid="4567534965213125526">"ಸೇವ್ ಮಾಡಿದ ಪ್ರಿಂಟರ್‌ಗಳು"</string>
     <string name="forget" msgid="892068061425802502">"ಮರೆಯಿರಿ"</string>
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"ವೈ-ಫೈ ಡೈರೆಕ್ಟ್ ಮೂಲಕ ಸಂಪರ್ಕಿಸುತ್ತದೆ"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"ಪ್ರಸ್ತುತ ನೆಟ್‌ವರ್ಕ್‌ನಲ್ಲಿ <xliff:g id="IP_ADDRESS">%1$s</xliff:g> ಮೂಲಕ ಸಂಪರ್ಕಿಸುತ್ತದೆ"</string>
