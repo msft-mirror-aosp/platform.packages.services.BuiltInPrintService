@@ -53,7 +53,7 @@
     <string name="wifi_direct_printers" msgid="541168032444693191">"‏چاپگرهای Wi-Fi بی‌واسطه"</string>
     <string name="searching" msgid="2114018057619514587">"درحال جستجو…"</string>
     <string name="connect_hint_text" msgid="587112503851044234">"ممکن است لازم باشد این اتصال را در پانل جلوی چاپگر تأیید کنید"</string>
-    <string name="connecting_to" msgid="2665161014972086194">"درحال اتصال به <xliff:g id="PRINTER">%1$s</xliff:g>"</string>
+    <string name="connecting_to" msgid="2665161014972086194">"درحال متصل شدن به <xliff:g id="PRINTER">%1$s</xliff:g>"</string>
     <string name="failed_printer_connection" msgid="4196305972749960362">"به چاپگر متصل نشد"</string>
     <string name="failed_connection" msgid="8068661997318286575">"به <xliff:g id="PRINTER">%1$s</xliff:g> متصل نشد"</string>
     <string name="saved_printers" msgid="4567534965213125526">"چاپگرهای ذخیره‌شده"</string>
