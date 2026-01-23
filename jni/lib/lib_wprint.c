@@ -54,7 +54,7 @@
 /* As expected by target devices */
 #define USERAGENT_PREFIX "wPrintAndroid"
 
-#define USE_PWG_OVER_PCLM 0
+#define USE_PWG_OVER_PCLM 1
 
 #if (USE_PWG_OVER_PCLM != 0)
 #define _DEFAULT_PRINT_FORMAT  PRINT_FORMAT_PWG
