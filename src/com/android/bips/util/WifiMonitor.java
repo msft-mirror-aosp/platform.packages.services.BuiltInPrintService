@@ -21,43 +21,119 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
+import android.net.NetworkRequest;
 import android.util.Log;
 
+import androidx.annotation.GuardedBy;
+import androidx.annotation.NonNull;
+
 import com.android.bips.BuiltInPrintService;
+import com.android.bips.flags.Flags;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /** Reliably reports on changes to Wi-Fi connectivity state */
 public class WifiMonitor {
     private static final String TAG = WifiMonitor.class.getSimpleName();
     private static final boolean DEBUG = false;
 
+    // Track one listener.  Used when Flags.updated_wifimonitor is false.
     private BroadcastMonitor mBroadcasts;
     private Listener mListener;
+    private static Boolean mIsRegister = false;
+
+    // Track multiple listeners in one instance.  Used when Flags.updated_wifimonitor is true.
+    private final List<Listener> mListeners = new CopyOnWriteArrayList<>();
+    private boolean mCallbackRegistered = false;
 
     /** Current connectivity state or null if not known yet */
     private Boolean mConnected;
 
-    private static Boolean mIsRegister = false;
+    private static final Object sLock = new Object();
+
+    @GuardedBy("sLock")
+    private static WifiMonitor sInstance;
+
+    private final ConnectivityManager mConnectivityManager;
+    private Set<Network> mActiveNetworks = new HashSet<Network>();
+
+    private final ConnectivityManager.NetworkCallback mNetworkCallback =
+            new ConnectivityManager.NetworkCallback() {
+                @Override
+                public void onAvailable(@NonNull Network network) {
+                    if (DEBUG) Log.d(TAG, "Network available: " + network);
+                    mActiveNetworks.add(network);
+                    notifyListeners();
+                }
+
+                @Override
+                public void onLost(@NonNull Network network) {
+                    if (DEBUG) Log.d(TAG, "Network lost: " + network);
+                    mActiveNetworks.remove(network);
+                    notifyListeners();
+                }
+            };
+
+    /**
+     * Get the singleton instance of WifiMonitor, creating it if necessary.
+     *
+     * @param service The BuiltInPrintService instance to use for context.
+     * @param listener The listener to notify of connection state changes.
+     * @return The singleton instance of WifiMonitor.
+     */
+    public static WifiMonitor getInstance(BuiltInPrintService service, @NonNull Listener listener) {
+        if (DEBUG) Log.d(TAG, "getInstance()");
+        if (!Flags.updatedWifimonitor()) {
+            return new WifiMonitor(service, listener);
+        }
+        synchronized (sLock) {
+            if (sInstance == null) {
+                sInstance = new WifiMonitor(service, listener);
+            } else {
+                // If the instance already exists, notify the listener immediately on the last
+                // connection status
+                boolean connected = !sInstance.mActiveNetworks.isEmpty();
+                listener.onConnectionStateChanged(connected);
+                if (!sInstance.mListeners.contains(listener)) {
+                    sInstance.mListeners.add(listener);
+                }
+            }
+            return sInstance;
+        }
+    }
 
     /**
      * Begin listening for connectivity changes, supplying the connectivity state to the listener
      * until stopped.
      */
-    public WifiMonitor(BuiltInPrintService service, Listener listener) {
+    private WifiMonitor(BuiltInPrintService service, Listener listener) {
         if (DEBUG) Log.d(TAG, "WifiMonitor()");
-        ConnectivityManager connectivityManager =
-                (ConnectivityManager) service.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivityManager == null) {
+        mConnectivityManager = service.getSystemService(ConnectivityManager.class);
+        if (mConnectivityManager == null) {
             return;
         }
 
+        // TODO: b/470364937 - Remove mListener when updated_wifimonitor is fully launched.
         mListener = listener;
-        if(!mIsRegister) {
+        if (Flags.updatedWifimonitor()) {
+            mListeners.add(listener);
+            NetworkRequest.Builder builder = new NetworkRequest.Builder();
+            builder.addTransportType(NetworkCapabilities.TRANSPORT_WIFI);
+            builder.addTransportType(NetworkCapabilities.TRANSPORT_ETHERNET);
+            mConnectivityManager.registerNetworkCallback(builder.build(), mNetworkCallback);
+            mCallbackRegistered = true;
+        } else if (!mIsRegister) {
             mBroadcasts = service.receiveBroadcasts(new BroadcastReceiver() {
                 @Override
                 public void onReceive(Context context, Intent intent) {
                     if (ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction())) {
-                        NetworkInfo info = connectivityManager.getNetworkInfo(
+                        NetworkInfo info = mConnectivityManager.getNetworkInfo(
                           ConnectivityManager.TYPE_WIFI);
                         boolean isConnected = info != null && info.isConnected();
                         if (mListener != null && (
@@ -72,14 +148,40 @@ public class WifiMonitor {
         }
     }
 
+    private void notifyListeners() {
+        boolean connected = !mActiveNetworks.isEmpty();
+        for (Listener listener : mListeners) {
+            if (listener != null) {
+                listener.onConnectionStateChanged(connected);
+            }
+        }
+    }
+
     /** Cease monitoring Wi-Fi connectivity status */
-    public void close() {
+    private void close() {
         if (DEBUG) Log.d(TAG, "close()");
         if (mIsRegister && mBroadcasts != null) {
             mBroadcasts.close();
             mIsRegister = false;
         }
         mListener = null;
+    }
+
+    /** Cease monitoring Wi-Fi connectivity status */
+    public void close(@NonNull Listener listener) {
+        if (DEBUG) Log.d(TAG, "close()");
+        if (!Flags.updatedWifimonitor()) {
+            close();
+            return;
+        }
+        mListeners.remove(listener);
+        if (mListeners.isEmpty() && mConnectivityManager != null && mCallbackRegistered) {
+            mConnectivityManager.unregisterNetworkCallback(mNetworkCallback);
+            mCallbackRegistered = false;
+            synchronized (sLock) {
+                sInstance = null;
+            }
+        }
     }
 
     /** Communicate changes to the Wi-Fi connection state */

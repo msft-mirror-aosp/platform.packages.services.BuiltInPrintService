@@ -76,6 +76,7 @@ public class CapabilitiesCache implements AutoCloseable {
     private final BroadcastMonitor mP2pMonitor;
     private final BuiltInPrintService mService;
     private boolean mIsStopped = false;
+    private WifiMonitor.Listener mListener;
 
     /**
      * @param maxConcurrent Maximum number of capabilities requests to make at any one time
@@ -102,7 +103,7 @@ public class CapabilitiesCache implements AutoCloseable {
             }
         }, WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION);
 
-        mWifiMonitor = new WifiMonitor(service, connected -> {
+        mWifiMonitor = WifiMonitor.getInstance(service, mListener = connected -> {
             if (!connected) {
                 // Evict specified device capabilities when network is lost.
                 if (DEBUG) Log.d(TAG, "Evicting Wi-Fi " + mToEvict);
@@ -118,7 +119,7 @@ public class CapabilitiesCache implements AutoCloseable {
     public void close() {
         if (DEBUG) Log.d(TAG, "stop()");
         mIsStopped = true;
-        mWifiMonitor.close();
+        mWifiMonitor.close(mListener);
         mP2pMonitor.close();
     }
 

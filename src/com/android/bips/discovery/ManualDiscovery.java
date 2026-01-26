@@ -51,6 +51,7 @@ public class ManualDiscovery extends SavedDiscovery {
     private WifiMonitor mWifiMonitor;
     private CapabilitiesCache mCapabilitiesCache;
     private List<CapabilitiesFinder> mAddRequests = new ArrayList<>();
+    private WifiMonitor.Listener mListener;
 
     public ManualDiscovery(BuiltInPrintService printService) {
         super(printService);
@@ -62,7 +63,7 @@ public class ManualDiscovery extends SavedDiscovery {
         if (DEBUG) Log.d(TAG, "onStart");
 
         // Upon any network change scan for all manually added printers
-        mWifiMonitor = new WifiMonitor(getPrintService(), isConnected -> {
+        mWifiMonitor = WifiMonitor.getInstance(getPrintService(), mListener = isConnected -> {
             if (isConnected) {
                 for (DiscoveredPrinter printer : getSavedPrinters()) {
                     mCapabilitiesCache.request(printer, false, capabilities -> {
@@ -80,7 +81,7 @@ public class ManualDiscovery extends SavedDiscovery {
     @Override
     void onStop() {
         if (DEBUG) Log.d(TAG, "onStop");
-        mWifiMonitor.close();
+        mWifiMonitor.close(mListener);
         allPrintersLost();
     }
 
