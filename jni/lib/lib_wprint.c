@@ -2474,6 +2474,6 @@ bool wprintBlankPageForPclm(const wprint_job_params_t *job_params,
 bool wprintBlankPageForPwg(const wprint_job_params_t *job_params,
         const printer_capabilities_t *printer_cap) {
     return ((job_params->job_pages_per_set % 2) && (job_params->duplex != DUPLEX_MODE_NONE) &&
-            !(printer_cap->jobPagesPerSetSupported &&
-                    strcmp(job_params->print_format, PRINT_FORMAT_PWG) == 0));
+            (strcmp(job_params->print_format, PRINT_FORMAT_PWG) == 0) &&
+            ((com_android_bips_flags_mopria_26q2_fixes() && job_params->num_copies == 1) || !printer_cap->jobPagesPerSetSupported));
 }

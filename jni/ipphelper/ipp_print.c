@@ -309,10 +309,15 @@ static ipp_t *_fill_job(int ipp_op, char *printer_uri, const wprint_job_params_t
 
     if (printer_caps->jobPagesPerSetSupported && job_params->job_pages_per_set > 0) {
         unsigned int job_pages_per_set = job_params->job_pages_per_set;
-        if (strcmp(job_params->print_format, PRINT_FORMAT_PCLM) == 0
-            && wprintBlankPageForPclm(job_params, printer_caps)) {
-            job_pages_per_set++;
-            LOGD("_fill_job: incremented job_pages_per_set: %d", job_pages_per_set);
+        if ((strcmp(job_params->print_format, PRINT_FORMAT_PCLM) == 0) ||
+            (com_android_bips_flags_mopria_26q2_fixes() && strcmp(job_params->print_format, PRINT_FORMAT_PWG) == 0)) {
+            bool need_blank_page = strcmp(job_params->print_format, PRINT_FORMAT_PCLM) == 0
+                                   ? wprintBlankPageForPclm(job_params, printer_caps)
+                                   : wprintBlankPageForPwg(job_params, printer_caps);
+            if (need_blank_page) {
+                job_pages_per_set++;
+                LOGD("_fill_job: incremented job_pages_per_set: %d", job_pages_per_set);
+            }
         }
         ippAddInteger(request, IPP_TAG_JOB, IPP_TAG_INTEGER, "job-pages-per-set",
                 job_pages_per_set);
