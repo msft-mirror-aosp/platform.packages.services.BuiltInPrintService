@@ -1532,14 +1532,26 @@ void parse_printerAttributes(ipp_t *response, printer_capabilities_t *capabiliti
         LOGD("pclm-compression-method-preferred=%s", ippGetString(attrptr, 0, NULL));
     }
 
-    // is device able to rotate back page for duplex jobs? (assume PCLM and PWG are similar)
-    capabilities->canRotateDuplexBackPage = 0;
-    if ((attrptr = ippFindAttribute(response, "pclm-raster-back-side", IPP_TAG_KEYWORD)) == NULL) {
-        attrptr = ippFindAttribute(response, "pwg-raster-document-sheet-back", IPP_TAG_KEYWORD);
-    }
-    if (attrptr != NULL && strcmp(ippGetString(attrptr, 0, NULL), "rotated") != 0) {
-        LOGD("Device can rotate back page for duplex jobs.");
+    if (com_android_bips_flags_mopria_26q2_fixes()) {
+        // can printer rotate back page for duplex jobs? (assume PWG and PCLm are similar)
         capabilities->canRotateDuplexBackPage = 1;
+        if ((attrptr = ippFindAttribute(response, "pwg-raster-document-sheet-back", IPP_TAG_KEYWORD)) == NULL) {
+            attrptr = ippFindAttribute(response, "pclm-raster-back-side", IPP_TAG_KEYWORD);
+        }
+        if (attrptr != NULL && strcmp(ippGetString(attrptr, 0, NULL), "rotated") == 0) {
+            LOGD("Device needs print client to rotate the back side page for duplex jobs.");
+            capabilities->canRotateDuplexBackPage = 0;
+        }
+    } else {
+        // is device able to rotate back page for duplex jobs? (assume PCLM and PWG are similar)
+        capabilities->canRotateDuplexBackPage = 0;
+        if ((attrptr = ippFindAttribute(response, "pclm-raster-back-side", IPP_TAG_KEYWORD)) == NULL) {
+            attrptr = ippFindAttribute(response, "pwg-raster-document-sheet-back", IPP_TAG_KEYWORD);
+        }
+        if (attrptr != NULL && strcmp(ippGetString(attrptr, 0, NULL), "rotated") != 0) {
+            LOGD("Device can rotate back page for duplex jobs.");
+            capabilities->canRotateDuplexBackPage = 1;
+        }
     }
 
     // look for full-bleed supported by looking for 0 on all margins
