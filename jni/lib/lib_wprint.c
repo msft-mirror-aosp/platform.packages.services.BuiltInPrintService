@@ -1114,6 +1114,11 @@ static void *_job_thread(void *param) {
                                 break;
                             }
                         }
+                        if (com_android_bips_flags_mopria_26q2_fixes() && jq->job_state == JOB_STATE_ERROR) {
+                            LOGE("_job_thread(): job is in error state, blocked reasons: %d,"
+                                 "bailing out", jq->blocked_reasons);
+                            break;
+                        }
 
                         /* take empty filename as cue to break out of the loop
                          * but we have to do last_page processing
@@ -1273,6 +1278,11 @@ static void *_job_thread(void *param) {
                             job_result = ERROR;
                             break;
                         }
+                    }
+                    if (com_android_bips_flags_mopria_26q2_fixes() && jq->job_state == JOB_STATE_ERROR) {
+                        LOGE("_job_thread(): job is in error state, blocked reasons: %d,"
+                             "bailing out", jq->blocked_reasons);
+                        break;
                     }
 
                     jq->job_state = JOB_STATE_RUNNING;

@@ -380,7 +380,11 @@ class LocalPrintJob implements MdnsDiscovery.Listener, ConnectionListener,
                     default:
                         // Job failed
                         reportPrintJob(BackendConstants.JOB_DONE_ERROR);
-                        finish(false, null);
+                        String errorMessage =
+                                (Flags.mopria26q2Fixes() && jobStatus.getBlockedReasonId() > 0)
+                                        ? mPrintService.getString(jobStatus.getBlockedReasonId())
+                                        : null;
+                        finish(false, errorMessage);
                         bundle.putString(
                                 BackendConstants.PARAM_ERROR_MESSAGES,
                                 getStringifiedBlockedReasons());
