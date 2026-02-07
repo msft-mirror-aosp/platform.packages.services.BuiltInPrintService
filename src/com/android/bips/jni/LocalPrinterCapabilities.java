@@ -65,6 +65,7 @@ public class LocalPrinterCapabilities {
 
     public int[] mediaReadySizes;
     public String mopriaCertified;
+    public String printWfds;
     public String[] markerNames;
     public String[] markerTypes;
     public String[] markerColors;
@@ -146,6 +147,7 @@ public class LocalPrinterCapabilities {
                 + " supportedMediaSizes=" + Arrays.toString(supportedMediaSizes)
                 + " inetAddress=" + inetAddress
                 + " certificate=" + (certificate != null)
+                + " print_wfds=" + printWfds
                 + "}";
     }
 }

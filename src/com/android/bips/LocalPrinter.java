@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.android.bips.discovery.ConnectionListener;
 import com.android.bips.discovery.DiscoveredPrinter;
+import com.android.bips.flags.Flags;
 import com.android.bips.ipp.CapabilitiesCache;
 import com.android.bips.jni.LocalPrinterCapabilities;
 import com.android.bips.p2p.P2pPrinterConnection;
@@ -135,12 +136,25 @@ class LocalPrinter implements CapabilitiesCache.OnLocalPrinterCapabilities {
             return;
         }
 
-        if (capabilities == null) {
-            if (DEBUG) Log.d(TAG, "No capabilities so removing printer " + this);
-            mSession.removePrinters(Collections.singletonList(mPrinterId));
+        if (Flags.mopria26q2Fixes()) {
+            if (capabilities == null) {
+                if (DEBUG) Log.d(TAG, "No capabilities so removing printer " + this);
+                mSession.removePrinters(Collections.singletonList(mPrinterId));
+            } else if ("F".equalsIgnoreCase(capabilities.printWfds)) {
+                if (DEBUG) Log.d(TAG, "print_wfds is F hence removing printer " + this);
+                mSession.removePrinters(Collections.singletonList(mPrinterId));
+            } else {
+                mCapabilities = capabilities;
+                mSession.handlePrinter(this);
+            }
         } else {
-            mCapabilities = capabilities;
-            mSession.handlePrinter(this);
+            if (capabilities == null) {
+                if (DEBUG) Log.d(TAG, "No capabilities so removing printer " + this);
+                mSession.removePrinters(Collections.singletonList(mPrinterId));
+            } else {
+                mCapabilities = capabilities;
+                mSession.handlePrinter(this);
+            }
         }
     }
 

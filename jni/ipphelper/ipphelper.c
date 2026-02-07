@@ -1310,6 +1310,11 @@ void parse_printerAttributes(ipp_t *response, printer_capabilities_t *capabiliti
         LOGD("printer-icons not found");
     }
 
+    if ((attrptr = ippFindAttribute(response, "print_wfds", IPP_TAG_TEXT)) != NULL) {
+        strlcpy(capabilities->print_wfds, ippGetString(attrptr, 0, NULL),
+                sizeof(capabilities->print_wfds));
+    }
+
     if ((attrptr = ippFindAttribute(response, "media-default", IPP_TAG_KEYWORD)) != NULL
          && strlen(capabilities->mediaDefault) <= 0) {
         strlcpy(capabilities->mediaDefault, ippGetString(attrptr, 0, NULL),
@@ -1875,6 +1880,7 @@ void debuglist_printerCapabilities(printer_capabilities_t *capabilities) {
     }
     LOGD("print_scaling_default: %s",capabilities->print_scaling_default);
     LOGD("jobPagesPerSetSupported: %d", capabilities->jobPagesPerSetSupported);
+    LOGD("print_wfds: %s", capabilities->print_wfds);
 }
 
 void debuglist_printerStatus(printer_state_dyn_t *printer_state_dyn) {
