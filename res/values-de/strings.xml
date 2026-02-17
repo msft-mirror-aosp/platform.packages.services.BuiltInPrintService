@@ -62,7 +62,7 @@
     <string name="connects_via_network" msgid="5990041581556733898">"Verbindung über das aktuelle Netzwerk mit der IP-Adresse <xliff:g id="IP_ADDRESS">%1$s</xliff:g>"</string>
     <string name="recommendation_summary" msgid="6005124008945335822">"Der Standarddruckdienst bietet grundlegende Optionen. Erweiterte Optionen sind bei weiteren Druckdiensten verfügbar."</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"Empfohlene Dienste"</string>
-    <string name="recommendation_link" msgid="8702939483024020023">"Zusätzliche Druckdienste"</string>
+    <string name="recommendation_link" msgid="8702939483024020023">"Weitere Druckdienste"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"Zum Installieren auswählen"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"Zum Aktivieren auswählen"</string>
     <string name="recommendation_manage" msgid="6861960243377871340">"Dienste verwalten"</string>

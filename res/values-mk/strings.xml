@@ -60,7 +60,7 @@
     <string name="forget" msgid="892068061425802502">"Избриши го"</string>
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"Се поврзува преку Wi-Fi Direct"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"Се поврзува преку моменталната мрежа на <xliff:g id="IP_ADDRESS">%1$s</xliff:g>"</string>
-    <string name="recommendation_summary" msgid="6005124008945335822">"Услугата за стандардно печатење нуди основни опции. За напредни опции, достапни се дополнителни услуги за печатење."</string>
+    <string name="recommendation_summary" msgid="6005124008945335822">"Стандардната услуга за печатење нуди основни опции. За напредни опции, достапни се дополнителни услуги за печатење."</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"Препорачани услуги"</string>
     <string name="recommendation_link" msgid="8702939483024020023">"Дополнителни услуги за печатење"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"Изберете за да инсталирате"</string>

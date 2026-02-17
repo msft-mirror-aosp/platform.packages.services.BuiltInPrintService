@@ -60,7 +60,7 @@
     <string name="forget" msgid="892068061425802502">"जानकारी हटाएं"</string>
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"Wi-Fi Direct के ज़रिए कनेक्ट किया जाता है"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"<xliff:g id="IP_ADDRESS">%1$s</xliff:g> पर मौजूदा नेटवर्क के ज़रिए कनेक्ट किया जाता है"</string>
-    <string name="recommendation_summary" msgid="6005124008945335822">"प्रिंट से जुड़ी डिफ़ॉल्ट सेवा में बुनियादी सुविधाएं मिलती हैं. ऐडवांस सुविधाओं के लिए, प्रिंट से जुड़ी अतिरिक्त सेवाओं का इस्तेमाल करें."</string>
+    <string name="recommendation_summary" msgid="6005124008945335822">"प्रिंट से जुड़ी डिफ़ॉल्ट सेवा में बुनियादी सुविधाएं मिलती हैं. ऐडवांस सुविधाओं के लिए, प्रिंट करने की अतिरिक्त सेवाओं का इस्तेमाल करें."</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"सुझाई गई सेवाएं"</string>
     <string name="recommendation_link" msgid="8702939483024020023">"प्रिंट करने की अतिरिक्त सेवाएं"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"इंस्टॉल करने के लिए चुनें"</string>

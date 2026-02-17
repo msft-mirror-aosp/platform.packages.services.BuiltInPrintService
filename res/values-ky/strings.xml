@@ -60,7 +60,7 @@
     <string name="forget" msgid="892068061425802502">"Унутулсун"</string>
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"Wi-Fi Direct аркылуу туташат"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"<xliff:g id="IP_ADDRESS">%1$s</xliff:g> IP дарегиндеги учурдагы тармак аркылуу туташат"</string>
-    <string name="recommendation_summary" msgid="6005124008945335822">"Демейки басып чыгаруу кызматы негизги параметрлерди сунуштайт. Өркүндөтүлгөн параметрлер үчүн кошумча басып чыгаруу кызматтары жеткиликтүү."</string>
+    <string name="recommendation_summary" msgid="6005124008945335822">"Демейки басып чыгаруу кызматында негизги функциялар иштейт. Өркүндөтүлгөн параметрлерди кошумча басып чыгаруу кызматтарынан таба аласыз."</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"Сунушталган кызматтар"</string>
     <string name="recommendation_link" msgid="8702939483024020023">"Кошумча басып чыгаруу кызматтары"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"Орнотуу үчүн тандаңыз"</string>
