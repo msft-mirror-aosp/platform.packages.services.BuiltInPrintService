@@ -60,7 +60,7 @@
     <string name="forget" msgid="892068061425802502">"Zabudnúť"</string>
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"Pripája sa prostredníctvom rozhrania Wi-Fi Direct"</string>
     <string name="connects_via_network" msgid="5990041581556733898">"Pripája sa prostredníctvom aktuálnej siete na adrese IP – <xliff:g id="IP_ADDRESS">%1$s</xliff:g>"</string>
-    <string name="recommendation_summary" msgid="6005124008945335822">"Predvolená tlačová služba poskytuje základné možnosti. V prípade potreby rozšírených možností sú k dispozícii ďalšie tlačové služby."</string>
+    <string name="recommendation_summary" msgid="6005124008945335822">"Predvolená tlačová služba poskytuje základné možnosti. Ďalšie tlačové služby ponúkajú rozšírené možnosti."</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"Odporúčané služby"</string>
     <string name="recommendation_link" msgid="8702939483024020023">"Ďalšie tlačové služby"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"Vyberte a nainštalujte"</string>

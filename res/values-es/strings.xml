@@ -62,7 +62,7 @@
     <string name="connects_via_network" msgid="5990041581556733898">"Se conecta a través de la red actual con la dirección IP <xliff:g id="IP_ADDRESS">%1$s</xliff:g>"</string>
     <string name="recommendation_summary" msgid="6005124008945335822">"El servicio de impresión predeterminado solo cuenta con opciones básicas. Si quieres usar opciones avanzadas, hay otros servicios de impresión disponibles."</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"Servicios recomendados"</string>
-    <string name="recommendation_link" msgid="8702939483024020023">"Servicios de impresión adicionales"</string>
+    <string name="recommendation_link" msgid="8702939483024020023">"Servicios de impresión extra"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"Selecciónalo para instalarlo"</string>
     <string name="recommendation_enable_summary" msgid="3500907868251326224">"Selecciona lo que quieras habilitar"</string>
     <string name="recommendation_manage" msgid="6861960243377871340">"Gestionar servicios"</string>
@@ -82,9 +82,9 @@
     <string name="printer_name" msgid="518518465578369850">"Nombre de la impresora"</string>
     <string name="status" msgid="7895525662471923742">"Estado"</string>
     <string name="media_ready" msgid="8259402637635303256">"Tamaños del papel cargado"</string>
-    <string name="supply_levels" msgid="3292306109407433125">"Niveles de suministro"</string>
+    <string name="supply_levels" msgid="3292306109407433125">"Niveles de tinta"</string>
     <string name="information" msgid="894176958646461459">"Información"</string>
-    <string name="printer_ready" msgid="6343136701327532305">"Listo"</string>
+    <string name="printer_ready" msgid="6343136701327532305">"Lista"</string>
     <string name="printer_state__printing" msgid="7991962306019119834">"Imprimiendo"</string>
     <string name="printer_state__offline" msgid="2381616555357221771">"Sin conexión"</string>
     <string name="printer_state__check_printer" msgid="882936062938150000">"Comprobar impresora"</string>

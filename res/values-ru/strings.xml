@@ -60,7 +60,7 @@
     <string name="forget" msgid="892068061425802502">"Удалить"</string>
     <string name="connects_via_wifi_direct" msgid="652300632780158437">"Подключено через Wi-Fi Direct."</string>
     <string name="connects_via_network" msgid="5990041581556733898">"Подключено к текущей сети с IP-адресом <xliff:g id="IP_ADDRESS">%1$s</xliff:g>."</string>
-    <string name="recommendation_summary" msgid="6005124008945335822">"Служба печати по умолчанию предоставляет базовый набор функций. Дополнительные возможности доступны в других службах печати."</string>
+    <string name="recommendation_summary" msgid="6005124008945335822">"Служба печати по умолчанию поддерживает базовые функции. Расширенные возможности доступны в дополнительных службах печати."</string>
     <string name="recommendations_heading" msgid="5609754983795588470">"Рекомендуемые службы"</string>
     <string name="recommendation_link" msgid="8702939483024020023">"Дополнительные службы печати"</string>
     <string name="recommendation_install_summary" msgid="374785283809791669">"Выберите, чтобы установить"</string>

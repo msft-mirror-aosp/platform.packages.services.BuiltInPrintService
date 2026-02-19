@@ -82,7 +82,7 @@
     <string name="printer_name" msgid="518518465578369850">"ప్రింటర్ పేరు"</string>
     <string name="status" msgid="7895525662471923742">"స్టేటస్"</string>
     <string name="media_ready" msgid="8259402637635303256">"లోడ్ చేసిన పేపర్ సైజ్‌లు"</string>
-    <string name="supply_levels" msgid="3292306109407433125">"సరఫరా స్థాయిలు"</string>
+    <string name="supply_levels" msgid="3292306109407433125">"సప్లయి లెవల్స్ (సరఫరా స్థాయిలు)"</string>
     <string name="information" msgid="894176958646461459">"సమాచారం"</string>
     <string name="printer_ready" msgid="6343136701327532305">"సిద్ధంగా ఉంది"</string>
     <string name="printer_state__printing" msgid="7991962306019119834">"ప్రింట్ చేస్తోంది"</string>
