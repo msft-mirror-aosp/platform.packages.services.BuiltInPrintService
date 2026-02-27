@@ -184,13 +184,8 @@ class StartJobTask extends AsyncTask<Void, Void, Integer> {
             int pageCount = pdfRender.openDocument(pdfFile.getPath());
             if (pageCount > 0) {
                 SizeD pageSize = pdfRender.getPageSize(1);
-                if (mJobParams.portrait_mode) {
-                    mJobParams.source_height = (float) pageSize.getHeight() / POINTS_PER_INCH;
-                    mJobParams.source_width = (float) pageSize.getWidth() / POINTS_PER_INCH;
-                } else {
-                    mJobParams.source_width = (float) pageSize.getHeight() / POINTS_PER_INCH;
-                    mJobParams.source_height = (float) pageSize.getWidth() / POINTS_PER_INCH;
-                }
+                mJobParams.source_height = (float) pageSize.getHeight() / POINTS_PER_INCH;
+                mJobParams.source_width = (float) pageSize.getWidth() / POINTS_PER_INCH;
 
                 // Print at 1:1 scale only if the page count is 1, the document is not a photo, the
                 // document size matches the paper size, and there is no content in the margins.
