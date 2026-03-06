@@ -91,19 +91,13 @@ class LocalDiscoverySession extends PrinterDiscoverySession implements Discovery
         }
         monitorExpiredPrinters();
 
-        if (!Flags.ippPrintServiceIntegration()) {
-            mPrintService.getDiscovery().start(this);
-        }
-
         mPrintManager.addPrintServicesChangeListener(this, null);
         onPrintServicesChanged();
 
         mPrintManager.addPrintServiceRecommendationsChangeListener(this, null);
         onPrintServiceRecommendationsChanged();
 
-        if (Flags.ippPrintServiceIntegration()) {
-            mPrintService.getDiscovery().start(this);
-        }
+        mPrintService.getDiscovery().start(this);
     }
 
     @Override
@@ -311,11 +305,9 @@ class LocalDiscoverySession extends PrinterDiscoverySession implements Discovery
      * @return {@code true} iff the printer should be suppressed
      */
     private boolean isHandledByOtherService(LocalPrinter printer) {
-        if (Flags.ippPrintServiceIntegration()) {
-            if (mEnabledServices.contains(IPP_PRINT_SERVICE_NAME)
-                    && printer.isIpp() && !printer.isManual() && !printer.isP2p()) {
-                return true;
-            }
+        if (mEnabledServices.contains(IPP_PRINT_SERVICE_NAME)
+                && printer.isIpp() && !printer.isManual() && !printer.isP2p()) {
+            return true;
         }
 
         InetAddress address = printer.getAddress();

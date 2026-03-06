@@ -16,13 +16,6 @@ flag {
 }
 
 flag {
-    name: "ipp_print_service_integration"
-    namespace: "printing"
-    description: "Suppress printers if they are supported by IppPrintService."
-    bug: "444253321"
-}
-
-flag {
     name: "mopria_26q2_fixes"
     namespace: "printing"
     description: "Mopria-provided bug fixes for 26Q2 release."
