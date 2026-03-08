@@ -350,8 +350,7 @@ static ipp_t *_fill_job(int ipp_op, char *printer_uri, const wprint_job_params_t
                 IPP_OUTPUT_MODE_COLOR);
     }
 
-    if (com_android_bips_flags_collate_by_default() &&
-        (!strcmp(job_params->print_format, PRINT_FORMAT_PDF)) && (job_params->num_copies > 1) &&
+    if ((!strcmp(job_params->print_format, PRINT_FORMAT_PDF)) && (job_params->num_copies > 1) &&
         printer_caps->supportsCollate) {
         ippAddString(request, IPP_TAG_JOB, IPP_TAG_KEYWORD, "multiple-document-handling", NULL,
                      "separate-documents-collated-copies");

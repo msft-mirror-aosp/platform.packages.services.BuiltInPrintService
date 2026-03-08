@@ -23,16 +23,6 @@ flag {
 }
 
 flag {
-    name: "collate_by_default"
-    namespace: "printing"
-    description: "Always request collated printouts if the printer supports it."
-    bug: "468447980"
-    metadata {
-        purpose: PURPOSE_BUGFIX
-    }
-}
-
-flag {
     name: "mopria_26q2_fixes"
     namespace: "printing"
     description: "Mopria-provided bug fixes for 26Q2 release."
