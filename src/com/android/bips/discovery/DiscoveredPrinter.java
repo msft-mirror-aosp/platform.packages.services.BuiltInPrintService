@@ -24,8 +24,6 @@ import android.text.TextUtils;
 import android.util.JsonReader;
 import android.util.JsonWriter;
 
-import com.android.bips.flags.Flags;
-
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Collections;
@@ -136,11 +134,7 @@ public class DiscoveredPrinter {
                     location = reader.nextString();
                     break;
                 case "manual":
-                    if (Flags.ippPrintServiceIntegration()) {
-                        isManual = reader.nextBoolean();
-                    } else {
-                        reader.skipValue();
-                    }
+                    isManual = reader.nextBoolean();
                     break;
             }
         }
@@ -215,9 +209,7 @@ public class DiscoveredPrinter {
         if (!TextUtils.isEmpty(location)) {
             writer.name("location").value(location);
         }
-        if (Flags.ippPrintServiceIntegration()) {
-            writer.name("manual").value(isManual);
-        }
+        writer.name("manual").value(isManual);
         writer.endObject();
     }
 
