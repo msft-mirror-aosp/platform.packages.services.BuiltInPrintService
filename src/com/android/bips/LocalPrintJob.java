@@ -56,6 +56,7 @@ class LocalPrintJob implements MdnsDiscovery.Listener, ConnectionListener,
     private static final boolean DEBUG = false;
     private static final String IPP_SCHEME = "ipp";
     private static final String IPPS_SCHEME = "ipps";
+    private static final int DEFAULT_PORT_IPP = 631;
     private static final String SHARE_TO_PRINT = "SP";
     private static final String DIRECT_PRINT = "DP";
 
@@ -268,10 +269,11 @@ class LocalPrintJob implements MdnsDiscovery.Listener, ConnectionListener,
     private void deliver() {
         // Upgrade to IPPS if necessary
         Uri newUri = Uri.parse(mCapabilities.path);
-        if (IPPS_SCHEME.equals(newUri.getScheme()) && newUri.getPort() > 0 &&
+        int newPort = newUri.getPort() == -1 ? DEFAULT_PORT_IPP : newUri.getPort();
+        if (IPPS_SCHEME.equals(newUri.getScheme()) && newPort > 0 &&
             IPP_SCHEME.equals(mPath.getScheme())) {
             mPath = mPath.buildUpon().scheme(IPPS_SCHEME).encodedAuthority(mPath.getHost() +
-                ":" + newUri.getPort()).build();
+                ":" + newPort).build();
         }
 
         if (DEBUG) Log.d(TAG, "deliver() to " + mPath);
