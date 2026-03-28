@@ -24,13 +24,3 @@ flag {
         purpose: PURPOSE_BUGFIX
     }
 }
-
-flag {
-    name: "updated_wifimonitor"
-    namespace: "printing"
-    description: "Singleton behavior and fixes for WifiMonitor"
-    bug: "470364937"
-    metadata {
-        purpose: PURPOSE_BUGFIX
-    }
-}
