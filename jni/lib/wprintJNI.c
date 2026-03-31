@@ -1776,7 +1776,7 @@ static void _wprint_callback_fn(wJob_t job_handle, void *param) {
         }
 
         for (count = i = 0; i < max_value_reasons; i++) {
-            if (cb_param->blocked_reasons & (1 << i)) {
+            if (cb_param->blocked_reasons & (LONG_ONE << i)) {
                 count++;
             }
         }

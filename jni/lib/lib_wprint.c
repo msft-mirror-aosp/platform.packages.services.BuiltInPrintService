@@ -133,7 +133,7 @@ typedef struct {
 typedef struct {
     wJob_t job_handle;
     _job_state_t job_state;
-    unsigned int blocked_reasons;
+    unsigned long long blocked_reasons;
     wprint_status_cb_t cb_fn;
     char *printer_addr;
     port_t port_num;
@@ -528,7 +528,7 @@ static int _stop_status_thread(_job_queue_t *jq) {
  * Helper function to send job status callbacks to wprintJNI
  */
 static void _send_status_callback(_job_queue_t *jq, wprint_job_callback_params_t cb_param,
-                                  int state, unsigned int blocked_reasons, int job_done_result) {
+                                  int state, unsigned long long blocked_reasons, int job_done_result) {
     if (jq->cb_fn) {
         cb_param.id = WPRINT_CB_PARAM_JOB_STATE;
         cb_param.param.state = state;
@@ -546,7 +546,8 @@ static void _printer_status_callback(const printer_state_dyn_t *new_status,
         const printer_state_dyn_t *old_status, void *param) {
     wprint_job_callback_params_t cb_param;
     _job_queue_t *jq = (_job_queue_t *) param;
-    unsigned int i, blocked_reasons;
+    unsigned int i;
+    unsigned long long blocked_reasons;
     print_status_t statusnew, statusold;
 
     statusnew = new_status->printer_status & ~PRINTER_IDLE_BIT;
@@ -561,7 +562,7 @@ static void _printer_status_callback(const printer_state_dyn_t *new_status,
             break;
         }
         LOGD("_printer_status_callback(): blocking reason %d: %d", i, new_status->printer_reasons[i]);
-        blocked_reasons |= (1 << new_status->printer_reasons[i]);
+        blocked_reasons |= (LONG_ONE << new_status->printer_reasons[i]);
     }
 
     switch (statusnew) {
