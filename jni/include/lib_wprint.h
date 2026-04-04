@@ -259,7 +259,7 @@ typedef struct {
         wprint_job_state_t state;
         wprint_page_info_t page_info;
     } param;
-    unsigned int blocked_reasons;
+    unsigned long long blocked_reasons;
     int job_done_result;
     // Certificate received from printer, if any
     uint8 *certificate;
